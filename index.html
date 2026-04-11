@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoJustice — Повернення коштів від шахраїв</title>
+<meta name="description" content="Блокчейн-аналіз, підготовка документів та супровід для жертв криптовалютних шахраїв. Допомагаємо повернути кошти.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpolygon points='16,3 24,3 28,10 24,22 16,22 12,15 12,8' fill='none' stroke='%2300e5ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='13' r='1.4' fill='%23080c10'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --bg2: #0d1117;
+  --bg3: #111820;
+  --surface: #141c24;
+  --surface2: #1a2432;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #00e5ff;
+  --accent2: #0099bb;
+  --accent-glow: rgba(0,229,255,0.15);
+  --green: #00d68f;
+  --red: #ff4f4f;
+  --amber: #ffb800;
+  --text: #e8edf2;
+  --text2: #8a97a6;
+  --text3: #4a5568;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* LANG SWITCHER */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;gap:0;padding:0 2rem;height:40px;background:rgba(8,12,16,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.lang-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;padding:4px 10px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color 0.2s;text-transform:uppercase}
+.lang-btn:hover,.lang-btn.active{color:var(--accent)}
+.lang-btn.active{border-bottom:1px solid var(--accent)}
+.lang-sep{color:var(--text3);font-size:10px}
+
+/* NOISE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:40px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(8,12,16,0.9);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.logo{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;letter-spacing:0.02em;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{font-family:var(--font-display);font-size:13px;font-weight:600;padding:8px 20px;border:1px solid var(--accent);color:var(--accent);background:transparent;cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.2s;text-decoration:none}
+.nav-cta:hover{background:var(--accent);color:var(--bg)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:1.5px;background:var(--text2);transition:all 0.3s}
+
+/* HERO */
+.hero{min-height:100vh;padding:140px 2.5rem 6rem;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.4;mask-image:radial-gradient(ellipse 80% 80% at 50% 40%,black 30%,transparent 100%)}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid rgba(0,229,255,0.3);background:rgba(0,229,255,0.06);font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;animation:fadeUp 0.8s ease both}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,255,0.4)}50%{opacity:0.8;box-shadow:0 0 0 6px rgba(0,229,255,0)}}
+h1{font-family:var(--font-display);font-size:clamp(2.6rem,6vw,5.2rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:var(--text);margin-bottom:1.5rem;animation:fadeUp 0.8s ease 0.1s both}
+h1 .accent{color:var(--accent);position:relative}
+h1 .accent::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--accent);opacity:0.5}
+.hero-sub{font-size:1.1rem;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:2.5rem;animation:fadeUp 0.8s ease 0.2s both;font-weight:300}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.8s ease 0.3s both}
+.btn-primary{font-family:var(--font-display);font-size:14px;font-weight:700;padding:14px 32px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.btn-primary:hover{background:#00ccee;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,0.3)}
+.btn-ghost{font-family:var(--font-display);font-size:14px;font-weight:600;padding:14px 32px;border:1px solid var(--border2);color:var(--text);background:transparent;cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);animation:fadeUp 0.8s ease 0.4s both;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat-num{font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em}
+.stat-num span{color:var(--accent)}
+.stat-label{font-size:12px;color:var(--text3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em}
+
+/* TICKER */
+.ticker{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;overflow:hidden;position:relative}
+.ticker-inner{display:flex;gap:3rem;white-space:nowrap;animation:ticker 25s linear infinite}
+.ticker-item{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text3);display:flex;align-items:center;gap:8px}
+.ticker-item .dot{width:4px;height:4px;border-radius:50%;background:var(--accent)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:6rem 2.5rem;position:relative}
+.section-inner{max-width:1100px;margin:0 auto;width:100%}
+.section-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+.section-tag::before{content:'//'}
+h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;color:var(--text);margin-bottom:1rem;line-height:1.1}
+h2 em{font-style:normal;color:var(--accent)}
+.section-desc{font-size:1rem;color:var(--text2);max-width:560px;font-weight:300;line-height:1.7;margin-bottom:3rem}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5px;background:var(--border);border:1px solid var(--border)}
+.step{background:var(--bg);padding:2rem;position:relative;transition:background 0.3s}
+.step:hover{background:var(--surface)}
+.step-num{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-bottom:1.2rem;letter-spacing:0.1em}
+.step-icon{font-size:1.8rem;margin-bottom:1rem;filter:grayscale(0.3)}
+.step-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;letter-spacing:-0.01em}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.step-line{position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background 0.3s}
+.step:hover .step-line{background:var(--accent)}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
+.service-card{background:var(--bg2);padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,0.04) 0%,transparent 60%);opacity:0;transition:opacity 0.3s}
+.service-card:hover::before{opacity:1}
+.service-card:hover{background:var(--surface)}
+.service-price{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:0.08em;margin-bottom:0.8rem;text-transform:uppercase}
+.service-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;letter-spacing:-0.01em}
+.service-desc{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300;margin-bottom:1.2rem}
+.service-features{list-style:none;display:flex;flex-direction:column;gap:6px}
+.service-features li{font-size:12px;color:var(--text3);display:flex;align-items:flex-start;gap:8px;font-family:var(--font-mono)}
+.service-features li::before{content:'→';color:var(--accent);flex-shrink:0;font-size:10px;margin-top:2px}
+.service-featured{border-top:2px solid var(--accent)}
+
+/* PROCESS / ANALYSIS */
+.analysis-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.analysis-visual{position:relative;padding:2rem}
+.chain-viz{background:var(--surface);border:1px solid var(--border);padding:1.5rem;font-family:var(--font-mono);font-size:11px;color:var(--text3);line-height:2;position:relative}
+.chain-viz .addr{color:var(--accent2);font-size:10px}
+.chain-viz .amount{color:var(--green)}
+.chain-viz .exchange{color:var(--amber)}
+.chain-viz .fraud{color:var(--red)}
+.chain-viz .arrow{color:var(--text3)}
+.chain-header{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;display:flex;justify-content:space-between}
+.chain-header .status{color:var(--green);display:flex;align-items:center;gap:6px}
+.chain-header .status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.chain-row{display:grid;grid-template-columns:1fr 30px 1fr;align-items:center;gap:4px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.chain-tag{display:inline-block;padding:1px 6px;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;border-radius:2px}
+.tag-fraud{background:rgba(255,79,79,0.15);color:var(--red);border:1px solid rgba(255,79,79,0.2)}
+.tag-exchange{background:rgba(255,184,0,0.12);color:var(--amber);border:1px solid rgba(255,184,0,0.2)}
+.tag-wallet{background:rgba(0,214,143,0.1);color:var(--green);border:1px solid rgba(0,214,143,0.15)}
+.tag-frozen{background:rgba(0,229,255,0.1);color:var(--accent);border:1px solid rgba(0,229,255,0.2)}
+
+/* TOOLS */
+.tools-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem}
+.tool-chip{font-family:var(--font-mono);font-size:11px;padding:5px 12px;border:1px solid var(--border2);color:var(--text2);letter-spacing:0.04em;transition:all 0.2s}
+.tool-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* SCAM TYPES */
+.scam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);margin-top:2rem}
+.scam-card{background:var(--bg);padding:1.5rem;transition:background 0.3s}
+.scam-card:hover{background:var(--surface)}
+.scam-icon{font-size:1.5rem;margin-bottom:0.8rem}
+.scam-title{font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.scam-sub{font-size:12px;color:var(--text3);font-weight:300}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
+.testimonial{background:var(--bg2);padding:2rem;position:relative}
+.testimonial::before{content:'"';position:absolute;top:1rem;right:1.5rem;font-size:4rem;color:var(--border2);font-family:var(--font-display);line-height:1}
+.t-text{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:1.2rem;font-weight:300;font-style:italic}
+.t-author{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text)}
+.t-meta{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:8px}
+.t-amount{color:var(--green)}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.faq-item{background:var(--bg2);overflow:hidden}
+.faq-q{padding:1.2rem 1.5rem;font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s;letter-spacing:-0.01em}
+.faq-q:hover{background:var(--surface)}
+.faq-q::after{content:'+';font-family:var(--font-mono);font-size:1.2rem;color:var(--accent);transition:transform 0.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding:0 1.5rem 1.2rem;font-size:14px;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* CONTACT FORM */
+.contact-section{background:var(--bg2);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem;padding-top:0.5rem}
+.contact-point{display:flex;gap:1rem;align-items:flex-start}
+.contact-point-icon{width:36px;height:36px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-point-label{font-family:var(--font-mono);font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px}
+.contact-point-val{font-size:14px;color:var(--text)}
+.form{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.form-field{background:var(--bg);display:flex;flex-direction:column}
+.form-field label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);padding:10px 14px 0}
+.form-field input,.form-field select,.form-field textarea{background:transparent;border:none;outline:none;padding:6px 14px 12px;font-family:var(--font-body);font-size:14px;color:var(--text);width:100%;transition:background 0.2s;font-weight:300}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{background:var(--surface)}
+.form-field textarea{resize:none;height:90px}
+.form-field select{appearance:none;cursor:pointer}
+.form-field select option{background:var(--bg3);color:var(--text)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.form-submit{padding:1rem;background:var(--bg)}
+.form-note{font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:0.06em;margin-top:8px}
+.form-success{display:none;padding:1.5rem;background:rgba(0,214,143,0.08);border:1px solid rgba(0,214,143,0.2);font-family:var(--font-mono);font-size:13px;color:var(--green);letter-spacing:0.04em}
+
+/* WARNING BANNER */
+.warning{background:rgba(255,184,0,0.06);border:1px solid rgba(255,184,0,0.2);padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;margin-bottom:2rem}
+.warning-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+.warning-text{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.warning-text strong{color:var(--amber);font-weight:600}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5rem 2rem}
+.footer-inner{max-width:1100px;margin:0 auto;width:100%}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.footer-logo{font-family:var(--font-display);font-size:18px;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.8rem}
+.footer-logo span{color:var(--accent)}
+.footer-desc{font-size:13px;color:var(--text3);line-height:1.7;font-weight:300;max-width:280px}
+.footer-col h4{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-links a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s;font-weight:300}
+.footer-links a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:0.04em}
+.footer-disclaimer{font-size:11px;color:var(--text3);max-width:500px;line-height:1.5;text-align:right}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* LANG CONTENT */
+[data-lang]{display:none}
+[data-lang].active{display:block}
+[data-lang-inline]{display:none}
+[data-lang-inline].active{display:inline}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .analysis-grid,.contact-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:600px){
+  section{padding:4rem 1.25rem}
+  nav,body .lang-bar{padding-left:1.25rem;padding-right:1.25rem}
+  .hero{padding:130px 1.25rem 4rem}
+  .footer-top{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .footer-inner{padding:0}
+  footer{padding:2.5rem 1.25rem 1.5rem}
+}
+
+/* ── LOGO ANIMATION ── */
+@keyframes hex-draw{0%{stroke-dashoffset:160}100%{stroke-dashoffset:0}}
+@keyframes hex-scan{0%{transform:translateY(-20px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(40px);opacity:0}}
+@keyframes dot-pulse{0%,100%{r:3}50%{r:4.5}}
+@keyframes dot-ring{0%{r:3;opacity:.5}100%{r:10;opacity:0}}
+@keyframes logo-word{0%{opacity:0;letter-spacing:4px}100%{opacity:1;letter-spacing:-.5px}}
+@keyframes logo-sub{0%{opacity:0}100%{opacity:.7}}
+@keyframes hex-spin{0%,100%{stroke-dashoffset:0}50%{stroke-dashoffset:-8}}
+@keyframes glow-j{0%,100%{fill:#00e5ff}50%{fill:#00ccdd}}
+.logo-hex-outer{stroke-dasharray:160;animation:hex-draw 1.1s ease-out forwards}
+.logo-hex-line{animation:hex-spin 3.5s ease-in-out infinite}
+.logo-dot-ring{animation:dot-ring 2.2s ease-out infinite}
+.logo-dot{animation:dot-pulse 2.2s ease-in-out infinite}
+.logo-scan{animation:hex-scan 3s ease-in-out infinite 1s}
+.logo-word-c{animation:logo-word .6s ease .7s both}
+.logo-word-j{animation:glow-j 3s ease-in-out infinite 1.2s,logo-word .6s ease 1s both}
+.logo-sub{animation:logo-sub .8s ease 1.5s both}
+
+/* ── FIX: Steps timeline ── */
+.steps-timeline{display:flex;align-items:flex-start;gap:0;position:relative}
+.step-tl{flex:1;padding:2rem 1.5rem;position:relative;border-left:1px solid var(--border);transition:background .3s;min-width:0}
+.step-tl:first-child{border-left:none}
+.step-tl:hover{background:var(--surface)}
+.step-tl-num{font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-bottom:.8rem;letter-spacing:.1em}
+.step-tl-connector{position:absolute;top:2.6rem;right:-1px;width:1px;height:32px;background:var(--border);z-index:1}
+.step-tl-dot{position:absolute;top:2.3rem;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border);transition:border-color .3s}
+.step-tl:hover .step-tl-dot{border-color:var(--accent)}
+.step-tl-icon{font-size:1.4rem;margin-bottom:.7rem}
+.step-tl-title{font-family:var(--font-display);font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+.step-tl-desc{font-size:12px;color:var(--text2);line-height:1.55;font-weight:300}
+.step-tl-line{position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
+.step-tl:hover .step-tl-line{background:var(--accent)}
+
+/* ── FIX: Services equal height ── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);align-items:stretch}
+.service-card{display:flex;flex-direction:column}
+.service-card .service-features{flex:1}
+.service-badge{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;padding:3px 10px;border:1px solid rgba(0,229,255,.3);color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+
+/* ── FIX: Scam grid uniform ── */
+.scam-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);margin-top:2rem}
+@media(max-width:900px){.scam-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:500px){.scam-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── FIX: Form button refined ── */
+.btn-form{font-family:var(--font-display);font-size:13px;font-weight:700;padding:14px 32px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;width:100%;transition:all .25s;position:relative;overflow:hidden}
+.btn-form::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);transition:transform .25s}
+.btn-form:hover::before{transform:translateX(0)}
+.btn-form:hover{color:var(--bg)}
+.btn-form span{position:relative;z-index:1}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface2)}
+::-webkit-scrollbar-thumb:hover{background:var(--accent2)}
+
+/* IP DETECTION MODAL */
+.lang-modal{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);border:1px solid var(--border2);padding:1.2rem 1.5rem;z-index:200;max-width:300px;display:none;animation:fadeUp 0.4s ease}
+.lang-modal-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.lang-modal-sub{font-size:12px;color:var(--text2);margin-bottom:1rem;font-weight:300}
+.lang-modal-btns{display:flex;gap:8px}
+.lang-modal-btn{font-family:var(--font-mono);font-size:11px;padding:6px 14px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;text-transform:uppercase}
+.lang-modal-btn:hover,.lang-modal-btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.lang-modal-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;line-height:1}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<!-- LANG SUGGESTION MODAL -->
+<div class="lang-modal" id="lang-modal">
+  <button class="lang-modal-close" onclick="document.getElementById('lang-modal').style.display='none'">×</button>
+  <div class="lang-modal-title" id="modal-title">Switch language?</div>
+  <div class="lang-modal-sub" id="modal-sub">We detected your location</div>
+  <div class="lang-modal-btns">
+    <button class="lang-modal-btn primary" id="modal-accept" onclick="acceptLang()">Switch</button>
+    <button class="lang-modal-btn" onclick="document.getElementById('lang-modal').style.display='none'">Stay</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" style="text-decoration:none">
+  <svg width="220" height="36" viewBox="0 0 220 36" style="display:block">
+    <polygon points="18,1 30,1 36,12 30,23 18,23 12,12" fill="none" stroke="#00e5ff" stroke-width="1.4" class="logo-hex-outer"/>
+    <polygon points="18,4.5 30,4.5 35,12 30,19.5 18,19.5 13,12" fill="rgba(0,229,255,0.06)" stroke="none"/>
+    <line x1="12" y1="12" x2="36" y2="12" stroke="#00e5ff" stroke-width=".7" opacity=".35" stroke-dasharray="3 2" class="logo-hex-line"/>
+    <line x1="18" y1="3" x2="30" y2="21" stroke="#00e5ff" stroke-width=".7" opacity=".2" stroke-dasharray="3 2" style="animation:hex-spin 3.5s ease-in-out infinite .7s"/>
+    <circle cx="24" cy="12" r="6" fill="none" stroke="#00e5ff" stroke-width=".5" class="logo-dot-ring"/>
+    <circle cx="24" cy="12" r="3" fill="#00e5ff" class="logo-dot"/>
+    <circle cx="24" cy="12" r="1.4" fill="#080c10"/>
+    <rect x="12" y="11" width="24" height="3" fill="#00e5ff" opacity=".07" style="animation:hex-scan 3s ease-in-out infinite 1s"/>
+    <circle cx="18" cy="1" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <circle cx="30" cy="1" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <circle cx="36" cy="12" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <circle cx="30" cy="23" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <circle cx="18" cy="23" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <circle cx="12" cy="12" r="1.2" fill="#00e5ff" opacity=".4"/>
+    <text x="44" y="17" font-family="Arial,sans-serif" font-weight="800" font-size="16" fill="#ffffff" letter-spacing="-.3" class="logo-word-c">Crypto</text>
+    <text x="100" y="17" font-family="Arial,sans-serif" font-weight="800" font-size="16" fill="#00e5ff" letter-spacing="-.3" class="logo-word-j">Justice</text>
+    <text x="45" y="27" font-family="monospace" font-size="7" fill="#334e5f" letter-spacing="1.8" class="logo-sub">BLOCKCHAIN RECOVERY</text>
+  </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how" data-lang="uk" class="active">Як це працює</a><a href="#how" data-lang="ru">Как это работает</a><a href="#how" data-lang="en">How it works</a></li>
+    <li><a href="#services" data-lang="uk" class="active">Послуги</a><a href="#services" data-lang="ru">Услуги</a><a href="#services" data-lang="en">Services</a></li>
+    <li><a href="#analysis" data-lang="uk" class="active">Аналіз</a><a href="#analysis" data-lang="ru">Анализ</a><a href="#analysis" data-lang="en">Analysis</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">
+    <span data-lang="uk" class="active">Консультація</span>
+    <span data-lang="ru">Консультация</span>
+    <span data-lang="en">Consultation</span>
+  </a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+
+    <div class="hero-badge">
+      <span data-lang="uk" class="active">Блокчейн-аналіз · Юридичний супровід</span>
+      <span data-lang="ru">Блокчейн-анализ · Юридическое сопровождение</span>
+      <span data-lang="en">Blockchain analysis · Legal support</span>
+    </div>
+
+    <svg width="100%" viewBox="0 0 560 80" style="max-width:560px;margin-bottom:1.5rem;display:block">
+      <polygon points="38,2 62,2 74,24 62,46 38,46 26,24" fill="none" stroke="#00e5ff" stroke-width="1.8" class="logo-hex-outer"/>
+      <polygon points="38,7 62,7 72,24 62,41 38,41 28,24" fill="rgba(0,229,255,0.06)" stroke="none"/>
+      <line x1="26" y1="24" x2="74" y2="24" stroke="#00e5ff" stroke-width="1" opacity=".3" stroke-dasharray="4 3" class="logo-hex-line"/>
+      <line x1="38" y1="4" x2="62" y2="44" stroke="#00e5ff" stroke-width=".8" opacity=".18" stroke-dasharray="4 3" style="animation:hex-spin 3.5s ease-in-out infinite .7s"/>
+      <line x1="62" y1="4" x2="38" y2="44" stroke="#00e5ff" stroke-width=".8" opacity=".18" stroke-dasharray="4 3" style="animation:hex-spin 3.5s ease-in-out infinite 1.4s"/>
+      <circle cx="50" cy="24" r="9" fill="none" stroke="#00e5ff" stroke-width=".8" class="logo-dot-ring"/>
+      <circle cx="50" cy="24" r="4.5" fill="#00e5ff" class="logo-dot"/>
+      <circle cx="50" cy="24" r="2.2" fill="#080c10"/>
+      <rect x="26" y="22" width="48" height="5" fill="#00e5ff" opacity=".06" style="animation:hex-scan 3s ease-in-out infinite 1s"/>
+      <circle cx="38" cy="2" r="2" fill="#00e5ff" opacity=".5"/>
+      <circle cx="62" cy="2" r="2" fill="#00e5ff" opacity=".5"/>
+      <circle cx="74" cy="24" r="2" fill="#00e5ff" opacity=".5"/>
+      <circle cx="62" cy="46" r="2" fill="#00e5ff" opacity=".5"/>
+      <circle cx="38" cy="46" r="2" fill="#00e5ff" opacity=".5"/>
+      <circle cx="26" cy="24" r="2" fill="#00e5ff" opacity=".5"/>
+      <text x="92" y="38" font-family="Arial,sans-serif" font-weight="800" font-size="42" fill="#ffffff" letter-spacing="-1.5" class="logo-word-c">Crypto</text>
+      <text x="290" y="38" font-family="Arial,sans-serif" font-weight="800" font-size="42" fill="#00e5ff" letter-spacing="-1.5" class="logo-word-j">Justice</text>
+      <text x="94" y="56" font-family="monospace" font-size="10" fill="#334e5f" letter-spacing="3" class="logo-sub">BLOCKCHAIN RECOVERY</text>
+    </svg>
+      <span data-lang="uk" class="active">Повернемо ваші кошти<br>від <em class="accent">крипто-шахраїв</em></span>
+      <span data-lang="ru">Вернём ваши средства<br>от <em class="accent">крипто-мошенников</em></span>
+      <span data-lang="en">We recover your funds<br>from <em class="accent">crypto scammers</em></span>
+    </h1>
+
+    <p class="hero-sub">
+      <span data-lang="uk" class="active">Блокчейн-розслідування, підготовка документів для заморожування коштів на біржах та повне юридичне супроводження справи.</span>
+      <span data-lang="ru">Блокчейн-расследование, подготовка документов для заморозки средств на биржах и полное юридическое сопровождение дела.</span>
+      <span data-lang="en">Blockchain investigation, documentation for asset freezing on exchanges, and full legal case support.</span>
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">
+        <span data-lang="uk" class="active">Безкоштовна консультація</span>
+        <span data-lang="ru">Бесплатная консультация</span>
+        <span data-lang="en">Free Consultation</span>
+      </a>
+      <a href="#how" class="btn-ghost">
+        <span data-lang="uk" class="active">Як це працює</span>
+        <span data-lang="ru">Как это работает</span>
+        <span data-lang="en">How it works</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">500<span>+</span></div><div class="stat-label" data-lang="uk" data-label-ru="Дел в работе" data-label-en="Cases handled" data-label-uk="Справ в роботі">Справ в роботі</div></div>
+      <div class="stat"><div class="stat-num">$2.1<span>M</span></div><div class="stat-label" data-lang="uk" data-label-ru="Возвращено средств" data-label-en="Funds recovered" data-label-uk="Повернено коштів">Повернено коштів</div></div>
+      <div class="stat"><div class="stat-num">68<span>%</span></div><div class="stat-label" data-lang="uk" data-label-ru="Успешных кейсов" data-label-en="Success rate" data-label-uk="Успішних кейсів">Успішних кейсів</div></div>
+      <div class="stat"><div class="stat-num">24<span>h</span></div><div class="stat-label" data-lang="uk" data-label-ru="Первый ответ" data-label-en="First response" data-label-uk="Перша відповідь">Перша відповідь</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker-inner">
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Fake broker — заблоковано $43,000</span><span data-lang="ru">Fake broker — заблокировано $43,000</span><span data-lang="en">Fake broker — $43,000 frozen</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Romance scam — відстежено 12 адрес</span><span data-lang="ru">Romance scam — отслежено 12 адресов</span><span data-lang="en">Romance scam — 12 addresses traced</span></div>
+    <div class="ticker-item"><div class="dot"></div><span>Binance KYC request — 5 days</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Pig butchering — документи до суду</span><span data-lang="ru">Pig butchering — документы в суд</span><span data-lang="en">Pig butchering — court docs prepared</span></div>
+    <div class="ticker-item"><div class="dot"></div><span>Kraken freeze order — approved</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Investment fraud — $120,000 — в роботі</span><span data-lang="ru">Investment fraud — $120,000 — в работе</span><span data-lang="en">Investment fraud — $120,000 — in progress</span></div>
+    <!-- duplicate for loop -->
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Fake broker — заблоковано $43,000</span><span data-lang="ru">Fake broker — заблокировано $43,000</span><span data-lang="en">Fake broker — $43,000 frozen</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Romance scam — відстежено 12 адрес</span><span data-lang="ru">Romance scam — отслежено 12 адресов</span><span data-lang="en">Romance scam — 12 addresses traced</span></div>
+    <div class="ticker-item"><div class="dot"></div><span>Binance KYC request — 5 days</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Pig butchering — документи до суду</span><span data-lang="ru">Pig butchering — документы в суд</span><span data-lang="en">Pig butchering — court docs prepared</span></div>
+    <div class="ticker-item"><div class="dot"></div><span>Kraken freeze order — approved</span></div>
+    <div class="ticker-item"><div class="dot"></div><span data-lang="uk" class="active">Investment fraud — $120,000 — в роботі</span><span data-lang="ru">Investment fraud — $120,000 — в работе</span><span data-lang="en">Investment fraud — $120,000 — in progress</span></div>
+  </div>
+</div>
+
+<!-- WARNING -->
+<section style="padding:2.5rem 2.5rem">
+  <div class="section-inner">
+    <div class="warning">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-text">
+        <span data-lang="uk" class="active"><strong>Обережно:</strong> 90% "агентств з повернення коштів" — самі шахраї. Ми ніколи не беремо передоплату за результат і не обіцяємо 100% гарантії. Перша консультація безкоштовна.</span>
+        <span data-lang="ru"><strong>Осторожно:</strong> 90% "агентств по возврату средств" — сами мошенники. Мы никогда не берём предоплату за результат и не обещаем 100% гарантии. Первая консультация бесплатна.</span>
+        <span data-lang="en"><strong>Warning:</strong> 90% of "fund recovery agencies" are scammers themselves. We never take upfront fees for results and never promise 100% guarantees. First consultation is free.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-tag">
+      <span data-lang="uk" class="active">Процес</span>
+      <span data-lang="ru">Процесс</span>
+      <span data-lang="en">Process</span>
+    </div>
+    <h2>
+      <span data-lang="uk" class="active">Як ми <em>повертаємо</em> кошти</span>
+      <span data-lang="ru">Как мы <em>возвращаем</em> средства</span>
+      <span data-lang="en">How we <em>recover</em> funds</span>
+    </h2>
+    <p class="section-desc">
+      <span data-lang="uk" class="active">Чіткий процес від першого дзвінка до заморожування коштів або судового провадження.</span>
+      <span data-lang="ru">Чёткий процесс от первого звонка до заморозки средств или судебного производства.</span>
+      <span data-lang="en">A clear process from the first call to asset freezing or court proceedings.</span>
+    </p>
+    <div class="steps-timeline fade-up">
+      <div class="step-tl"><div class="step-tl-line"></div><div class="step-tl-num">01 //</div><div class="step-tl-icon">🔍</div><div class="step-tl-title"><span data-lang="uk" class="active">Безкоштовна оцінка</span><span data-lang="ru">Бесплатная оценка</span><span data-lang="en">Free assessment</span></div><div class="step-tl-desc"><span data-lang="uk" class="active">Аналізуємо ситуацію, визначаємо шанси та задіяні біржі.</span><span data-lang="ru">Анализируем ситуацию, определяем шансы и задействованные биржи.</span><span data-lang="en">We assess your case and identify which exchanges are involved.</span></div></div>
+      <div class="step-tl"><div class="step-tl-line"></div><div class="step-tl-num">02 //</div><div class="step-tl-icon">⛓️</div><div class="step-tl-title"><span data-lang="uk" class="active">Блокчейн-аналіз</span><span data-lang="ru">Блокчейн-анализ</span><span data-lang="en">Blockchain analysis</span></div><div class="step-tl-desc"><span data-lang="uk" class="active">Відстежуємо переміщення коштів через гаманці до кінцевого адресата.</span><span data-lang="ru">Отслеживаем движение средств через кошельки до конечного адресата.</span><span data-lang="en">We trace funds through all wallets to the final destination.</span></div></div>
+      <div class="step-tl"><div class="step-tl-line"></div><div class="step-tl-num">03 //</div><div class="step-tl-icon">📄</div><div class="step-tl-title"><span data-lang="uk" class="active">Пакет документів</span><span data-lang="ru">Пакет документов</span><span data-lang="en">Documentation</span></div><div class="step-tl-desc"><span data-lang="uk" class="active">Готуємо запити до бірж, правоохоронних органів та судові документи.</span><span data-lang="ru">Готовим запросы в биржи, правоохранительные органы и судебные документы.</span><span data-lang="en">Exchange requests, law enforcement reports, court documents.</span></div></div>
+      <div class="step-tl"><div class="step-tl-line"></div><div class="step-tl-num">04 //</div><div class="step-tl-icon">🏦</div><div class="step-tl-title"><span data-lang="uk" class="active">Заморожування</span><span data-lang="ru">Заморозка</span><span data-lang="en">Asset freeze</span></div><div class="step-tl-desc"><span data-lang="uk" class="active">Подаємо запити на заморожування через KYC-відділи бірж або суд.</span><span data-lang="ru">Подаём запросы на заморозку через KYC-отделы бирж или суд.</span><span data-lang="en">Freeze requests via exchange KYC departments or court orders.</span></div></div>
+      <div class="step-tl"><div class="step-tl-line"></div><div class="step-tl-num">05 //</div><div class="step-tl-icon">⚖️</div><div class="step-tl-title"><span data-lang="uk" class="active">Судовий супровід</span><span data-lang="ru">Судебное сопровождение</span><span data-lang="en">Legal proceedings</span></div><div class="step-tl-desc"><span data-lang="uk" class="active">Співпрацюємо з юристами-партнерами для ведення справи в суді.</span><span data-lang="ru">Сотрудничаем с юристами-партнёрами для ведения дела в суде.</span><span data-lang="en">We work with partner lawyers to pursue court proceedings.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--bg2);border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="section-tag">
+      <span data-lang="uk" class="active">Послуги</span>
+      <span data-lang="ru">Услуги</span>
+      <span data-lang="en">Services</span>
+    </div>
+    <h2>
+      <span data-lang="uk" class="active">Що ми <em>робимо</em></span>
+      <span data-lang="ru">Что мы <em>делаем</em></span>
+      <span data-lang="en">What we <em>do</em></span>
+    </h2>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <div class="service-price">Free</div>
+        <div class="service-title"><span data-lang="uk" class="active">Консультація</span><span data-lang="ru">Консультация</span><span data-lang="en">Consultation</span></div>
+        <div class="service-desc"><span data-lang="uk" class="active">30 хвилин. Оцінюємо справу, визначаємо реальні шанси та стратегію.</span><span data-lang="ru">30 минут. Оцениваем дело, определяем реальные шансы и стратегию.</span><span data-lang="en">30 minutes. We assess your case, determine real chances and strategy.</span></div>
+        <ul class="service-features">
+          <li><span data-lang="uk" class="active">Аналіз ситуації</span><span data-lang="ru">Анализ ситуации</span><span data-lang="en">Case analysis</span></li>
+          <li><span data-lang="uk" class="active">Оцінка шансів</span><span data-lang="ru">Оценка шансов</span><span data-lang="en">Chance assessment</span></li>
+          <li><span data-lang="uk" class="active">Рекомендації</span><span data-lang="ru">Рекомендации</span><span data-lang="en">Recommendations</span></li>
+        </ul>
+      </div>
+      <div class="service-card service-featured">
+        <div class="service-price">$150 – $300</div>
+        <div class="service-title"><span data-lang="uk" class="active">Блокчейн-аналіз</span><span data-lang="ru">Блокчейн-анализ</span><span data-lang="en">Blockchain analysis</span></div>
+        <div class="service-desc"><span data-lang="uk" class="active">Повне відстеження транзакцій, ідентифікація бірж та звіт для правоохоронних органів.</span><span data-lang="ru">Полное отслеживание транзакций, идентификация бирж и отчёт для правоохранительных органов.</span><span data-lang="en">Full transaction tracing, exchange identification, and report for law enforcement.</span></div>
+        <ul class="service-features">
+          <li><span data-lang="uk" class="active">On-chain трасування</span><span data-lang="ru">On-chain трассировка</span><span data-lang="en">On-chain tracing</span></li>
+          <li><span data-lang="uk" class="active">Ідентифікація бірж</span><span data-lang="ru">Идентификация бирж</span><span data-lang="en">Exchange identification</span></li>
+          <li><span data-lang="uk" class="active">Офіційний звіт PDF</span><span data-lang="ru">Официальный отчёт PDF</span><span data-lang="en">Official PDF report</span></li>
+          <li>AML-score, KYC-data</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-price">$300 – $500</div>
+        <div class="service-title"><span data-lang="uk" class="active">Пакет документів</span><span data-lang="ru">Пакет документов</span><span data-lang="en">Documentation pack</span></div>
+        <div class="service-desc"><span data-lang="uk" class="active">Підготовка всіх документів для звернення до біржі, поліції та регулятора.</span><span data-lang="ru">Подготовка всех документов для обращения на биржу, в полицию и регулятор.</span><span data-lang="en">All documents for exchange, police, and regulator requests.</span></div>
+        <ul class="service-features">
+          <li><span data-lang="uk" class="active">Запит до біржі (англ.)</span><span data-lang="ru">Запрос на биржу (англ.)</span><span data-lang="en">Exchange request (EN)</span></li>
+          <li><span data-lang="uk" class="active">Заява до поліції</span><span data-lang="ru">Заявление в полицию</span><span data-lang="en">Police complaint</span></li>
+          <li>IC3 / Europol / ACCC</li>
+          <li><span data-lang="uk" class="active">Докази у форматі суду</span><span data-lang="ru">Доказательства в формате суда</span><span data-lang="en">Court-formatted evidence</span></li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-price">$500 – $1500 + %</div>
+        <div class="service-title"><span data-lang="uk" class="active">Повний супровід</span><span data-lang="ru">Полное сопровождение</span><span data-lang="en">Full case support</span></div>
+        <div class="service-desc"><span data-lang="uk" class="active">Ведемо справу до результату: від аналізу до заморожування або повернення коштів.</span><span data-lang="ru">Ведём дело до результата: от анализа до заморозки или возврата средств.</span><span data-lang="en">We manage the case to completion: from analysis to freeze or fund return.</span></div>
+        <ul class="service-features">
+          <li><span data-lang="uk" class="active">Всі попередні послуги</span><span data-lang="ru">Все предыдущие услуги</span><span data-lang="en">All previous services</span></li>
+          <li><span data-lang="uk" class="active">Партнерський юрист</span><span data-lang="ru">Партнёрский юрист</span><span data-lang="en">Partner lawyer</span></li>
+          <li><span data-lang="uk" class="active">Переговори з біржами</span><span data-lang="ru">Переговоры с биржами</span><span data-lang="en">Exchange negotiations</span></li>
+          <li><span data-lang="uk" class="active">Щотижневий звіт</span><span data-lang="ru">Еженедельный отчёт</span><span data-lang="en">Weekly status report</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS SECTION -->
+<section id="analysis" class="analysis-section">
+  <div class="section-inner">
+    <div class="analysis-grid">
+      <div>
+        <div class="section-tag">
+          <span data-lang="uk" class="active">Технологія</span>
+          <span data-lang="ru">Технология</span>
+          <span data-lang="en">Technology</span>
+        </div>
+        <h2>
+          <span data-lang="uk" class="active">Слідуємо за <em>кожним</em> сатоші</span>
+          <span data-lang="ru">Следуем за <em>каждым</em> сатоши</span>
+          <span data-lang="en">We follow <em>every</em> satoshi</span>
+        </h2>
+        <p class="section-desc">
+          <span data-lang="uk" class="active">Блокчейн незмінний — кожна транзакція залишає слід назавжди. Ми використовуємо професійні інструменти щоб ідентифікувати де зараз знаходяться ваші кошти.</span>
+          <span data-lang="ru">Блокчейн неизменен — каждая транзакция оставляет след навсегда. Мы используем профессиональные инструменты чтобы идентифицировать где сейчас находятся ваши средства.</span>
+          <span data-lang="en">The blockchain is immutable — every transaction leaves a permanent trail. We use professional tools to identify where your funds are right now.</span>
+        </p>
+        <div class="tools-row">
+          <div class="tool-chip">Breadcrumbs.app</div>
+          <div class="tool-chip">Bubblemaps</div>
+          <div class="tool-chip">AMLBot</div>
+          <div class="tool-chip">Etherscan</div>
+          <div class="tool-chip">Crystal Blockchain</div>
+          <div class="tool-chip">Maltego</div>
+          <div class="tool-chip">OSINT Framework</div>
+        </div>
+      </div>
+      <div class="analysis-visual">
+        <div class="chain-viz">
+          <div class="chain-header">
+            <span>// TRANSACTION TRACE REPORT</span>
+            <span class="status">LIVE ANALYSIS</span>
+          </div>
+          <div style="margin-bottom:10px">
+            <span style="color:var(--text3);font-size:10px">VICTIM WALLET</span><br>
+            <span class="addr">0x7f3a...c891</span>
+            <span class="amount"> → $43,200 USDT</span>
+          </div>
+          <div class="chain-row">
+            <div><span class="addr">0x7f3a...c891</span><br><span class="chain-tag tag-wallet">Source</span></div>
+            <div style="text-align:center;color:var(--text3)">→</div>
+            <div><span class="addr">0x4d21...7f02</span><br><span class="chain-tag tag-fraud">Scammer</span></div>
+          </div>
+          <div class="chain-row">
+            <div><span class="addr">0x4d21...7f02</span><br><span class="chain-tag tag-fraud">Scammer</span></div>
+            <div style="text-align:center;color:var(--text3)">→</div>
+            <div><span class="addr">0x9c88...3301</span><br><span class="chain-tag tag-fraud">Mixer</span></div>
+          </div>
+          <div class="chain-row">
+            <div><span class="addr">0x9c88...3301</span><br><span class="chain-tag tag-fraud">Mixer</span></div>
+            <div style="text-align:center;color:var(--text3)">→</div>
+            <div><span class="addr">Binance Hot Wallet</span><br><span class="chain-tag tag-exchange">Exchange</span></div>
+          </div>
+          <div style="margin-top:12px;padding:10px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15)">
+            <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">// STATUS UPDATE</div>
+            <div style="font-size:11px;color:var(--green)">✓ Exchange identified: Binance</div>
+            <div style="font-size:11px;color:var(--amber);margin-top:4px">⏳ KYC request submitted: 2024-01-15</div>
+            <div style="font-size:11px;color:var(--accent);margin-top:4px">→ Freeze request: pending review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCAM TYPES -->
+<section style="background:var(--bg)">
+  <div class="section-inner">
+    <div class="section-tag">
+      <span data-lang="uk" class="active">З чим ми працюємо</span>
+      <span data-lang="ru">С чем мы работаем</span>
+      <span data-lang="en">What we handle</span>
+    </div>
+    <h2>
+      <span data-lang="uk" class="active">Типи <em>шахрайства</em></span>
+      <span data-lang="ru">Типы <em>мошенничества</em></span>
+      <span data-lang="en">Types of <em>fraud</em></span>
+    </h2>
+    <div class="scam-grid fade-up">
+      <div class="scam-card"><div class="scam-icon">📈</div><div class="scam-title"><span data-lang="uk" class="active">Фейковий брокер</span><span data-lang="ru">Фейковый брокер</span><span data-lang="en">Fake broker</span></div><div class="scam-sub"><span data-lang="uk" class="active">Платформа-імітатор</span><span data-lang="ru">Платформа-имитатор</span><span data-lang="en">Platform imitator</span></div></div>
+      <div class="scam-card"><div class="scam-icon">💕</div><div class="scam-title">Romance scam</div><div class="scam-sub"><span data-lang="uk" class="active">Через довіру</span><span data-lang="ru">Через доверие</span><span data-lang="en">Trust-based fraud</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🐷</div><div class="scam-title">Pig Butchering</div><div class="scam-sub"><span data-lang="uk" class="active">Інвестиційна схема</span><span data-lang="ru">Инвест-схема</span><span data-lang="en">Investment scheme</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🎁</div><div class="scam-title">NFT / Token</div><div class="scam-sub"><span data-lang="uk" class="active">Rug pull, фейк</span><span data-lang="ru">Rug pull, фейк</span><span data-lang="en">Rug pull, fake</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🔑</div><div class="scam-title">Wallet drain</div><div class="scam-sub"><span data-lang="uk" class="active">Фішинг, seed</span><span data-lang="ru">Фишинг, seed</span><span data-lang="en">Phishing, seed</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🏢</div><div class="scam-title"><span data-lang="uk" class="active">Корпоративне</span><span data-lang="ru">Корпоративное</span><span data-lang="en">Corporate</span></div><div class="scam-sub">B2B · $50k+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--bg2);border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="section-tag">
+      <span data-lang="uk" class="active">Клієнти</span>
+      <span data-lang="ru">Клиенты</span>
+      <span data-lang="en">Clients</span>
+    </div>
+    <h2>
+      <span data-lang="uk" class="active">Реальні <em>кейси</em></span>
+      <span data-lang="ru">Реальные <em>кейсы</em></span>
+      <span data-lang="en">Real <em>cases</em></span>
+    </h2>
+    <div class="testimonials-grid fade-up">
+      <div class="testimonial">
+        <p class="t-text"><span data-lang="uk" class="active">Втратив $28,000 на фейковому брокері. Через 3 місяці роботи команди вдалося заморозити $19,500 на Binance і розпочати судову процедуру повернення.</span><span data-lang="ru">Потерял $28,000 на фейковом брокере. За 3 месяца работы команды удалось заморозить $19,500 на Binance и начать судебную процедуру возврата.</span><span data-lang="en">Lost $28,000 to a fake broker. After 3 months of team work, $19,500 was frozen on Binance and court recovery proceedings began.</span></p>
+        <div class="t-author">Олексій М.</div>
+        <div class="t-meta"><span>Київ, Україна</span><span class="t-amount">$19,500 frozen</span></div>
+      </div>
+      <div class="testimonial">
+        <p class="t-text"><span data-lang="uk" class="active">Pig butchering схема. Вкладала гроші 8 місяців. CryptoJustice відстежила 47 транзакцій і ідентифікувала кінцеву біржу. Документи подані до Europol.</span><span data-lang="ru">Pig butchering схема. Вкладывала деньги 8 месяцев. CryptoJustice отследила 47 транзакций и идентифицировала конечную биржу. Документы поданы в Europol.</span><span data-lang="en">Pig butchering scheme. Invested for 8 months. CryptoJustice traced 47 transactions and identified the final exchange. Documents submitted to Europol.</span></p>
+        <div class="t-author">Наталія В.</div>
+        <div class="t-meta"><span>Варшава, Польща</span><span class="t-amount">$43,200 traced</span></div>
+      </div>
+      <div class="testimonial">
+        <p class="t-text"><span data-lang="uk" class="active">Романтичне шахрайство. Переводив кошти протягом 4 місяців. Завдяки аналізу вдалося встановити особу шахрая через KYC-дані біржі та подати заяву до поліції.</span><span data-lang="ru">Романтическое мошенничество. Переводил средства 4 месяца. Благодаря анализу удалось установить личность мошенника через KYC-данные биржи и подать заявление в полицию.</span><span data-lang="en">Romance scam. Sent funds over 4 months. Through analysis, the scammer was identified via exchange KYC data and a police report was filed.</span></p>
+        <div class="t-author">Dmytro K.</div>
+        <div class="t-meta"><span>Берлін, Німеччина</span><span class="t-amount">Identity confirmed</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-tag">FAQ</div>
+    <h2>
+      <span data-lang="uk" class="active">Часті <em>запитання</em></span>
+      <span data-lang="ru">Частые <em>вопросы</em></span>
+      <span data-lang="en">Frequent <em>questions</em></span>
+    </h2>
+    <div class="faq fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="uk" class="active">Чи гарантуєте ви повернення коштів?</span>
+          <span data-lang="ru">Гарантируете ли вы возврат средств?</span>
+          <span data-lang="en">Do you guarantee fund recovery?</span>
+        </div>
+        <div class="faq-a"><p><span data-lang="uk" class="active">Ні — жодна чесна компанія не може цього гарантувати. Ми гарантуємо якісну роботу, прозорість та чесну оцінку шансів. Якщо ми вважаємо, що шанси низькі — ми скажемо це на безкоштовній консультації.</span><span data-lang="ru">Нет — ни одна честная компания не может этого гарантировать. Мы гарантируем качественную работу, прозрачность и честную оценку шансов. Если мы считаем, что шансы низкие — мы скажем об этом на бесплатной консультации.</span><span data-lang="en">No — no honest company can guarantee that. We guarantee quality work, transparency, and an honest assessment of chances. If we believe chances are low, we'll tell you during the free consultation.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="uk" class="active">Скільки часу займає процес?</span>
+          <span data-lang="ru">Сколько времени занимает процесс?</span>
+          <span data-lang="en">How long does the process take?</span>
+        </div>
+        <div class="faq-a"><p><span data-lang="uk" class="active">Блокчейн-аналіз: 3–7 днів. Підготовка документів: 1–2 тижні. Відповідь від біржі: 2–8 тижнів. Судовий процес: 3–12 місяців залежно від юрисдикції та суми.</span><span data-lang="ru">Блокчейн-анализ: 3–7 дней. Подготовка документов: 1–2 недели. Ответ от биржи: 2–8 недель. Судебный процесс: 3–12 месяцев в зависимости от юрисдикции и суммы.</span><span data-lang="en">Blockchain analysis: 3–7 days. Document preparation: 1–2 weeks. Exchange response: 2–8 weeks. Court proceedings: 3–12 months depending on jurisdiction and amount.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="uk" class="active">Чи потрібне юридичне оформлення?</span>
+          <span data-lang="ru">Нужно ли юридическое оформление?</span>
+          <span data-lang="en">Do I need legal formalities?</span>
+        </div>
+        <div class="faq-a"><p><span data-lang="uk" class="active">Для подачі запиту на біржу — ні. Для судового провадження — так, ми підключаємо партнерського юриста у вашій юрисдикції. Ми надаємо технічну та документальну базу, юрист веде судову частину.</span><span data-lang="ru">Для подачи запроса на биржу — нет. Для судебного производства — да, мы подключаем партнёрского юриста в вашей юрисдикции. Мы обеспечиваем техническую и документальную базу, юрист ведёт судебную часть.</span><span data-lang="en">For exchange requests — no. For court proceedings — yes, we bring in a partner lawyer in your jurisdiction. We provide the technical and documentary foundation; the lawyer handles the court part.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="uk" class="active">Яка мінімальна сума для роботи?</span>
+          <span data-lang="ru">Какая минимальная сумма для работы?</span>
+          <span data-lang="en">What is the minimum case amount?</span>
+        </div>
+        <div class="faq-a"><p><span data-lang="uk" class="active">Ми беремо справи від $3,000. При менших сумах вартість аналізу може не окупитися — ми чесно скажемо про це на консультації та порадимо альтернативи.</span><span data-lang="ru">Мы берём дела от $3,000. При меньших суммах стоимость анализа может не окупиться — мы честно скажем об этом на консультации и порекомендуем альтернативы.</span><span data-lang="en">We take cases from $3,000. For smaller amounts the analysis cost may not be worthwhile — we'll be honest about this in the consultation and suggest alternatives.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="uk" class="active">Чи працюєте ви дистанційно?</span>
+          <span data-lang="ru">Работаете ли вы дистанционно?</span>
+          <span data-lang="en">Do you work remotely?</span>
+        </div>
+        <div class="faq-a"><p><span data-lang="uk" class="active">Так, повністю дистанційно. Клієнти з України, Європи та США. Консультація через Telegram, Zoom або email. Документи — у захищеному форматі онлайн.</span><span data-lang="ru">Да, полностью дистанционно. Клиенты из Украины, Европы и США. Консультация через Telegram, Zoom или email. Документы — в защищённом формате онлайн.</span><span data-lang="en">Yes, fully remote. Clients from Ukraine, Europe, and the US. Consultation via Telegram, Zoom, or email. Documents delivered securely online.</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="section-tag">
+          <span data-lang="uk" class="active">Зв'яжіться</span>
+          <span data-lang="ru">Свяжитесь</span>
+          <span data-lang="en">Contact</span>
+        </div>
+        <h2>
+          <span data-lang="uk" class="active"><em>Безкоштовна</em> консультація</span>
+          <span data-lang="ru"><em>Бесплатная</em> консультация</span>
+          <span data-lang="en"><em>Free</em> consultation</span>
+        </h2>
+        <p class="section-desc">
+          <span data-lang="uk" class="active">Опишіть ситуацію — ми відповімо протягом 24 годин та оцінимо шанси безкоштовно.</span>
+          <span data-lang="ru">Опишите ситуацию — мы ответим в течение 24 часов и оценим шансы бесплатно.</span>
+          <span data-lang="en">Describe your situation — we'll respond within 24 hours and assess chances for free.</span>
+        </p>
+        <div class="contact-info">
+          <div class="contact-point">
+            <div class="contact-point-icon">✉</div>
+            <div><div class="contact-point-label">Email</div><div class="contact-point-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254c4b434a6546575c55514a4f5056514c46400b4c4a">[email&#160;protected]</a></div></div>
+          </div>
+          <div class="contact-point">
+            <div class="contact-point-icon">✈</div>
+            <div><div class="contact-point-label">Telegram</div><div class="contact-point-val">@cryptojustice_help</div></div>
+          </div>
+          <div class="contact-point">
+            <div class="contact-point-icon">🕐</div>
+            <div>
+              <div class="contact-point-label"><span data-lang="uk" class="active">Відповідь</span><span data-lang="ru">Ответ</span><span data-lang="en">Response</span></div>
+              <div class="contact-point-val"><span data-lang="uk" class="active">Протягом 24 годин</span><span data-lang="ru">В течение 24 часов</span><span data-lang="en">Within 24 hours</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="form" id="contact-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label><span data-lang="uk" class="active">Ім'я</span><span data-lang="ru">Имя</span><span data-lang="en">Name</span></label>
+              <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-field">
+              <label>Email / Telegram</label>
+              <input type="text" placeholder="@username or email">
+            </div>
+          </div>
+          <div class="form-field">
+            <label><span data-lang="uk" class="active">Тип шахрайства</span><span data-lang="ru">Тип мошенничества</span><span data-lang="en">Fraud type</span></label>
+            <select>
+              <option value="" disabled selected><span data-lang="uk" class="active">Оберіть...</span></option>
+              <option>Fake broker / Investment platform</option>
+              <option>Romance scam / Pig butchering</option>
+              <option>NFT / Token scam / Rug pull</option>
+              <option>Wallet drain / Phishing</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label><span data-lang="uk" class="active">Сума втрат (USD)</span><span data-lang="ru">Сумма потерь (USD)</span><span data-lang="en">Amount lost (USD)</span></label>
+            <input type="text" placeholder="e.g. $15,000">
+          </div>
+          <div class="form-field">
+            <label><span data-lang="uk" class="active">Опишіть ситуацію</span><span data-lang="ru">Опишите ситуацию</span><span data-lang="en">Describe the situation</span></label>
+            <textarea placeholder="..."></textarea>
+          </div>
+          <div class="form-submit">
+            <button class="btn-form" onclick="submitForm()">
+              <span>
+                <span data-lang="uk" class="active">Надіслати запит →</span>
+                <span data-lang="ru">Отправить запрос →</span>
+                <span data-lang="en">Send request →</span>
+              </span>
+            </button>
+            <div class="form-note"><span data-lang="uk" class="active">🔒 Ваші дані захищені. Ми ніколи не ділимося інформацією з третіми особами.</span><span data-lang="ru">🔒 Ваши данные защищены. Мы никогда не передаём информацию третьим лицам.</span><span data-lang="en">🔒 Your data is protected. We never share information with third parties.</span></div>
+          </div>
+        </div>
+        <div class="form-success" id="form-success">
+          ✓ <span data-lang="uk" class="active">Запит отримано. Відповімо протягом 24 годин.</span><span data-lang="ru">Запрос получен. Ответим в течение 24 часов.</span><span data-lang="en">Request received. We'll respond within 24 hours.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Crypto<span>Justice</span></div>
+        <p class="footer-desc"><span data-lang="uk" class="active">Блокчейн-аналіз та юридичний супровід для жертв криптовалютних шахраїв. Україна · Європа · США.</span><span data-lang="ru">Блокчейн-анализ и юридическое сопровождение для жертв криптовалютных мошенников. Украина · Европа · США.</span><span data-lang="en">Blockchain analysis and legal support for crypto fraud victims. Ukraine · Europe · USA.</span></p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#how"><span data-lang="uk" class="active">Як це працює</span><span data-lang="ru">Как это работает</span><span data-lang="en">How it works</span></a></li>
+          <li><a href="#services"><span data-lang="uk" class="active">Послуги та ціни</span><span data-lang="ru">Услуги и цены</span><span data-lang="en">Services & pricing</span></a></li>
+          <li><a href="#analysis"><span data-lang="uk" class="active">Блокчейн-аналіз</span><span data-lang="ru">Блокчейн-анализ</span><span data-lang="en">Blockchain analysis</span></a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact"><span data-lang="uk" class="active">Контакт</span><span data-lang="ru">Контакт</span><span data-lang="en">Contact</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="#">Telegram Channel</a></li>
+          <li><a href="#">IC3.gov — FBI</a></li>
+          <li><a href="#">Europol Report</a></li>
+          <li><a href="#">ACCC Scamwatch</a></li>
+          <li><a href="#"><span data-lang="uk" class="active">Перевірити брокера</span><span data-lang="ru">Проверить брокера</span><span data-lang="en">Check broker</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 CryptoJustice · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29b9c949db291808b82869d988781869b9197dc9b9d">[email&#160;protected]</a></div>
+      <div class="footer-disclaimer"><span data-lang="uk" class="active">Ми надаємо технічні та консультаційні послуги. Ми не є юридичною фірмою та не замінюємо адвоката.</span><span data-lang="ru">Мы предоставляем технические и консультационные услуги. Мы не являемся юридической фирмой и не заменяем адвоката.</span><span data-lang="en">We provide technical and consulting services. We are not a law firm and do not replace an attorney.</span></div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── LANGUAGE SYSTEM ──────────────────────────────────────────
+let currentLang = 'uk';
+let suggestedLang = null;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  // show/hide block elements
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+  });
+  // show/hide inline spans that are children of nav etc
+  document.querySelectorAll('[data-lang-inline]').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-lang-inline') === lang);
+  });
+  // update lang buttons
+  ['uk','ru','en'].forEach(l => {
+    const btn = document.getElementById('btn-' + l);
+    if(btn) btn.classList.toggle('active', l === lang);
+  });
+  // update stat labels
+  document.querySelectorAll('[data-label-' + lang + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-label-' + lang);
+  });
+}
+
+// ── IP DETECTION ──────────────────────────────────────────────
+async function detectCountry() {
+  try {
+    const r = await fetch('https://ipapi.co/json/');
+    const d = await r.json();
+    const country = d.country_code;
+    const modal = document.getElementById('lang-modal');
+    const title = document.getElementById('modal-title');
+    const sub = document.getElementById('modal-sub');
+    const accept = document.getElementById('modal-accept');
+
+    if (country === 'UA' && currentLang !== 'uk') {
+      suggestedLang = 'uk';
+      title.textContent = 'Переключити на українську?';
+      sub.textContent = 'Ми визначили вашу локацію: Україна';
+      accept.textContent = 'Так, переключити';
+      modal.style.display = 'block';
+    } else if (['RU','BY','KZ'].includes(country) && currentLang !== 'ru') {
+      suggestedLang = 'ru';
+      title.textContent = 'Переключить на русский?';
+      sub.textContent = 'Мы определили вашу локацию';
+      accept.textContent = 'Переключить';
+      modal.style.display = 'block';
+    } else if (!['UA','RU','BY','KZ'].includes(country) && currentLang !== 'en') {
+      suggestedLang = 'en';
+      title.textContent = 'Switch to English?';
+      sub.textContent = 'We detected your location: ' + (d.country_name || country);
+      accept.textContent = 'Switch';
+      modal.style.display = 'block';
+    }
+  } catch(e) {}
+}
+
+function acceptLang() {
+  if(suggestedLang) setLang(suggestedLang);
+  document.getElementById('lang-modal').style.display = 'none';
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── FAQ ───────────────────────────────────────────────────────
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ── FORM ──────────────────────────────────────────────────────
+function submitForm() {
+  document.getElementById('contact-form').style.display = 'none';
+  const s = document.getElementById('form-success');
+  s.style.display = 'block';
+}
+
+// ── MOBILE MENU ───────────────────────────────────────────────
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  links.style.flexDirection = 'column';
+  links.style.position = 'absolute';
+  links.style.top = '104px';
+  links.style.left = '0';
+  links.style.right = '0';
+  links.style.background = 'var(--bg)';
+  links.style.padding = '1rem 2rem';
+  links.style.b
