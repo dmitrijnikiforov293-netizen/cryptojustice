@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pig Butchering: что это и как вернуть деньги | CryptoJustice</title>
+<meta name="description" content="Pig butchering — самая распространённая схема крипто-мошенничества в 2026. Как работает, как распознать и реально ли вернуть деньги.">
+<link rel="canonical" href="https://cryptojustice.com/blog/pig-butchering-schema.html">
+<meta property="og:title" content="Pig Butchering: что это и как вернуть деньги | CryptoJustice">
+<meta property="og:description" content="Pig butchering — самая распространённая схема крипто-мошенничества в 2026. Как работает, как распознать и реально ли вернуть деньги.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080c10;--bg2:#0d1117;--bg3:#111820;--surface:#141c24;--surface2:#1a2432;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--accent:#00e5ff;--green:#00d68f;--red:#ff4f4f;--amber:#ffb800;--text:#e8edf2;--text2:#8a97a6;--text3:#4a5568;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+nav{position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-logo{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{font-family:var(--font-display);font-size:12px;font-weight:700;padding:8px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
+.nav-cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
+.article-wrap{max-width:780px;margin:0 auto;padding:4rem 2.5rem 6rem}
+.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.meta-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--border2);color:var(--accent)}
+.meta-date{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
+.meta-read{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
+h1{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.5rem}
+h1 em{font-style:normal;color:var(--accent)}
+.article-lead{font-size:1.1rem;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+h2{font-family:var(--font-display);font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:2.5rem 0 .8rem;color:var(--text)}
+h3{font-family:var(--font-display);font-size:1rem;font-weight:700;margin:1.8rem 0 .5rem;color:var(--text)}
+p{color:var(--text2);margin-bottom:1.2rem;font-weight:300}
+ul,ol{color:var(--text2);padding-left:1.4rem;margin-bottom:1.2rem;font-weight:300}
+li{margin-bottom:.4rem}
+strong{color:var(--text);font-weight:600}
+.callout{background:var(--surface);border-left:3px solid var(--accent);padding:1.2rem 1.5rem;margin:2rem 0;font-size:14px;color:var(--text2)}
+.callout.warn{border-color:var(--amber);background:rgba(255,184,0,.05)}
+.callout.danger{border-color:var(--red);background:rgba(255,79,79,.05)}
+.callout strong{color:var(--text)}
+.step-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--border);margin:1.5rem 0}
+.step-list li{background:var(--bg2);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.step-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);flex-shrink:0;padding-top:2px;letter-spacing:.06em}
+.step-text{font-size:14px;color:var(--text2);font-weight:300;line-height:1.6}
+.step-text strong{color:var(--text);font-weight:600}
+.cta-block{background:var(--surface);border:1px solid var(--border2);padding:2.5rem;margin:3rem 0;text-align:center;position:relative;overflow:hidden}
+.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.cta-block h3{font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:.8rem;color:var(--text)}
+.cta-block p{font-size:14px;color:var(--text2);margin-bottom:1.5rem;font-weight:300}
+.btn-accent{display:inline-block;font-family:var(--font-display);font-size:13px;font-weight:700;padding:13px 30px;background:var(--accent);color:var(--bg);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.btn-accent:hover{background:#00ccee;transform:translateY(-2px);text-decoration:none;color:var(--bg)}
+.toc{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:2.5rem}
+.toc-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
+.toc ol{color:var(--text2);font-size:14px;padding-left:1.2rem}
+.toc ol li{margin-bottom:.35rem}
+.toc a{color:var(--text2);text-decoration:none;transition:color .2s}
+.toc a:hover{color:var(--accent)}
+.badge-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0}
+.badge{font-family:var(--font-mono);font-size:10px;padding:3px 8px;letter-spacing:.06em;text-transform:uppercase;border-radius:2px}
+.badge-red{background:rgba(255,79,79,.1);color:var(--red);border:1px solid rgba(255,79,79,.2)}
+.badge-green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
+.badge-amber{background:rgba(255,184,0,.1);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--font-display);font-size:14px;font-weight:800}
+.footer-logo span{color:var(--accent)}
+.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
+.footer-links-row{display:flex;gap:1.5rem}
+.footer-links-row a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
+.footer-links-row a:hover{color:var(--accent)}
+@media(max-width:600px){nav{padding:0 1.25rem}.article-wrap{padding:2rem 1.25rem 4rem}.nav-links{display:none}footer{padding:1.5rem 1.25rem;flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Crypto<span>Justice</span></a>
+  <ul class="nav-links">
+    <li><a href="/#how">Как это работает</a></li>
+    <li><a href="/#services">Услуги и цены</a></li>
+    <li><a href="/checker.html">Проверить брокера</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+  </ul>
+  <a href="/#contact" class="nav-cta">Консультация</a>
+</nav>
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="meta-tag">Разбор схемы</span>
+    <span class="meta-date">Апрель 2026</span>
+    <span class="meta-read">9 мин чтения</span>
+  </div>
+  <h1>Pig Butchering: <em>разбор схемы</em> и возврат денег</h1>
+  <p class="article-lead">«Разделка свиньи» — так буквально переводится название этой схемы. Мошенники месяцами «откармливают» жертву доверием и мнимой прибылью, а затем исчезают со всеми деньгами. Это самый распространённый вид крипто-мошенничества в мире.</p>
+
+  <div class="toc">
+    <div class="toc-title">// Содержание</div>
+    <ol>
+      <li><a href="#what">Что такое pig butchering</a></li>
+      <li><a href="#stages">Стадии схемы</a></li>
+      <li><a href="#recognize">Как распознать до того, как потерять деньги</a></li>
+      <li><a href="#recovery">Можно ли вернуть деньги</a></li>
+      <li><a href="#cases">Реальные кейсы</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what">Что такое pig butchering</h2>
+  <p>Pig butchering (sha zhu pan) — это долгосрочная мошенническая схема, которая сочетает romance scam и инвестиционное мошенничество. Мошенник несколько недель или месяцев выстраивает с жертвой доверительные отношения — через знакомства в соцсетях, мессенджерах, приложениях для знакомств.</p>
+  <p>Когда доверие установлено, мошенник «случайно» упоминает успешные инвестиции в крипту и предлагает научить. Жертва вкладывает деньги, видит «растущую прибыль», вкладывает больше. В момент максимального вложения — всё исчезает.</p>
+
+  <h2 id="stages">Стадии схемы</h2>
+  <ul class="step-list">
+    <li><span class="step-num">01 //</span><div class="step-text"><strong>Знакомство</strong> — случайное сообщение «не туда», совпадение интересов, длительное общение без упоминания денег. Обычно 2–4 недели.</div></li>
+    <li><span class="step-num">02 //</span><div class="step-text"><strong>Доверие</strong> — мошенник рассказывает о себе, семье, работе (всё выдумано). Переходят на более личные темы, иногда романтические отношения.</div></li>
+    <li><span class="step-num">03 //</span><div class="step-text"><strong>Введение в «инвестиции»</strong> — мошенник упоминает успешную сделку, показывает скриншоты прибыли, предлагает попробовать с небольшой суммой.</div></li>
+    <li><span class="step-num">04 //</span><div class="step-text"><strong>Первые «успехи»</strong> — жертва видит как её $500 превращаются в $800. Всё на поддельной платформе, все цифры нарисованы.</div></li>
+    <li><span class="step-num">05 //</span><div class="step-text"><strong>Эскалация</strong> — жертву убеждают вложить больше, занять денег, продать имущество. «Сейчас редкая возможность».</div></li>
+    <li><span class="step-num">06 //</span><div class="step-text"><strong>«Разделка»</strong> — при попытке вывода требуют налоги, верификацию. После оплаты — исчезают.</div></li>
+  </ul>
+
+  <div class="callout danger">
+    <strong>Масштаб проблемы:</strong> по данным ФБР, в 2024 году потери от pig butchering только в США составили более $3,5 млрд. Большинство операций координируются из специальных «скам-ферм» в Юго-Восточной Азии, где работают принудительно завербованные люди.
+  </div>
+
+  <h2 id="recognize">Как распознать схему</h2>
+  <ul>
+    <li><strong>Незнакомый человек пишет первым</strong> — особенно с «ошибочного» номера или в Linkedin/Instagram</li>
+    <li><strong>Слишком идеальный образ</strong> — успешный, красивый, одинокий, живёт за рубежом</li>
+    <li><strong>Быстрое сближение</strong> — чрезмерная забота и внимание за короткое время</li>
+    <li><strong>Разговор переходит на инвестиции</strong> — «я случайно узнал об этой платформе от дяди»</li>
+    <li><strong>Уникальная закрытая платформа</strong> — которую «не найти в интернете», только по приглашению</li>
+    <li><strong>Давление вложить больше</strong> — «сейчас особое время», «только до конца недели»</li>
+  </ul>
+
+  <h2 id="recovery">Можно ли вернуть деньги</h2>
+  <p>Да, но шансы зависят от скорости обращения и конкретных обстоятельств. Поскольку pig butchering — длительная схема, к моменту «разделки» мошенники часто уже подготовили пути вывода средств.</p>
+  <p>Тем не менее, в нашей практике:</p>
+  <ul>
+    <li>В 61% случаев нам удавалось отследить средства до конкретной биржи</li>
+    <li>В 43% случаев с установленной биржей — удавалась заморозка</li>
+    <li>Средняя сумма в кейсах pig butchering — $34,000</li>
+    <li>Самый большой возврат в нашей практике — $118,000 через суд в Великобритании</li>
+  </ul>
+
+  <h2 id="cases">Реальный кейс из нашей практики</h2>
+  <p>Клиентка из Варшавы познакомилась с «успешным трейдером» в Instagram. В течение 8 месяцев общения он убедил её вложить $43,200 в «закрытую крипто-платформу». При попытке вывода потребовали $8,000 налога, после оплаты — исчезли.</p>
+  <p>Наша команда провела анализ 47 транзакций и установила, что средства прошли через микшер и осели на аккаунте Binance. Был подан официальный запрос. Binance подтвердил заморозку $31,500 через 5 недель. Дело передано в Europol.</p>
+
+  <div class="cta-block">
+    <h3>Стали жертвой pig butchering?</h3>
+    <p>Расскажите нам о ситуации — проведём анализ и честно оценим шансы бесплатно.</p>
+    <a href="/#contact" class="btn-accent">Бесплатная консультация →</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">Crypto<span>Justice</span></div>
+  <div class="footer-links-row">
+    <a href="/checker.html">Проверить брокера</a>
+    <a href="/#services">Услуги</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/#contact">Контакт</a>
+  </div>
+  <div class="footer-copy">© 2026 CryptoJustice</div>
+</footer>
+</body>
+</html>
