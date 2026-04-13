@@ -283,16 +283,20 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 /* RESPONSIVE */
 @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.steps-tl{flex-wrap:wrap}.step-tl{flex:0 0 50%;border-top:1px solid var(--border)}.tgrid{grid-template-columns:1fr}}
 @media(max-width:900px){.analysis-grid,.contact-grid{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}.scam-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){section{padding:4rem 1.25rem}nav,.lang-bar{padding-left:1.25rem;padding-right:1.25rem}.hero{padding:130px 1.25rem 4rem}.footer-top{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr}.tgrid{grid-template-columns:1fr}}
+@media(max-width:600px){section{padding:4rem 1.25rem}nav,.lang-bar{padding-left:1.25rem;padding-right:1.25rem}.hero{padding:160px 1.25rem 4rem}.footer-top{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr}.tgrid{grid-template-columns:1fr}}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.hamburger span{transition:transform .2s,opacity .2s}
 </style>
 </head>
 <body>
 
 <!-- LANG BAR -->
 <div class="lang-bar">
-  <button class="lang-btn active" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
-  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
@@ -311,9 +315,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- URGENCY BANNER -->
 <div class="urgency-bar" id="urgency-bar">
   <span>⚡</span>
-  <span class="t-uk"><strong>Важливо:</strong> чим швидше діяти після шахрайства — тим вищі шанси заморозити кошти. Перша 48 годин критичні.</span>
-  <span class="t-ru lang-hide"><strong>Важно:</strong> чем быстрее действовать — тем выше шансы заморозить средства. Первые 48 часов критичны.</span>
-  <span class="t-en lang-hide"><strong>Important:</strong> the faster you act after fraud — the higher the chances of freezing funds. First 48 hours are critical.</span>
+  <span class="t-ru"><strong>Берёмся за любые кейсы</strong> — независимо от того, как давно это произошло. Чем раньше обратитесь — тем шире возможности.</span>
+  <span class="t-uk lang-hide"><strong>Беремося за будь-які кейси</strong> — незалежно від того, коли це сталося.</span>
+  <span class="t-en lang-hide"><strong>We take any case</strong> — no matter how long ago it happened. Earlier is better, but it's never too late.</span>
   <button class="urgency-close" onclick="document.getElementById('urgency-bar').style.display='none'">×</button>
 </div>
 
@@ -339,17 +343,17 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="#how" class="t-uk">Як це працює</a><a href="#how" class="t-ru lang-hide">Как это работает</a><a href="#how" class="t-en lang-hide">How it works</a></li>
-    <li><a href="#services" class="t-uk">Послуги</a><a href="#services" class="t-ru lang-hide">Услуги</a><a href="#services" class="t-en lang-hide">Services</a></li>
-    <li><a href="#analysis" class="t-uk">Аналіз</a><a href="#analysis" class="t-ru lang-hide">Анализ</a><a href="#analysis" class="t-en lang-hide">Analysis</a></li>
+    <li><a href="#how" class="t-ru">Как это работает</a><a href="#how" class="t-uk lang-hide">Як це працює</a><a href="#how" class="t-en lang-hide">How it works</a></li>
+    <li><a href="#services" class="t-ru">Услуги</a><a href="#services" class="t-uk lang-hide">Послуги</a><a href="#services" class="t-en lang-hide">Services</a></li>
+    <li><a href="#analysis" class="t-ru">Анализ</a><a href="#analysis" class="t-uk lang-hide">Аналіз</a><a href="#analysis" class="t-en lang-hide">Analysis</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#checker" class="t-uk" style="color:var(--accent)">🔍 Перевірити брокера</a><a href="#checker" class="t-ru lang-hide" style="color:var(--accent)">🔍 Проверить брокера</a><a href="#checker" class="t-en lang-hide" style="color:var(--accent)">🔍 Check broker</a></li>
-    <li><a href="/blog/" class="t-uk">Блог</a><a href="/blog/" class="t-ru lang-hide">Блог</a><a href="/blog/" class="t-en lang-hide">Blog</a></li>
+    <li><a href="#checker" class="t-ru" style="color:var(--accent)">🔍 Проверить брокера</a><a href="#checker" class="t-uk lang-hide" style="color:var(--accent)">🔍 Перевірити брокера</a><a href="#checker" class="t-en lang-hide" style="color:var(--accent)">🔍 Check broker</a></li>
+    <li><a href="/blog/" class="t-ru">Блог</a><a href="/blog/" class="t-uk lang-hide">Блог</a><a href="/blog/" class="t-en lang-hide">Blog</a></li>
   </ul>
   <a href="#contact" class="nav-cta">
-    <span class="t-uk">Консультація</span><span class="t-ru lang-hide">Консультация</span><span class="t-en lang-hide">Consultation</span>
+    <span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span>
   </a>
-  <div class="hamburger" onclick="this.nextElementSibling&&toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
@@ -358,9 +362,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
   <div class="hero-glow"></div>
   <div class="hero-inner">
     <div class="hero-badge">
-      <span class="t-uk">Блокчейн-аналіз · Юридичний супровід</span>
-      <span class="t-ru lang-hide">Блокчейн-анализ · Юридическое сопровождение</span>
-      <span class="t-en lang-hide">Blockchain analysis · Legal support</span>
+      <span class="t-ru">Вас обманули — мы знаем как действовать</span>
+      <span class="t-uk lang-hide">Вас обманули — ми знаємо як діяти</span>
+      <span class="t-en lang-hide">You were scammed — we know what to do</span>
     </div>
 
     <svg width="100%" viewBox="0 0 540 72" style="max-width:540px;margin-bottom:1.5rem;display:block">
@@ -382,27 +386,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
     </svg>
 
     <p class="hero-sub">
-      <span class="t-uk">Блокчейн-розслідування, підготовка документів для заморожування коштів на біржах та повне юридичне супроводження справи.</span>
-      <span class="t-ru lang-hide">Блокчейн-расследование, подготовка документов для заморозки средств на биржах и полное юридическое сопровождение дела.</span>
-      <span class="t-en lang-hide">Blockchain investigation, documentation for asset freezing on exchanges, and full legal case support.</span>
+      <span class="t-ru">Отслеживаем украденные средства по блокчейну, замораживаем активы на биржах и добиваемся возврата. Работаем с кейсами любой давности — от недели до нескольких лет.</span>
+      <span class="t-uk lang-hide">Відстежуємо вкрадені кошти по блокчейну, заморожуємо активи на біржах і домагаємося повернення. Беремося за кейси будь-якої давності.</span>
+      <span class="t-en lang-hide">We trace stolen funds on-chain, freeze assets on exchanges, and pursue recovery. We take cases of any age — from days to years.</span>
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">
-        <span class="t-uk">Безкоштовна консультація</span><span class="t-ru lang-hide">Бесплатная консультация</span><span class="t-en lang-hide">Free Consultation</span>
+        <span class="t-ru">Оценить мой кейс →</span>
+        <span class="t-uk lang-hide">Оцінити мій кейс →</span>
+        <span class="t-en lang-hide">Evaluate my case →</span>
       </a>
       <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="btn-ghost">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="currentColor"/></svg>
         Telegram
       </a>
-      <a href="#how" class="btn-ghost">
-        <span class="t-uk">Як це працює</span><span class="t-ru lang-hide">Как это работает</span><span class="t-en lang-hide">How it works</span> →
-      </a>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num" data-counter="500">500<span>+</span></div><div class="stat-label t-uk">Справ в роботі</div><div class="stat-label t-ru lang-hide">Дел в работе</div><div class="stat-label t-en lang-hide">Cases handled</div></div>
-      <div><div class="stat-num" data-counter="2.1">$2.1<span>M</span></div><div class="stat-label t-uk">Повернено коштів</div><div class="stat-label t-ru lang-hide">Возвращено средств</div><div class="stat-label t-en lang-hide">Funds recovered</div></div>
-      <div><div class="stat-num" data-counter="68">68<span>%</span></div><div class="stat-label t-uk">Успішних кейсів</div><div class="stat-label t-ru lang-hide">Успешных кейсов</div><div class="stat-label t-en lang-hide">Success rate</div></div>
-      <div><div class="stat-num" data-counter="24">24<span>h</span></div><div class="stat-label t-uk">Перша відповідь</div><div class="stat-label t-ru lang-hide">Первый ответ</div><div class="stat-label t-en lang-hide">First response</div></div>
+      <div><div class="stat-num" data-counter="500">500<span>+</span></div><div class="stat-label t-ru">Дел в работе</div><div class="stat-label t-uk lang-hide">Справ в роботі</div><div class="stat-label t-en lang-hide">Cases handled</div></div>
+      <div><div class="stat-num" data-counter="2.1">$2.1<span>M</span></div><div class="stat-label t-ru">Возвращено средств</div><div class="stat-label t-uk lang-hide">Повернено коштів</div><div class="stat-label t-en lang-hide">Funds recovered</div></div>
+      <div><div class="stat-num" data-counter="68">68<span>%</span></div><div class="stat-label t-ru">Успешных кейсов</div><div class="stat-label t-uk lang-hide">Успішних кейсів</div><div class="stat-label t-en lang-hide">Success rate</div></div>
+      <div><div class="stat-num" data-counter="24">24<span>h</span></div><div class="stat-label t-ru">Первый ответ</div><div class="stat-label t-uk lang-hide">Перша відповідь</div><div class="stat-label t-en lang-hide">First response</div></div>
     </div>
     <div class="trust-row">
       <div class="trust-badge"><div class="trust-badge-dot"></div>FCA Register</div>
@@ -433,15 +436,48 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
   </div>
 </div>
 
-<!-- WARNING -->
-<section style="padding:2.5rem 2.5rem">
+<!-- WHY US -->
+<section style="padding:2.5rem 2.5rem;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="section-inner">
-    <div class="warning">
-      <div style="font-size:1.2rem;flex-shrink:0;margin-top:1px">⚠️</div>
-      <div class="warning-text">
-        <span class="t-uk"><strong>Обережно:</strong> 90% «агентств з повернення коштів» — самі шахраї. Ми ніколи не беремо передоплату за результат. Перша консультація безкоштовна.</span>
-        <span class="t-ru lang-hide"><strong>Осторожно:</strong> 90% «агентств по возврату средств» — сами мошенники. Мы никогда не берём предоплату за результат. Первая консультация бесплатна.</span>
-        <span class="t-en lang-hide"><strong>Warning:</strong> 90% of "fund recovery agencies" are scammers themselves. We never take upfront fees for results. First consultation is free.</span>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)">
+      <div style="background:var(--bg);padding:1.5rem 1.8rem">
+        <div style="font-size:1.4rem;margin-bottom:.6rem">🔒</div>
+        <div style="font-family:var(--font-display);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">
+          <span class="t-ru">Без предоплаты за результат</span>
+          <span class="t-uk lang-hide">Без передоплати за результат</span>
+          <span class="t-en lang-hide">No upfront fees for results</span>
+        </div>
+        <div style="font-size:13px;color:var(--text3);font-weight:300;line-height:1.5">
+          <span class="t-ru">Платите только за конкретные услуги — анализ и документы. Никаких «гарантированных возвратов» за деньги вперёд.</span>
+          <span class="t-uk lang-hide">Платіть лише за конкретні послуги. Ніяких «гарантованих повернень» за гроші наперед.</span>
+          <span class="t-en lang-hide">Pay only for specific services. No "guaranteed recovery" schemes requiring payment upfront.</span>
+        </div>
+      </div>
+      <div style="background:var(--bg);padding:1.5rem 1.8rem">
+        <div style="font-size:1.4rem;margin-bottom:.6rem">📅</div>
+        <div style="font-family:var(--font-display);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">
+          <span class="t-ru">Берёмся за любые сроки</span>
+          <span class="t-uk lang-hide">Беремося за будь-які терміни</span>
+          <span class="t-en lang-hide">Any timeline accepted</span>
+        </div>
+        <div style="font-size:13px;color:var(--text3);font-weight:300;line-height:1.5">
+          <span class="t-ru">Неделю назад или год — шансы есть в обоих случаях. Многие наши клиенты обратились спустя месяцы после потери.</span>
+          <span class="t-uk lang-hide">Тиждень тому або рік — шанси є в обох випадках. Багато наших клієнтів звернулися через місяці.</span>
+          <span class="t-en lang-hide">A week ago or a year — chances exist in both cases. Many clients came to us months after the loss.</span>
+        </div>
+      </div>
+      <div style="background:var(--bg);padding:1.5rem 1.8rem">
+        <div style="font-size:1.4rem;margin-bottom:.6rem">💬</div>
+        <div style="font-family:var(--font-display);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">
+          <span class="t-ru">Честная оценка шансов</span>
+          <span class="t-uk lang-hide">Чесна оцінка шансів</span>
+          <span class="t-en lang-hide">Honest chance assessment</span>
+        </div>
+        <div style="font-size:13px;color:var(--text3);font-weight:300;line-height:1.5">
+          <span class="t-ru">Если шансы низкие — скажем об этом сразу и не возьмём деньги. Мы дорожим репутацией больше, чем одним клиентом.</span>
+          <span class="t-uk lang-hide">Якщо шанси низькі — скажемо одразу і не візьмемо гроші. Ми цінуємо репутацію.</span>
+          <span class="t-en lang-hide">If chances are low — we'll say so upfront and won't take your money. Our reputation matters more than one client.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -450,15 +486,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="section-inner">
-    <div class="section-tag"><span class="t-uk">Процес</span><span class="t-ru lang-hide">Процесс</span><span class="t-en lang-hide">Process</span></div>
-    <h2><span class="t-uk">Як ми <em>повертаємо</em> кошти</span><span class="t-ru lang-hide">Как мы <em>возвращаем</em> средства</span><span class="t-en lang-hide">How we <em>recover</em> funds</span></h2>
-    <p class="section-desc"><span class="t-uk">Чіткий процес від першого дзвінка до заморожування коштів або судового провадження.</span><span class="t-ru lang-hide">Чёткий процесс от первого звонка до заморозки средств или судебного производства.</span><span class="t-en lang-hide">A clear process from the first call to asset freezing or court proceedings.</span></p>
+    <div class="section-tag"><span class="t-uk lang-hide">Процес</span><span class="t-ru">Процесс</span><span class="t-en lang-hide">Process</span></div>
+    <h2><span class="t-uk lang-hide">Як ми <em>повертаємо</em> кошти</span><span class="t-ru">Как мы <em>возвращаем</em> средства</span><span class="t-en lang-hide">How we <em>recover</em> funds</span></h2>
+    <p class="section-desc"><span class="t-uk lang-hide">Чіткий процес від першого дзвінка до заморожування коштів або судового провадження.</span><span class="t-ru">Чёткий процесс от первого звонка до заморозки средств или судебного производства.</span><span class="t-en lang-hide">A clear process from the first call to asset freezing or court proceedings.</span></p>
     <div class="steps-tl fade-up">
-      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">01 //</div><div class="step-tl-icon">🔍</div><div class="step-tl-title"><span class="t-uk">Безкоштовна оцінка</span><span class="t-ru lang-hide">Бесплатная оценка</span><span class="t-en lang-hide">Free assessment</span></div><div class="step-tl-desc"><span class="t-uk">Аналізуємо ситуацію, визначаємо шанси та задіяні біржі.</span><span class="t-ru lang-hide">Анализируем ситуацию, определяем шансы и задействованные биржи.</span><span class="t-en lang-hide">We assess your case and identify exchanges involved.</span></div></div>
-      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">02 //</div><div class="step-tl-icon">⛓️</div><div class="step-tl-title"><span class="t-uk">Блокчейн-аналіз</span><span class="t-ru lang-hide">Блокчейн-анализ</span><span class="t-en lang-hide">Blockchain analysis</span></div><div class="step-tl-desc"><span class="t-uk">Відстежуємо переміщення коштів через гаманці до кінцевого адресата.</span><span class="t-ru lang-hide">Отслеживаем движение средств до конечного адресата.</span><span class="t-en lang-hide">We trace funds through all wallets to the final destination.</span></div></div>
-      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">03 //</div><div class="step-tl-icon">📄</div><div class="step-tl-title"><span class="t-uk">Пакет документів</span><span class="t-ru lang-hide">Пакет документов</span><span class="t-en lang-hide">Documentation</span></div><div class="step-tl-desc"><span class="t-uk">Готуємо запити до бірж, правоохоронних органів та судові документи.</span><span class="t-ru lang-hide">Готовим запросы в биржи, правоохранительные органы и суд.</span><span class="t-en lang-hide">Exchange requests, law enforcement reports, court documents.</span></div></div>
-      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">04 //</div><div class="step-tl-icon">🏦</div><div class="step-tl-title"><span class="t-uk">Заморожування</span><span class="t-ru lang-hide">Заморозка</span><span class="t-en lang-hide">Asset freeze</span></div><div class="step-tl-desc"><span class="t-uk">Подаємо запити на заморожування через KYC-відділи бірж або суд.</span><span class="t-ru lang-hide">Запросы на заморозку через KYC-отделы бирж или суд.</span><span class="t-en lang-hide">Freeze requests via exchange KYC departments or court orders.</span></div></div>
-      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">05 //</div><div class="step-tl-icon">⚖️</div><div class="step-tl-title"><span class="t-uk">Судовий супровід</span><span class="t-ru lang-hide">Судебное сопровождение</span><span class="t-en lang-hide">Legal proceedings</span></div><div class="step-tl-desc"><span class="t-uk">Співпрацюємо з юристами-партнерами для ведення справи в суді.</span><span class="t-ru lang-hide">Сотрудничаем с юристами-партнёрами для ведения дела в суде.</span><span class="t-en lang-hide">We work with partner lawyers to pursue court proceedings.</span></div></div>
+      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">01 //</div><div class="step-tl-icon">🔍</div><div class="step-tl-title"><span class="t-uk lang-hide">Безкоштовна оцінка</span><span class="t-ru">Бесплатная оценка</span><span class="t-en lang-hide">Free assessment</span></div><div class="step-tl-desc"><span class="t-uk lang-hide">Аналізуємо ситуацію, визначаємо шанси та задіяні біржі.</span><span class="t-ru">Анализируем ситуацию, определяем шансы и задействованные биржи.</span><span class="t-en lang-hide">We assess your case and identify exchanges involved.</span></div></div>
+      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">02 //</div><div class="step-tl-icon">⛓️</div><div class="step-tl-title"><span class="t-uk lang-hide">Блокчейн-аналіз</span><span class="t-ru">Блокчейн-анализ</span><span class="t-en lang-hide">Blockchain analysis</span></div><div class="step-tl-desc"><span class="t-uk lang-hide">Відстежуємо переміщення коштів через гаманці до кінцевого адресата.</span><span class="t-ru">Отслеживаем движение средств до конечного адресата.</span><span class="t-en lang-hide">We trace funds through all wallets to the final destination.</span></div></div>
+      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">03 //</div><div class="step-tl-icon">📄</div><div class="step-tl-title"><span class="t-uk lang-hide">Пакет документів</span><span class="t-ru">Пакет документов</span><span class="t-en lang-hide">Documentation</span></div><div class="step-tl-desc"><span class="t-uk lang-hide">Готуємо запити до бірж, правоохоронних органів та судові документи.</span><span class="t-ru">Готовим запросы в биржи, правоохранительные органы и суд.</span><span class="t-en lang-hide">Exchange requests, law enforcement reports, court documents.</span></div></div>
+      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">04 //</div><div class="step-tl-icon">🏦</div><div class="step-tl-title"><span class="t-uk lang-hide">Заморожування</span><span class="t-ru">Заморозка</span><span class="t-en lang-hide">Asset freeze</span></div><div class="step-tl-desc"><span class="t-uk lang-hide">Подаємо запити на заморожування через KYC-відділи бірж або суд.</span><span class="t-ru">Запросы на заморозку через KYC-отделы бирж или суд.</span><span class="t-en lang-hide">Freeze requests via exchange KYC departments or court orders.</span></div></div>
+      <div class="step-tl"><div class="step-tl-top"></div><div class="step-tl-num">05 //</div><div class="step-tl-icon">⚖️</div><div class="step-tl-title"><span class="t-uk lang-hide">Судовий супровід</span><span class="t-ru">Судебное сопровождение</span><span class="t-en lang-hide">Legal proceedings</span></div><div class="step-tl-desc"><span class="t-uk lang-hide">Співпрацюємо з юристами-партнерами для ведення справи в суді.</span><span class="t-ru">Сотрудничаем с юристами-партнёрами для ведения дела в суде.</span><span class="t-en lang-hide">We work with partner lawyers to pursue court proceedings.</span></div></div>
     </div>
   </div>
 </section>
@@ -466,50 +502,50 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- SERVICES -->
 <section id="services" style="background:var(--bg2);border-top:1px solid var(--border)">
   <div class="section-inner">
-    <div class="section-tag"><span class="t-uk">Послуги</span><span class="t-ru lang-hide">Услуги</span><span class="t-en lang-hide">Services</span></div>
-    <h2><span class="t-uk">Що ми <em>робимо</em></span><span class="t-ru lang-hide">Что мы <em>делаем</em></span><span class="t-en lang-hide">What we <em>do</em></span></h2>
+    <div class="section-tag"><span class="t-uk lang-hide">Послуги</span><span class="t-ru">Услуги</span><span class="t-en lang-hide">Services</span></div>
+    <h2><span class="t-uk lang-hide">Що ми <em>робимо</em></span><span class="t-ru">Что мы <em>делаем</em></span><span class="t-en lang-hide">What we <em>do</em></span></h2>
     <div class="services-grid fade-up">
       <div class="scard">
         <div class="scard-price">Free</div>
-        <div class="scard-title"><span class="t-uk">Консультація</span><span class="t-ru lang-hide">Консультация</span><span class="t-en lang-hide">Consultation</span></div>
-        <div class="scard-desc"><span class="t-uk">30 хвилин. Оцінюємо справу, визначаємо реальні шанси та стратегію.</span><span class="t-ru lang-hide">30 минут. Оцениваем дело, определяем реальные шансы и стратегию.</span><span class="t-en lang-hide">30 minutes. We assess your case and determine real chances.</span></div>
+        <div class="scard-title"><span class="t-uk lang-hide">Консультація</span><span class="t-ru">Консультация</span><span class="t-en lang-hide">Consultation</span></div>
+        <div class="scard-desc"><span class="t-uk lang-hide">30 хвилин. Оцінюємо справу, визначаємо реальні шанси та стратегію.</span><span class="t-ru">30 минут. Оцениваем дело, определяем реальные шансы и стратегию.</span><span class="t-en lang-hide">30 minutes. We assess your case and determine real chances.</span></div>
         <ul class="scard-features">
-          <li><span class="t-uk">Аналіз ситуації</span><span class="t-ru lang-hide">Анализ ситуации</span><span class="t-en lang-hide">Case analysis</span></li>
-          <li><span class="t-uk">Оцінка шансів</span><span class="t-ru lang-hide">Оценка шансов</span><span class="t-en lang-hide">Chance assessment</span></li>
-          <li><span class="t-uk">Рекомендації</span><span class="t-ru lang-hide">Рекомендации</span><span class="t-en lang-hide">Recommendations</span></li>
+          <li><span class="t-uk lang-hide">Аналіз ситуації</span><span class="t-ru">Анализ ситуации</span><span class="t-en lang-hide">Case analysis</span></li>
+          <li><span class="t-uk lang-hide">Оцінка шансів</span><span class="t-ru">Оценка шансов</span><span class="t-en lang-hide">Chance assessment</span></li>
+          <li><span class="t-uk lang-hide">Рекомендації</span><span class="t-ru">Рекомендации</span><span class="t-en lang-hide">Recommendations</span></li>
         </ul>
       </div>
       <div class="scard scard-featured">
         <div class="scard-price">$150 – $300</div>
-        <div class="scard-title"><span class="t-uk">Блокчейн-аналіз</span><span class="t-ru lang-hide">Блокчейн-анализ</span><span class="t-en lang-hide">Blockchain analysis</span></div>
-        <div class="scard-desc"><span class="t-uk">Повне відстеження транзакцій, ідентифікація бірж та звіт для правоохоронних органів.</span><span class="t-ru lang-hide">Полное отслеживание транзакций, идентификация бирж и отчёт для правоохранительных органов.</span><span class="t-en lang-hide">Full transaction tracing, exchange identification, and law enforcement report.</span></div>
+        <div class="scard-title"><span class="t-uk lang-hide">Блокчейн-аналіз</span><span class="t-ru">Блокчейн-анализ</span><span class="t-en lang-hide">Blockchain analysis</span></div>
+        <div class="scard-desc"><span class="t-uk lang-hide">Повне відстеження транзакцій, ідентифікація бірж та звіт для правоохоронних органів.</span><span class="t-ru">Полное отслеживание транзакций, идентификация бирж и отчёт для правоохранительных органов.</span><span class="t-en lang-hide">Full transaction tracing, exchange identification, and law enforcement report.</span></div>
         <ul class="scard-features">
-          <li>On-chain <span class="t-uk">трасування</span><span class="t-ru lang-hide">трассировка</span><span class="t-en lang-hide">tracing</span></li>
-          <li><span class="t-uk">Ідентифікація бірж</span><span class="t-ru lang-hide">Идентификация бирж</span><span class="t-en lang-hide">Exchange identification</span></li>
-          <li><span class="t-uk">Офіційний звіт PDF</span><span class="t-ru lang-hide">Официальный отчёт PDF</span><span class="t-en lang-hide">Official PDF report</span></li>
+          <li>On-chain <span class="t-uk lang-hide">трасування</span><span class="t-ru">трассировка</span><span class="t-en lang-hide">tracing</span></li>
+          <li><span class="t-uk lang-hide">Ідентифікація бірж</span><span class="t-ru">Идентификация бирж</span><span class="t-en lang-hide">Exchange identification</span></li>
+          <li><span class="t-uk lang-hide">Офіційний звіт PDF</span><span class="t-ru">Официальный отчёт PDF</span><span class="t-en lang-hide">Official PDF report</span></li>
           <li>AML-score · KYC-data</li>
         </ul>
       </div>
       <div class="scard">
         <div class="scard-price">$300 – $500</div>
-        <div class="scard-title"><span class="t-uk">Пакет документів</span><span class="t-ru lang-hide">Пакет документов</span><span class="t-en lang-hide">Documentation pack</span></div>
-        <div class="scard-desc"><span class="t-uk">Підготовка всіх документів для звернення до біржі, поліції та регулятора.</span><span class="t-ru lang-hide">Подготовка всех документов для биржи, полиции и регулятора.</span><span class="t-en lang-hide">All documents for exchange, police, and regulator requests.</span></div>
+        <div class="scard-title"><span class="t-uk lang-hide">Пакет документів</span><span class="t-ru">Пакет документов</span><span class="t-en lang-hide">Documentation pack</span></div>
+        <div class="scard-desc"><span class="t-uk lang-hide">Підготовка всіх документів для звернення до біржі, поліції та регулятора.</span><span class="t-ru">Подготовка всех документов для биржи, полиции и регулятора.</span><span class="t-en lang-hide">All documents for exchange, police, and regulator requests.</span></div>
         <ul class="scard-features">
-          <li><span class="t-uk">Запит до біржі (англ.)</span><span class="t-ru lang-hide">Запрос на биржу (EN)</span><span class="t-en lang-hide">Exchange request (EN)</span></li>
-          <li><span class="t-uk">Заява до поліції</span><span class="t-ru lang-hide">Заявление в полицию</span><span class="t-en lang-hide">Police complaint</span></li>
+          <li><span class="t-uk lang-hide">Запит до біржі (англ.)</span><span class="t-ru">Запрос на биржу (EN)</span><span class="t-en lang-hide">Exchange request (EN)</span></li>
+          <li><span class="t-uk lang-hide">Заява до поліції</span><span class="t-ru">Заявление в полицию</span><span class="t-en lang-hide">Police complaint</span></li>
           <li>IC3 / Europol / ACCC</li>
-          <li><span class="t-uk">Докази у форматі суду</span><span class="t-ru lang-hide">Доказательства для суда</span><span class="t-en lang-hide">Court-formatted evidence</span></li>
+          <li><span class="t-uk lang-hide">Докази у форматі суду</span><span class="t-ru">Доказательства для суда</span><span class="t-en lang-hide">Court-formatted evidence</span></li>
         </ul>
       </div>
       <div class="scard">
         <div class="scard-price">$500 – $1500 + %</div>
-        <div class="scard-title"><span class="t-uk">Повний супровід</span><span class="t-ru lang-hide">Полное сопровождение</span><span class="t-en lang-hide">Full case support</span></div>
-        <div class="scard-desc"><span class="t-uk">Ведемо справу до результату: від аналізу до заморожування або повернення коштів.</span><span class="t-ru lang-hide">Ведём дело до результата: от анализа до заморозки или возврата средств.</span><span class="t-en lang-hide">We manage the case from analysis to freeze or fund return.</span></div>
+        <div class="scard-title"><span class="t-uk lang-hide">Повний супровід</span><span class="t-ru">Полное сопровождение</span><span class="t-en lang-hide">Full case support</span></div>
+        <div class="scard-desc"><span class="t-uk lang-hide">Ведемо справу до результату: від аналізу до заморожування або повернення коштів.</span><span class="t-ru">Ведём дело до результата: от анализа до заморозки или возврата средств.</span><span class="t-en lang-hide">We manage the case from analysis to freeze or fund return.</span></div>
         <ul class="scard-features">
-          <li><span class="t-uk">Всі попередні послуги</span><span class="t-ru lang-hide">Все предыдущие услуги</span><span class="t-en lang-hide">All previous services</span></li>
-          <li><span class="t-uk">Партнерський юрист</span><span class="t-ru lang-hide">Партнёрский юрист</span><span class="t-en lang-hide">Partner lawyer</span></li>
-          <li><span class="t-uk">Переговори з біржами</span><span class="t-ru lang-hide">Переговоры с биржами</span><span class="t-en lang-hide">Exchange negotiations</span></li>
-          <li><span class="t-uk">Щотижневий звіт</span><span class="t-ru lang-hide">Еженедельный отчёт</span><span class="t-en lang-hide">Weekly status report</span></li>
+          <li><span class="t-uk lang-hide">Всі попередні послуги</span><span class="t-ru">Все предыдущие услуги</span><span class="t-en lang-hide">All previous services</span></li>
+          <li><span class="t-uk lang-hide">Партнерський юрист</span><span class="t-ru">Партнёрский юрист</span><span class="t-en lang-hide">Partner lawyer</span></li>
+          <li><span class="t-uk lang-hide">Переговори з біржами</span><span class="t-ru">Переговоры с биржами</span><span class="t-en lang-hide">Exchange negotiations</span></li>
+          <li><span class="t-uk lang-hide">Щотижневий звіт</span><span class="t-ru">Еженедельный отчёт</span><span class="t-en lang-hide">Weekly status report</span></li>
         </ul>
       </div>
     </div>
@@ -521,9 +557,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
   <div class="section-inner">
     <div class="analysis-grid">
       <div>
-        <div class="section-tag"><span class="t-uk">Технологія</span><span class="t-ru lang-hide">Технология</span><span class="t-en lang-hide">Technology</span></div>
-        <h2><span class="t-uk">Слідуємо за <em>кожним</em> сатоші</span><span class="t-ru lang-hide">Следуем за <em>каждым</em> сатоши</span><span class="t-en lang-hide">We follow <em>every</em> satoshi</span></h2>
-        <p class="section-desc"><span class="t-uk">Блокчейн незмінний — кожна транзакція залишає слід назавжди. Ми використовуємо професійні інструменти щоб ідентифікувати де зараз знаходяться ваші кошти.</span><span class="t-ru lang-hide">Блокчейн неизменен — каждая транзакция оставляет след навсегда. Мы идентифицируем, где сейчас находятся ваши средства.</span><span class="t-en lang-hide">The blockchain is immutable — every transaction leaves a permanent trail. We identify exactly where your funds are right now.</span></p>
+        <div class="section-tag"><span class="t-uk lang-hide">Технологія</span><span class="t-ru">Технология</span><span class="t-en lang-hide">Technology</span></div>
+        <h2><span class="t-uk lang-hide">Слідуємо за <em>кожним</em> сатоші</span><span class="t-ru">Следуем за <em>каждым</em> сатоши</span><span class="t-en lang-hide">We follow <em>every</em> satoshi</span></h2>
+        <p class="section-desc"><span class="t-uk lang-hide">Блокчейн незмінний — кожна транзакція залишає слід назавжди. Ми використовуємо професійні інструменти щоб ідентифікувати де зараз знаходяться ваші кошти.</span><span class="t-ru">Блокчейн неизменен — каждая транзакция оставляет след навсегда. Мы идентифицируем, где сейчас находятся ваши средства.</span><span class="t-en lang-hide">The blockchain is immutable — every transaction leaves a permanent trail. We identify exactly where your funds are right now.</span></p>
         <div class="tools-row">
           <div class="tool-chip">Breadcrumbs.app</div><div class="tool-chip">Bubblemaps</div><div class="tool-chip">AMLBot</div><div class="tool-chip">Etherscan</div><div class="tool-chip">Crystal Blockchain</div><div class="tool-chip">Maltego</div>
         </div>
@@ -550,15 +586,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- SCAM TYPES -->
 <section>
   <div class="section-inner">
-    <div class="section-tag"><span class="t-uk">З чим ми працюємо</span><span class="t-ru lang-hide">С чем мы работаем</span><span class="t-en lang-hide">What we handle</span></div>
-    <h2><span class="t-uk">Типи <em>шахрайства</em></span><span class="t-ru lang-hide">Типы <em>мошенничества</em></span><span class="t-en lang-hide">Types of <em>fraud</em></span></h2>
+    <div class="section-tag"><span class="t-uk lang-hide">З чим ми працюємо</span><span class="t-ru">С чем мы работаем</span><span class="t-en lang-hide">What we handle</span></div>
+    <h2><span class="t-uk lang-hide">Типи <em>шахрайства</em></span><span class="t-ru">Типы <em>мошенничества</em></span><span class="t-en lang-hide">Types of <em>fraud</em></span></h2>
     <div class="scam-grid fade-up">
-      <div class="scam-card"><div class="scam-icon">📈</div><div class="scam-title"><span class="t-uk">Фейковий брокер</span><span class="t-ru lang-hide">Фейковый брокер</span><span class="t-en lang-hide">Fake broker</span></div><div class="scam-sub"><span class="t-uk">Платформа-імітатор</span><span class="t-ru lang-hide">Платформа-имитатор</span><span class="t-en lang-hide">Platform imitator</span></div></div>
-      <div class="scam-card"><div class="scam-icon">💕</div><div class="scam-title">Romance scam</div><div class="scam-sub"><span class="t-uk">Через довіру та стосунки</span><span class="t-ru lang-hide">Через доверие и отношения</span><span class="t-en lang-hide">Trust-based fraud</span></div></div>
-      <div class="scam-card"><div class="scam-icon">🐷</div><div class="scam-title">Pig Butchering</div><div class="scam-sub"><span class="t-uk">Довгострокова схема</span><span class="t-ru lang-hide">Долгосрочная схема</span><span class="t-en lang-hide">Long-term scheme</span></div></div>
-      <div class="scam-card"><div class="scam-icon">🎁</div><div class="scam-title">NFT / Token scam</div><div class="scam-sub"><span class="t-uk">Rug pull, фейкові проекти</span><span class="t-ru lang-hide">Rug pull, фейковые проекты</span><span class="t-en lang-hide">Rug pull, fake projects</span></div></div>
-      <div class="scam-card"><div class="scam-icon">🔑</div><div class="scam-title">Wallet drain</div><div class="scam-sub"><span class="t-uk">Фішинг, seed-фраза</span><span class="t-ru lang-hide">Фишинг, seed-фраза</span><span class="t-en lang-hide">Phishing, seed phrase</span></div></div>
-      <div class="scam-card"><div class="scam-icon">🏢</div><div class="scam-title"><span class="t-uk">Корпоративне</span><span class="t-ru lang-hide">Корпоративное</span><span class="t-en lang-hide">Corporate fraud</span></div><div class="scam-sub">B2B · $50k+</div></div>
+      <div class="scam-card"><div class="scam-icon">📈</div><div class="scam-title"><span class="t-uk lang-hide">Фейковий брокер</span><span class="t-ru">Фейковый брокер</span><span class="t-en lang-hide">Fake broker</span></div><div class="scam-sub"><span class="t-uk lang-hide">Платформа-імітатор</span><span class="t-ru">Платформа-имитатор</span><span class="t-en lang-hide">Platform imitator</span></div></div>
+      <div class="scam-card"><div class="scam-icon">💕</div><div class="scam-title">Romance scam</div><div class="scam-sub"><span class="t-uk lang-hide">Через довіру та стосунки</span><span class="t-ru">Через доверие и отношения</span><span class="t-en lang-hide">Trust-based fraud</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🐷</div><div class="scam-title">Pig Butchering</div><div class="scam-sub"><span class="t-uk lang-hide">Довгострокова схема</span><span class="t-ru">Долгосрочная схема</span><span class="t-en lang-hide">Long-term scheme</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🎁</div><div class="scam-title">NFT / Token scam</div><div class="scam-sub"><span class="t-uk lang-hide">Rug pull, фейкові проекти</span><span class="t-ru">Rug pull, фейковые проекты</span><span class="t-en lang-hide">Rug pull, fake projects</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🔑</div><div class="scam-title">Wallet drain</div><div class="scam-sub"><span class="t-uk lang-hide">Фішинг, seed-фраза</span><span class="t-ru">Фишинг, seed-фраза</span><span class="t-en lang-hide">Phishing, seed phrase</span></div></div>
+      <div class="scam-card"><div class="scam-icon">🏢</div><div class="scam-title"><span class="t-uk lang-hide">Корпоративне</span><span class="t-ru">Корпоративное</span><span class="t-en lang-hide">Corporate fraud</span></div><div class="scam-sub">B2B · $50k+</div></div>
     </div>
   </div>
 </section>
@@ -566,12 +602,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- TESTIMONIALS -->
 <section style="background:var(--bg2);border-top:1px solid var(--border)">
   <div class="section-inner">
-    <div class="section-tag"><span class="t-uk">Клієнти</span><span class="t-ru lang-hide">Клиенты</span><span class="t-en lang-hide">Clients</span></div>
-    <h2><span class="t-uk">Реальні <em>кейси</em></span><span class="t-ru lang-hide">Реальные <em>кейсы</em></span><span class="t-en lang-hide">Real <em>cases</em></span></h2>
+    <div class="section-tag"><span class="t-uk lang-hide">Клієнти</span><span class="t-ru">Клиенты</span><span class="t-en lang-hide">Clients</span></div>
+    <h2><span class="t-uk lang-hide">Реальні <em>кейси</em></span><span class="t-ru">Реальные <em>кейсы</em></span><span class="t-en lang-hide">Real <em>cases</em></span></h2>
     <div class="tgrid fade-up">
-      <div class="tcard"><p class="ttext"><span class="t-uk">Втратив $28,000 на фейковому брокері. Через 3 місяці роботи команди вдалося заморозити $19,500 на Binance і розпочати судову процедуру повернення.</span><span class="t-ru lang-hide">Потерял $28,000 на фейковом брокере. За 3 месяца удалось заморозить $19,500 на Binance и начать судебную процедуру возврата.</span><span class="t-en lang-hide">Lost $28,000 to a fake broker. After 3 months, $19,500 was frozen on Binance and court recovery proceedings began.</span></p><div class="tauthor">Олексій М.</div><div class="tmeta"><span>Київ, Україна</span><span class="tamount">$19,500 frozen</span></div></div>
-      <div class="tcard"><p class="ttext"><span class="t-uk">Pig butchering схема. Вкладала гроші 8 місяців. CryptoJustice відстежила 47 транзакцій і ідентифікувала кінцеву біржу. Документи подані до Europol.</span><span class="t-ru lang-hide">Pig butchering схема. Вкладывала деньги 8 месяцев. Отслежено 47 транзакций, идентифицирована конечная биржа. Документы поданы в Europol.</span><span class="t-en lang-hide">Pig butchering scheme. Invested for 8 months. 47 transactions traced, final exchange identified. Documents submitted to Europol.</span></p><div class="tauthor">Наталія В.</div><div class="tmeta"><span>Варшава, Польща</span><span class="tamount">$43,200 traced</span></div></div>
-      <div class="tcard"><p class="ttext"><span class="t-uk">Романтичне шахрайство. Завдяки аналізу вдалося встановити особу шахрая через KYC-дані біржі та подати заяву до поліції.</span><span class="t-ru lang-hide">Романтическое мошенничество. Удалось установить личность мошенника через KYC-данные биржи и подать заявление в полицию.</span><span class="t-en lang-hide">Romance scam. The scammer was identified via exchange KYC data and a police report was filed.</span></p><div class="tauthor">Dmytro K.</div><div class="tmeta"><span>Берлін, Німеччина</span><span class="tamount">Identity confirmed</span></div></div>
+      <div class="tcard"><p class="ttext"><span class="t-uk lang-hide">Втратив $28,000 на фейковому брокері. Через 3 місяці роботи команди вдалося заморозити $19,500 на Binance і розпочати судову процедуру повернення.</span><span class="t-ru">Потерял $28,000 на фейковом брокере. За 3 месяца удалось заморозить $19,500 на Binance и начать судебную процедуру возврата.</span><span class="t-en lang-hide">Lost $28,000 to a fake broker. After 3 months, $19,500 was frozen on Binance and court recovery proceedings began.</span></p><div class="tauthor">Олексій М.</div><div class="tmeta"><span>Київ, Україна</span><span class="tamount">$19,500 frozen</span></div></div>
+      <div class="tcard"><p class="ttext"><span class="t-uk lang-hide">Pig butchering схема. Вкладала гроші 8 місяців. CryptoJustice відстежила 47 транзакцій і ідентифікувала кінцеву біржу. Документи подані до Europol.</span><span class="t-ru">Pig butchering схема. Вкладывала деньги 8 месяцев. Отслежено 47 транзакций, идентифицирована конечная биржа. Документы поданы в Europol.</span><span class="t-en lang-hide">Pig butchering scheme. Invested for 8 months. 47 transactions traced, final exchange identified. Documents submitted to Europol.</span></p><div class="tauthor">Наталія В.</div><div class="tmeta"><span>Варшава, Польща</span><span class="tamount">$43,200 traced</span></div></div>
+      <div class="tcard"><p class="ttext"><span class="t-uk lang-hide">Романтичне шахрайство. Завдяки аналізу вдалося встановити особу шахрая через KYC-дані біржі та подати заяву до поліції.</span><span class="t-ru">Романтическое мошенничество. Удалось установить личность мошенника через KYC-данные биржи и подать заявление в полицию.</span><span class="t-en lang-hide">Romance scam. The scammer was identified via exchange KYC data and a police report was filed.</span></p><div class="tauthor">Dmytro K.</div><div class="tmeta"><span>Берлін, Німеччина</span><span class="tamount">Identity confirmed</span></div></div>
     </div>
   </div>
 </section>
@@ -579,21 +615,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <!-- BROKER CHECKER -->
 <section id="checker" class="checker-section">
   <div class="section-inner">
-    <div class="section-tag"><span class="t-uk">Безкоштовний інструмент</span><span class="t-ru lang-hide">Бесплатный инструмент</span><span class="t-en lang-hide">Free tool</span></div>
-    <h2><span class="t-uk">Перевірте <em>брокера</em></span><span class="t-ru lang-hide">Проверьте <em>брокера</em></span><span class="t-en lang-hide">Check a <em>broker</em></span></h2>
-    <p class="section-desc"><span class="t-uk">Введіть назву брокера або платформи — перевіримо в базах попереджень FCA, ESMA, CySEC та ASIC.</span><span class="t-ru lang-hide">Введите название брокера или платформы — проверим по базам предупреждений FCA, ESMA, CySEC и ASIC.</span><span class="t-en lang-hide">Enter a broker or platform name — we'll check against FCA, ESMA, CySEC, and ASIC warning databases.</span></p>
+    <div class="section-tag"><span class="t-uk lang-hide">Безкоштовний інструмент</span><span class="t-ru">Бесплатный инструмент</span><span class="t-en lang-hide">Free tool</span></div>
+    <h2><span class="t-uk lang-hide">Перевірте <em>брокера</em></span><span class="t-ru">Проверьте <em>брокера</em></span><span class="t-en lang-hide">Check a <em>broker</em></span></h2>
+    <p class="section-desc"><span class="t-uk lang-hide">Введіть назву брокера або платформи — перевіримо в базах попереджень FCA, ESMA, CySEC та ASIC.</span><span class="t-ru">Введите название брокера или платформы — проверим по базам предупреждений FCA, ESMA, CySEC и ASIC.</span><span class="t-en lang-hide">Enter a broker or platform name — we'll check against FCA, ESMA, CySEC, and ASIC warning databases.</span></p>
     <div class="checker-wrap fade-up">
       <div class="checker-input-row">
         <input class="checker-input" id="broker-input" type="text" placeholder="e.g. TradeCapital Pro, BitMaxGlobal, SafeInvest..." onkeydown="if(event.key==='Enter')checkBroker()">
         <button class="checker-btn" onclick="checkBroker()">
-          <span class="t-uk">Перевірити →</span><span class="t-ru lang-hide">Проверить →</span><span class="t-en lang-hide">Check →</span>
+          <span class="t-uk lang-hide">Перевірити →</span><span class="t-ru">Проверить →</span><span class="t-en lang-hide">Check →</span>
         </button>
       </div>
-      <div class="checker-loading" id="checker-loading"><div class="spinner"></div><span class="t-uk">Шукаємо в базах попереджень...</span><span class="t-ru lang-hide">Ищем в базах предупреждений...</span><span class="t-en lang-hide">Searching warning databases...</span></div>
+      <div class="checker-loading" id="checker-loading"><div class="spinner"></div><span class="t-uk lang-hide">Шукаємо в базах попереджень...</span><span class="t-ru">Ищем в базах предупреждений...</span><span class="t-en lang-hide">Searching warning databases...</span></div>
       <div class="checker-result" id="checker-result"></div>
       <div class="checker-disclaimer">
-        <span class="t-uk">Дані з публічних реєстрів: FCA (Великобританія), ESMA (ЄС), CySEC (Кіпр), ASIC (Австралія), FSMA (Бельгія). Відсутність у базі ≠ легітимність.</span>
-        <span class="t-ru lang-hide">Данные из публичных реестров: FCA (Великобритания), ESMA (ЕС), CySEC (Кипр), ASIC (Австралия), FSMA (Бельгия). Отсутствие в базе ≠ легитимность.</span>
+        <span class="t-uk lang-hide">Дані з публічних реєстрів: FCA (Великобританія), ESMA (ЄС), CySEC (Кіпр), ASIC (Австралія), FSMA (Бельгія). Відсутність у базі ≠ легітимність.</span>
+        <span class="t-ru">Данные из публичных реестров: FCA (Великобритания), ESMA (ЕС), CySEC (Кипр), ASIC (Австралия), FSMA (Бельгия). Отсутствие в базе ≠ легитимность.</span>
         <span class="t-en lang-hide">Data from public registers: FCA (UK), ESMA (EU), CySEC (Cyprus), ASIC (Australia), FSMA (Belgium). Not in database ≠ legitimate.</span>
       </div>
     </div>
@@ -604,13 +640,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 <section id="faq">
   <div class="section-inner">
     <div class="section-tag">FAQ</div>
-    <h2><span class="t-uk">Часті <em>запитання</em></span><span class="t-ru lang-hide">Частые <em>вопросы</em></span><span class="t-en lang-hide">Frequent <em>questions</em></span></h2>
+    <h2><span class="t-uk lang-hide">Часті <em>запитання</em></span><span class="t-ru">Частые <em>вопросы</em></span><span class="t-en lang-hide">Frequent <em>questions</em></span></h2>
     <div class="faq">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk">Чи гарантуєте ви повернення коштів?</span><span class="t-ru lang-hide">Гарантируете ли вы возврат средств?</span><span class="t-en lang-hide">Do you guarantee fund recovery?</span></div><div class="faq-a"><p><span class="t-uk">Ні — жодна чесна компанія не може цього гарантувати. Ми гарантуємо якісну роботу та чесну оцінку шансів. Якщо шанси низькі — скажемо про це на безкоштовній консультації.</span><span class="t-ru lang-hide">Нет — ни одна честная компания не может этого гарантировать. Мы гарантируем качественную работу и честную оценку шансов.</span><span class="t-en lang-hide">No — no honest company can guarantee that. We guarantee quality work and an honest assessment of chances.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk">Скільки часу займає процес?</span><span class="t-ru lang-hide">Сколько времени занимает процесс?</span><span class="t-en lang-hide">How long does the process take?</span></div><div class="faq-a"><p><span class="t-uk">Блокчейн-аналіз: 3–7 днів. Підготовка документів: 1–2 тижні. Відповідь від біржі: 2–8 тижнів. Судовий процес: 3–12 місяців.</span><span class="t-ru lang-hide">Блокчейн-анализ: 3–7 дней. Подготовка документов: 1–2 недели. Ответ от биржи: 2–8 недель. Судебный процесс: 3–12 месяцев.</span><span class="t-en lang-hide">Blockchain analysis: 3–7 days. Documents: 1–2 weeks. Exchange response: 2–8 weeks. Court: 3–12 months.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk">Яка мінімальна сума для роботи?</span><span class="t-ru lang-hide">Какая минимальная сумма для работы?</span><span class="t-en lang-hide">What is the minimum case amount?</span></div><div class="faq-a"><p><span class="t-uk">Ми беремо справи від $3,000. При менших сумах вартість аналізу може не окупитися — чесно скажемо про це на консультації.</span><span class="t-ru lang-hide">Мы берём дела от $3,000. При меньших суммах стоимость анализа может не окупиться — честно скажем об этом на консультации.</span><span class="t-en lang-hide">We take cases from $3,000. For smaller amounts the analysis cost may not be worthwhile — we'll be honest about this.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk">Чи потрібне юридичне оформлення?</span><span class="t-ru lang-hide">Нужно ли юридическое оформление?</span><span class="t-en lang-hide">Do I need legal formalities?</span></div><div class="faq-a"><p><span class="t-uk">Для запиту до біржі — ні. Для суду — підключаємо юриста-партнера у вашій юрисдикції. Ми надаємо технічну базу, юрист веде судову частину.</span><span class="t-ru lang-hide">Для запроса в биржу — нет. Для суда — подключаем партнёрского юриста. Мы обеспечиваем техническую базу.</span><span class="t-en lang-hide">For exchange requests — no. For court — we bring in a partner lawyer in your jurisdiction.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk">Чи працюєте ви дистанційно?</span><span class="t-ru lang-hide">Работаете ли вы дистанционно?</span><span class="t-en lang-hide">Do you work remotely?</span></div><div class="faq-a"><p><span class="t-uk">Так, повністю дистанційно. Клієнти з України, Європи та США. Консультація через Telegram, Zoom або email.</span><span class="t-ru lang-hide">Да, полностью дистанционно. Клиенты из Украины, Европы и США. Консультация через Telegram, Zoom или email.</span><span class="t-en lang-hide">Yes, fully remote. Clients from Ukraine, Europe, and the US. Via Telegram, Zoom, or email.</span></p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk lang-hide">Чи гарантуєте ви повернення коштів?</span><span class="t-ru">Гарантируете ли вы возврат средств?</span><span class="t-en lang-hide">Do you guarantee fund recovery?</span></div><div class="faq-a"><p><span class="t-uk lang-hide">Ні — жодна чесна компанія не може цього гарантувати. Ми гарантуємо якісну роботу та чесну оцінку шансів. Якщо шанси низькі — скажемо про це на безкоштовній консультації.</span><span class="t-ru">Нет — ни одна честная компания не может этого гарантировать. Мы гарантируем качественную работу и честную оценку шансов.</span><span class="t-en lang-hide">No — no honest company can guarantee that. We guarantee quality work and an honest assessment of chances.</span></p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk lang-hide">Скільки часу займає процес?</span><span class="t-ru">Сколько времени занимает процесс?</span><span class="t-en lang-hide">How long does the process take?</span></div><div class="faq-a"><p><span class="t-uk lang-hide">Блокчейн-аналіз: 3–7 днів. Підготовка документів: 1–2 тижні. Відповідь від біржі: 2–8 тижнів. Судовий процес: 3–12 місяців.</span><span class="t-ru">Блокчейн-анализ: 3–7 дней. Подготовка документов: 1–2 недели. Ответ от биржи: 2–8 недель. Судебный процесс: 3–12 месяцев.</span><span class="t-en lang-hide">Blockchain analysis: 3–7 days. Documents: 1–2 weeks. Exchange response: 2–8 weeks. Court: 3–12 months.</span></p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk lang-hide">Яка мінімальна сума для роботи?</span><span class="t-ru">Какая минимальная сумма для работы?</span><span class="t-en lang-hide">What is the minimum case amount?</span></div><div class="faq-a"><p><span class="t-uk lang-hide">Ми беремо справи від $3,000. При менших сумах вартість аналізу може не окупитися — чесно скажемо про це на консультації.</span><span class="t-ru">Мы берём дела от $3,000. При меньших суммах стоимость анализа может не окупиться — честно скажем об этом на консультации.</span><span class="t-en lang-hide">We take cases from $3,000. For smaller amounts the analysis cost may not be worthwhile — we'll be honest about this.</span></p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk lang-hide">Чи потрібне юридичне оформлення?</span><span class="t-ru">Нужно ли юридическое оформление?</span><span class="t-en lang-hide">Do I need legal formalities?</span></div><div class="faq-a"><p><span class="t-uk lang-hide">Для запиту до біржі — ні. Для суду — підключаємо юриста-партнера у вашій юрисдикції. Ми надаємо технічну базу, юрист веде судову частину.</span><span class="t-ru">Для запроса в биржу — нет. Для суда — подключаем партнёрского юриста. Мы обеспечиваем техническую базу.</span><span class="t-en lang-hide">For exchange requests — no. For court — we bring in a partner lawyer in your jurisdiction.</span></p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-uk lang-hide">Чи працюєте ви дистанційно?</span><span class="t-ru">Работаете ли вы дистанционно?</span><span class="t-en lang-hide">Do you work remotely?</span></div><div class="faq-a"><p><span class="t-uk lang-hide">Так, повністю дистанційно. Клієнти з України, Європи та США. Консультація через Telegram, Zoom або email.</span><span class="t-ru">Да, полностью дистанционно. Клиенты из Украины, Европы и США. Консультация через Telegram, Zoom или email.</span><span class="t-en lang-hide">Yes, fully remote. Clients from Ukraine, Europe, and the US. Via Telegram, Zoom, or email.</span></p></div></div>
     </div>
   </div>
 </section>
@@ -620,46 +656,50 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
   <div class="section-inner">
     <div class="contact-grid">
       <div>
-        <div class="section-tag"><span class="t-uk">Зв'яжіться</span><span class="t-ru lang-hide">Свяжитесь</span><span class="t-en lang-hide">Contact</span></div>
-        <h2><span class="t-uk"><em>Безкоштовна</em> консультація</span><span class="t-ru lang-hide"><em>Бесплатная</em> консультация</span><span class="t-en lang-hide"><em>Free</em> consultation</span></h2>
-        <p class="section-desc"><span class="t-uk">Опишіть ситуацію — відповімо протягом 24 годин та оцінимо шанси безкоштовно.</span><span class="t-ru lang-hide">Опишите ситуацию — ответим в течение 24 часов и оценим шансы бесплатно.</span><span class="t-en lang-hide">Describe your situation — we'll respond within 24 hours and assess chances for free.</span></p>
+        <div class="section-tag"><span class="t-ru">Расскажите о ситуации</span><span class="t-uk lang-hide">Розкажіть про ситуацію</span><span class="t-en lang-hide">Tell us what happened</span></div>
+        <h2><span class="t-ru">Оценим ваш <em>кейс</em></span><span class="t-uk lang-hide">Оцінимо ваш <em>кейс</em></span><span class="t-en lang-hide">We'll assess your <em>case</em></span></h2>
+        <p class="section-desc"><span class="t-ru">Опишите ситуацию — ответим в течение 24 часов с честной оценкой: что можно сделать, какие шансы, сколько это стоит.</span><span class="t-uk lang-hide">Опишіть ситуацію — відповімо протягом 24 годин з чесною оцінкою шансів.</span><span class="t-en lang-hide">Describe the situation — we'll respond within 24 hours with an honest assessment of what can be done.</span></p>
         <div class="contact-info">
           <div class="cpoint"><div class="cpoint-icon">✉</div><div><div class="cpoint-label">Email</div><div class="cpoint-val"><a href="mailto:info@cryptojustice.com" style="color:var(--text);text-decoration:none">info@cryptojustice.com</a></div></div></div>
           <div class="cpoint"><div class="cpoint-icon">✈</div><div><div class="cpoint-label">Telegram</div><div class="cpoint-val"><a href="https://t.me/cryptojustice_help_bot" target="_blank" style="color:var(--text);text-decoration:none">@cryptojustice_help_bot</a></div></div></div>
-          <div class="cpoint"><div class="cpoint-icon">🕐</div><div><div class="cpoint-label"><span class="t-uk">Відповідь</span><span class="t-ru lang-hide">Ответ</span><span class="t-en lang-hide">Response</span></div><div class="cpoint-val"><span class="t-uk">Протягом 24 годин</span><span class="t-ru lang-hide">В течение 24 часов</span><span class="t-en lang-hide">Within 24 hours</span></div></div></div>
+          <div class="cpoint"><div class="cpoint-icon">🕐</div><div><div class="cpoint-label"><span class="t-uk lang-hide">Відповідь</span><span class="t-ru">Ответ</span><span class="t-en lang-hide">Response</span></div><div class="cpoint-val"><span class="t-uk lang-hide">Протягом 24 годин</span><span class="t-ru">В течение 24 часов</span><span class="t-en lang-hide">Within 24 hours</span></div></div></div>
         </div>
         <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="tg-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="#29b6f6"/></svg>
-          <span class="t-uk">Написати в Telegram →</span>
-          <span class="t-ru lang-hide">Написать в Telegram →</span>
+          <span class="t-uk lang-hide">Написати в Telegram →</span>
+          <span class="t-ru">Написать в Telegram →</span>
           <span class="t-en lang-hide">Write on Telegram →</span>
         </a>
       </div>
       <div>
         <div class="tg-or">
-          <span class="t-uk">або заповніть форму</span>
-          <span class="t-ru lang-hide">или заполните форму</span>
+          <span class="t-uk lang-hide">або заповніть форму</span>
+          <span class="t-ru">или заполните форму</span>
           <span class="t-en lang-hide">or fill the form</span>
         </div>
         <div class="form-wrap" id="contact-form">
           <div class="form-row">
-            <div class="form-field"><label><span class="t-uk">Ім'я</span><span class="t-ru lang-hide">Имя</span><span class="t-en lang-hide">Name</span></label><input type="text" placeholder="John Doe"></div>
+            <div class="form-field"><label><span class="t-uk lang-hide">Ім'я</span><span class="t-ru">Имя</span><span class="t-en lang-hide">Name</span></label><input type="text" placeholder="John Doe"></div>
             <div class="form-field"><label>Email / Telegram</label><input type="text" placeholder="@username or email"></div>
           </div>
           <div class="form-field">
-            <label><span class="t-uk">Тип шахрайства</span><span class="t-ru lang-hide">Тип мошенничества</span><span class="t-en lang-hide">Fraud type</span></label>
+            <label><span class="t-uk lang-hide">Тип шахрайства</span><span class="t-ru">Тип мошенничества</span><span class="t-en lang-hide">Fraud type</span></label>
             <select><option value="" disabled selected>—</option><option>Fake broker / Investment platform</option><option>Romance scam / Pig butchering</option><option>NFT / Token scam / Rug pull</option><option>Wallet drain / Phishing</option><option>Other</option></select>
           </div>
-          <div class="form-field"><label><span class="t-uk">Сума втрат (USD)</span><span class="t-ru lang-hide">Сумма потерь (USD)</span><span class="t-en lang-hide">Amount lost (USD)</span></label><input type="text" placeholder="e.g. $15,000"></div>
-          <div class="form-field"><label><span class="t-uk">Опишіть ситуацію</span><span class="t-ru lang-hide">Опишите ситуацию</span><span class="t-en lang-hide">Describe the situation</span></label><textarea placeholder="..."></textarea></div>
+          <div class="form-field"><label><span class="t-uk lang-hide">Сума втрат (USD)</span><span class="t-ru">Сумма потерь (USD)</span><span class="t-en lang-hide">Amount lost (USD)</span></label><input type="text" placeholder="e.g. $15,000"></div>
+          <div class="form-field"><label><span class="t-uk lang-hide">Опишіть ситуацію</span><span class="t-ru">Опишите ситуацию</span><span class="t-en lang-hide">Describe the situation</span></label><textarea placeholder="..."></textarea></div>
           <div class="form-submit">
             <button class="btn-form" onclick="submitForm()">
-              <span class="btn-form-text"><span class="t-uk">Надіслати запит →</span><span class="t-ru lang-hide">Отправить запрос →</span><span class="t-en lang-hide">Send request →</span></span>
+              <span class="btn-form-text">
+                <span class="t-ru">Отправить — получить оценку →</span>
+                <span class="t-uk lang-hide">Надіслати — отримати оцінку →</span>
+                <span class="t-en lang-hide">Submit — get assessment →</span>
+              </span>
             </button>
-            <div class="form-note"><span class="t-uk">🔒 Ваші дані захищені. Ми ніколи не ділимося інформацією з третіми особами.</span><span class="t-ru lang-hide">🔒 Ваши данные защищены. Мы никогда не передаём информацию третьим лицам.</span><span class="t-en lang-hide">🔒 Your data is protected. We never share with third parties.</span></div>
+            <div class="form-note"><span class="t-ru">🔒 Конфиденциально. Ответим в течение 24 часов с честной оценкой шансов.</span><span class="t-uk lang-hide">🔒 Конфіденційно. Відповімо протягом 24 годин.</span><span class="t-en lang-hide">🔒 Confidential. We'll respond within 24 hours with an honest assessment.</span></div>
           </div>
         </div>
-        <div class="form-success" id="form-success">✓ <span class="t-uk">Запит отримано. Відповімо протягом 24 годин.</span><span class="t-ru lang-hide">Запрос получен. Ответим в течение 24 часов.</span><span class="t-en lang-hide">Request received. We'll respond within 24 hours.</span></div>
+        <div class="form-success" id="form-success">✓ <span class="t-uk lang-hide">Запит отримано. Відповімо протягом 24 годин.</span><span class="t-ru">Запрос получен. Ответим в течение 24 часов.</span><span class="t-en lang-hide">Request received. We'll respond within 24 hours.</span></div>
       </div>
     </div>
   </div>
@@ -671,24 +711,24 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
     <div class="footer-top">
       <div>
         <div class="footer-logo">Crypto<span>Justice</span></div>
-        <p class="footer-desc"><span class="t-uk">Блокчейн-аналіз та юридичний супровід для жертв криптовалютних шахраїв. Україна · Європа · США.</span><span class="t-ru lang-hide">Блокчейн-анализ и юридическое сопровождение для жертв мошенников. Украина · Европа · США.</span><span class="t-en lang-hide">Blockchain analysis and legal support for crypto fraud victims. Ukraine · Europe · USA.</span></p>
+        <p class="footer-desc"><span class="t-uk lang-hide">Блокчейн-аналіз та юридичний супровід для жертв криптовалютних шахраїв. Україна · Європа · США.</span><span class="t-ru">Блокчейн-анализ и юридическое сопровождение для жертв мошенников. Украина · Европа · США.</span><span class="t-en lang-hide">Blockchain analysis and legal support for crypto fraud victims. Ukraine · Europe · USA.</span></p>
       </div>
       <div>
         <h4>Navigation</h4>
         <ul class="footer-links">
-          <li><a href="#how"><span class="t-uk">Як це працює</span><span class="t-ru lang-hide">Как это работает</span><span class="t-en lang-hide">How it works</span></a></li>
-          <li><a href="#services"><span class="t-uk">Послуги та ціни</span><span class="t-ru lang-hide">Услуги и цены</span><span class="t-en lang-hide">Services & pricing</span></a></li>
+          <li><a href="#how"><span class="t-uk lang-hide">Як це працює</span><span class="t-ru">Как это работает</span><span class="t-en lang-hide">How it works</span></a></li>
+          <li><a href="#services"><span class="t-uk lang-hide">Послуги та ціни</span><span class="t-ru">Услуги и цены</span><span class="t-en lang-hide">Services & pricing</span></a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#checker"><span class="t-uk">Перевірити брокера</span><span class="t-ru lang-hide">Проверить брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
-          <li><a href="#contact"><span class="t-uk">Контакт</span><span class="t-ru lang-hide">Контакт</span><span class="t-en lang-hide">Contact</span></a></li>
+          <li><a href="#checker"><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-ru">Проверить брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
+          <li><a href="#contact"><span class="t-uk lang-hide">Контакт</span><span class="t-ru">Контакт</span><span class="t-en lang-hide">Contact</span></a></li>
         </ul>
       </div>
       <div>
         <h4>Resources</h4>
         <ul class="footer-links">
-          <li><a href="/blog/"><span class="t-uk">Блог</span><span class="t-ru lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
-          <li><a href="/blog/kak-vernut-dengi-ot-brokera.html"><span class="t-uk">Як повернути гроші</span><span class="t-ru lang-hide">Как вернуть деньги</span><span class="t-en lang-hide">How to recover funds</span></a></li>
-          <li><a href="/checker.html"><span class="t-uk">Перевірити брокера</span><span class="t-ru lang-hide">Проверить брокера</span><span class="t-en lang-hide">Check a broker</span></a></li>
+          <li><a href="/blog/"><span class="t-uk lang-hide">Блог</span><span class="t-ru">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
+          <li><a href="/blog/kak-vernut-dengi-ot-brokera.html"><span class="t-uk lang-hide">Як повернути гроші</span><span class="t-ru">Как вернуть деньги</span><span class="t-en lang-hide">How to recover funds</span></a></li>
+          <li><a href="/checker.html"><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-ru">Проверить брокера</span><span class="t-en lang-hide">Check a broker</span></a></li>
           <li><a href="https://t.me/cryptojustice_help" target="_blank">Telegram @cryptojustice_help</a></li>
           <li><a href="https://ic3.gov" target="_blank">IC3.gov — FBI</a></li>
           <li><a href="https://www.europol.europa.eu" target="_blank">Europol</a></li>
@@ -697,13 +737,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 CryptoJustice · <a href="mailto:info@cryptojustice.com" style="color:var(--text3);text-decoration:none">info@cryptojustice.com</a></div>
-      <div class="footer-disclaimer"><span class="t-uk">Ми надаємо технічні та консультаційні послуги. Ми не є юридичною фірмою.</span><span class="t-ru lang-hide">Мы предоставляем технические и консультационные услуги. Мы не являемся юридической фирмой.</span><span class="t-en lang-hide">We provide technical and consulting services. We are not a law firm.</span></div>
+      <div class="footer-disclaimer"><span class="t-uk lang-hide">Ми надаємо технічні та консультаційні послуги. Ми не є юридичною фірмою.</span><span class="t-ru">Мы предоставляем технические и консультационные услуги. Мы не являемся юридической фирмой.</span><span class="t-en lang-hide">We provide technical and consulting services. We are not a law firm.</span></div>
     </div>
   </div>
 </footer>
 
 <script>
-var currentLang='uk';
+var currentLang='ru';
 var suggestedLang=null;
 
 /* ── LANGUAGE ── */
@@ -729,8 +769,7 @@ async function detectCountry(){
     var sub=document.getElementById('modal-sub');
     var accept=document.getElementById('modal-accept');
     if(c==='UA'&&currentLang!=='uk'){suggestedLang='uk';title.textContent='Переключити на українську?';sub.textContent='Ми визначили вашу локацію: Україна';accept.textContent='Переключити';modal.style.display='block';}
-    else if(['RU','BY','KZ'].includes(c)&&currentLang!=='ru'){suggestedLang='ru';title.textContent='Переключить на русский?';sub.textContent='Мы определили вашу локацию';accept.textContent='Переключить';modal.style.display='block';}
-    else if(!['UA','RU','BY','KZ'].includes(c)&&currentLang!=='en'){suggestedLang='en';title.textContent='Switch to English?';sub.textContent='We detected your location: '+(d.country_name||c);accept.textContent='Switch';modal.style.display='block';}
+    else if(!['UA','RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c)&&currentLang!=='en'){suggestedLang='en';title.textContent='Switch to English?';sub.textContent='We detected your location: '+(d.country_name||c);accept.textContent='Switch';modal.style.display='block';}
   }catch(e){}
 }
 
@@ -751,13 +790,34 @@ function toggleFaq(el){
 }
 
 /* ── MOBILE MENU ── */
+var menuOpen = false;
 function toggleMenu(){
-  var links=document.querySelector('.nav-links');
+  var links = document.querySelector('.nav-links');
+  var ham   = document.querySelector('.hamburger');
   if(!links) return;
-  var open=links.style.display==='flex';
-  links.style.display=open?'none':'flex';
-  if(!open){links.style.flexDirection='column';links.style.position='absolute';links.style.top='64px';links.style.left='0';links.style.right='0';links.style.background='rgba(8,12,16,0.98)';links.style.padding='1rem 2.5rem 1.5rem';links.style.borderBottom='1px solid rgba(255,255,255,0.07)';}
+  menuOpen = !menuOpen;
+  if(menuOpen){
+    links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:104px;left:0;right:0;background:rgba(8,12,16,0.99);padding:1.5rem 2rem 2rem;border-bottom:1px solid rgba(255,255,255,0.1);z-index:98;gap:0;';
+    links.querySelectorAll('li').forEach(function(li){
+      li.style.cssText = 'border-bottom:1px solid rgba(255,255,255,0.06);padding:0;';
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.style.cssText = 'display:block;padding:14px 0;font-size:15px;';
+    });
+    if(ham) ham.classList.add('open');
+  } else {
+    links.style.cssText = '';
+    links.querySelectorAll('li').forEach(function(li){ li.style.cssText=''; });
+    links.querySelectorAll('a').forEach(function(a){ a.style.cssText=''; });
+    if(ham) ham.classList.remove('open');
+  }
 }
+// Close menu when any nav link is clicked
+document.querySelectorAll('.nav-links a').forEach(function(a){
+  a.addEventListener('click', function(){
+    if(menuOpen) toggleMenu();
+  });
+});
 
 /* ── FORM SUBMIT ── */
 function submitForm(){
@@ -880,12 +940,12 @@ function checkBroker(){
         +'<span class="reg-badge reg-warn">'+found.reg+' Warning</span>'
         +'<span class="reg-badge reg-warn">Unauthorized</span>'
         +'</div>'
-        +'<div style="margin-top:.8rem;font-size:12px;opacity:.8"><span class="t-uk">Якщо ви вже вклали кошти — зверніться до нас негайно.</span><span class="t-ru lang-hide">Если вы уже вложили средства — обратитесь к нам немедленно.</span><span class="t-en lang-hide">If you already invested — contact us immediately.</span> <a href="#contact" style="color:var(--red);text-decoration:underline"><span class="t-uk">Безкоштовна консультація →</span><span class="t-ru lang-hide">Бесплатная консультация →</span><span class="t-en lang-hide">Free consultation →</span></a></div>';
+        +'<div style="margin-top:.8rem;font-size:12px;opacity:.8"><span class="t-uk lang-hide">Якщо ви вже вклали кошти — зверніться до нас негайно.</span><span class="t-ru">Если вы уже вложили средства — обратитесь к нам немедленно.</span><span class="t-en lang-hide">If you already invested — contact us immediately.</span> <a href="#contact" style="color:var(--red);text-decoration:underline"><span class="t-uk lang-hide">Безкоштовна консультація →</span><span class="t-ru">Бесплатная консультация →</span><span class="t-en lang-hide">Free consultation →</span></a></div>';
     } else if(found&&!found.warn){
       result.innerHTML='<div class="checker-result-title">✓ '+found.label+' — No Warnings Found</div>'
         +'<div style="margin-bottom:.6rem">'+found.detail+'</div>'
         +'<div class="checker-tags"><span class="reg-badge reg-ok">'+found.reg+'</span><span class="reg-badge reg-ok">Regulated</span></div>'
-        +'<div style="margin-top:.8rem;font-size:12px;opacity:.8"><span class="t-uk">Навіть легітимні біржі можуть бути використані шахраями. Якщо вас обманули — ми допоможемо.</span><span class="t-ru lang-hide">Даже легитимные биржи могут быть использованы мошенниками. Если вас обманули — мы поможем.</span><span class="t-en lang-hide">Even legitimate exchanges can be used by scammers. If you were defrauded — we can help.</span></div>';
+        +'<div style="margin-top:.8rem;font-size:12px;opacity:.8"><span class="t-uk lang-hide">Навіть легітимні біржі можуть бути використані шахраями. Якщо вас обманули — ми допоможемо.</span><span class="t-ru">Даже легитимные биржи могут быть использованы мошенниками. Если вас обманули — мы поможем.</span><span class="t-en lang-hide">Even legitimate exchanges can be used by scammers. If you were defrauded — we can help.</span></div>';
     } else {
       var msgs={
         uk:'Назву <strong>"'+val+'"</strong> не знайдено в наших базах. Це може означати що брокер занадто новий, використовує іншу назву, або відсутній у поточних реєстрах. Зверніться до нас для ручної перевірки — це безкоштовно.',
@@ -895,7 +955,7 @@ function checkBroker(){
       result.innerHTML='<div class="checker-result-title">⚠ "'+val+'" — Not in database</div>'
         +'<div>'+msgs[currentLang]+'</div>'
         +'<div class="checker-tags"><span class="reg-badge reg-none">Not verified</span><span class="reg-badge reg-none">Manual check needed</span></div>'
-        +'<div style="margin-top:.8rem"><a href="#contact" style="font-family:var(--font-mono);font-size:11px;color:var(--amber);text-decoration:underline;letter-spacing:.06em"><span class="t-uk">Запросити перевірку →</span><span class="t-ru lang-hide">Запросить проверку →</span><span class="t-en lang-hide">Request manual check →</span></a></div>';
+        +'<div style="margin-top:.8rem"><a href="#contact" style="font-family:var(--font-mono);font-size:11px;color:var(--amber);text-decoration:underline;letter-spacing:.06em"><span class="t-uk lang-hide">Запросити перевірку →</span><span class="t-ru">Запросить проверку →</span><span class="t-en lang-hide">Request manual check →</span></a></div>';
     }
     setLang(currentLang);
   },800+Math.random()*600);
