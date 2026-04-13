@@ -191,6 +191,12 @@ h2 em{font-style:normal;color:var(--accent)}
 .form-note{font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:.06em;margin-top:8px}
 .form-success{display:none;padding:1.5rem;background:rgba(0,214,143,.08);border:1px solid rgba(0,214,143,.2);font-family:var(--font-mono);font-size:13px;color:var(--green);letter-spacing:.04em}
 
+/* TELEGRAM BUTTON */
+.tg-btn{display:flex;align-items:center;gap:10px;padding:14px 24px;background:rgba(41,182,246,0.1);border:1px solid rgba(41,182,246,0.3);color:#29b6f6;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:.03em;text-decoration:none;margin-top:1.5rem;transition:all .2s;width:fit-content}
+.tg-btn:hover{background:rgba(41,182,246,0.2);border-color:#29b6f6;text-decoration:none;transform:translateY(-1px)}
+.tg-or{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:var(--text3);font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.tg-or::before,.tg-or::after{content:'';flex:1;height:1px;background:var(--border)}
+
 /* FOOTER */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5rem 2rem}
 .footer-inner{max-width:1100px;margin:0 auto;width:100%}
@@ -265,7 +271,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
 .urgency-bar strong{font-weight:700}
 .urgency-close{margin-left:auto;background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;line-height:1;padding:0 4px}
 
-/* PROGRESS STEPS in form */
+/* TELEGRAM BUTTON */
+.tg-btn{display:inline-flex;align-items:center;gap:10px;margin-top:1.5rem;padding:13px 24px;background:linear-gradient(135deg,#0088cc,#29b6f6);color:#fff;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:all .25s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.tg-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(41,182,246,0.35);text-decoration:none;color:#fff}
 .form-progress{display:flex;gap:0;margin-bottom:1.5rem}
 .fp-step{flex:1;padding:10px;text-align:center;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border);border-right:none;transition:all .2s}
 .fp-step:last-child{border-right:1px solid var(--border)}
@@ -381,6 +389,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">
         <span class="t-uk">Безкоштовна консультація</span><span class="t-ru lang-hide">Бесплатная консультация</span><span class="t-en lang-hide">Free Consultation</span>
+      </a>
+      <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="currentColor"/></svg>
+        Telegram
       </a>
       <a href="#how" class="btn-ghost">
         <span class="t-uk">Як це працює</span><span class="t-ru lang-hide">Как это работает</span><span class="t-en lang-hide">How it works</span> →
@@ -613,11 +625,22 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2.5r
         <p class="section-desc"><span class="t-uk">Опишіть ситуацію — відповімо протягом 24 годин та оцінимо шанси безкоштовно.</span><span class="t-ru lang-hide">Опишите ситуацию — ответим в течение 24 часов и оценим шансы бесплатно.</span><span class="t-en lang-hide">Describe your situation — we'll respond within 24 hours and assess chances for free.</span></p>
         <div class="contact-info">
           <div class="cpoint"><div class="cpoint-icon">✉</div><div><div class="cpoint-label">Email</div><div class="cpoint-val"><a href="mailto:info@cryptojustice.com" style="color:var(--text);text-decoration:none">info@cryptojustice.com</a></div></div></div>
-          <div class="cpoint"><div class="cpoint-icon">✈</div><div><div class="cpoint-label">Telegram</div><div class="cpoint-val">@cryptojustice_help</div></div></div>
+          <div class="cpoint"><div class="cpoint-icon">✈</div><div><div class="cpoint-label">Telegram</div><div class="cpoint-val"><a href="https://t.me/cryptojustice_help_bot" target="_blank" style="color:var(--text);text-decoration:none">@cryptojustice_help_bot</a></div></div></div>
           <div class="cpoint"><div class="cpoint-icon">🕐</div><div><div class="cpoint-label"><span class="t-uk">Відповідь</span><span class="t-ru lang-hide">Ответ</span><span class="t-en lang-hide">Response</span></div><div class="cpoint-val"><span class="t-uk">Протягом 24 годин</span><span class="t-ru lang-hide">В течение 24 часов</span><span class="t-en lang-hide">Within 24 hours</span></div></div></div>
         </div>
+        <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="tg-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="#29b6f6"/></svg>
+          <span class="t-uk">Написати в Telegram →</span>
+          <span class="t-ru lang-hide">Написать в Telegram →</span>
+          <span class="t-en lang-hide">Write on Telegram →</span>
+        </a>
       </div>
       <div>
+        <div class="tg-or">
+          <span class="t-uk">або заповніть форму</span>
+          <span class="t-ru lang-hide">или заполните форму</span>
+          <span class="t-en lang-hide">or fill the form</span>
+        </div>
         <div class="form-wrap" id="contact-form">
           <div class="form-row">
             <div class="form-field"><label><span class="t-uk">Ім'я</span><span class="t-ru lang-hide">Имя</span><span class="t-en lang-hide">Name</span></label><input type="text" placeholder="John Doe"></div>
@@ -738,6 +761,34 @@ function toggleMenu(){
 
 /* ── FORM SUBMIT ── */
 function submitForm(){
+  var fields = document.querySelectorAll('#contact-form input, #contact-form select, #contact-form textarea');
+  var name    = fields[0] ? fields[0].value.trim() : '—';
+  var contact = fields[1] ? fields[1].value.trim() : '—';
+  var scam    = fields[2] ? fields[2].value : '—';
+  var amount  = fields[3] ? fields[3].value.trim() : '—';
+  var desc    = fields[4] ? fields[4].value.trim() : '—';
+
+  if(!name || !contact || !desc){
+    var msg = currentLang==='uk' ? 'Будь ласка, заповніть ім\'я, контакт та опис' : currentLang==='en' ? 'Please fill in name, contact and description' : 'Пожалуйста, заполните имя, контакт и описание';
+    alert(msg); return;
+  }
+
+  // Send to Telegram bot
+  var BOT_TOKEN = 'REPLACE_WITH_BOT_TOKEN';
+  var ADMIN_ID  = 'REPLACE_WITH_ADMIN_ID';
+  var text = '🔔 ЗАЯВКА С САЙТА\n──────────────────\n'
+    + '👤 Имя: ' + name + '\n'
+    + '📞 Контакт: ' + contact + '\n'
+    + '🎯 Тип: ' + scam + '\n'
+    + '💰 Сумма: ' + amount + '\n'
+    + '──────────────────\n'
+    + '📝 Описание:\n' + desc;
+
+  fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id: ADMIN_ID, text: text})
+  }).catch(function(){});
+
   document.getElementById('contact-form').style.display='none';
   document.getElementById('form-success').style.display='block';
 }
