@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpolygon points='16,3 24,3 28,10 24,22 16,22 12,15 12,8' fill='none' stroke='%2300e5ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='13' r='1.4' fill='%23080c10'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Romance Scam: как вернуть деньги после мошенничества через знакомства | CryptoJustice</title>
 <meta name="description" content="Что делать если вас обманули через приложения для знакомств или соцсети. Как вернуть деньги после romance scam, реальные способы в 2026.">
@@ -21,9 +22,9 @@ nav{position:fixed;top:40px;z-index:99;display:flex;align-items:center;justify-c
 .nav-logo{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--accent)}
 .nav-links{display:flex;gap:1.2rem;list-style:none;flex-wrap:nowrap}
-.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a{font-size:12px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--accent)}
-.nav-cta{font-family:var(--font-display);font-size:12px;font-weight:700;padding:8px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
+.nav-cta{font-family:var(--font-display);font-size:11px;font-weight:700;padding:7px 13px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .nav-cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
 .article-wrap{max-width:780px;margin:0 auto;padding:8rem 2.5rem 6rem}
 .article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
@@ -114,9 +115,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
     <li><a href="/checker.html" class="t-ru">Проверить брокера</a><a href="/checker.html" class="t-uk lang-hide">Перевірити брокера</a><a href="/checker.html" class="t-en lang-hide">Check broker</a></li>
     <li><a href="/blog/" class="t-ru" style="color:var(--accent)">Блог</a><a href="/blog/" class="t-uk lang-hide" style="color:var(--accent)">Блог</a><a href="/blog/" class="t-en lang-hide" style="color:var(--accent)">Blog</a></li>
   </ul>
-  <a href="/#contact" class="nav-cta t-ru">Консультация</a>
-  <a href="/#contact" class="nav-cta t-uk lang-hide">Консультація</a>
-  <a href="/#contact" class="nav-cta t-en lang-hide">Consultation</a>
+  <a href="/#contact" class="nav-cta" id="nav-cta-text">Консультация</a>
 </nav>
 <div class="article-wrap">
   <div class="article-meta">
@@ -204,6 +203,12 @@ function setLang(lang) {
     var btn = document.getElementById('btn-' + l);
     if(btn) btn.classList.toggle('active', l === lang);
   });
+  // Update CTA button text
+  var cta = document.getElementById('nav-cta-text');
+  if(cta) {
+    var ctaText = {uk:'Консультація', ru:'Консультация', en:'Consult'};
+    cta.textContent = ctaText[lang] || 'Консультация';
+  }
 }
 
 async function detectAndSetLang() {
