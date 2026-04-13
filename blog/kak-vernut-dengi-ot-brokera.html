@@ -20,7 +20,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 nav{position:fixed;top:40px;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
 .nav-logo{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links{display:flex;gap:1.2rem;list-style:none;flex-wrap:nowrap}
 .nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--accent)}
 .nav-cta{font-family:var(--font-display);font-size:12px;font-weight:700;padding:8px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
@@ -88,9 +88,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
 <body>
 <!-- LANG BAR -->
 <div class="lang-bar">
-  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
-  <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
@@ -234,5 +234,36 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
   </div>
   <div class="footer-copy">© 2026 CryptoJustice</div>
 </footer>
+
+<script>
+var currentLang = localStorage.getItem('cj_lang') || 'ru';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cj_lang', lang);
+  document.documentElement.lang = lang;
+  ['uk','ru','en'].forEach(function(l) {
+    document.querySelectorAll('.t-' + l).forEach(function(el) {
+      el.classList.toggle('lang-hide', l !== lang);
+    });
+    var btn = document.getElementById('btn-' + l);
+    if(btn) btn.classList.toggle('active', l === lang);
+  });
+}
+
+async function detectAndSetLang() {
+  if(localStorage.getItem('cj_lang')) { setLang(currentLang); return; }
+  try {
+    var r = await fetch('https://ipapi.co/json/');
+    var d = await r.json();
+    var c = d.country_code;
+    if(c === 'UA') setLang('uk');
+    else if(['RU','BY','KZ','MD','AM','AZ','GE'].includes(c)) setLang('ru');
+    else setLang('en');
+  } catch(e) { setLang('ru'); }
+}
+
+detectAndSetLang();
+</script>
 </body>
 </html>

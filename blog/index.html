@@ -84,9 +84,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
 <body>
 
 <div class="lang-bar">
-  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
-  <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
@@ -210,7 +210,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
       </div>
     </a>
 
-    <a href="/checker.html" class="blog-card" data-ru="проверить брокера инструмент FCA ESMA бесплатно" data-uk="перевірити брокера інструмент" data-en="check broker tool FCA ESMA free">
+    <a href="/checker.html" class="blog-card featured" data-ru="проверить брокера инструмент FCA ESMA бесплатно" data-uk="перевірити брокера інструмент" data-en="check broker tool FCA ESMA free">
       <span class="card-tag t-ru">Инструмент</span><span class="card-tag t-uk lang-hide">Інструмент</span><span class="card-tag t-en lang-hide">Tool</span>
       <div class="card-title t-ru">Бесплатная проверка брокера по базам FCA, ESMA, CySEC</div>
       <div class="card-title t-uk lang-hide">Безкоштовна перевірка брокера за базами FCA, ESMA, CySEC</div>
@@ -242,49 +242,34 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5
 </footer>
 
 <script>
-// LANGUAGE - sync with main site via localStorage
 var currentLang = localStorage.getItem('cj_lang') || 'ru';
 
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('cj_lang', lang);
   document.documentElement.lang = lang;
-  ['ru','uk','en'].forEach(function(l) {
+  ['uk','ru','en'].forEach(function(l) {
     document.querySelectorAll('.t-' + l).forEach(function(el) {
       el.classList.toggle('lang-hide', l !== lang);
     });
     var btn = document.getElementById('btn-' + l);
     if(btn) btn.classList.toggle('active', l === lang);
   });
-  // Update search placeholder
-  var placeholders = {ru:'Поиск статей...', uk:'Пошук статей...', en:'Search articles...'};
-  var inp = document.getElementById('search-input');
-  if(inp) inp.placeholder = placeholders[lang] || placeholders.ru;
-  // Re-filter with current lang
-  filterCards(document.getElementById('search-input').value);
 }
 
-// SEARCH
-function filterCards(query) {
-  query = query.toLowerCase().trim();
-  var cards = document.querySelectorAll('.blog-card');
-  var visible = 0;
-  cards.forEach(function(card) {
-    var text = (card.getAttribute('data-' + currentLang) || '') + ' ' +
-               (card.querySelector('.card-title.' + 't-' + currentLang + ':not(.lang-hide), .card-title.t-' + currentLang) || card).textContent;
-    text = text.toLowerCase();
-    var show = !query || text.indexOf(query) > -1;
-    card.classList.toggle('hidden', !show);
-    if(show) visible++;
-  });
-  var nr = document.getElementById('no-results');
-  if(nr) nr.classList.toggle('lang-hide', visible > 0);
-  var cnt = document.getElementById('search-count');
-  if(cnt) cnt.textContent = query ? visible + (currentLang==='en'?' found':currentLang==='uk'?' знайдено':' найдено') : '';
+async function detectAndSetLang() {
+  if(localStorage.getItem('cj_lang')) { setLang(currentLang); return; }
+  try {
+    var r = await fetch('https://ipapi.co/json/');
+    var d = await r.json();
+    var c = d.country_code;
+    if(c === 'UA') setLang('uk');
+    else if(['RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c)) setLang('ru');
+    else setLang('en');
+  } catch(e) { setLang('ru'); }
 }
 
-// Init language on load
-setLang(currentLang);
+detectAndSetLang();
 </script>
 </body>
 </html>
