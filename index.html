@@ -122,21 +122,17 @@ h1 em{font-style:normal;color:var(--accent)}
 
 /* ── FLIP CARDS (Why Us + Scam types) ────────────────────────────────────── */
 .flip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-.flip-card{height:200px;perspective:1000px;cursor:pointer}
-.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
-.flip-card.flipped .flip-card-inner,.flip-card:hover .flip-card-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:1.8rem;border:1px solid var(--border);transition:border-color .3s}
-.flip-front{background:var(--bg);display:flex;flex-direction:column;gap:.5rem}
+.flip-card{height:210px;perspective:1000px;cursor:pointer}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:1.4rem;border:1px solid var(--border);transition:border-color .3s;overflow:hidden}
+.flip-front{background:var(--bg);display:flex;flex-direction:column;gap:.4rem}
 .flip-back{background:var(--surface);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;border-color:var(--border2)}
-.flip-card:hover .flip-front,.flip-card:hover .flip-back,.flip-card.flipped .flip-front,.flip-card.flipped .flip-back{border-color:rgba(0,229,255,.35)}
-.flip-icon{font-size:1.6rem;margin-bottom:.3rem}
-.flip-title{font-family:var(--fd);font-size:.95rem;font-weight:700;color:var(--text)}
-.flip-sub{font-size:12px;color:var(--text3);font-weight:300;font-family:var(--fm);text-transform:uppercase;letter-spacing:.06em}
-.flip-desc{font-size:13px;color:var(--text2);line-height:1.65;font-weight:300}
-.flip-hint{font-family:var(--fm);font-size:9px;color:var(--text3);letter-spacing:.08em;margin-top:auto;text-align:right;opacity:.7}
-
-/* Why us flips */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.flip-card.flipped .flip-front,.flip-card.flipped .flip-back{border-color:rgba(0,229,255,.35)}
+.flip-icon{font-size:1.5rem;margin-bottom:.2rem;flex-shrink:0}
+.flip-title{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3}
+.flip-sub{font-size:11px;color:var(--text3);font-weight:300;font-family:var(--fm);text-transform:uppercase;letter-spacing:.05em;margin-top:auto}
+.flip-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300;overflow:hidden;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical}
 .why-card{background:var(--bg);padding:2rem;transition:background .2s}
 .why-card:hover{background:var(--surface)}
 .why-icon{font-size:1.8rem;margin-bottom:1rem}
@@ -153,11 +149,23 @@ h2 em{font-style:normal;color:var(--accent)}
 .section-desc{font-size:1rem;color:var(--text2);max-width:560px;font-weight:300;line-height:1.75;margin-bottom:2.5rem}
 
 /* ── HOW IT WORKS ─────────────────────────────────────────────────────────── */
-.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:2rem}
-.step-card{background:var(--bg2);padding:1.6rem 1.2rem;position:relative;transition:background .3s}
-.step-card:hover{background:var(--surface)}
-.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
-.step-card:hover::before{background:var(--accent)}
+.steps-grid{display:none}/* legacy */
+.step-card{display:none}/* legacy */
+.step-card-empty{display:none}
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;margin-top:2rem;position:relative;padding-left:0}
+.tl-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border)}
+.tl-item{background:var(--bg2);padding:1.6rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;transition:background .3s;position:relative}
+.tl-item:hover{background:var(--surface)}
+.tl-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
+.tl-item:hover::before{background:var(--accent)}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-num{font-family:var(--fm);font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:.5rem}
+.tl-dot{width:40px;height:40px;border:1px solid var(--border2);background:rgba(0,229,255,.06);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.tl-content{min-width:0}
+.tl-title{font-family:var(--fd);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.35rem;line-height:1.3}
+.tl-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300}
+.tl-cta-item{background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,229,255,.02));border:1px solid rgba(0,229,255,.2);padding:1.6rem 1.4rem;display:flex;align-items:center;justify-content:center;text-align:center}
 .step-num{font-family:var(--fm);font-size:10px;color:var(--text3);margin-bottom:.6rem;letter-spacing:.1em}
 .step-icon{font-size:1.4rem;margin-bottom:.6rem}
 .step-title{font-family:var(--fd);font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
@@ -313,7 +321,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
 /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 @media(max-width:1024px){
   .services-grid{grid-template-columns:repeat(2,1fr)}
-  .steps-grid{grid-template-columns:repeat(3,1fr)}
+  .tl-row{grid-template-columns:1fr 1fr}
   .tcard{flex:0 0 calc(50% - 1px)}
   .footer-top{grid-template-columns:1fr 1fr}
   .flip-grid{grid-template-columns:repeat(3,1fr)}
@@ -337,7 +345,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
   .stat-num{font-size:1.8rem}
   .trust-row{gap:.4rem}
   .trust-badge{font-size:9px;padding:5px 9px}
-  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .tl-row{grid-template-columns:1fr}
   .services-grid{grid-template-columns:1fr}
   .analysis-grid{gap:2rem}
   .scam-card{flex:0 0 calc(50% - 1px)}
@@ -447,7 +455,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
       <span class="t-uk lang-hide">Вас обманули — ми знаємо як діяти</span>
       <span class="t-en lang-hide">You were scammed — we know what to do</span>
     </div>
-    <svg width="100%" viewBox="0 0 540 72" style="max-width:500px;margin-bottom:1.4rem;display:block">
+    <svg width="100%" viewBox="0 0 440 72" style="max-width:480px;margin-bottom:1.4rem;display:block">
       <polygon points="36,2 60,2 72,22 60,44 36,44 24,22" fill="none" stroke="#00e5ff" stroke-width="1.8" class="lhd"/>
       <polygon points="36,6 60,6 70,22 60,38 36,38 26,22" fill="rgba(0,229,255,0.06)"/>
       <circle cx="48" cy="22" r="9" fill="none" stroke="#00e5ff" stroke-width=".7" class="ldr"/>
@@ -459,8 +467,8 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
       <circle cx="60" cy="44" r="2" fill="#00e5ff" opacity=".5"/>
       <circle cx="36" cy="44" r="2" fill="#00e5ff" opacity=".5"/>
       <circle cx="24" cy="22" r="2" fill="#00e5ff" opacity=".5"/>
-      <text x="88" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#ffffff" letter-spacing="-1.5" class="lwc">Crypto</text>
-      <text x="278" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#00e5ff" letter-spacing="-1.5" class="lwj">Justice</text>
+      <text x="88" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#ffffff" letter-spacing="-1" class="lwc">Crypto</text>
+      <text x="226" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#00e5ff" letter-spacing="-1" class="lwj">Justice</text>
       <text x="90" y="52" font-family="monospace" font-size="9.5" fill="#334e5f" letter-spacing="2.8" class="lws">BLOCKCHAIN RECOVERY</text>
     </svg>
     <p class="hero-sub">
@@ -547,7 +555,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
     <h2><span class="t-ru">Три причины <em>обратиться</em></span><span class="t-uk lang-hide">Три причини <em>звернутися</em></span><span class="t-en lang-hide">Three reasons to <em>choose us</em></span></h2>
     <div class="flip-grid fade-up">
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">🔒</div>
@@ -566,7 +574,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">📅</div>
@@ -585,7 +593,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">💬</div>
@@ -614,12 +622,54 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
     <div class="section-tag"><span class="t-ru">Процесс</span><span class="t-uk lang-hide">Процес</span><span class="t-en lang-hide">Process</span></div>
     <h2><span class="t-ru">Как мы <em>возвращаем</em> средства</span><span class="t-uk lang-hide">Як ми <em>повертаємо</em> кошти</span><span class="t-en lang-hide">How we <em>recover</em> funds</span></h2>
     <p class="section-desc"><span class="t-ru">Чёткий процесс от первого обращения до заморозки или судебного производства.</span><span class="t-uk lang-hide">Чіткий процес від першого звернення до заморожування або судового провадження.</span><span class="t-en lang-hide">A clear process from first contact to asset freezing or court proceedings.</span></p>
-    <div class="steps-grid fade-up">
-      <div class="step-card"><div class="step-num">01 //</div><div class="step-icon">🔍</div><div class="step-title t-ru">Бесплатная оценка</div><div class="step-title t-uk lang-hide">Безкоштовна оцінка</div><div class="step-title t-en lang-hide">Free assessment</div><div class="step-desc t-ru">Анализируем ситуацию и определяем шансы.</div><div class="step-desc t-uk lang-hide">Аналізуємо ситуацію та визначаємо шанси.</div><div class="step-desc t-en lang-hide">We assess your case and identify chances.</div></div>
-      <div class="step-card"><div class="step-num">02 //</div><div class="step-icon">⛓️</div><div class="step-title t-ru">Блокчейн-анализ</div><div class="step-title t-uk lang-hide">Блокчейн-аналіз</div><div class="step-title t-en lang-hide">Blockchain analysis</div><div class="step-desc t-ru">Отслеживаем движение средств до конечного адресата.</div><div class="step-desc t-uk lang-hide">Відстежуємо рух коштів до кінцевого адресата.</div><div class="step-desc t-en lang-hide">We trace funds through all wallets to their destination.</div></div>
-      <div class="step-card"><div class="step-num">03 //</div><div class="step-icon">📄</div><div class="step-title t-ru">Пакет документов</div><div class="step-title t-uk lang-hide">Пакет документів</div><div class="step-title t-en lang-hide">Documentation</div><div class="step-desc t-ru">Готовим запросы в биржи и правоохранительные органы.</div><div class="step-desc t-uk lang-hide">Готуємо запити до бірж та правоохоронних органів.</div><div class="step-desc t-en lang-hide">Exchange requests and law enforcement reports.</div></div>
-      <div class="step-card"><div class="step-num">04 //</div><div class="step-icon">🏦</div><div class="step-title t-ru">Заморозка активов</div><div class="step-title t-uk lang-hide">Заморожування активів</div><div class="step-title t-en lang-hide">Asset freeze</div><div class="step-desc t-ru">Подаём запросы через KYC-отделы бирж или суд.</div><div class="step-desc t-uk lang-hide">Подаємо запити через KYC-відділи бірж або суд.</div><div class="step-desc t-en lang-hide">Freeze requests via exchange KYC or court orders.</div></div>
-      <div class="step-card"><div class="step-num">05 //</div><div class="step-icon">⚖️</div><div class="step-title t-ru">Судебное сопровождение</div><div class="step-title t-uk lang-hide">Судовий супровід</div><div class="step-title t-en lang-hide">Legal proceedings</div><div class="step-desc t-ru">Работаем с юристами-партнёрами в вашей юрисдикции.</div><div class="step-desc t-uk lang-hide">Співпрацюємо з юристами-партнерами у вашій юрисдикції.</div><div class="step-desc t-en lang-hide">We work with partner lawyers in your jurisdiction.</div></div>
+    <div class="timeline fade-up">
+      <div class="tl-row">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-num">01</div><div class="tl-dot">🔍</div></div>
+          <div class="tl-content">
+            <div class="tl-title t-ru">Бесплатная оценка</div><div class="tl-title t-uk lang-hide">Безкоштовна оцінка</div><div class="tl-title t-en lang-hide">Free assessment</div>
+            <div class="tl-desc t-ru">Анализируем ситуацию и определяем шансы на возврат.</div><div class="tl-desc t-uk lang-hide">Аналізуємо ситуацію та визначаємо шанси.</div><div class="tl-desc t-en lang-hide">We assess your case and determine recovery chances.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-num">02</div><div class="tl-dot">⛓️</div></div>
+          <div class="tl-content">
+            <div class="tl-title t-ru">Блокчейн-анализ</div><div class="tl-title t-uk lang-hide">Блокчейн-аналіз</div><div class="tl-title t-en lang-hide">Blockchain analysis</div>
+            <div class="tl-desc t-ru">Отслеживаем движение средств через все кошельки.</div><div class="tl-desc t-uk lang-hide">Відстежуємо рух коштів через усі гаманці.</div><div class="tl-desc t-en lang-hide">We trace funds through all wallets to their destination.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-num">03</div><div class="tl-dot">📄</div></div>
+          <div class="tl-content">
+            <div class="tl-title t-ru">Пакет документов</div><div class="tl-title t-uk lang-hide">Пакет документів</div><div class="tl-title t-en lang-hide">Documentation</div>
+            <div class="tl-desc t-ru">Готовим запросы в биржи и правоохранительные органы.</div><div class="tl-desc t-uk lang-hide">Готуємо запити до бірж та правоохоронних органів.</div><div class="tl-desc t-en lang-hide">Exchange requests and law enforcement reports.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-num">04</div><div class="tl-dot">🏦</div></div>
+          <div class="tl-content">
+            <div class="tl-title t-ru">Заморозка активов</div><div class="tl-title t-uk lang-hide">Заморожування активів</div><div class="tl-title t-en lang-hide">Asset freeze</div>
+            <div class="tl-desc t-ru">Запросы через KYC-отделы бирж или суд.</div><div class="tl-desc t-uk lang-hide">Запити через KYC-відділи бірж або суд.</div><div class="tl-desc t-en lang-hide">Requests via exchange KYC departments or court.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-num">05</div><div class="tl-dot">⚖️</div></div>
+          <div class="tl-content">
+            <div class="tl-title t-ru">Судебное сопровождение</div><div class="tl-title t-uk lang-hide">Судовий супровід</div><div class="tl-title t-en lang-hide">Legal proceedings</div>
+            <div class="tl-desc t-ru">Партнёрские юристы в вашей юрисдикции.</div><div class="tl-desc t-uk lang-hide">Партнерські юристи у вашій юрисдикції.</div><div class="tl-desc t-en lang-hide">Partner lawyers in your jurisdiction.</div>
+          </div>
+        </div>
+        <div class="tl-cta-item">
+          <div>
+            <div style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.5rem t-ru">Готовы начать?</div>
+            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-ru">Получить консультацию →</a>
+            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-uk lang-hide">Отримати консультацію →</a>
+            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-en lang-hide">Get consultation →</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -721,7 +771,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
     <p class="section-desc"><span class="t-ru">Нажмите на карточку — узнайте подробнее.</span><span class="t-uk lang-hide">Натисніть на картку — дізнайтеся більше.</span><span class="t-en lang-hide">Tap a card to learn more.</span></p>
     <div class="flip-grid fade-up" id="scam-flip-grid">
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">📈</div>
@@ -736,7 +786,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">💕</div>
@@ -751,7 +801,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">🐷</div>
@@ -766,7 +816,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">🎁</div>
@@ -781,7 +831,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">🔑</div>
@@ -796,7 +846,7 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
         </div>
       </div>
 
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-front">
             <div class="flip-icon">🏢</div>
@@ -1035,11 +1085,12 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
 
 <script>
 // ── LANGUAGE ─────────────────────────────────────────────────────────────────
-var currentLang = 'ru';
+var currentLang = localStorage.getItem('cj_lang') || 'ru';
 var suggestedLang = null;
 
 function setLang(lang) {
   currentLang = lang;
+  localStorage.setItem('cj_lang', lang);
   document.documentElement.lang = lang;
   ['uk','ru','en'].forEach(function(l) {
     document.querySelectorAll('.t-'+l).forEach(function(el) {
@@ -1219,8 +1270,37 @@ function checkBroker() {
   }, 700 + Math.random() * 600);
 }
 
+// ── FLIP CARDS — close others on open ────────────────────────────────────────
+document.querySelectorAll('.flip-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    var wasFlipped = this.classList.contains('flipped');
+    // Close all in same grid
+    var grid = this.closest('.flip-grid');
+    if(grid) grid.querySelectorAll('.flip-card').forEach(function(c) { c.classList.remove('flipped'); });
+    if(!wasFlipped) this.classList.add('flipped');
+  });
+});
+
+// ── STEPS GRID — hide empty cell on mobile ────────────────────────────────────
+function fixStepsGrid() {
+  var grid = document.querySelector('.steps-grid');
+  if (!grid) return;
+  var cols = window.innerWidth <= 600 ? 2 : window.innerWidth <= 1024 ? 3 : 5;
+  var cards = grid.querySelectorAll('.step-card:not(.step-card-empty)');
+  var existing = grid.querySelector('.step-card-empty');
+  if(existing) existing.remove();
+  if(cards.length % cols !== 0) {
+    var empty = document.createElement('div');
+    empty.className = 'step-card step-card-empty';
+    empty.style.cssText = 'background:var(--bg2);border:none;';
+    grid.appendChild(empty);
+  }
+}
+fixStepsGrid();
+window.addEventListener('resize', fixStepsGrid);
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
-setLang('ru');
+setLang(currentLang);
 detectCountry();
 </script>
 </body>
