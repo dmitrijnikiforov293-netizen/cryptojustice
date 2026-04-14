@@ -60,7 +60,7 @@ img{max-width:100%}
 
 /* ── NAV ──────────────────────────────────────────────────────────────────── */
 nav{position:fixed;top:38px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(8,12,16,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
-.nav-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
+.nav-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;min-width:0}
 .nav-links{display:flex;gap:1.6rem;list-style:none}
 .nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--accent)}
@@ -122,7 +122,7 @@ h1 em{font-style:normal;color:var(--accent)}
 
 /* ── FLIP CARDS (Why Us + Scam types) ────────────────────────────────────── */
 .flip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-.flip-card{height:210px;perspective:1000px;cursor:pointer}
+.flip-card{height:200px;perspective:1000px;cursor:pointer}
 .flip-card-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
 .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
 .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:1.4rem;border:1px solid var(--border);transition:border-color .3s;overflow:hidden}
@@ -132,7 +132,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .flip-icon{font-size:1.5rem;margin-bottom:.2rem;flex-shrink:0}
 .flip-title{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3}
 .flip-sub{font-size:11px;color:var(--text3);font-weight:300;font-family:var(--fm);text-transform:uppercase;letter-spacing:.05em;margin-top:auto}
-.flip-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300;overflow:hidden;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical}
+.flip-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300}
 .why-card{background:var(--bg);padding:2rem;transition:background .2s}
 .why-card:hover{background:var(--surface)}
 .why-icon{font-size:1.8rem;margin-bottom:1rem}
@@ -333,10 +333,11 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
   .scam-card{flex:0 0 calc(33.333% - 1px)}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .why-grid{grid-template-columns:1fr}
-  .flip-grid{grid-template-columns:repeat(2,1fr)}
+  .flip-grid{grid-template-columns:1fr}
   .tcard{flex:0 0 100%}
 }
 @media(max-width:600px){
+  .flip-card{height:auto;min-height:160px}
   .lang-bar{padding:0 1rem}
   nav{padding:0 1rem;top:38px}
   .hero{padding:108px 1rem 3rem;min-height:100svh}
@@ -359,11 +360,13 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
   .checker-input{border-right:1px solid var(--border2);border-bottom:none}
   .checker-btn{width:100%}
   .hero-ctas{flex-direction:column}
+  .nav-logo svg{width:130px}
   .btn-primary,.btn-tg,.btn-ghost{width:100%;justify-content:center}
   .swiper-arrows{display:none}
-  .flip-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
-  .flip-card{height:170px}
-  .flip-front,.flip-back{padding:1.2rem}
+  .flip-grid{grid-template-columns:1fr;gap:.6rem}
+  #scam-flip-grid{grid-template-columns:repeat(2,1fr)}
+  .flip-card{height:auto;min-height:155px}
+  .flip-front,.flip-back{padding:1.1rem}
 }
 </style>
 </head>
