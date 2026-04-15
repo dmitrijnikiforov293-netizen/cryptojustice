@@ -4,375 +4,269 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CryptoJustice — Crypto Fraud Recovery</title>
-<meta name="description" content="Blockchain analysis, asset freezing and legal support for crypto fraud victims. Free case assessment.">
+<meta name="description" content="Blockchain analysis, asset freezing and legal support for crypto fraud victims.">
 <meta property="og:title" content="CryptoJustice — Crypto Fraud Recovery">
-<meta property="og:description" content="Lost money to a crypto scammer? We trace funds, freeze assets on exchanges and pursue recovery.">
+<meta property="og:description" content="Lost money to a crypto scammer? We trace funds, freeze assets and pursue recovery.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://cryptojustice.com/">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpolygon points='16,3 24,3 28,10 24,22 16,22 12,15 12,8' fill='none' stroke='%2300e5ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='13' r='1.4' fill='%23080c10'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0f'/%3E%3Cpolygon points='16,3 24,7.5 24,17 16,21.5 8,17 8,7.5' fill='none' stroke='%2322d3ee' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='12' r='3' fill='%2322d3ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & VARS ─────────────────────────────────────────────────────────── */
-:root{
-  --bg:#080c10;--bg2:#0d1117;--surface:#141c24;--surface2:#1a2432;
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
-  --accent:#00e5ff;--green:#00d68f;--red:#ff4f4f;--amber:#ffb800;
-  --text:#e8edf2;--text2:#8a97a6;--text3:#4a5568;
-  --fd:'Syne','Arial Black',Arial,sans-serif;
-  --fb:'DM Sans','Segoe UI',Arial,sans-serif;
-  --fm:'JetBrains Mono','Courier New',monospace;
-  --r:1rem;
-}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--surface:#1e1e30;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan:#06b6d4;--cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden}
-a{color:var(--accent);text-decoration:none}
-img{max-width:100%}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
 .lang-hide{display:none!important}
-
-/* ── LOGO ANIM ────────────────────────────────────────────────────────────── */
-@keyframes hex-draw{0%{stroke-dashoffset:160}100%{stroke-dashoffset:0}}
-@keyframes dot-pulse{0%,100%{r:3}50%{r:4.5}}
-@keyframes dot-ring{0%{r:3;opacity:.5}100%{r:11;opacity:0}}
-@keyframes glow-j{0%,100%{fill:#00e5ff}50%{fill:#00ccdd}}
-@keyframes logo-word{0%{opacity:0;letter-spacing:4px}100%{opacity:1;letter-spacing:-.5px}}
-@keyframes logo-sub{0%{opacity:0}100%{opacity:.7}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%{transform:scale(.85);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+@keyframes glow{0%,100%{opacity:.6}50%{opacity:1}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.lhd{stroke-dasharray:160;animation:hex-draw 1.1s ease-out forwards}
-.ldr{animation:dot-ring 2.2s ease-out infinite}
-.ldp{animation:dot-pulse 2.2s ease-in-out infinite}
-.lwc{animation:logo-word .6s ease .7s both}
-.lwj{animation:glow-j 3s ease-in-out infinite 1.2s,logo-word .6s ease 1s both}
-.lws{animation:logo-sub .8s ease 1.5s both}
-.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-/* ── LANG BAR ─────────────────────────────────────────────────────────────── */
-.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;height:38px;background:rgba(8,12,16,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
-.lang-btn{font-family:var(--fm);font-size:10px;letter-spacing:.1em;padding:4px 9px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
-.lang-btn:hover,.lang-btn.active{color:var(--accent)}
-.lang-btn.active{border-bottom:1px solid var(--accent)}
-.lang-sep{color:var(--text3);font-size:9px}
-
-/* ── NAV ──────────────────────────────────────────────────────────────────── */
-nav{position:fixed;top:38px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(8,12,16,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
-.nav-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;min-width:0}
-.nav-links{display:flex;gap:1.6rem;list-style:none}
-.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;white-space:nowrap}
-.nav-links a:hover{color:var(--accent)}
-.nav-right{display:flex;align-items:center;gap:.8rem}
-.nav-cta{font-family:var(--fd);font-size:11px;font-weight:700;padding:7px 16px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;white-space:nowrap}
-.nav-cta:hover{background:var(--accent);color:var(--bg)}
-.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;width:36px;height:36px;flex-shrink:0}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text2);transition:all .25s;border-radius:2px}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* Mobile menu overlay */
-.mobile-menu{display:none;position:fixed;top:98px;left:0;right:0;bottom:0;background:rgba(8,12,16,.99);z-index:98;flex-direction:column;padding:2rem 1.5rem;gap:0;overflow-y:auto}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:18px;font-weight:500;color:var(--text);padding:1rem 0;border-bottom:1px solid var(--border);text-decoration:none;display:block;transition:color .2s}
-.mobile-menu a:hover{color:var(--accent)}
-.mobile-menu-cta{margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem}
-.mobile-menu-cta a{text-align:center;padding:14px;font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
-.mobile-menu-cta .m-btn-primary{background:var(--accent);color:var(--bg)}
-.mobile-menu-cta .m-btn-tg{background:rgba(41,182,246,.15);color:#29b6f6;border:1px solid rgba(41,182,246,.3)}
-
-/* ── HERO ─────────────────────────────────────────────────────────────────── */
-.hero{min-height:100svh;padding:120px 2rem 4rem;display:flex;align-items:center;position:relative;overflow:hidden}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.35;mask-image:radial-gradient(ellipse 80% 80% at 50% 40%,black 20%,transparent 100%)}
-.hero-glow{position:absolute;top:15%;left:50%;transform:translateX(-50%);width:700px;height:450px;background:radial-gradient(ellipse,rgba(0,229,255,.055) 0%,transparent 70%);pointer-events:none}
-.hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,229,255,.28);background:rgba(0,229,255,.06);font-family:var(--fm);font-size:11px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:1.8rem}
-.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dot-pulse 2s infinite}
-h1{font-family:var(--fd);font-size:clamp(2.2rem,5.5vw,4.6rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:1.4rem}
-h1 em{font-style:normal;color:var(--accent)}
-.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--text2);max-width:580px;line-height:1.75;margin-bottom:2.5rem;font-weight:300}
-.hero-ctas{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem}
-.btn-primary{font-family:var(--fd);font-size:14px;font-weight:700;padding:14px 28px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
-.btn-primary:hover{background:#00ccee;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,.3);text-decoration:none;color:var(--bg)}
-.btn-tg{font-family:var(--fd);font-size:13px;font-weight:600;padding:13px 24px;border:1.5px solid rgba(41,182,246,.5);color:#29b6f6;background:rgba(41,182,246,.08);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
-.btn-tg:hover{background:rgba(41,182,246,.18);border-color:#29b6f6;text-decoration:none;color:#29b6f6}
-.btn-ghost{font-family:var(--fd);font-size:13px;font-weight:600;padding:13px 22px;border:1.5px solid var(--border2);color:var(--text);background:transparent;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-
-/* ── STATS ────────────────────────────────────────────────────────────────── */
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--border);padding-top:2rem}
-.stat-item{padding-right:1.5rem}
-.stat-num{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1}
-.stat-num span{color:var(--accent)}
-.stat-label{font-size:11px;color:var(--text3);font-family:var(--fm);text-transform:uppercase;letter-spacing:.08em;margin-top:.3rem}
-
-/* ── TRUST BADGES ─────────────────────────────────────────────────────────── */
-.trust-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2rem}
-.trust-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);background:var(--surface);font-family:var(--fm);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;transition:border-color .2s}
-.trust-badge:hover{border-color:var(--accent);color:var(--accent)}
-.trust-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
-
-/* ── TICKER ───────────────────────────────────────────────────────────────── */
-.ticker{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 0;overflow:hidden}
-.ticker-inner{display:flex;gap:3rem;white-space:nowrap;animation:ticker 30s linear infinite}
-.ticker-item{font-family:var(--fm);font-size:11px;letter-spacing:.05em;color:var(--text3);display:flex;align-items:center;gap:8px}
-.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--accent)}
-
-/* ── FLIP CARDS (Why Us + Scam types) ────────────────────────────────────── */
-.flip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-.flip-card{height:200px;perspective:1000px;cursor:pointer}
-.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
-.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:1.4rem;border:1px solid var(--border);transition:border-color .3s;overflow:hidden}
-.flip-front{background:var(--bg);display:flex;flex-direction:column;gap:.4rem}
-.flip-back{background:var(--surface);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;border-color:var(--border2)}
-.flip-card.flipped .flip-front,.flip-card.flipped .flip-back{border-color:rgba(0,229,255,.35)}
-.flip-icon{font-size:1.5rem;margin-bottom:.2rem;flex-shrink:0}
-.flip-title{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3}
-.flip-sub{font-size:11px;color:var(--text3);font-weight:300;font-family:var(--fm);text-transform:uppercase;letter-spacing:.05em;margin-top:auto}
-.flip-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300}
-.why-card{background:var(--bg);padding:2rem;transition:background .2s}
-.why-card:hover{background:var(--surface)}
-.why-icon{font-size:1.8rem;margin-bottom:1rem}
-.why-title{font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
-.why-desc{font-size:13px;color:var(--text3);font-weight:300;line-height:1.6}
-
-/* ── SECTIONS ─────────────────────────────────────────────────────────────── */
-section{padding:5rem 2rem}
-.section-inner{max-width:1100px;margin:0 auto;width:100%}
-.section-tag{font-family:var(--fm);font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:8px}
-.section-tag::before{content:'//'}
-h2{font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.03em;margin-bottom:.9rem;line-height:1.1}
-h2 em{font-style:normal;color:var(--accent)}
-.section-desc{font-size:1rem;color:var(--text2);max-width:560px;font-weight:300;line-height:1.75;margin-bottom:2.5rem}
-
-/* ── HOW IT WORKS ─────────────────────────────────────────────────────────── */
-.steps-grid{display:none}/* legacy */
-.step-card{display:none}/* legacy */
-.step-card-empty{display:none}
-/* ── TIMELINE ── */
-.timeline{display:flex;flex-direction:column;margin-top:2rem;position:relative;padding-left:0}
-.tl-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border)}
-.tl-item{background:var(--bg2);padding:1.6rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;transition:background .3s;position:relative}
-.tl-item:hover{background:var(--surface)}
-.tl-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
-.tl-item:hover::before{background:var(--accent)}
-.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
-.tl-num{font-family:var(--fm);font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:.5rem}
-.tl-dot{width:40px;height:40px;border:1px solid var(--border2);background:rgba(0,229,255,.06);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.tl-content{min-width:0}
-.tl-title{font-family:var(--fd);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.35rem;line-height:1.3}
-.tl-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300}
-.tl-cta-item{background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,229,255,.02));border:1px solid rgba(0,229,255,.2);padding:1.6rem 1.4rem;display:flex;align-items:center;justify-content:center;text-align:center}
-.step-num{font-family:var(--fm);font-size:10px;color:var(--text3);margin-bottom:.6rem;letter-spacing:.1em}
-.step-icon{font-size:1.4rem;margin-bottom:.6rem}
-.step-title{font-family:var(--fd);font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
-.step-desc{font-size:12px;color:var(--text2);line-height:1.55;font-weight:300}
-
-/* ── SERVICES ─────────────────────────────────────────────────────────────── */
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:2rem}
-.scard{background:var(--bg2);padding:2rem;position:relative;overflow:hidden;transition:background .3s;display:flex;flex-direction:column}
-.scard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.04),transparent 60%);opacity:0;transition:opacity .3s}
-.scard:hover::before{opacity:1}
-.scard:hover{background:var(--surface)}
-.scard-featured{border-top:2px solid var(--accent)}
-.scard-price{font-family:var(--fm);font-size:11px;color:var(--accent);letter-spacing:.08em;margin-bottom:.8rem;text-transform:uppercase}
-.scard-title{font-family:var(--fd);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
-.scard-desc{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300;margin-bottom:1.2rem;flex:1}
-.scard-features{list-style:none;display:flex;flex-direction:column;gap:5px}
-.scard-features li{font-size:12px;color:var(--text3);display:flex;align-items:flex-start;gap:8px;font-family:var(--fm)}
-.scard-features li::before{content:'→';color:var(--accent);flex-shrink:0;font-size:10px;margin-top:2px}
-
-/* ── ANALYSIS ─────────────────────────────────────────────────────────────── */
-.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.chain-viz{background:var(--surface);border:1px solid var(--border);padding:1.5rem;font-family:var(--fm);font-size:11px;color:var(--text3);line-height:2}
-.chain-header{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;display:flex;justify-content:space-between}
-.chain-status{color:var(--green);display:flex;align-items:center;gap:6px}
-.chain-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:dot-pulse 2s infinite}
-.chain-row{display:grid;grid-template-columns:1fr 30px 1fr;align-items:center;gap:4px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03)}
-.addr{color:#0099bb;font-size:10px}
-.camount{color:var(--green)}
-.ctag{display:inline-block;padding:1px 6px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;border-radius:2px}
-.tag-fraud{background:rgba(255,79,79,.15);color:var(--red);border:1px solid rgba(255,79,79,.2)}
-.tag-exchange{background:rgba(255,184,0,.12);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
-.tag-wallet{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.15)}
-.tools-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem}
-.tool-chip{font-family:var(--fm);font-size:11px;padding:5px 12px;border:1px solid var(--border2);color:var(--text2);transition:all .2s;cursor:default}
-.tool-chip:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── SCAM TYPES ───────────────────────────────────────────────────────────── */
-/* ── SCAM SWIPER ──────────────────────────────────────────────────────────── */
-.scam-swiper-wrap{position:relative;overflow:hidden;margin-top:2rem}
-.scam-grid{display:flex;gap:1px;background:transparent;transition:transform .4s cubic-bezier(.4,0,.2,1);will-change:transform}
-.scam-card{background:var(--bg);flex:0 0 calc(16.666% - 1px);min-width:160px;padding:1.6rem 1rem;transition:background .3s;cursor:pointer}
-.scam-card:hover{background:var(--surface)}
-.scam-icon{font-size:1.5rem;margin-bottom:.7rem}
-.scam-title{font-family:var(--fd);font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:.25rem}
-.scam-sub{font-size:11px;color:var(--text3);font-weight:300;line-height:1.4}
-
-/* ── TESTIMONIALS SWIPER ──────────────────────────────────────────────────── */
-.tswiper-wrap{position:relative;overflow:hidden;margin-top:2rem}
-.tswiper{display:flex;gap:1px;transition:transform .4s cubic-bezier(.4,0,.2,1);will-change:transform}
-.tcard{background:var(--bg2);padding:2rem;position:relative;flex:0 0 calc(33.333% - 1px);min-width:0}
-.tcard::before{content:'"';position:absolute;top:1rem;right:1.5rem;font-size:4rem;color:var(--border2);font-family:var(--fd);line-height:1}
-.ttext{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1.2rem;font-weight:300;font-style:italic}
-.tauthor{font-family:var(--fd);font-size:13px;font-weight:700}
-.tmeta{font-family:var(--fm);font-size:11px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.tamount{color:var(--green)}
-.swiper-dots{display:flex;justify-content:center;gap:8px;margin-top:1.5rem}
-.swiper-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .2s;border:none;padding:0}
-.swiper-dot.active{background:var(--accent);width:24px;border-radius:4px}
-.swiper-arrows{display:flex;gap:.5rem;justify-content:flex-end;margin-bottom:.5rem}
-.swiper-arrow{width:40px;height:40px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:16px}
-.swiper-arrow:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── CHECKER ──────────────────────────────────────────────────────────────── */
-.checker-box{background:var(--surface);border:1px solid var(--border2);padding:2rem;max-width:680px;position:relative}
-.checker-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.checker-label{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.8rem}
-.checker-row{display:flex}
-.checker-input{flex:1;background:var(--bg);border:1px solid var(--border2);border-right:none;padding:13px 16px;font-family:var(--fb);font-size:14px;color:var(--text);outline:none;transition:border-color .2s;min-width:0}
-.checker-input:focus{border-color:var(--accent)}
-.checker-input::placeholder{color:var(--text3)}
-.checker-btn{font-family:var(--fd);font-size:12px;font-weight:700;padding:13px 20px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:background .2s;white-space:nowrap;flex-shrink:0}
-.checker-btn:hover{background:#00ccee}
+@keyframes draw{from{stroke-dashoffset:800}to{stroke-dashoffset:0}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.checker-loading{display:none;margin-top:1rem;align-items:center;gap:10px;font-family:var(--fm);font-size:11px;color:var(--text3);letter-spacing:.06em}
-.checker-loading.show{display:flex}
-.spinner{width:13px;height:13px;border:1.5px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-.checker-result{display:none;margin-top:1rem;padding:1.1rem 1.3rem;font-size:13px;line-height:1.7}
-.checker-result.show{display:block}
-.checker-result.safe{background:rgba(0,214,143,.07);border:1px solid rgba(0,214,143,.2);color:var(--green)}
-.checker-result.warning{background:rgba(255,79,79,.07);border:1px solid rgba(255,79,79,.2);color:var(--red)}
-.checker-result.unknown{background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.2);color:var(--amber)}
-.result-title{font-family:var(--fd);font-size:14px;font-weight:700;margin-bottom:.4rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;height:36px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.lang-btn{font-family:var(--fb);font-size:11px;letter-spacing:.08em;padding:3px 8px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
+.lang-btn:hover,.lang-btn.active{color:var(--cyan2)}
+.lang-btn.active{border-bottom:1px solid var(--cyan2)}
+.lang-sep{color:var(--text3);font-size:9px}
+nav{position:fixed;top:36px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:rgba(10,10,15,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--text)}
+.nav-logo span{color:var(--cyan2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-cta{font-family:var(--fb);font-size:13px;font-weight:600;padding:9px 20px;background:var(--blue);color:#fff;border:none;cursor:pointer;border-radius:6px;transition:all .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 4px 20px rgba(37,99,235,.4)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;width:34px;height:34px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text2);transition:all .25s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:100px;left:0;right:0;bottom:0;background:rgba(10,10,15,.99);z-index:98;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:17px;font-weight:500;color:var(--text);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-menu a:hover{color:var(--cyan2)}
+.mm-btns{display:flex;flex-direction:column;gap:.8rem;margin-top:1.8rem}
+.mm-primary{padding:14px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block}
+.mm-tg{padding:14px;background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.3);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block}
+.hero{min-height:100svh;padding:130px 2rem 6rem;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 65% 40%,rgba(37,99,235,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(6,182,212,.1) 0%,transparent 60%)}
+.hero-grid-bg{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 20%,transparent 100%)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-label{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;margin-bottom:1.8rem;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.35);border-radius:100px;font-size:12px;font-weight:600;color:var(--blue3);letter-spacing:.04em;text-transform:uppercase}
+.hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue3);animation:pulse 1.8s ease-out infinite}
+h1{font-family:var(--fd);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.4rem}
+h1 span{color:var(--cyan2)}
+.hero-sub{font-size:clamp(.95rem,1.8vw,1.1rem);color:var(--text2);line-height:1.75;margin-bottom:2.2rem;max-width:520px}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-blue{font-family:var(--fb);font-size:14px;font-weight:600;padding:13px 26px;background:var(--blue);color:#fff;border:none;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;text-decoration:none}
+.btn-blue:hover{background:var(--blue2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.4)}
+.btn-outline{font-family:var(--fb);font-size:14px;font-weight:600;padding:12px 24px;background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;text-decoration:none}
+.btn-outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+.btn-tg{font-family:var(--fb);font-size:14px;font-weight:600;padding:12px 22px;background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.3);border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;text-decoration:none}
+.btn-tg:hover{background:rgba(6,182,212,.2);border-color:var(--cyan2)}
+.hero-stats{display:flex;gap:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+.hstat-num{font-family:var(--fd);font-size:1.9rem;font-weight:700;letter-spacing:-.03em;color:var(--text);line-height:1}
+.hstat-num span{color:var(--cyan2)}
+.hstat-label{font-size:12px;color:var(--text3);margin-top:3px;font-weight:500}
+.hero-right{display:flex;align-items:center;justify-content:center;position:relative}
+.hero-glow{position:absolute;width:360px;height:360px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(37,99,235,.22) 0%,rgba(6,182,212,.08) 40%,transparent 70%);border-radius:50%;animation:glow 5s ease-in-out infinite}
+.ticker{padding:11px 0;overflow:hidden;background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ticker-track{display:flex;gap:3rem;white-space:nowrap;animation:ticker 28s linear infinite}
+.ticker-item{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:8px;font-weight:500}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan2)}
+.trust-bar{background:var(--dark2);padding:2rem;border-bottom:1px solid var(--border)}
+.trust-bar-inner{max-width:1200px;margin:0 auto}
+.trust-label{font-size:11px;color:var(--text3);text-align:center;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.4rem;font-weight:600}
+.trust-logos{display:flex;justify-content:center;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.trust-logo{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--text3);letter-spacing:.04em;display:flex;align-items:center;gap:6px;transition:color .2s}
+.trust-logo:hover{color:var(--text2)}
+.trust-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+section{padding:6rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto;width:100%}
+.slabel{font-size:12px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem;display:flex;align-items:center;gap:8px}
+.slabel::before{content:'';width:20px;height:1px;background:var(--blue3)}
+h2{font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:.8rem}
+h2 span{color:var(--cyan2)}
+.sdesc{font-size:1rem;color:var(--text2);max-width:560px;line-height:1.75;margin-bottom:3rem}
+.stats-section{background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat-card{padding:2.5rem 2rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .3s}
+.stat-card:last-child{border-right:none}
+.stat-card:hover{background:rgba(255,255,255,.02)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.stat-card:hover::before{transform:scaleX(1)}
+.stat-num{font-family:var(--fd);font-size:2.6rem;font-weight:700;letter-spacing:-.04em;color:var(--text);line-height:1;margin-bottom:.4rem}
+.stat-num span{color:var(--cyan2)}
+.stat-desc{font-size:13px;color:var(--text3);line-height:1.5;font-weight:500}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.why-card{background:var(--dark);padding:2rem;position:relative;overflow:hidden;transition:background .3s}
+.why-card:hover{background:var(--dark2)}
+.why-icon{width:44px;height:44px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.2rem}
+.why-title{font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+.why-desc{font-size:13.5px;color:var(--text2);line-height:1.65}
+.how-section{background:var(--dark2);border-top:1px solid var(--border)}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem}
+.how-card{background:var(--dark);padding:2rem 1.8rem;position:relative;overflow:hidden;transition:background .3s}
+.how-card:hover{background:var(--dark3)}
+.how-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));opacity:0;transition:opacity .3s}
+.how-card:hover::before{opacity:1}
+.how-num{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--blue3);letter-spacing:.1em;margin-bottom:.8rem;text-transform:uppercase}
+.how-icon{font-size:1.6rem;margin-bottom:.8rem}
+.how-title{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+.how-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.svcs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+.svc{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:all .3s}
+.svc:hover{border-color:rgba(37,99,235,.4);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.svc.featured{border-color:rgba(37,99,235,.3);background:linear-gradient(135deg,rgba(37,99,235,.07),var(--dark2))}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0;transition:opacity .3s}
+.svc:hover::before{opacity:1}
+.svc-price{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--blue3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
+.svc-title{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.6rem}
+.svc-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:1.2rem}
+.svc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.svc-list li{font-size:13px;color:var(--text3);display:flex;align-items:flex-start;gap:8px}
+.svc-list li::before{content:'checkmark';font-size:0;width:14px;height:14px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.svc-list li::before{content:'';width:14px;height:14px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7' cy='7' r='7' fill='%2310b981' opacity='.2'/%3E%3Cpath d='M4 7l2 2 4-4' stroke='%2310b981' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat}
+.chain-section{background:var(--dark2);border-top:1px solid var(--border)}
+.chain-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.chain-viz{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:1.5rem;font-family:monospace;font-size:11px;color:var(--text3)}
+.chain-hdr{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--border)}
+.chain-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.chain-live{font-size:9px;color:var(--green);display:flex;align-items:center;gap:5px;letter-spacing:.06em;text-transform:uppercase}
+.chain-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-out infinite}
+.chain-row{display:grid;grid-template-columns:1fr 24px 1fr;align-items:center;gap:4px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.caddr{color:#60a5fa;font-size:10px}
+.ctag{display:inline-block;padding:1px 6px;font-size:9px;letter-spacing:.05em;text-transform:uppercase;border-radius:3px}
+.tag-f{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.tag-e{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.tag-s{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.camt{color:var(--green)}
+.chain-status{margin-top:12px;padding:10px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:6px}
+.tools-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:1.5rem 0 .8rem;font-weight:600}
+.tools-wrap{display:flex;flex-wrap:wrap;gap:6px}
+.tool-pill{font-size:12px;padding:5px 12px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:100px;color:var(--text2);transition:all .2s;cursor:default}
+.tool-pill:hover{border-color:rgba(96,165,250,.4);color:var(--blue3)}
+.scam-section{border-top:1px solid var(--border)}
+.scam-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.scam-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s;height:195px;perspective:1000px}
+.scam-card:hover{border-color:rgba(37,99,235,.3)}
+.scam-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.scam-card.flipped .scam-inner{transform:rotateY(180deg)}
+.scam-front,.scam-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:1.4rem}
+.scam-back{transform:rotateY(180deg);background:var(--dark3);justify-content:center;border-radius:10px;border:1px solid rgba(37,99,235,.2)}
+.scam-icon{width:40px;height:40px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.9rem;flex-shrink:0}
+.scam-name{font-family:var(--fd);font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:.3rem}
+.scam-sub{font-size:11.5px;color:var(--text3)}
+.scam-hint{font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-top:auto;padding-top:.6rem}
+.scam-back-text{font-size:12.5px;color:var(--text2);line-height:1.6}
+.tswiper-wrap{position:relative;overflow:hidden;margin-top:3rem}
+.tswiper{display:flex;gap:1rem;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.tcard{flex:0 0 calc(33.333% - .7rem);background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:border-color .3s}
+.tcard:hover{border-color:rgba(37,99,235,.3)}
+.tcard::before{content:'"';position:absolute;top:.8rem;right:1.2rem;font-size:3.5rem;color:var(--border2);font-family:var(--fd);line-height:1}
+.tquote{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1.2rem;font-style:italic}
+.tauthor{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--text)}
+.tmeta{font-size:12px;color:var(--text3);margin-top:3px;display:flex;gap:8px;align-items:center}
+.tamount{color:var(--green);font-weight:600}
+.swiper-nav{display:flex;gap:.5rem}
+.swiper-btn{width:38px;height:38px;background:var(--dark2);border:1px solid var(--border2);border-radius:8px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
+.swiper-btn:hover{border-color:var(--blue3);color:var(--blue3)}
+.swiper-dots{display:flex;justify-content:center;gap:6px;margin-top:1.2rem}
+.swiper-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:pointer;border:none;transition:all .2s;padding:0}
+.swiper-dot.active{background:var(--blue2);width:20px;border-radius:3px}
+.checker-wrap{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:640px;position:relative;overflow:hidden}
+.checker-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.checker-label{font-size:12px;color:var(--text3);margin-bottom:.8rem;font-weight:500}
+.checker-row{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border2);transition:border-color .2s}
+.checker-row:focus-within{border-color:var(--blue2)}
+.checker-input{flex:1;background:var(--dark);border:none;outline:none;padding:13px 16px;font-family:var(--fb);font-size:14px;color:var(--text);min-width:0}
+.checker-input::placeholder{color:var(--text3)}
+.checker-btn{font-family:var(--fb);font-size:13px;font-weight:600;padding:0 20px;background:var(--blue);color:#fff;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+.checker-btn:hover{background:var(--blue2)}
+.cloading{display:none;align-items:center;gap:10px;margin-top:1rem;font-size:12px;color:var(--text3)}
+.cloading.show{display:flex}
+.spinning{width:14px;height:14px;border:1.5px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite}
+.cresult{display:none;margin-top:1rem;padding:1rem 1.2rem;border-radius:8px;font-size:13px}
+.cresult.show{display:block}
+.cresult.safe{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.cresult.warning{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.cresult.unknown{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);color:#fbbf24}
+.rtitle{font-family:var(--fd);font-size:14px;font-weight:600;margin-bottom:.4rem}
 .rtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:.6rem}
-.rtag{font-family:var(--fm);font-size:10px;padding:3px 8px;border-radius:2px;letter-spacing:.05em;text-transform:uppercase}
-.rtag-red{background:rgba(255,79,79,.1);color:var(--red);border:1px solid rgba(255,79,79,.2)}
-.rtag-green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
-.rtag-amber{background:rgba(255,184,0,.1);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
-.checker-disclaimer{font-family:var(--fm);font-size:10px;color:var(--text3);margin-top:.8rem;line-height:1.6}
-
-/* ── FAQ ──────────────────────────────────────────────────────────────────── */
-.faq{display:flex;flex-direction:column;gap:1px;background:var(--border)}
-.faq-item{background:var(--bg2);overflow:hidden}
+.rtag{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.rtag-r{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.rtag-g{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.rtag-a{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.cnote{font-size:11px;color:var(--text3);margin-top:.8rem;line-height:1.5}
+.faq-wrap{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:2.5rem;border-radius:10px;overflow:hidden}
+.faq-item{background:var(--dark2);overflow:hidden}
 .faq-q{padding:1.2rem 1.5rem;font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;user-select:none}
-.faq-q:hover{background:var(--surface)}
-.faq-q::after{content:'+';font-family:var(--fm);font-size:1.2rem;color:var(--accent);transition:transform .3s;flex-shrink:0}
+.faq-q:hover{background:var(--dark3)}
+.faq-q::after{content:'+';color:var(--blue3);font-size:1.2rem;transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .faq-item.open .faq-a{max-height:300px}
-.faq-a p{padding:0 1.5rem 1.2rem;font-size:14px;color:var(--text2);line-height:1.75;font-weight:300}
-
-/* ── CONTACT ──────────────────────────────────────────────────────────────── */
-.contact-section{background:var(--bg2);border-top:1px solid var(--border)}
-.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
-.contact-methods{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
-.cmethod{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:border-color .2s}
-.cmethod:hover{border-color:var(--accent);text-decoration:none;color:var(--text)}
-.cmethod-icon{width:38px;height:38px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.cmethod-label{font-family:var(--fm);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
-.cmethod-val{font-size:14px;color:var(--text);margin-top:1px}
-.cmethod-badge{margin-left:auto;font-family:var(--fm);font-size:9px;color:var(--accent);border:1px solid rgba(0,229,255,.3);padding:2px 7px;letter-spacing:.06em;text-transform:uppercase}
-.form-wrap{display:flex;flex-direction:column;gap:1px;background:var(--border)}
-.form-field{background:var(--bg);display:flex;flex-direction:column}
-.form-field label{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:10px 14px 0}
-.form-field input,.form-field select,.form-field textarea{background:transparent;border:none;outline:none;padding:6px 14px 12px;font-family:var(--fb);font-size:14px;color:var(--text);width:100%;transition:background .2s;font-weight:300}
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus{background:var(--surface)}
+.faq-a p{padding:0 1.5rem 1.2rem;font-size:14px;color:var(--text2);line-height:1.75}
+.contact-section{background:var(--dark2);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start}
+.cmethods{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
+.cmethod{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--dark);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);transition:all .2s}
+.cmethod:hover{border-color:rgba(37,99,235,.3);background:var(--dark3);transform:translateX(4px)}
+.cmethod-icon{width:40px;height:40px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.cmethod-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.cmethod-val{font-size:14px;color:var(--text);margin-top:1px;font-weight:500}
+.cmethod-badge{margin-left:auto;font-size:10px;color:var(--cyan2);border:1px solid rgba(6,182,212,.3);padding:2px 8px;border-radius:100px;font-weight:600;white-space:nowrap}
+.tg-big{display:block;margin-top:1rem;padding:14px 20px;background:linear-gradient(135deg,#0088cc,#22d3ee);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:10px;text-align:center;text-decoration:none;transition:opacity .2s}
+.tg-big:hover{opacity:.88}
+.form-wrap{background:var(--dark);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.form-field{display:flex;flex-direction:column;border-bottom:1px solid var(--border)}
+.form-field label{font-size:11px;color:var(--text3);padding:10px 16px 0;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.form-field input,.form-field select,.form-field textarea{background:transparent;border:none;outline:none;padding:6px 16px 12px;font-family:var(--fb);font-size:14px;color:var(--text);width:100%;transition:background .2s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{background:rgba(255,255,255,.02)}
 .form-field textarea{resize:none;height:90px}
 .form-field select{appearance:none;cursor:pointer}
-.form-field select option{background:var(--bg2);color:var(--text)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-.form-submit{padding:1rem;background:var(--bg)}
-.btn-form{font-family:var(--fd);font-size:13px;font-weight:700;padding:14px 32px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;width:100%;transition:all .25s;position:relative;overflow:hidden}
-.btn-form::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-101%);transition:transform .25s}
-.btn-form:hover::before{transform:translateX(0)}
-.btn-form:hover{color:var(--bg)}
-.btn-form-text{position:relative;z-index:1}
-.form-note{font-family:var(--fm);font-size:10px;color:var(--text3);letter-spacing:.05em;margin-top:8px}
-.form-success{display:none;padding:1.5rem;background:rgba(0,214,143,.08);border:1px solid rgba(0,214,143,.2);font-family:var(--fm);font-size:13px;color:var(--green);letter-spacing:.04em}
-
-/* ── FOOTER ───────────────────────────────────────────────────────────────── */
-footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem 2rem}
-.footer-inner{max-width:1100px;margin:0 auto}
+.form-field select option{background:var(--dark2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.form-row .form-field{border-bottom:none}
+.form-row .form-field:first-child{border-right:1px solid var(--border)}
+.form-submit{padding:1rem}
+.btn-form{width:100%;font-family:var(--fb);font-size:14px;font-weight:600;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-form:hover{background:var(--blue2)}
+.form-note{font-size:11px;color:var(--text3);text-align:center;margin-top:8px}
+.form-success{display:none;padding:1.5rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:13px;color:#34d399;margin-top:1rem}
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:3rem 2rem 2rem}
+.footer-inner{max-width:1200px;margin:0 auto}
 .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-.footer-logo{font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:.8rem}
-.footer-logo span{color:var(--accent)}
-.footer-desc{font-size:13px;color:var(--text3);line-height:1.7;font-weight:300;max-width:280px}
-footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
+.footer-brand{font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:.8rem}
+.footer-brand span{color:var(--cyan2)}
+.footer-tag{font-size:13px;color:var(--text3);line-height:1.65;max-width:260px}
+footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:8px}
-.footer-links a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .2s;font-weight:300}
-.footer-links a:hover{color:var(--accent)}
+.footer-links a{font-size:13px;color:var(--text2);transition:color .2s}
+.footer-links a:hover{color:var(--text)}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:1rem}
-.footer-copy{font-family:var(--fm);font-size:11px;color:var(--text3)}
-.footer-disclaimer{font-size:11px;color:var(--text3);max-width:500px;line-height:1.5;text-align:right}
-
-/* ── LANG MODAL ───────────────────────────────────────────────────────────── */
-.lang-modal{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);border:1px solid var(--border2);padding:1.2rem 1.5rem;z-index:200;max-width:300px;display:none;border-radius:4px}
-.lang-modal-title{font-family:var(--fd);font-size:14px;font-weight:700;margin-bottom:.3rem}
-.lang-modal-sub{font-size:12px;color:var(--text2);margin-bottom:1rem;font-weight:300}
+.footer-copy{font-size:12px;color:var(--text3)}
+.footer-disc{font-size:12px;color:var(--text3);max-width:460px;text-align:right;line-height:1.5}
+.lang-modal{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--dark2);border:1px solid var(--border2);padding:1.2rem 1.5rem;z-index:200;max-width:290px;display:none;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lang-modal-title{font-family:var(--fd);font-size:14px;font-weight:600;margin-bottom:.3rem}
+.lang-modal-sub{font-size:12px;color:var(--text2);margin-bottom:1rem}
 .lang-modal-btns{display:flex;gap:8px}
-.lang-modal-btn{font-family:var(--fm);font-size:11px;padding:6px 14px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;letter-spacing:.06em;transition:all .2s;text-transform:uppercase}
-.lang-modal-btn.primary,.lang-modal-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.lang-modal-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px}
-
-/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
-@media(max-width:1024px){
-  .services-grid{grid-template-columns:repeat(2,1fr)}
-  .tl-row{grid-template-columns:1fr 1fr}
-  .tcard{flex:0 0 calc(50% - 1px)}
-  .footer-top{grid-template-columns:1fr 1fr}
-  .flip-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:900px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .analysis-grid,.contact-grid{grid-template-columns:1fr}
-  .scam-card{flex:0 0 calc(33.333% - 1px)}
-  .hero-stats{grid-template-columns:repeat(2,1fr);gap:1.5rem}
-  .why-grid{grid-template-columns:1fr}
-  .flip-grid{grid-template-columns:1fr}
-  .tcard{flex:0 0 100%}
-}
-@media(max-width:600px){
-  .flip-card{height:auto;min-height:160px}
-  .lang-bar{padding:0 1rem}
-  nav{padding:0 1rem;top:38px}
-  .hero{padding:108px 1rem 3rem;min-height:100svh}
-  section{padding:3.5rem 1rem}
-  .hero-stats{grid-template-columns:repeat(2,1fr);gap:1.2rem}
-  .stat-num{font-size:1.8rem}
-  .trust-row{gap:.4rem}
-  .trust-badge{font-size:9px;padding:5px 9px}
-  .tl-row{grid-template-columns:1fr}
-  .services-grid{grid-template-columns:1fr}
-  .analysis-grid{gap:2rem}
-  .scam-card{flex:0 0 calc(50% - 1px)}
-  .contact-grid{grid-template-columns:1fr;gap:2rem}
-  .footer-top{grid-template-columns:1fr 1fr}
-  .footer-top>div:first-child{grid-column:1/-1}
-  .footer-disclaimer{text-align:left}
-  .footer-bottom{flex-direction:column;align-items:flex-start}
-  .form-row{grid-template-columns:1fr}
-  .checker-row{flex-direction:column}
-  .checker-input{border-right:1px solid var(--border2);border-bottom:none}
-  .checker-btn{width:100%}
-  .hero-ctas{flex-direction:column}
-  .nav-logo svg{width:130px}
-  .btn-primary,.btn-tg,.btn-ghost{width:100%;justify-content:center}
-  .swiper-arrows{display:none}
-  .flip-grid{grid-template-columns:1fr;gap:.6rem}
-  #scam-flip-grid{grid-template-columns:repeat(2,1fr)}
-  .flip-card{height:auto;min-height:155px}
-  .flip-front,.flip-back{padding:1.1rem}
-}
+.lmbtn{font-size:12px;padding:6px 14px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;border-radius:6px;font-weight:600;transition:all .2s}
+.lmbtn.primary,.lmbtn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.lm-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px}
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr}.hero-right{display:flex;margin-top:2rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{border-bottom:1px solid var(--border)}.stat-card:nth-child(2){border-right:none}.stat-card:nth-child(3),.stat-card:nth-child(4){border-bottom:none}.chain-grid{grid-template-columns:1fr;gap:2.5rem}.contact-grid{grid-template-columns:1fr;gap:2.5rem}.tcard{flex:0 0 calc(50% - .5rem)}.footer-top{grid-template-columns:1fr 1fr}.footer-top>div:first-child{grid-column:1/-1}}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}.how-grid{grid-template-columns:repeat(2,1fr)}.svcs-grid{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.tcard{flex:0 0 100%}}
+@media(max-width:600px){nav{padding:0 1rem}.lang-bar{padding:0 1rem}.hero{padding:106px 1rem 4rem}section{padding:4rem 1rem}h1{font-size:2rem}.hero-btns{flex-direction:column}.btn-blue,.btn-outline,.btn-tg{width:100%;justify-content:center}.hero-stats{gap:1.2rem}.hstat-num{font-size:1.6rem}
+  .hero-right{max-width:320px;margin:0 auto;width:100%}
+  .hero-right>div{max-width:100%!important}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{padding:1.5rem;border-right:none}.how-grid{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.scam-card{height:180px}.footer-top{grid-template-columns:1fr 1fr}.footer-top>div:first-child{grid-column:1/-1}.footer-bottom{flex-direction:column;align-items:flex-start}.footer-disc{text-align:left}.form-row{grid-template-columns:1fr}.form-row .form-field:first-child{border-right:none;border-bottom:1px solid var(--border)}.checker-row{flex-direction:column}.checker-btn{padding:12px;border-radius:0 0 8px 8px}}
 </style>
 </head>
 <body>
-
-<!-- LANG BAR -->
 <div class="lang-bar">
   <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
@@ -380,39 +274,30 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
-
-<!-- LANG MODAL -->
 <div class="lang-modal" id="lang-modal">
-  <button class="lang-modal-close" onclick="document.getElementById('lang-modal').style.display='none'">×</button>
+  <button class="lm-close" onclick="document.getElementById('lang-modal').style.display='none'">&#215;</button>
   <div class="lang-modal-title" id="modal-title"></div>
   <div class="lang-modal-sub" id="modal-sub"></div>
   <div class="lang-modal-btns">
-    <button class="lang-modal-btn primary" id="modal-accept" onclick="acceptLang()"></button>
-    <button class="lang-modal-btn" onclick="document.getElementById('lang-modal').style.display='none'">
-      <span class="t-ru">Остаться</span><span class="t-uk lang-hide">Залишитись</span><span class="t-en lang-hide">Stay</span>
-    </button>
+    <button class="lmbtn primary" id="modal-accept" onclick="acceptLang()"></button>
+    <button class="lmbtn" onclick="document.getElementById('lang-modal').style.display='none'"><span class="t-ru">Остаться</span><span class="t-uk lang-hide">Залишитись</span><span class="t-en lang-hide">Stay</span></button>
   </div>
 </div>
-
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <svg width="170" height="30" viewBox="0 0 200 34">
-      <polygon points="17,1 29,1 35,11 29,22 17,22 11,11" fill="none" stroke="#00e5ff" stroke-width="1.4" class="lhd"/>
-      <polygon points="17,4 29,4 34,11 29,18 17,18 12,11" fill="rgba(0,229,255,0.06)"/>
-      <circle cx="23" cy="11" r="6" fill="none" stroke="#00e5ff" stroke-width=".4" class="ldr"/>
-      <circle cx="23" cy="11" r="3" fill="#00e5ff" class="ldp"/>
-      <circle cx="23" cy="11" r="1.4" fill="#080c10"/>
-      <circle cx="17" cy="1" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <circle cx="29" cy="1" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <circle cx="35" cy="11" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <circle cx="29" cy="22" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <circle cx="17" cy="22" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <circle cx="11" cy="11" r="1.1" fill="#00e5ff" opacity=".4"/>
-      <text x="43" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#ffffff" letter-spacing="-.3" class="lwc">Crypto</text>
-      <text x="97" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#00e5ff" letter-spacing="-.3" class="lwj">Justice</text>
-      <text x="44" y="26" font-family="monospace" font-size="6.5" fill="#334e5f" letter-spacing="1.8" class="lws">BLOCKCHAIN RECOVERY</text>
+    <svg viewBox="0 0 32 32" width="32" height="32" style="flex-shrink:0">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <polygon points="16,5 23,9 23,17 16,21 9,17 9,9" fill="rgba(34,211,238,0.08)"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+      <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
+      <circle cx="16" cy="2" r="1.2" fill="#22d3ee" opacity=".5"/>
+      <circle cx="26" cy="7.5" r="1.2" fill="#22d3ee" opacity=".5"/>
+      <circle cx="26" cy="18.5" r="1.2" fill="#22d3ee" opacity=".5"/>
+      <circle cx="16" cy="24" r="1.2" fill="#22d3ee" opacity=".5"/>
+      <circle cx="6" cy="18.5" r="1.2" fill="#22d3ee" opacity=".5"/>
+      <circle cx="6" cy="7.5" r="1.2" fill="#22d3ee" opacity=".5"/>
     </svg>
+    Crypto<span>Justice</span>
   </a>
   <ul class="nav-links">
     <li><a href="#how"><span class="t-ru">Как работает</span><span class="t-uk lang-hide">Як працює</span><span class="t-en lang-hide">How it works</span></a></li>
@@ -422,716 +307,388 @@ footer h4{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transfo
     <li><a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
   </ul>
   <div class="nav-right">
-    <a href="#contact" class="nav-cta">
-      <span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span>
-    </a>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
+    <a href="#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
 </nav>
-
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#how" onclick="toggleMenu()"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a>
-  <a href="#services" onclick="toggleMenu()"><span class="t-ru">Услуги и цены</span><span class="t-uk lang-hide">Послуги та ціни</span><span class="t-en lang-hide">Services & pricing</span></a>
+  <a href="#services" onclick="toggleMenu()"><span class="t-ru">Услуги и цены</span><span class="t-uk lang-hide">Послуги та ціни</span><span class="t-en lang-hide">Services</span></a>
   <a href="#checker" onclick="toggleMenu()"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
   <a href="/blog/" onclick="toggleMenu()"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
-  <div class="mobile-menu-cta">
-    <a href="#contact" class="m-btn-primary" onclick="toggleMenu()">
-      <span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span>
-    </a>
-    <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="m-btn-tg">
-      ✈ Telegram — @cryptojustice_help_bot
-    </a>
+  <div class="mm-btns">
+    <a href="#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
+    <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="mm-tg">&#9992; Telegram</a>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-grid-bg"></div>
   <div class="hero-inner">
-    <div class="hero-badge">
-      <span class="t-ru">Вас обманули — мы знаем как действовать</span>
-      <span class="t-uk lang-hide">Вас обманули — ми знаємо як діяти</span>
-      <span class="t-en lang-hide">You were scammed — we know what to do</span>
-    </div>
-    <svg width="100%" viewBox="0 0 440 72" style="max-width:480px;margin-bottom:1.4rem;display:block">
-      <polygon points="36,2 60,2 72,22 60,44 36,44 24,22" fill="none" stroke="#00e5ff" stroke-width="1.8" class="lhd"/>
-      <polygon points="36,6 60,6 70,22 60,38 36,38 26,22" fill="rgba(0,229,255,0.06)"/>
-      <circle cx="48" cy="22" r="9" fill="none" stroke="#00e5ff" stroke-width=".7" class="ldr"/>
-      <circle cx="48" cy="22" r="4.5" fill="#00e5ff" class="ldp"/>
-      <circle cx="48" cy="22" r="2.2" fill="#080c10"/>
-      <circle cx="36" cy="2" r="2" fill="#00e5ff" opacity=".5"/>
-      <circle cx="60" cy="2" r="2" fill="#00e5ff" opacity=".5"/>
-      <circle cx="72" cy="22" r="2" fill="#00e5ff" opacity=".5"/>
-      <circle cx="60" cy="44" r="2" fill="#00e5ff" opacity=".5"/>
-      <circle cx="36" cy="44" r="2" fill="#00e5ff" opacity=".5"/>
-      <circle cx="24" cy="22" r="2" fill="#00e5ff" opacity=".5"/>
-      <text x="88" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#ffffff" letter-spacing="-1" class="lwc">Crypto</text>
-      <text x="226" y="34" font-family="Arial" font-weight="800" font-size="40" fill="#00e5ff" letter-spacing="-1" class="lwj">Justice</text>
-      <text x="90" y="52" font-family="monospace" font-size="9.5" fill="#334e5f" letter-spacing="2.8" class="lws">BLOCKCHAIN RECOVERY</text>
-    </svg>
-    <p class="hero-sub">
-      <span class="t-ru">Отслеживаем украденные средства по блокчейну, замораживаем активы на биржах и добиваемся возврата. Берёмся за кейсы любой давности.</span>
-      <span class="t-uk lang-hide">Відстежуємо вкрадені кошти по блокчейну, заморожуємо активи на біржах та домагаємося повернення. Беремося за кейси будь-якої давності.</span>
-      <span class="t-en lang-hide">We trace stolen funds on-chain, freeze assets on exchanges, and pursue recovery. We take cases of any age.</span>
-    </p>
-    <div class="hero-ctas">
-      <a href="#contact" class="btn-primary">
-        <span class="t-ru">Получить консультацию →</span>
-        <span class="t-uk lang-hide">Отримати консультацію →</span>
-        <span class="t-en lang-hide">Get consultation →</span>
-      </a>
-      <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="btn-tg">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="currentColor"/></svg>
-        Telegram
-      </a>
-      <a href="#how" class="btn-ghost">
-        <span class="t-ru">Как это работает</span>
-        <span class="t-uk lang-hide">Як це працює</span>
-        <span class="t-en lang-hide">How it works</span>
-        →
-      </a>
-    </div>
-    <div class="hero-stats fade-up">
-      <div class="stat-item">
-        <div class="stat-num" data-counter="500">500<span>+</span></div>
-        <div class="stat-label t-ru">Дел в работе</div>
-        <div class="stat-label t-uk lang-hide">Справ в роботі</div>
-        <div class="stat-label t-en lang-hide">Cases handled</div>
+    <div>
+      <div class="hero-label"><span class="t-ru">Blockchain Recovery</span><span class="t-uk lang-hide">Blockchain Recovery</span><span class="t-en lang-hide">Blockchain Recovery</span></div>
+      <h1><span class="t-ru">Возвращаем деньги,<br>украденные <span>крипто-мошенниками</span></span><span class="t-uk lang-hide">Повертаємо кошти,<br>вкрадені <span>крипто-шахраями</span></span><span class="t-en lang-hide">We recover funds stolen<br>by <span>crypto scammers</span></span></h1>
+      <p class="hero-sub"><span class="t-ru">Блокчейн-анализ, заморозка активов на биржах и юридическое сопровождение. Берёмся за кейсы любой давности — от недели до нескольких лет.</span><span class="t-uk lang-hide">Блокчейн-аналіз, заморожування активів та юридичний супровід. Беремося за кейси будь-якої давності.</span><span class="t-en lang-hide">Blockchain analysis, asset freezing on exchanges, and legal support. We take cases of any age.</span></p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-blue"><span class="t-ru">Получить консультацию &#8594;</span><span class="t-uk lang-hide">Отримати консультацію &#8594;</span><span class="t-en lang-hide">Get consultation &#8594;</span></a>
+        <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="btn-tg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.64-.203-.654-.64.136-.948l11.527-4.448c.535-.194 1.003.13.59.168z" fill="currentColor"/></svg>
+          Telegram
+        </a>
+        <a href="#how" class="btn-outline"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a>
       </div>
-      <div class="stat-item">
-        <div class="stat-num" data-counter="2.1">$2.1<span>M</span></div>
-        <div class="stat-label t-ru">Возвращено средств</div>
-        <div class="stat-label t-uk lang-hide">Повернено коштів</div>
-        <div class="stat-label t-en lang-hide">Funds recovered</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">68<span>%</span></div>
-        <div class="stat-label t-ru">Успешных кейсов</div>
-        <div class="stat-label t-uk lang-hide">Успішних кейсів</div>
-        <div class="stat-label t-en lang-hide">Success rate</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">24<span>h</span></div>
-        <div class="stat-label t-ru">Первый ответ</div>
-        <div class="stat-label t-uk lang-hide">Перша відповідь</div>
-        <div class="stat-label t-en lang-hide">First response</div>
+      <div class="hero-stats">
+        <div><div class="hstat-num">500<span>+</span></div><div class="hstat-label t-ru">Дел в работе</div><div class="hstat-label t-uk lang-hide">Справ в роботі</div><div class="hstat-label t-en lang-hide">Cases handled</div></div>
+        <div><div class="hstat-num">$2.1<span>M</span></div><div class="hstat-label t-ru">Возвращено</div><div class="hstat-label t-uk lang-hide">Повернено</div><div class="hstat-label t-en lang-hide">Recovered</div></div>
+        <div><div class="hstat-num">68<span>%</span></div><div class="hstat-label t-ru">Успешных кейсов</div><div class="hstat-label t-uk lang-hide">Успішних кейсів</div><div class="hstat-label t-en lang-hide">Success rate</div></div>
+        <div><div class="hstat-num">24<span>h</span></div><div class="hstat-label t-ru">Первый ответ</div><div class="hstat-label t-uk lang-hide">Перша відповідь</div><div class="hstat-label t-en lang-hide">First response</div></div>
       </div>
     </div>
-    <div class="trust-row fade-up">
-      <div class="trust-badge"><div class="trust-dot"></div>FCA Register</div>
-      <div class="trust-badge"><div class="trust-dot"></div>ESMA Database</div>
-      <div class="trust-badge"><div class="trust-dot"></div>CySEC Warnings</div>
-      <div class="trust-badge"><div class="trust-dot"></div>IC3 / FBI</div>
-      <div class="trust-badge"><div class="trust-dot"></div>Europol EC3</div>
-      <div class="trust-badge"><div class="trust-dot"></div>ACCC Scamwatch</div>
+    <div class="hero-right">
+      <div style="width:100%;max-width:520px;position:relative;aspect-ratio:1">
+        <div class="hero-glow"></div>
+        <svg viewBox="0 0 480 480" width="100%" style="position:relative;z-index:1">
+          <defs>
+            <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2563eb" stop-opacity=".5"/><stop offset="100%" stop-color="#2563eb" stop-opacity="0"/></radialGradient>
+            <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#22d3ee" stop-opacity=".4"/><stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+            <filter id="blur"><feGaussianBlur stdDeviation="10"/></filter>
+          </defs>
+          <circle cx="240" cy="240" r="120" fill="url(#g1)" filter="url(#blur)" opacity=".5"/>
+          <circle cx="330" cy="150" r="70" fill="url(#g2)" filter="url(#blur)" opacity=".4"/>
+          <g opacity=".12" stroke="#60a5fa" stroke-width=".5">
+            <line x1="0" y1="120" x2="480" y2="120"/><line x1="0" y1="240" x2="480" y2="240"/><line x1="0" y1="360" x2="480" y2="360"/>
+            <line x1="120" y1="0" x2="120" y2="480"/><line x1="240" y1="0" x2="240" y2="480"/><line x1="360" y1="0" x2="360" y2="480"/>
+          </g>
+          <g stroke="#2563eb" stroke-width="1.5" fill="none" opacity=".6">
+            <path d="M240,240 L120,160" stroke-dasharray="300" style="animation:draw 2s ease forwards"/>
+            <path d="M240,240 L360,160" stroke-dasharray="300" style="animation:draw 2.3s ease forwards"/>
+            <path d="M240,240 L160,340" stroke-dasharray="300" style="animation:draw 2.6s ease forwards"/>
+            <path d="M240,240 L320,340" stroke-dasharray="300" style="animation:draw 2.9s ease forwards"/>
+            <path d="M120,160 L80,80" opacity=".4" stroke-dasharray="200" style="animation:draw 3.2s ease forwards"/>
+            <path d="M360,160 L410,80" opacity=".4" stroke-dasharray="200" style="animation:draw 3.5s ease forwards"/>
+            <path d="M360,160 L430,210" opacity=".4" stroke-dasharray="200" style="animation:draw 3.8s ease forwards"/>
+            <path d="M120,160 L60,210" opacity=".4" stroke-dasharray="200" style="animation:draw 4.1s ease forwards"/>
+          </g>
+          <g stroke="#22d3ee" stroke-width="1" fill="none" opacity=".3">
+            <path d="M160,340 L100,410" stroke-dasharray="150" style="animation:draw 4.4s ease forwards"/>
+            <path d="M320,340 L390,410" stroke-dasharray="150" style="animation:draw 4.7s ease forwards"/>
+          </g>
+          <circle cx="240" cy="240" r="14" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5" style="animation:float 4s ease-in-out infinite"/>
+          <circle cx="240" cy="240" r="6" fill="#60a5fa" style="animation:float 4s ease-in-out infinite"/>
+          <g style="animation:float 5s ease-in-out infinite .5s"><circle cx="120" cy="160" r="11" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/><circle cx="120" cy="160" r="4.5" fill="#22d3ee"/></g>
+          <g style="animation:float 4.5s ease-in-out infinite 1s"><circle cx="360" cy="160" r="11" fill="#0f172a" stroke="#2563eb" stroke-width="1.5"/><circle cx="360" cy="160" r="4.5" fill="#60a5fa"/></g>
+          <g style="animation:float 5.5s ease-in-out infinite .3s"><circle cx="160" cy="340" r="9" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/><circle cx="160" cy="340" r="3.5" fill="#22d3ee"/></g>
+          <g style="animation:float 4.8s ease-in-out infinite .8s"><circle cx="320" cy="340" r="9" fill="#0f172a" stroke="#2563eb" stroke-width="1.2"/><circle cx="320" cy="340" r="3.5" fill="#60a5fa"/></g>
+          <circle cx="80" cy="80" r="6" fill="#0f172a" stroke="#2563eb" stroke-width="1" opacity=".7"/><circle cx="80" cy="80" r="2.5" fill="#60a5fa" opacity=".7"/>
+          <circle cx="410" cy="80" r="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1" opacity=".7"/><circle cx="410" cy="80" r="2.5" fill="#22d3ee" opacity=".7"/>
+          <circle cx="430" cy="210" r="5" fill="#0f172a" stroke="#2563eb" stroke-width="1" opacity=".6"/>
+          <circle cx="60" cy="210" r="5" fill="#0f172a" stroke="#22d3ee" stroke-width="1" opacity=".6"/>
+          <text x="130" y="148" font-size="9" fill="#94a3b8" font-family="monospace">Binance</text>
+          <text x="333" y="148" font-size="9" fill="#94a3b8" font-family="monospace">Kraken</text>
+          <text x="168" y="358" font-size="9" fill="#94a3b8" font-family="monospace">OKX</text>
+          <text x="284" y="358" font-size="9" fill="#94a3b8" font-family="monospace">Bybit</text>
+          <rect x="180" y="98" width="72" height="22" rx="4" fill="#0f172a" stroke="#22d3ee" stroke-width=".8" opacity=".9"/>
+          <text x="216" y="113" font-size="9" fill="#22d3ee" font-family="monospace" text-anchor="middle" font-weight="600">FREEZE &#10003;</text>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Fake broker — $43,000 frozen · Binance</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Romance scam — 12 addresses traced</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Binance KYC request — approved in 5 days</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Pig butchering — court docs prepared</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Kraken freeze order — confirmed</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Investment fraud — $120,000 — in progress</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Fake broker — $43,000 frozen · Binance</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Romance scam — 12 addresses traced</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Binance KYC request — approved in 5 days</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Pig butchering — court docs prepared</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Kraken freeze order — confirmed</span></div>
-    <div class="ticker-item"><div class="ticker-dot"></div><span>Investment fraud — $120,000 — in progress</span></div>
+<div class="ticker"><div class="ticker-track">
+  <div class="ticker-item"><div class="ticker-dot"></div>Fake broker &#8212; $43,000 frozen &#183; Binance</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Romance scam &#8212; 12 addresses traced</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Binance KYC request &#8212; approved in 5 days</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Pig butchering &#8212; court docs &#183; Europol</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Kraken freeze order &#8212; confirmed</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Investment fraud &#8212; $120,000 &#8212; in progress</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Fake broker &#8212; $43,000 frozen &#183; Binance</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Romance scam &#8212; 12 addresses traced</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Binance KYC request &#8212; approved in 5 days</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Pig butchering &#8212; court docs &#183; Europol</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Kraken freeze order &#8212; confirmed</div>
+  <div class="ticker-item"><div class="ticker-dot"></div>Investment fraud &#8212; $120,000 &#8212; in progress</div>
+</div></div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar"><div class="trust-bar-inner">
+  <div class="trust-label t-ru">Работаем с данными регуляторов</div>
+  <div class="trust-label t-uk lang-hide">Працюємо з даними регуляторів</div>
+  <div class="trust-label t-en lang-hide">Trusted regulatory data sources</div>
+  <div class="trust-logos">
+    <div class="trust-logo"><div class="trust-dot"></div>FCA Register</div>
+    <div class="trust-logo"><div class="trust-dot"></div>ESMA Database</div>
+    <div class="trust-logo"><div class="trust-dot"></div>CySEC Warnings</div>
+    <div class="trust-logo"><div class="trust-dot"></div>IC3 / FBI</div>
+    <div class="trust-logo"><div class="trust-dot"></div>Europol EC3</div>
+    <div class="trust-logo"><div class="trust-dot"></div>ACCC Scamwatch</div>
   </div>
-</div>
+</div></div>
+
+<!-- STATS -->
+<section class="stats-section"><div class="section-inner">
+  <div class="stats-grid reveal">
+    <div class="stat-card"><div class="stat-num">500<span>+</span></div><div class="stat-desc t-ru">Кейсов обработано командой с 2021 года</div><div class="stat-desc t-uk lang-hide">Кейсів оброблено з 2021 року</div><div class="stat-desc t-en lang-hide">Cases handled since 2021</div></div>
+    <div class="stat-card"><div class="stat-num">$2.1<span>M</span></div><div class="stat-desc t-ru">Средств заморожено или возвращено</div><div class="stat-desc t-uk lang-hide">Коштів заморожено або повернуто</div><div class="stat-desc t-en lang-hide">Frozen or recovered for clients</div></div>
+    <div class="stat-card"><div class="stat-num">68<span>%</span></div><div class="stat-desc t-ru">Кейсов с успешной заморозкой активов</div><div class="stat-desc t-uk lang-hide">Кейсів з успішним заморожуванням</div><div class="stat-desc t-en lang-hide">Cases with successful asset freeze</div></div>
+    <div class="stat-card"><div class="stat-num">24<span>h</span></div><div class="stat-desc t-ru">Первый ответ с оценкой шансов</div><div class="stat-desc t-uk lang-hide">Перша відповідь з оцінкою</div><div class="stat-desc t-en lang-hide">First response with assessment</div></div>
+  </div>
+</div></section>
 
 <!-- WHY US -->
-<section style="background:var(--bg2);border-top:1px solid var(--border)">
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">Почему мы</span><span class="t-uk lang-hide">Чому ми</span><span class="t-en lang-hide">Why us</span></div>
-    <h2><span class="t-ru">Три причины <em>обратиться</em></span><span class="t-uk lang-hide">Три причини <em>звернутися</em></span><span class="t-en lang-hide">Three reasons to <em>choose us</em></span></h2>
-    <div class="flip-grid fade-up">
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">🔒</div>
-            <div class="flip-title t-ru">Без предоплаты за результат</div>
-            <div class="flip-title t-uk lang-hide">Без передоплати за результат</div>
-            <div class="flip-title t-en lang-hide">No upfront fees for results</div>
-            <div class="flip-sub t-ru">Нажмите, чтобы узнать больше</div>
-            <div class="flip-sub t-uk lang-hide">Натисніть, щоб дізнатися більше</div>
-            <div class="flip-sub t-en lang-hide">Tap to learn more</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Платите только за конкретные услуги — анализ и документы. Никаких «гарантированных возвратов» за деньги вперёд. 90% агентств по возврату — сами мошенники.</div>
-            <div class="flip-desc t-uk lang-hide">Платіть лише за конкретні послуги. Ніяких «гарантованих повернень» за гроші наперед.</div>
-            <div class="flip-desc t-en lang-hide">Pay only for specific services — analysis and documents. No "guaranteed recovery" schemes requiring payment upfront.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">📅</div>
-            <div class="flip-title t-ru">Берёмся за любые сроки</div>
-            <div class="flip-title t-uk lang-hide">Беремося за будь-які терміни</div>
-            <div class="flip-title t-en lang-hide">Any timeline accepted</div>
-            <div class="flip-sub t-ru">Нажмите, чтобы узнать больше</div>
-            <div class="flip-sub t-uk lang-hide">Натисніть, щоб дізнатися більше</div>
-            <div class="flip-sub t-en lang-hide">Tap to learn more</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Неделю назад или год — шансы есть в обоих случаях. Многие наши клиенты обратились спустя месяцы после потери. Не ждите — обращайтесь сейчас.</div>
-            <div class="flip-desc t-uk lang-hide">Тиждень тому або рік — шанси є в обох випадках. Багато клієнтів звернулися через місяці після втрати.</div>
-            <div class="flip-desc t-en lang-hide">A week ago or a year — chances exist in both cases. Many clients came to us months after the loss. Don't wait.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">💬</div>
-            <div class="flip-title t-ru">Честная оценка шансов</div>
-            <div class="flip-title t-uk lang-hide">Чесна оцінка шансів</div>
-            <div class="flip-title t-en lang-hide">Honest assessment</div>
-            <div class="flip-sub t-ru">Нажмите, чтобы узнать больше</div>
-            <div class="flip-sub t-uk lang-hide">Натисніть, щоб дізнатися більше</div>
-            <div class="flip-sub t-en lang-hide">Tap to learn more</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Если шансы низкие — скажем об этом сразу и не возьмём деньги. Мы дорожим репутацией больше, чем одним клиентом. Наш успех — ваш результат.</div>
-            <div class="flip-desc t-uk lang-hide">Якщо шанси низькі — скажемо одразу і не візьмемо гроші. Ми цінуємо репутацію більше за один кейс.</div>
-            <div class="flip-desc t-en lang-hide">If chances are low — we'll say so and won't take your money. Our reputation matters more than one client.</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+<section><div class="section-inner">
+  <div class="slabel t-ru">Почему мы</div><div class="slabel t-uk lang-hide">Чому ми</div><div class="slabel t-en lang-hide">Why us</div>
+  <h2 class="reveal"><span class="t-ru">Три причины <span>обратиться</span></span><span class="t-uk lang-hide">Три причини <span>звернутися</span></span><span class="t-en lang-hide">Three reasons to <span>choose us</span></span></h2>
+  <div class="why-grid reveal">
+    <div class="why-card"><div class="why-icon">&#128274;</div><div class="why-title t-ru">Без предоплаты за результат</div><div class="why-title t-uk lang-hide">Без передоплати за результат</div><div class="why-title t-en lang-hide">No upfront fees for results</div><div class="why-desc t-ru">Платите только за конкретные услуги. 90% агентств по возврату &#8212; сами мошенники. Мы никогда не берём деньги за «гарантированный возврат».</div><div class="why-desc t-uk lang-hide">Платіть лише за конкретні послуги. 90% агентств &#8212; самі шахраї. Ніколи не беремо за «гарантоване повернення».</div><div class="why-desc t-en lang-hide">Pay only for specific services. 90% of recovery agencies are scammers themselves. We never charge for "guaranteed recovery".</div></div>
+    <div class="why-card"><div class="why-icon">&#128197;</div><div class="why-title t-ru">Берёмся за любые сроки</div><div class="why-title t-uk lang-hide">Беремося за будь-які терміни</div><div class="why-title t-en lang-hide">Any timeline accepted</div><div class="why-desc t-ru">Неделю назад или год &#8212; шансы есть в обоих случаях. Многие клиенты обратились спустя месяцы. Чем раньше &#8212; тем лучше, но никогда не поздно.</div><div class="why-desc t-uk lang-hide">Тиждень тому або рік &#8212; шанси є в обох випадках. Чим раніше &#8212; тим краще, але ніколи не пізно.</div><div class="why-desc t-en lang-hide">A week ago or a year &#8212; chances exist in both cases. Earlier is better, but it&#39;s never too late to reach out.</div></div>
+    <div class="why-card"><div class="why-icon">&#128172;</div><div class="why-title t-ru">Честная оценка шансов</div><div class="why-title t-uk lang-hide">Чесна оцінка шансів</div><div class="why-title t-en lang-hide">Honest assessment</div><div class="why-desc t-ru">Если шансы низкие &#8212; скажем сразу и не возьмём деньги. Мы дорожим репутацией больше, чем одним клиентом. Наш успех &#8212; ваш результат.</div><div class="why-desc t-uk lang-hide">Якщо шанси низькі &#8212; скажемо одразу. Ми цінуємо репутацію більше за один кейс.</div><div class="why-desc t-en lang-hide">If chances are low &#8212; we&#39;ll say so and won&#39;t take your money. Our reputation matters more than one client.</div></div>
   </div>
-</section>
+</div></section>
 
 <!-- HOW IT WORKS -->
-<section id="how">
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">Процесс</span><span class="t-uk lang-hide">Процес</span><span class="t-en lang-hide">Process</span></div>
-    <h2><span class="t-ru">Как мы <em>возвращаем</em> средства</span><span class="t-uk lang-hide">Як ми <em>повертаємо</em> кошти</span><span class="t-en lang-hide">How we <em>recover</em> funds</span></h2>
-    <p class="section-desc"><span class="t-ru">Чёткий процесс от первого обращения до заморозки или судебного производства.</span><span class="t-uk lang-hide">Чіткий процес від першого звернення до заморожування або судового провадження.</span><span class="t-en lang-hide">A clear process from first contact to asset freezing or court proceedings.</span></p>
-    <div class="timeline fade-up">
-      <div class="tl-row">
-        <div class="tl-item">
-          <div class="tl-left"><div class="tl-num">01</div><div class="tl-dot">🔍</div></div>
-          <div class="tl-content">
-            <div class="tl-title t-ru">Бесплатная оценка</div><div class="tl-title t-uk lang-hide">Безкоштовна оцінка</div><div class="tl-title t-en lang-hide">Free assessment</div>
-            <div class="tl-desc t-ru">Анализируем ситуацию и определяем шансы на возврат.</div><div class="tl-desc t-uk lang-hide">Аналізуємо ситуацію та визначаємо шанси.</div><div class="tl-desc t-en lang-hide">We assess your case and determine recovery chances.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-left"><div class="tl-num">02</div><div class="tl-dot">⛓️</div></div>
-          <div class="tl-content">
-            <div class="tl-title t-ru">Блокчейн-анализ</div><div class="tl-title t-uk lang-hide">Блокчейн-аналіз</div><div class="tl-title t-en lang-hide">Blockchain analysis</div>
-            <div class="tl-desc t-ru">Отслеживаем движение средств через все кошельки.</div><div class="tl-desc t-uk lang-hide">Відстежуємо рух коштів через усі гаманці.</div><div class="tl-desc t-en lang-hide">We trace funds through all wallets to their destination.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-left"><div class="tl-num">03</div><div class="tl-dot">📄</div></div>
-          <div class="tl-content">
-            <div class="tl-title t-ru">Пакет документов</div><div class="tl-title t-uk lang-hide">Пакет документів</div><div class="tl-title t-en lang-hide">Documentation</div>
-            <div class="tl-desc t-ru">Готовим запросы в биржи и правоохранительные органы.</div><div class="tl-desc t-uk lang-hide">Готуємо запити до бірж та правоохоронних органів.</div><div class="tl-desc t-en lang-hide">Exchange requests and law enforcement reports.</div>
-          </div>
-        </div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-item">
-          <div class="tl-left"><div class="tl-num">04</div><div class="tl-dot">🏦</div></div>
-          <div class="tl-content">
-            <div class="tl-title t-ru">Заморозка активов</div><div class="tl-title t-uk lang-hide">Заморожування активів</div><div class="tl-title t-en lang-hide">Asset freeze</div>
-            <div class="tl-desc t-ru">Запросы через KYC-отделы бирж или суд.</div><div class="tl-desc t-uk lang-hide">Запити через KYC-відділи бірж або суд.</div><div class="tl-desc t-en lang-hide">Requests via exchange KYC departments or court.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-left"><div class="tl-num">05</div><div class="tl-dot">⚖️</div></div>
-          <div class="tl-content">
-            <div class="tl-title t-ru">Судебное сопровождение</div><div class="tl-title t-uk lang-hide">Судовий супровід</div><div class="tl-title t-en lang-hide">Legal proceedings</div>
-            <div class="tl-desc t-ru">Партнёрские юристы в вашей юрисдикции.</div><div class="tl-desc t-uk lang-hide">Партнерські юристи у вашій юрисдикції.</div><div class="tl-desc t-en lang-hide">Partner lawyers in your jurisdiction.</div>
-          </div>
-        </div>
-        <div class="tl-cta-item">
-          <div>
-            <div style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.5rem t-ru">Готовы начать?</div>
-            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-ru">Получить консультацию →</a>
-            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-uk lang-hide">Отримати консультацію →</a>
-            <a href="#contact" style="font-family:var(--fd);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:var(--bg);text-decoration:none;display:inline-block;letter-spacing:.05em;text-transform:uppercase" class="t-en lang-hide">Get consultation →</a>
-          </div>
-        </div>
+<section class="how-section" id="how"><div class="section-inner">
+  <div class="slabel t-ru">Процесс</div><div class="slabel t-uk lang-hide">Процес</div><div class="slabel t-en lang-hide">Process</div>
+  <h2 class="reveal"><span class="t-ru">Как мы <span>возвращаем</span> средства</span><span class="t-uk lang-hide">Як ми <span>повертаємо</span> кошти</span><span class="t-en lang-hide">How we <span>recover</span> funds</span></h2>
+  <p class="sdesc"><span class="t-ru">Чёткий процесс от первого обращения до результата.</span><span class="t-uk lang-hide">Чіткий процес від першого звернення до результату.</span><span class="t-en lang-hide">A clear process from first contact to results.</span></p>
+  <div class="how-grid reveal">
+    <div class="how-card"><div class="how-num">01</div><div class="how-icon">&#128269;</div><div class="how-title t-ru">Бесплатная оценка</div><div class="how-title t-uk lang-hide">Безкоштовна оцінка</div><div class="how-title t-en lang-hide">Free assessment</div><div class="how-desc t-ru">Анализируем ситуацию и определяем реальные шансы на возврат.</div><div class="how-desc t-uk lang-hide">Аналізуємо ситуацію та визначаємо реальні шанси.</div><div class="how-desc t-en lang-hide">We analyze the situation and determine real recovery chances.</div></div>
+    <div class="how-card"><div class="how-num">02</div><div class="how-icon">&#128279;</div><div class="how-title t-ru">Блокчейн-анализ</div><div class="how-title t-uk lang-hide">Блокчейн-аналіз</div><div class="how-title t-en lang-hide">Blockchain analysis</div><div class="how-desc t-ru">Отслеживаем движение средств через все кошельки до конечного адресата.</div><div class="how-desc t-uk lang-hide">Відстежуємо рух коштів через усі гаманці.</div><div class="how-desc t-en lang-hide">We trace funds through all wallets to their destination.</div></div>
+    <div class="how-card"><div class="how-num">03</div><div class="how-icon">&#128196;</div><div class="how-title t-ru">Пакет документов</div><div class="how-title t-uk lang-hide">Пакет документів</div><div class="how-title t-en lang-hide">Documentation</div><div class="how-desc t-ru">Готовим все запросы в биржи, полицию и международные органы.</div><div class="how-desc t-uk lang-hide">Готуємо всі запити до бірж, поліції та міжнародних органів.</div><div class="how-desc t-en lang-hide">We prepare all requests for exchanges, police and international bodies.</div></div>
+    <div class="how-card"><div class="how-num">04</div><div class="how-icon">&#127970;</div><div class="how-title t-ru">Заморозка активов</div><div class="how-title t-uk lang-hide">Заморожування активів</div><div class="how-title t-en lang-hide">Asset freeze</div><div class="how-desc t-ru">Запросы через KYC-отделы Binance, Kraken, OKX, Bybit.</div><div class="how-desc t-uk lang-hide">Запити через KYC-відділи Binance, Kraken, OKX, Bybit.</div><div class="how-desc t-en lang-hide">Freeze requests via Binance, Kraken, OKX, Bybit KYC departments.</div></div>
+    <div class="how-card"><div class="how-num">05</div><div class="how-icon">&#9878;&#65039;</div><div class="how-title t-ru">Судебное сопровождение</div><div class="how-title t-uk lang-hide">Судовий супровід</div><div class="how-title t-en lang-hide">Legal proceedings</div><div class="how-desc t-ru">Партнёрские юристы в вашей юрисдикции.</div><div class="how-desc t-uk lang-hide">Партнерські юристи у вашій юрисдикції.</div><div class="how-desc t-en lang-hide">Partner lawyers in your jurisdiction.</div></div>
+    <div class="how-card" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(6,182,212,.04))">
+      <div style="height:100%;display:flex;flex-direction:column;justify-content:center;gap:.8rem">
+        <div style="font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text)" class="t-ru">Готовы начать?</div>
+        <div style="font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text)" class="t-uk lang-hide">Готові почати?</div>
+        <div style="font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text)" class="t-en lang-hide">Ready to start?</div>
+        <div style="font-size:13px;color:var(--text2)" class="t-ru">Первая консультация бесплатно.</div>
+        <div style="font-size:13px;color:var(--text2)" class="t-uk lang-hide">Перша консультація безкоштовно.</div>
+        <div style="font-size:13px;color:var(--text2)" class="t-en lang-hide">First consultation is free.</div>
+        <a href="#contact" class="btn-blue" style="font-size:12px;padding:9px 18px;width:fit-content"><span class="t-ru">Консультация &#8594;</span><span class="t-uk lang-hide">Консультація &#8594;</span><span class="t-en lang-hide">Get help &#8594;</span></a>
       </div>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- SERVICES -->
-<section id="services" style="background:var(--bg2);border-top:1px solid var(--border)">
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></div>
-    <h2><span class="t-ru">Что мы <em>делаем</em></span><span class="t-uk lang-hide">Що ми <em>робимо</em></span><span class="t-en lang-hide">What we <em>do</em></span></h2>
-    <div class="services-grid fade-up">
-      <div class="scard">
-        <div class="scard-price">Free</div>
-        <div class="scard-title t-ru">Консультация</div><div class="scard-title t-uk lang-hide">Консультація</div><div class="scard-title t-en lang-hide">Consultation</div>
-        <div class="scard-desc t-ru">30 минут. Оцениваем дело, определяем реальные шансы и стратегию.</div><div class="scard-desc t-uk lang-hide">30 хвилин. Оцінюємо справу та визначаємо шанси.</div><div class="scard-desc t-en lang-hide">30 minutes. We assess your case and real chances.</div>
-        <ul class="scard-features">
-          <li><span class="t-ru">Анализ ситуации</span><span class="t-uk lang-hide">Аналіз ситуації</span><span class="t-en lang-hide">Case analysis</span></li>
-          <li><span class="t-ru">Оценка шансов</span><span class="t-uk lang-hide">Оцінка шансів</span><span class="t-en lang-hide">Chance assessment</span></li>
-          <li><span class="t-ru">Рекомендации</span><span class="t-uk lang-hide">Рекомендації</span><span class="t-en lang-hide">Recommendations</span></li>
-        </ul>
-      </div>
-      <div class="scard scard-featured">
-        <div class="scard-price">$150 – $300</div>
-        <div class="scard-title t-ru">Блокчейн-анализ</div><div class="scard-title t-uk lang-hide">Блокчейн-аналіз</div><div class="scard-title t-en lang-hide">Blockchain analysis</div>
-        <div class="scard-desc t-ru">Полное отслеживание транзакций, идентификация бирж и отчёт для правоохранительных органов.</div><div class="scard-desc t-uk lang-hide">Повне відстеження транзакцій та звіт для правоохоронних органів.</div><div class="scard-desc t-en lang-hide">Full transaction tracing, exchange identification, law enforcement report.</div>
-        <ul class="scard-features">
-          <li>On-chain <span class="t-ru">трассировка</span><span class="t-uk lang-hide">трасування</span><span class="t-en lang-hide">tracing</span></li>
-          <li><span class="t-ru">Идентификация бирж</span><span class="t-uk lang-hide">Ідентифікація бірж</span><span class="t-en lang-hide">Exchange identification</span></li>
-          <li><span class="t-ru">Официальный отчёт PDF</span><span class="t-uk lang-hide">Офіційний звіт PDF</span><span class="t-en lang-hide">Official PDF report</span></li>
-          <li>AML-score · KYC-data</li>
-        </ul>
-      </div>
-      <div class="scard">
-        <div class="scard-price">$300 – $500</div>
-        <div class="scard-title t-ru">Пакет документов</div><div class="scard-title t-uk lang-hide">Пакет документів</div><div class="scard-title t-en lang-hide">Documentation pack</div>
-        <div class="scard-desc t-ru">Подготовка всех документов для биржи, полиции и регулятора.</div><div class="scard-desc t-uk lang-hide">Підготовка всіх документів для біржі, поліції та регулятора.</div><div class="scard-desc t-en lang-hide">All documents for exchange, police, and regulator.</div>
-        <ul class="scard-features">
-          <li><span class="t-ru">Запрос на биржу (EN)</span><span class="t-uk lang-hide">Запит на біржу (EN)</span><span class="t-en lang-hide">Exchange request (EN)</span></li>
-          <li><span class="t-ru">Заявление в полицию</span><span class="t-uk lang-hide">Заява до поліції</span><span class="t-en lang-hide">Police complaint</span></li>
-          <li>IC3 / Europol / ACCC</li>
-          <li><span class="t-ru">Доказательства для суда</span><span class="t-uk lang-hide">Докази для суду</span><span class="t-en lang-hide">Court-formatted evidence</span></li>
-        </ul>
-      </div>
-      <div class="scard">
-        <div class="scard-price">$500 – $1500 + %</div>
-        <div class="scard-title t-ru">Полное сопровождение</div><div class="scard-title t-uk lang-hide">Повний супровід</div><div class="scard-title t-en lang-hide">Full case support</div>
-        <div class="scard-desc t-ru">Ведём дело до результата: от анализа до заморозки или возврата.</div><div class="scard-desc t-uk lang-hide">Ведемо справу до результату: від аналізу до заморожування або повернення.</div><div class="scard-desc t-en lang-hide">Full case management from analysis to freeze or fund return.</div>
-        <ul class="scard-features">
-          <li><span class="t-ru">Все предыдущие услуги</span><span class="t-uk lang-hide">Всі попередні послуги</span><span class="t-en lang-hide">All previous services</span></li>
-          <li><span class="t-ru">Партнёрский юрист</span><span class="t-uk lang-hide">Партнерський юрист</span><span class="t-en lang-hide">Partner lawyer</span></li>
-          <li><span class="t-ru">Переговоры с биржами</span><span class="t-uk lang-hide">Переговори з біржами</span><span class="t-en lang-hide">Exchange negotiations</span></li>
-          <li><span class="t-ru">Еженедельный отчёт</span><span class="t-uk lang-hide">Щотижневий звіт</span><span class="t-en lang-hide">Weekly status report</span></li>
-        </ul>
-      </div>
-    </div>
+<section id="services"><div class="section-inner">
+  <div class="slabel t-ru">Услуги и цены</div><div class="slabel t-uk lang-hide">Послуги та ціни</div><div class="slabel t-en lang-hide">Services</div>
+  <h2 class="reveal"><span class="t-ru">Что мы <span>делаем</span></span><span class="t-uk lang-hide">Що ми <span>робимо</span></span><span class="t-en lang-hide">What we <span>do</span></span></h2>
+  <div class="svcs-grid reveal">
+    <div class="svc"><div class="svc-price">Free</div><div class="svc-title t-ru">Консультация</div><div class="svc-title t-uk lang-hide">Консультація</div><div class="svc-title t-en lang-hide">Consultation</div><div class="svc-desc t-ru">30 минут. Оцениваем дело и определяем реальные шансы.</div><div class="svc-desc t-uk lang-hide">30 хвилин. Оцінюємо справу та визначаємо шанси.</div><div class="svc-desc t-en lang-hide">30 minutes. We assess your case and determine real chances.</div><ul class="svc-list"><li><span class="t-ru">Анализ ситуации</span><span class="t-uk lang-hide">Аналіз ситуації</span><span class="t-en lang-hide">Case analysis</span></li><li><span class="t-ru">Оценка шансов</span><span class="t-uk lang-hide">Оцінка шансів</span><span class="t-en lang-hide">Chance assessment</span></li><li><span class="t-ru">Рекомендации</span><span class="t-uk lang-hide">Рекомендації</span><span class="t-en lang-hide">Recommendations</span></li></ul></div>
+    <div class="svc featured"><div class="svc-price">$150 &#8211; $300</div><div class="svc-title t-ru">Блокчейн-анализ</div><div class="svc-title t-uk lang-hide">Блокчейн-аналіз</div><div class="svc-title t-en lang-hide">Blockchain analysis</div><div class="svc-desc t-ru">Полное отслеживание транзакций, официальный PDF-отчёт для биржи и полиции.</div><div class="svc-desc t-uk lang-hide">Повне відстеження транзакцій та офіційний звіт.</div><div class="svc-desc t-en lang-hide">Full transaction tracing and official PDF report for exchanges and police.</div><ul class="svc-list"><li>On-chain <span class="t-ru">трассировка</span><span class="t-uk lang-hide">трасування</span><span class="t-en lang-hide">tracing</span></li><li><span class="t-ru">Идентификация бирж</span><span class="t-uk lang-hide">Ідентифікація бірж</span><span class="t-en lang-hide">Exchange identification</span></li><li><span class="t-ru">PDF-отчёт для суда</span><span class="t-uk lang-hide">PDF-звіт для суду</span><span class="t-en lang-hide">Court-ready report</span></li><li>AML-score &#183; KYC-data</li></ul></div>
+    <div class="svc"><div class="svc-price">$300 &#8211; $500</div><div class="svc-title t-ru">Пакет документов</div><div class="svc-title t-uk lang-hide">Пакет документів</div><div class="svc-title t-en lang-hide">Documentation pack</div><div class="svc-desc t-ru">Все документы для биржи, полиции и международных регуляторов.</div><div class="svc-desc t-uk lang-hide">Всі документи для біржі та міжнародних регуляторів.</div><div class="svc-desc t-en lang-hide">All documents for exchange, police and international regulators.</div><ul class="svc-list"><li><span class="t-ru">Запрос на биржу (EN)</span><span class="t-uk lang-hide">Запит на біржу (EN)</span><span class="t-en lang-hide">Exchange request</span></li><li>IC3 / Europol / ACCC</li><li><span class="t-ru">Заявление в полицию</span><span class="t-uk lang-hide">Заява до поліції</span><span class="t-en lang-hide">Police complaint</span></li></ul></div>
+    <div class="svc"><div class="svc-price">$500 &#8211; $1500 + %</div><div class="svc-title t-ru">Полное сопровождение</div><div class="svc-title t-uk lang-hide">Повний супровід</div><div class="svc-title t-en lang-hide">Full support</div><div class="svc-desc t-ru">Ведём дело до результата: от анализа до заморозки или возврата.</div><div class="svc-desc t-uk lang-hide">Ведемо справу до результату.</div><div class="svc-desc t-en lang-hide">Full case management from analysis to freeze or return.</div><ul class="svc-list"><li><span class="t-ru">Все предыдущие услуги</span><span class="t-uk lang-hide">Всі попередні послуги</span><span class="t-en lang-hide">All previous services</span></li><li><span class="t-ru">Партнёрский юрист</span><span class="t-uk lang-hide">Партнерський юрист</span><span class="t-en lang-hide">Partner lawyer</span></li><li><span class="t-ru">Еженедельный отчёт</span><span class="t-uk lang-hide">Щотижневий звіт</span><span class="t-en lang-hide">Weekly update</span></li></ul></div>
   </div>
-</section>
+</div></section>
 
-<!-- ANALYSIS -->
-<section style="background:var(--bg2);border-top:1px solid var(--border)">
-  <div class="section-inner">
-    <div class="analysis-grid fade-up">
-      <div>
-        <div class="section-tag"><span class="t-ru">Технология</span><span class="t-uk lang-hide">Технологія</span><span class="t-en lang-hide">Technology</span></div>
-        <h2><span class="t-ru">Следуем за <em>каждым</em> сатоши</span><span class="t-uk lang-hide">Слідуємо за <em>кожним</em> сатоші</span><span class="t-en lang-hide">We follow <em>every</em> satoshi</span></h2>
-        <p class="section-desc"><span class="t-ru">Блокчейн неизменен — каждая транзакция оставляет след навсегда. Мы идентифицируем, где сейчас находятся ваши средства.</span><span class="t-uk lang-hide">Блокчейн незмінний — кожна транзакція залишає слід назавжди.</span><span class="t-en lang-hide">Blockchain is immutable — every transaction leaves a permanent trail. We identify where your funds are right now.</span></p>
-        <div class="tools-row">
-          <div class="tool-chip">Breadcrumbs.app</div>
-          <div class="tool-chip">Bubblemaps</div>
-          <div class="tool-chip">AMLBot</div>
-          <div class="tool-chip">Etherscan</div>
-          <div class="tool-chip">Crystal Blockchain</div>
-          <div class="tool-chip">Maltego</div>
-        </div>
-      </div>
-      <div>
-        <div class="chain-viz">
-          <div class="chain-header"><span>// TRANSACTION TRACE REPORT</span><span class="chain-status">LIVE ANALYSIS</span></div>
-          <div style="margin-bottom:10px"><span style="color:var(--text3);font-size:10px">VICTIM WALLET</span><br><span class="addr">0x7f3a...c891</span> <span class="camount">→ $43,200 USDT</span></div>
-          <div class="chain-row"><div><span class="addr">0x7f3a...c891</span><br><span class="ctag tag-wallet">Source</span></div><div style="text-align:center">→</div><div><span class="addr">0x4d21...7f02</span><br><span class="ctag tag-fraud">Scammer</span></div></div>
-          <div class="chain-row"><div><span class="addr">0x4d21...7f02</span><br><span class="ctag tag-fraud">Scammer</span></div><div style="text-align:center">→</div><div><span class="addr">0x9c88...3301</span><br><span class="ctag tag-fraud">Mixer</span></div></div>
-          <div class="chain-row"><div><span class="addr">0x9c88...3301</span><br><span class="ctag tag-fraud">Mixer</span></div><div style="text-align:center">→</div><div><span class="addr">Binance Hot Wallet</span><br><span class="ctag tag-exchange">Exchange</span></div></div>
-          <div style="margin-top:12px;padding:10px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15)">
-            <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">// STATUS UPDATE</div>
-            <div style="font-size:11px;color:var(--green)">✓ Exchange identified: Binance</div>
-            <div style="font-size:11px;color:var(--amber);margin-top:4px">⏳ KYC request submitted: 2024-01-15</div>
-            <div style="font-size:11px;color:var(--accent);margin-top:4px">→ Freeze request: pending review</div>
-          </div>
-        </div>
+<!-- CHAIN ANALYSIS -->
+<section class="chain-section"><div class="section-inner">
+  <div class="chain-grid reveal">
+    <div>
+      <div class="slabel t-ru">Технология</div><div class="slabel t-uk lang-hide">Технологія</div><div class="slabel t-en lang-hide">Technology</div>
+      <h2><span class="t-ru">Следуем за <span>каждым</span> сатоши</span><span class="t-uk lang-hide">Слідуємо за <span>кожним</span> сатоші</span><span class="t-en lang-hide">We follow <span>every</span> satoshi</span></h2>
+      <p class="sdesc"><span class="t-ru">Блокчейн неизменен &#8212; каждая транзакция оставляет след навсегда. Мы идентифицируем, где сейчас ваши средства.</span><span class="t-uk lang-hide">Блокчейн незмінний &#8212; кожна транзакція залишає слід назавжди.</span><span class="t-en lang-hide">Blockchain is immutable &#8212; every transaction leaves a permanent trail. We identify where your funds are right now.</span></p>
+      <div class="tools-label t-ru">Инструменты анализа</div><div class="tools-label t-uk lang-hide">Інструменти аналізу</div><div class="tools-label t-en lang-hide">Analysis tools</div>
+      <div class="tools-wrap"><div class="tool-pill">Breadcrumbs.app</div><div class="tool-pill">Bubblemaps</div><div class="tool-pill">AMLBot</div><div class="tool-pill">Etherscan</div><div class="tool-pill">Crystal Blockchain</div><div class="tool-pill">Maltego</div></div>
+    </div>
+    <div class="chain-viz">
+      <div class="chain-hdr"><div class="chain-title">// TRANSACTION TRACE REPORT</div><div class="chain-live">LIVE ANALYSIS</div></div>
+      <div style="margin-bottom:10px;font-size:11px"><span style="color:var(--text3)">VICTIM WALLET</span><br><span class="caddr">0x7f3a...c891</span><span class="camt" style="margin-left:8px">&#8594; $43,200 USDT</span></div>
+      <div class="chain-row"><div><span class="caddr">0x7f3a...c891</span><br><span class="ctag tag-s">Source</span></div><div style="text-align:center;color:#60a5fa">&#8594;</div><div><span class="caddr">0x4d21...7f02</span><br><span class="ctag tag-f">Scammer</span></div></div>
+      <div class="chain-row"><div><span class="caddr">0x4d21...7f02</span><br><span class="ctag tag-f">Scammer</span></div><div style="text-align:center;color:#60a5fa">&#8594;</div><div><span class="caddr">0x9c88...3301</span><br><span class="ctag tag-f">Mixer</span></div></div>
+      <div class="chain-row"><div><span class="caddr">0x9c88...3301</span><br><span class="ctag tag-f">Mixer</span></div><div style="text-align:center;color:#60a5fa">&#8594;</div><div><span class="caddr">Binance Hot Wallet</span><br><span class="ctag tag-e">Exchange</span></div></div>
+      <div class="chain-status">
+        <div style="font-size:9px;letter-spacing:.1em;color:var(--blue3);text-transform:uppercase;margin-bottom:6px">// STATUS UPDATE</div>
+        <div style="font-size:11px;color:#34d399">&#10003; Exchange identified: Binance</div>
+        <div style="font-size:11px;color:#fbbf24;margin-top:4px">&#9203; KYC request submitted: 2024-01-15</div>
+        <div style="font-size:11px;color:#60a5fa;margin-top:4px">&#8594; Freeze request: pending review</div>
       </div>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- SCAM TYPES -->
-<section>
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">С чем мы работаем</span><span class="t-uk lang-hide">З чим ми працюємо</span><span class="t-en lang-hide">What we handle</span></div>
-    <h2><span class="t-ru">Типы <em>мошенничества</em></span><span class="t-uk lang-hide">Типи <em>шахрайства</em></span><span class="t-en lang-hide">Types of <em>fraud</em></span></h2>
-    <p class="section-desc"><span class="t-ru">Нажмите на карточку — узнайте подробнее.</span><span class="t-uk lang-hide">Натисніть на картку — дізнайтеся більше.</span><span class="t-en lang-hide">Tap a card to learn more.</span></p>
-    <div class="flip-grid fade-up" id="scam-flip-grid">
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">📈</div>
-            <div class="flip-title t-ru">Фейковый брокер</div><div class="flip-title t-uk lang-hide">Фейковий брокер</div><div class="flip-title t-en lang-hide">Fake broker</div>
-            <div class="flip-sub t-ru">Платформа-имитатор</div><div class="flip-sub t-uk lang-hide">Платформа-імітатор</div><div class="flip-sub t-en lang-hide">Platform imitator</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Сайт имитирует легитимного брокера. Вы вносите депозит, видите «прибыль», но при выводе — отказы или требование налога. Мы отслеживаем средства и подаём заявки на биржи.</div>
-            <div class="flip-desc t-uk lang-hide">Сайт імітує легітимного брокера. При спробі виведення — відмови або вимога сплатити «податок».</div>
-            <div class="flip-desc t-en lang-hide">The site imitates a legitimate broker. You deposit, see "profits", but withdrawals are blocked or require a "tax". We trace funds and file exchange requests.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">💕</div>
-            <div class="flip-title">Romance scam</div>
-            <div class="flip-sub t-ru">Через доверие и отношения</div><div class="flip-sub t-uk lang-hide">Через довіру та стосунки</div><div class="flip-sub t-en lang-hide">Trust-based fraud</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Мошенник строит романтические отношения онлайн, затем просит деньги «на билет», «лечение» или «инвестиции». Мы устанавливаем личность через KYC-данные биржи.</div>
-            <div class="flip-desc t-uk lang-hide">Шахрай будує романтичні стосунки онлайн, потім просить гроші. Ми встановлюємо особу через KYC-дані.</div>
-            <div class="flip-desc t-en lang-hide">Scammer builds romantic relationships online, then asks for money. We identify them through exchange KYC data.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">🐷</div>
-            <div class="flip-title">Pig Butchering</div>
-            <div class="flip-sub t-ru">Долгосрочная схема</div><div class="flip-sub t-uk lang-hide">Довгострокова схема</div><div class="flip-sub t-en lang-hide">Long-term scheme</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Месяцами «откармливают» доверием и мнимой прибылью — потом забирают всё. Самый дорогостоящий вид мошенничества: средняя потеря $34,000.</div>
-            <div class="flip-desc t-uk lang-hide">Місяцями «відгодовують» довірою та уявним прибутком — потім забирають все. Середня втрата $34,000.</div>
-            <div class="flip-desc t-en lang-hide">Months of "fattening" with trust and fake profits — then taking everything. Average loss: $34,000.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">🎁</div>
-            <div class="flip-title">NFT / Token scam</div>
-            <div class="flip-sub t-ru">Rug pull, фейковые проекты</div><div class="flip-sub t-uk lang-hide">Rug pull, фейкові проекти</div><div class="flip-sub t-en lang-hide">Rug pull, fake projects</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Создают «проект» с обещанием роста, собирают инвестиции — и выводят ликвидность. Мы анализируем смарт-контракты и отслеживаем кошельки создателей.</div>
-            <div class="flip-desc t-uk lang-hide">Створюють «проект» з обіцянкою зростання, збирають інвестиції — і виводять ліквідність.</div>
-            <div class="flip-desc t-en lang-hide">They create a "project" with growth promises, collect investments — then pull the liquidity. We analyze smart contracts and trace creator wallets.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">🔑</div>
-            <div class="flip-title">Wallet drain</div>
-            <div class="flip-sub t-ru">Фишинг, seed-фраза</div><div class="flip-sub t-uk lang-hide">Фішинг, seed-фраза</div><div class="flip-sub t-en lang-hide">Phishing, seed phrase</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Через фишинговые сайты или вредоносные транзакции получают доступ к кошельку. Мы определяем куда ушли средства и пытаемся заморозить на бирже.</div>
-            <div class="flip-desc t-uk lang-hide">Через фішингові сайти отримують доступ до гаманця. Ми визначаємо куди пішли кошти.</div>
-            <div class="flip-desc t-en lang-hide">Via phishing sites or malicious transactions they gain wallet access. We trace where funds went and try to freeze them.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-front">
-            <div class="flip-icon">🏢</div>
-            <div class="flip-title t-ru">Корпоративное</div><div class="flip-title t-uk lang-hide">Корпоративне</div><div class="flip-title t-en lang-hide">Corporate fraud</div>
-            <div class="flip-sub">B2B · $50k+</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-desc t-ru">Мошенничество с корпоративными активами, BEC-атаки, компрометация платёжных реквизитов. Работаем с корпоративными клиентами по отдельному тарифу.</div>
-            <div class="flip-desc t-uk lang-hide">Шахрайство з корпоративними активами, BEC-атаки. Працюємо з корпоративними клієнтами.</div>
-            <div class="flip-desc t-en lang-hide">Corporate asset fraud, BEC attacks, payment credential compromise. We work with corporate clients on a separate plan.</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+<section class="scam-section"><div class="section-inner">
+  <div class="slabel t-ru">С чем мы работаем</div><div class="slabel t-uk lang-hide">З чим ми працюємо</div><div class="slabel t-en lang-hide">What we handle</div>
+  <h2 class="reveal"><span class="t-ru">Типы <span>мошенничества</span></span><span class="t-uk lang-hide">Типи <span>шахрайства</span></span><span class="t-en lang-hide">Types of <span>fraud</span></span></h2>
+  <p class="sdesc"><span class="t-ru">Нажмите на карточку &#8212; узнайте подробнее.</span><span class="t-uk lang-hide">Натисніть на картку &#8212; дізнайтеся більше.</span><span class="t-en lang-hide">Tap a card to learn more about each type.</span></p>
+  <div class="scam-grid reveal">
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#128200;</div><div class="scam-name t-ru">Фейковый брокер</div><div class="scam-name t-uk lang-hide">Фейковий брокер</div><div class="scam-name t-en lang-hide">Fake broker</div><div class="scam-sub t-ru">Платформа-имитатор</div><div class="scam-sub t-uk lang-hide">Платформа-імітатор</div><div class="scam-sub t-en lang-hide">Platform imitator</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">Сайт имитирует брокера. Депозит принят, «прибыль» растёт, но вывод заблокирован. Мы отслеживаем средства и подаём запросы на биржи.</div><div class="scam-back-text t-uk lang-hide">Сайт імітує брокера. При спробі виведення &#8212; відмови або вимога «податку».</div><div class="scam-back-text t-en lang-hide">Site imitates a broker. Deposits accepted, "profits" shown, but withdrawals blocked. We trace and file requests.</div></div></div></div>
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#128149;</div><div class="scam-name">Romance scam</div><div class="scam-sub t-ru">Через доверие</div><div class="scam-sub t-uk lang-hide">Через довіру</div><div class="scam-sub t-en lang-hide">Trust-based</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">Мошенник строит романтические отношения онлайн, затем просит деньги. Устанавливаем личность через KYC-данные биржи.</div><div class="scam-back-text t-uk lang-hide">Шахрай будує стосунки, потім просить гроші. Ідентифікуємо через KYC.</div><div class="scam-back-text t-en lang-hide">Scammer builds an online relationship then requests money. We identify them via exchange KYC data.</div></div></div></div>
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#128055;</div><div class="scam-name">Pig Butchering</div><div class="scam-sub t-ru">Долгосрочная схема</div><div class="scam-sub t-uk lang-hide">Довгострокова схема</div><div class="scam-sub t-en lang-hide">Long-term scheme</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">Месяцами «откармливают» доверием &#8212; потом забирают всё. Средняя потеря $34,000. Самый распространённый вид в 2024&#8211;2026.</div><div class="scam-back-text t-uk lang-hide">Місяцями будують довіру &#8212; потім забирають все. Середня втрата $34,000.</div><div class="scam-back-text t-en lang-hide">Months of trust-building &#8212; then taking everything. Average loss $34,000. Most common fraud type in 2024&#8211;2026.</div></div></div></div>
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#127873;</div><div class="scam-name">NFT / Token scam</div><div class="scam-sub">Rug pull</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">Создают «проект», собирают инвестиции &#8212; выводят ликвидность. Анализируем смарт-контракты и отслеживаем кошельки создателей.</div><div class="scam-back-text t-uk lang-hide">Створюють «проект», збирають інвестиції &#8212; виводять ліквідність.</div><div class="scam-back-text t-en lang-hide">Create a project, collect investments &#8212; drain liquidity. We analyze smart contracts and trace creator wallets.</div></div></div></div>
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#128273;</div><div class="scam-name">Wallet drain</div><div class="scam-sub t-ru">Фишинг</div><div class="scam-sub t-uk lang-hide">Фішинг</div><div class="scam-sub t-en lang-hide">Phishing</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">Через фишинговые сайты получают доступ к кошельку. Определяем куда ушли деньги и пытаемся заморозить на бирже.</div><div class="scam-back-text t-uk lang-hide">Через фішингові сайти отримують доступ до гаманця.</div><div class="scam-back-text t-en lang-hide">Via phishing sites they drain your wallet. We trace where funds went and attempt to freeze them on exchanges.</div></div></div></div>
+    <div class="scam-card"><div class="scam-inner"><div class="scam-front"><div class="scam-icon">&#127970;</div><div class="scam-name t-ru">Корпоративное</div><div class="scam-name t-uk lang-hide">Корпоративне</div><div class="scam-name t-en lang-hide">Corporate fraud</div><div class="scam-sub">B2B &#183; $50k+</div><div class="scam-hint t-ru">&#8635; нажмите</div><div class="scam-hint t-uk lang-hide">&#8635; натисніть</div><div class="scam-hint t-en lang-hide">&#8635; tap</div></div><div class="scam-back"><div class="scam-back-text t-ru">BEC-атаки, компрометация корпоративных реквизитов. Работаем с корпоративными клиентами по отдельному тарифу.</div><div class="scam-back-text t-uk lang-hide">BEC-атаки, компрометація корпоративних реквізитів.</div><div class="scam-back-text t-en lang-hide">BEC attacks, corporate payment fraud. We work with corporate clients on a dedicated plan.</div></div></div></div>
   </div>
-</section>
+</div></section>
 
-<!-- TESTIMONIALS with swiper -->
-<section style="background:var(--bg2);border-top:1px solid var(--border)">
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">Клиенты</span><span class="t-uk lang-hide">Клієнти</span><span class="t-en lang-hide">Clients</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:.5rem">
-      <h2 style="margin:0"><span class="t-ru">Реальные <em>кейсы</em></span><span class="t-uk lang-hide">Реальні <em>кейси</em></span><span class="t-en lang-hide">Real <em>cases</em></span></h2>
-      <div class="swiper-arrows">
-        <button class="swiper-arrow" onclick="swiperPrev()">←</button>
-        <button class="swiper-arrow" onclick="swiperNext()">→</button>
-      </div>
-    </div>
-    <div class="tswiper-wrap">
-      <div class="tswiper" id="tswiper">
-        <div class="tcard">
-          <p class="ttext">
-            <span class="t-ru">Потерял $28,000 на фейковом брокере. За 3 месяца удалось заморозить $19,500 на Binance и начать судебную процедуру возврата.</span>
-            <span class="t-uk lang-hide">Втратив $28,000 на фейковому брокері. За 3 місяці вдалося заморозити $19,500 на Binance.</span>
-            <span class="t-en lang-hide">Lost $28,000 to a fake broker. After 3 months, $19,500 was frozen on Binance and court recovery began.</span>
-          </p>
-          <div class="tauthor">Alexey M.</div>
-          <div class="tmeta">
-            <span class="t-ru">Киев, Украина</span><span class="t-uk lang-hide">Київ, Україна</span><span class="t-en lang-hide">Kyiv, Ukraine</span>
-            <span class="tamount">$19,500 frozen</span>
-          </div>
-        </div>
-        <div class="tcard">
-          <p class="ttext">
-            <span class="t-ru">Pig butchering схема. Вкладывала деньги 8 месяцев. Отслежено 47 транзакций, идентифицирована конечная биржа. Документы поданы в Europol.</span>
-            <span class="t-uk lang-hide">Pig butchering схема. Вкладала гроші 8 місяців. Відстежено 47 транзакцій. Документи подані до Europol.</span>
-            <span class="t-en lang-hide">Pig butchering scheme. 8 months of investing. 47 transactions traced, final exchange identified. Europol notified.</span>
-          </p>
-          <div class="tauthor">Natalia V.</div>
-          <div class="tmeta">
-            <span class="t-ru">Варшава, Польша</span><span class="t-uk lang-hide">Варшава, Польща</span><span class="t-en lang-hide">Warsaw, Poland</span>
-            <span class="tamount">$43,200 traced</span>
-          </div>
-        </div>
-        <div class="tcard">
-          <p class="ttext">
-            <span class="t-ru">Романтическое мошенничество. Удалось установить личность мошенника через KYC-данные биржи и подать заявление в полицию.</span>
-            <span class="t-uk lang-hide">Романтичне шахрайство. Вдалося встановити особу шахрая через KYC-дані біржі та подати заяву до поліції.</span>
-            <span class="t-en lang-hide">Romance scam. The scammer was identified via exchange KYC data and a police report was filed.</span>
-          </p>
-          <div class="tauthor">Dmytro K.</div>
-          <div class="tmeta">
-            <span class="t-ru">Берлин, Германия</span><span class="t-uk lang-hide">Берлін, Німеччина</span><span class="t-en lang-hide">Berlin, Germany</span>
-            <span class="tamount">Identity confirmed</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-dots" id="swiper-dots">
-      <button class="swiper-dot active" onclick="swiperGo(0)"></button>
-      <button class="swiper-dot" onclick="swiperGo(1)"></button>
-      <button class="swiper-dot" onclick="swiperGo(2)"></button>
-    </div>
+<!-- TESTIMONIALS -->
+<section style="background:var(--dark2);border-top:1px solid var(--border)"><div class="section-inner">
+  <div class="slabel t-ru">Клиенты</div><div class="slabel t-uk lang-hide">Клієнти</div><div class="slabel t-en lang-hide">Clients</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:.5rem">
+    <h2 style="margin:0"><span class="t-ru">Реальные <span>кейсы</span></span><span class="t-uk lang-hide">Реальні <span>кейси</span></span><span class="t-en lang-hide">Real <span>cases</span></span></h2>
+    <div class="swiper-nav"><button class="swiper-btn" onclick="sPrev()">&#8592;</button><button class="swiper-btn" onclick="sNext()">&#8594;</button></div>
   </div>
-</section>
+  <div class="tswiper-wrap reveal"><div class="tswiper" id="tswiper">
+    <div class="tcard"><p class="tquote"><span class="t-ru">Потерял $28,000 на фейковом брокере. За 3 месяца удалось заморозить $19,500 на Binance и начать судебную процедуру возврата.</span><span class="t-uk lang-hide">Втратив $28,000 на фейковому брокері. За 3 місяці вдалося заморозити $19,500 на Binance.</span><span class="t-en lang-hide">Lost $28,000 to a fake broker. After 3 months, $19,500 was frozen on Binance and court recovery began.</span></p><div class="tauthor">Alexey M.</div><div class="tmeta"><span class="t-ru">Киев, Украина</span><span class="t-uk lang-hide">Київ, Україна</span><span class="t-en lang-hide">Kyiv, Ukraine</span><span class="tamount">$19,500 frozen</span></div></div>
+    <div class="tcard"><p class="tquote"><span class="t-ru">Pig butchering схема. Вкладывала деньги 8 месяцев. Отслежено 47 транзакций, идентифицирована конечная биржа. Документы поданы в Europol.</span><span class="t-uk lang-hide">Pig butchering схема. 8 місяців вкладала гроші. Відстежено 47 транзакцій. Документи до Europol.</span><span class="t-en lang-hide">Pig butchering scheme. 8 months investing. 47 transactions traced. Documents submitted to Europol.</span></p><div class="tauthor">Natalia V.</div><div class="tmeta"><span class="t-ru">Варшава, Польша</span><span class="t-uk lang-hide">Варшава, Польща</span><span class="t-en lang-hide">Warsaw, Poland</span><span class="tamount">$43,200 traced</span></div></div>
+    <div class="tcard"><p class="tquote"><span class="t-ru">Романтическое мошенничество. Удалось установить личность мошенника через KYC-данные биржи и подать заявление в полицию.</span><span class="t-uk lang-hide">Романтичне шахрайство. Встановлено особу шахрая через KYC. Заяву подано до поліції.</span><span class="t-en lang-hide">Romance scam. Scammer identified via exchange KYC data. Police report filed.</span></p><div class="tauthor">Dmytro K.</div><div class="tmeta"><span class="t-ru">Берлин, Германия</span><span class="t-uk lang-hide">Берлін, Німеччина</span><span class="t-en lang-hide">Berlin, Germany</span><span class="tamount">Identity confirmed</span></div></div>
+  </div></div>
+  <div class="swiper-dots" id="sdots"><button class="swiper-dot active" onclick="sGo(0)"></button><button class="swiper-dot" onclick="sGo(1)"></button><button class="swiper-dot" onclick="sGo(2)"></button></div>
+</div></section>
 
 <!-- CHECKER -->
-<section id="checker" style="background:var(--bg2);border-top:1px solid var(--border)">
-  <div class="section-inner">
-    <div class="section-tag"><span class="t-ru">Бесплатный инструмент</span><span class="t-uk lang-hide">Безкоштовний інструмент</span><span class="t-en lang-hide">Free tool</span></div>
-    <h2><span class="t-ru">Проверьте <em>брокера</em></span><span class="t-uk lang-hide">Перевірте <em>брокера</em></span><span class="t-en lang-hide">Check a <em>broker</em></span></h2>
-    <p class="section-desc"><span class="t-ru">Введите название брокера — проверим по базам FCA, ESMA, CySEC и ASIC.</span><span class="t-uk lang-hide">Введіть назву брокера — перевіримо по базах FCA, ESMA, CySEC та ASIC.</span><span class="t-en lang-hide">Enter a broker name — we'll check against FCA, ESMA, CySEC and ASIC databases.</span></p>
-    <div class="checker-box fade-up">
-      <div class="checker-label">// <span class="t-ru">Название брокера или платформы</span><span class="t-uk lang-hide">Назва брокера або платформи</span><span class="t-en lang-hide">Broker or platform name</span></div>
-      <div class="checker-row">
-        <input class="checker-input" id="broker-input" type="text" placeholder="TradeCapital Pro, BitMaxGlobal..." onkeydown="if(event.key==='Enter')checkBroker()">
-        <button class="checker-btn" onclick="checkBroker()"><span class="t-ru">Проверить →</span><span class="t-uk lang-hide">Перевірити →</span><span class="t-en lang-hide">Check →</span></button>
-      </div>
-      <div class="checker-loading" id="checker-loading"><div class="spinner"></div><span class="t-ru">Проверяем по базам...</span><span class="t-uk lang-hide">Перевіряємо по базах...</span><span class="t-en lang-hide">Checking databases...</span></div>
-      <div class="checker-result" id="checker-result"></div>
-      <div class="checker-disclaimer t-ru">Данные из реестров: FCA (UK), ESMA (EU), CySEC (Кипр), ASIC (Австралия), FSMA (Бельгия). Отсутствие в базе ≠ легитимность.</div>
-      <div class="checker-disclaimer t-uk lang-hide">Дані з реєстрів: FCA, ESMA, CySEC, ASIC, FSMA. Відсутність у базі ≠ легітимність.</div>
-      <div class="checker-disclaimer t-en lang-hide">Data from: FCA, ESMA, CySEC, ASIC, FSMA registers. Not in database ≠ legitimate.</div>
+<section id="checker"><div class="section-inner">
+  <div class="slabel t-ru">Бесплатный инструмент</div><div class="slabel t-uk lang-hide">Безкоштовний інструмент</div><div class="slabel t-en lang-hide">Free tool</div>
+  <h2 class="reveal"><span class="t-ru">Проверьте <span>брокера</span></span><span class="t-uk lang-hide">Перевірте <span>брокера</span></span><span class="t-en lang-hide">Check a <span>broker</span></span></h2>
+  <p class="sdesc"><span class="t-ru">Введите название &#8212; проверим по базам FCA, ESMA, CySEC и ASIC.</span><span class="t-uk lang-hide">Введіть назву &#8212; перевіримо по базах FCA, ESMA, CySEC та ASIC.</span><span class="t-en lang-hide">Enter a name &#8212; we&#39;ll check FCA, ESMA, CySEC and ASIC databases.</span></p>
+  <div class="checker-wrap reveal">
+    <div class="checker-label t-ru">Название брокера или платформы</div><div class="checker-label t-uk lang-hide">Назва брокера або платформи</div><div class="checker-label t-en lang-hide">Broker or platform name</div>
+    <div class="checker-row">
+      <input class="checker-input" id="broker-input" type="text" placeholder="TradeCapital Pro, BitMaxGlobal..." onkeydown="if(event.key==='Enter')checkBroker()">
+      <button class="checker-btn" onclick="checkBroker()"><span class="t-ru">Проверить &#8594;</span><span class="t-uk lang-hide">Перевірити &#8594;</span><span class="t-en lang-hide">Check &#8594;</span></button>
     </div>
+    <div class="cloading" id="cloading"><div class="spinning"></div><span class="t-ru">Проверяем...</span><span class="t-uk lang-hide">Перевіряємо...</span><span class="t-en lang-hide">Checking...</span></div>
+    <div class="cresult" id="cresult"></div>
+    <div class="cnote t-ru">Данные: FCA (UK), ESMA (EU), CySEC (Кипр), ASIC (Австралия). Отсутствие в базе &#8800; легитимность.</div>
+    <div class="cnote t-uk lang-hide">Дані: FCA, ESMA, CySEC, ASIC. Відсутність у базі &#8800; легітимність.</div>
+    <div class="cnote t-en lang-hide">Data from: FCA, ESMA, CySEC, ASIC. Not found &#8800; legitimate.</div>
   </div>
-</section>
+</div></section>
 
 <!-- FAQ -->
-<section id="faq">
-  <div class="section-inner">
-    <div class="section-tag">FAQ</div>
-    <h2><span class="t-ru">Частые <em>вопросы</em></span><span class="t-uk lang-hide">Часті <em>запитання</em></span><span class="t-en lang-hide">Frequent <em>questions</em></span></h2>
-    <div class="faq fade-up">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Гарантируете ли вы возврат средств?</span><span class="t-uk lang-hide">Чи гарантуєте ви повернення коштів?</span><span class="t-en lang-hide">Do you guarantee fund recovery?</span></div><div class="faq-a"><p><span class="t-ru">Нет — ни одна честная компания не может этого гарантировать. Мы гарантируем качественную работу и честную оценку шансов. Если шансы низкие — скажем об этом на бесплатной консультации.</span><span class="t-uk lang-hide">Ні — жодна чесна компанія не може цього гарантувати. Ми гарантуємо якісну роботу та чесну оцінку шансів.</span><span class="t-en lang-hide">No — no honest company can guarantee that. We guarantee quality work and an honest assessment of chances.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Берётесь ли вы за старые кейсы?</span><span class="t-uk lang-hide">Чи беретеся ви за старі кейси?</span><span class="t-en lang-hide">Do you take old cases?</span></div><div class="faq-a"><p><span class="t-ru">Да. Мы берёмся за кейсы любой давности — от нескольких дней до нескольких лет. Шансы зависят от конкретной ситуации, а не только от времени. Многие наши клиенты обратились спустя месяцы после потери.</span><span class="t-uk lang-hide">Так. Ми беремося за кейси будь-якої давності. Шанси залежать від конкретної ситуації, а не лише від часу.</span><span class="t-en lang-hide">Yes. We take cases of any age. Chances depend on the specific situation, not just timing.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Сколько времени занимает процесс?</span><span class="t-uk lang-hide">Скільки часу займає процес?</span><span class="t-en lang-hide">How long does the process take?</span></div><div class="faq-a"><p><span class="t-ru">Блокчейн-анализ: 3–7 дней. Подготовка документов: 1–2 недели. Ответ от биржи: 2–8 недель. Судебный процесс: 3–12 месяцев.</span><span class="t-uk lang-hide">Блокчейн-аналіз: 3–7 днів. Підготовка документів: 1–2 тижні. Відповідь від біржі: 2–8 тижнів.</span><span class="t-en lang-hide">Blockchain analysis: 3–7 days. Documents: 1–2 weeks. Exchange response: 2–8 weeks. Court: 3–12 months.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Какая минимальная сумма для работы?</span><span class="t-uk lang-hide">Яка мінімальна сума для роботи?</span><span class="t-en lang-hide">What is the minimum case amount?</span></div><div class="faq-a"><p><span class="t-ru">Мы берём дела от $3,000. При меньших суммах стоимость анализа может не окупиться — честно скажем об этом на консультации.</span><span class="t-uk lang-hide">Ми беремо справи від $3,000. При менших сумах вартість аналізу може не окупитися.</span><span class="t-en lang-hide">We take cases from $3,000. For smaller amounts the analysis cost may not be worthwhile — we'll be honest.</span></p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Работаете ли вы дистанционно?</span><span class="t-uk lang-hide">Чи працюєте ви дистанційно?</span><span class="t-en lang-hide">Do you work remotely?</span></div><div class="faq-a"><p><span class="t-ru">Да, полностью дистанционно. Клиенты из Украины, Европы и США. Консультация через Telegram, Zoom или email.</span><span class="t-uk lang-hide">Так, повністю дистанційно. Клієнти з України, Європи та США.</span><span class="t-en lang-hide">Yes, fully remote. Clients from Ukraine, Europe, and the US. Via Telegram, Zoom, or email.</span></p></div></div>
-    </div>
+<section id="faq" style="background:var(--dark2);border-top:1px solid var(--border)"><div class="section-inner">
+  <div class="slabel">FAQ</div>
+  <h2 class="reveal"><span class="t-ru">Частые <span>вопросы</span></span><span class="t-uk lang-hide">Часті <span>запитання</span></span><span class="t-en lang-hide">Frequent <span>questions</span></span></h2>
+  <div class="faq-wrap reveal">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Гарантируете ли вы возврат средств?</span><span class="t-uk lang-hide">Чи гарантуєте повернення?</span><span class="t-en lang-hide">Do you guarantee fund recovery?</span></div><div class="faq-a"><p><span class="t-ru">Нет &#8212; ни одна честная компания не может этого гарантировать. Мы гарантируем качественную работу и честную оценку. Если шансы низкие &#8212; скажем сразу.</span><span class="t-uk lang-hide">Ні. Ми гарантуємо якісну роботу та чесну оцінку. Якщо шанси низькі &#8212; скажемо одразу.</span><span class="t-en lang-hide">No &#8212; no honest company can guarantee that. We guarantee quality work and an honest assessment. If chances are low &#8212; we&#39;ll say so upfront.</span></p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Берётесь ли вы за старые кейсы?</span><span class="t-uk lang-hide">Чи беретеся за старі кейси?</span><span class="t-en lang-hide">Do you take old cases?</span></div><div class="faq-a"><p><span class="t-ru">Да. Берёмся за кейсы любой давности. Шансы зависят от конкретной ситуации, а не только от времени. Многие клиенты обратились спустя месяцы после потери.</span><span class="t-uk lang-hide">Так. Беремося за кейси будь-якої давності. Шанси залежать від ситуації.</span><span class="t-en lang-hide">Yes. We take cases of any age. Chances depend on the specific situation, not just timing. Many clients came to us months after the loss.</span></p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Сколько времени занимает процесс?</span><span class="t-uk lang-hide">Скільки часу займає процес?</span><span class="t-en lang-hide">How long does it take?</span></div><div class="faq-a"><p><span class="t-ru">Анализ: 3&#8211;7 дней. Документы: 1&#8211;2 недели. Ответ биржи: 2&#8211;8 недель. Суд: 3&#8211;12 месяцев.</span><span class="t-uk lang-hide">Аналіз: 3&#8211;7 днів. Документи: 1&#8211;2 тижні. Відповідь біржі: 2&#8211;8 тижнів.</span><span class="t-en lang-hide">Analysis: 3&#8211;7 days. Documents: 1&#8211;2 weeks. Exchange response: 2&#8211;8 weeks. Court: 3&#8211;12 months.</span></p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Какая минимальная сумма?</span><span class="t-uk lang-hide">Яка мінімальна сума?</span><span class="t-en lang-hide">What is the minimum case amount?</span></div><div class="faq-a"><p><span class="t-ru">От $3,000. При меньших суммах стоимость анализа может не окупиться &#8212; честно скажем об этом на консультации.</span><span class="t-uk lang-hide">Від $3,000. При менших сумах вартість аналізу може не окупитися.</span><span class="t-en lang-hide">From $3,000. For smaller amounts the analysis cost may not be worthwhile &#8212; we&#39;ll be honest about this.</span></p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span class="t-ru">Работаете ли вы дистанционно?</span><span class="t-uk lang-hide">Чи працюєте дистанційно?</span><span class="t-en lang-hide">Do you work remotely?</span></div><div class="faq-a"><p><span class="t-ru">Да, 100% дистанционно. Клиенты из Украины, Европы и США. Telegram, Zoom или email.</span><span class="t-uk lang-hide">Так, 100% дистанційно. Клієнти з України, Європи та США.</span><span class="t-en lang-hide">Yes, 100% remote. Clients from Ukraine, Europe and the US. Via Telegram, Zoom or email.</span></p></div></div>
   </div>
-</section>
+</div></section>
 
 <!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div class="section-inner">
-    <div class="contact-grid">
-      <div>
-        <div class="section-tag"><span class="t-ru">Связаться</span><span class="t-uk lang-hide">Зв'яжіться</span><span class="t-en lang-hide">Contact</span></div>
-        <h2><span class="t-ru">Расскажите о <em>ситуации</em></span><span class="t-uk lang-hide">Розкажіть про <em>ситуацію</em></span><span class="t-en lang-hide">Tell us about <em>your case</em></span></h2>
-        <p class="section-desc"><span class="t-ru">Ответим в течение 24 часов с честной оценкой: что можно сделать, какие шансы, сколько стоит.</span><span class="t-uk lang-hide">Відповімо протягом 24 годин з чесною оцінкою шансів.</span><span class="t-en lang-hide">We'll respond within 24 hours with an honest assessment of what can be done.</span></p>
-        <div class="contact-methods">
-          <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="cmethod">
-            <div class="cmethod-icon">✈</div>
-            <div>
-              <div class="cmethod-label">Telegram</div>
-              <div class="cmethod-val">@cryptojustice_help_bot</div>
-            </div>
-            <div class="cmethod-badge t-ru">Быстро</div>
-            <div class="cmethod-badge t-uk lang-hide">Швидко</div>
-            <div class="cmethod-badge t-en lang-hide">Fast</div>
-          </a>
-          <a href="mailto:info@cryptojustice.com" class="cmethod">
-            <div class="cmethod-icon">✉</div>
-            <div>
-              <div class="cmethod-label">Email</div>
-              <div class="cmethod-val">info@cryptojustice.com</div>
-            </div>
-          </a>
-          <div class="cmethod" style="cursor:default">
-            <div class="cmethod-icon">🕐</div>
-            <div>
-              <div class="cmethod-label t-ru">Время ответа</div>
-              <div class="cmethod-label t-uk lang-hide">Час відповіді</div>
-              <div class="cmethod-label t-en lang-hide">Response time</div>
-              <div class="cmethod-val t-ru">В течение 24 часов</div>
-              <div class="cmethod-val t-uk lang-hide">Протягом 24 годин</div>
-              <div class="cmethod-val t-en lang-hide">Within 24 hours</div>
-            </div>
-          </div>
-          <a href="https://t.me/cryptojustice_help_bot" target="_blank" style="display:block;margin-top:.3rem;padding:14px 20px;background:linear-gradient(135deg,#0088cc,#29b6f6);color:#fff;font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;text-align:center;transition:opacity .2s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-            ✈ <span class="t-ru">Написать в Telegram →</span><span class="t-uk lang-hide">Написати в Telegram →</span><span class="t-en lang-hide">Write on Telegram →</span>
-          </a>
+<section id="contact" class="contact-section"><div class="section-inner">
+  <div class="contact-grid">
+    <div>
+      <div class="slabel t-ru">Связаться</div><div class="slabel t-uk lang-hide">Зв&#39;яжіться</div><div class="slabel t-en lang-hide">Contact</div>
+      <h2><span class="t-ru">Расскажите о <span>ситуации</span></span><span class="t-uk lang-hide">Розкажіть про <span>ситуацію</span></span><span class="t-en lang-hide">Tell us about <span>your case</span></span></h2>
+      <p class="sdesc"><span class="t-ru">Ответим в течение 24 часов с честной оценкой: что можно сделать, какие шансы и стоимость.</span><span class="t-uk lang-hide">Відповімо протягом 24 годин з чесною оцінкою шансів.</span><span class="t-en lang-hide">We&#39;ll respond within 24 hours with an honest assessment of what can be done.</span></p>
+      <div class="cmethods">
+        <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="cmethod"><div class="cmethod-icon">&#9992;</div><div><div class="cmethod-label">Telegram</div><div class="cmethod-val">@cryptojustice_help_bot</div></div><div class="cmethod-badge t-ru">Быстро</div><div class="cmethod-badge t-uk lang-hide">Швидко</div><div class="cmethod-badge t-en lang-hide">Fast</div></a>
+        <a href="mailto:info@cryptojustice.com" class="cmethod"><div class="cmethod-icon">&#9993;</div><div><div class="cmethod-label">Email</div><div class="cmethod-val">info@cryptojustice.com</div></div></a>
+        <div class="cmethod" style="cursor:default"><div class="cmethod-icon">&#128336;</div><div><div class="cmethod-label t-ru">Время ответа</div><div class="cmethod-label t-uk lang-hide">Час відповіді</div><div class="cmethod-label t-en lang-hide">Response time</div><div class="cmethod-val t-ru">В течение 24 часов</div><div class="cmethod-val t-uk lang-hide">Протягом 24 годин</div><div class="cmethod-val t-en lang-hide">Within 24 hours</div></div></div>
+      </div>
+      <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="tg-big">&#9992; <span class="t-ru">Написать в Telegram &#8594;</span><span class="t-uk lang-hide">Написати в Telegram &#8594;</span><span class="t-en lang-hide">Write on Telegram &#8594;</span></a>
+    </div>
+    <div>
+      <div class="form-wrap" id="contact-form">
+        <div class="form-row">
+          <div class="form-field"><label><span class="t-ru">Имя</span><span class="t-uk lang-hide">Ім&#39;я</span><span class="t-en lang-hide">Name</span></label><input type="text" placeholder="John Doe"></div>
+          <div class="form-field"><label>Email / Telegram</label><input type="text" placeholder="@username or email"></div>
+        </div>
+        <div class="form-field"><label><span class="t-ru">Тип мошенничества</span><span class="t-uk lang-hide">Тип шахрайства</span><span class="t-en lang-hide">Fraud type</span></label><select><option value="" disabled selected>&#8212;</option><option>Fake broker / Investment platform</option><option>Romance scam / Pig butchering</option><option>NFT / Token scam / Rug pull</option><option>Wallet drain / Phishing</option><option>Other</option></select></div>
+        <div class="form-field"><label><span class="t-ru">Сумма потерь</span><span class="t-uk lang-hide">Сума втрат</span><span class="t-en lang-hide">Amount lost</span></label><input type="text" placeholder="e.g. $15,000"></div>
+        <div class="form-field"><label><span class="t-ru">Опишите ситуацию</span><span class="t-uk lang-hide">Опишіть ситуацію</span><span class="t-en lang-hide">Describe situation</span></label><textarea placeholder="..."></textarea></div>
+        <div class="form-submit">
+          <button class="btn-form" onclick="submitForm()"><span class="t-ru">Отправить &#8594;</span><span class="t-uk lang-hide">Надіслати &#8594;</span><span class="t-en lang-hide">Submit &#8594;</span></button>
+          <div class="form-note t-ru">&#128274; Конфиденциально. Ответим в течение 24 часов.</div>
+          <div class="form-note t-uk lang-hide">&#128274; Конфіденційно. Відповімо протягом 24 годин.</div>
+          <div class="form-note t-en lang-hide">&#128274; Confidential. We&#39;ll respond within 24 hours.</div>
         </div>
       </div>
-      <div>
-        <div class="form-wrap" id="contact-form">
-          <div class="form-row">
-            <div class="form-field"><label><span class="t-ru">Имя</span><span class="t-uk lang-hide">Ім'я</span><span class="t-en lang-hide">Name</span></label><input type="text" placeholder="John Doe"></div>
-            <div class="form-field"><label>Email / Telegram</label><input type="text" placeholder="@username or email"></div>
-          </div>
-          <div class="form-field">
-            <label><span class="t-ru">Тип мошенничества</span><span class="t-uk lang-hide">Тип шахрайства</span><span class="t-en lang-hide">Fraud type</span></label>
-            <select>
-              <option value="" disabled selected>—</option>
-              <option>Fake broker / Investment platform</option>
-              <option>Romance scam / Pig butchering</option>
-              <option>NFT / Token scam / Rug pull</option>
-              <option>Wallet drain / Phishing</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-field"><label><span class="t-ru">Сумма потерь (USD)</span><span class="t-uk lang-hide">Сума втрат (USD)</span><span class="t-en lang-hide">Amount lost (USD)</span></label><input type="text" placeholder="e.g. $15,000"></div>
-          <div class="form-field"><label><span class="t-ru">Опишите ситуацию</span><span class="t-uk lang-hide">Опишіть ситуацію</span><span class="t-en lang-hide">Describe the situation</span></label><textarea placeholder="..."></textarea></div>
-          <div class="form-submit">
-            <button class="btn-form" onclick="submitForm()">
-              <span class="btn-form-text">
-                <span class="t-ru">Отправить — получить оценку →</span>
-                <span class="t-uk lang-hide">Надіслати — отримати оцінку →</span>
-                <span class="t-en lang-hide">Submit — get assessment →</span>
-              </span>
-            </button>
-            <div class="form-note t-ru">🔒 Конфиденциально. Ответим в течение 24 часов.</div>
-            <div class="form-note t-uk lang-hide">🔒 Конфіденційно. Відповімо протягом 24 годин.</div>
-            <div class="form-note t-en lang-hide">🔒 Confidential. We'll respond within 24 hours.</div>
-          </div>
-        </div>
-        <div class="form-success" id="form-success">
-          ✓ <span class="t-ru">Запрос получен. Ответим в течение 24 часов.</span>
-          <span class="t-uk lang-hide">Запит отримано. Відповімо протягом 24 годин.</span>
-          <span class="t-en lang-hide">Request received. We'll respond within 24 hours.</span>
-        </div>
-      </div>
+      <div class="form-success" id="form-success">&#10003; <span class="t-ru">Запрос получен. Ответим в течение 24 часов.</span><span class="t-uk lang-hide">Запит отримано. Відповімо протягом 24 годин.</span><span class="t-en lang-hide">Request received. We&#39;ll respond within 24 hours.</span></div>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo">Crypto<span>Justice</span></div>
-        <p class="footer-desc t-ru">Блокчейн-анализ и юридическое сопровождение для жертв мошенников. Украина · Европа · США.</p>
-        <p class="footer-desc t-uk lang-hide">Блокчейн-аналіз та юридичний супровід для жертв шахраїв. Україна · Європа · США.</p>
-        <p class="footer-desc t-en lang-hide">Blockchain analysis and legal support for crypto fraud victims. Ukraine · Europe · USA.</p>
-      </div>
-      <div>
-        <h4>Navigation</h4>
-        <ul class="footer-links">
-          <li><a href="#how"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a></li>
-          <li><a href="#services"><span class="t-ru">Услуги и цены</span><span class="t-uk lang-hide">Послуги та ціни</span><span class="t-en lang-hide">Services & pricing</span></a></li>
-          <li><a href="#checker"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Resources</h4>
-        <ul class="footer-links">
-          <li><a href="https://t.me/cryptojustice_help_bot" target="_blank">Telegram Bot</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="https://ic3.gov" target="_blank">IC3.gov — FBI</a></li>
-          <li><a href="https://www.europol.europa.eu" target="_blank">Europol</a></li>
-        </ul>
-      </div>
+<footer><div class="footer-inner">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Crypto<span>Justice</span></div>
+      <p class="footer-tag t-ru">Блокчейн-анализ и юридическое сопровождение для жертв мошенников. Украина &#183; Европа &#183; США.</p>
+      <p class="footer-tag t-uk lang-hide">Блокчейн-аналіз та юридичний супровід для жертв шахраїв. Україна &#183; Європа &#183; США.</p>
+      <p class="footer-tag t-en lang-hide">Blockchain analysis and legal support for crypto fraud victims. Ukraine &#183; Europe &#183; USA.</p>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 CryptoJustice · <a href="mailto:info@cryptojustice.com" style="color:var(--text3)">info@cryptojustice.com</a></div>
-      <div class="footer-disclaimer t-ru">Мы предоставляем технические и консультационные услуги. Мы не являемся юридической фирмой.</div>
-      <div class="footer-disclaimer t-uk lang-hide">Ми надаємо технічні та консультаційні послуги. Ми не є юридичною фірмою.</div>
-      <div class="footer-disclaimer t-en lang-hide">We provide technical and consulting services. We are not a law firm.</div>
+    <div>
+      <h4>Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="#how"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a></li>
+        <li><a href="#services"><span class="t-ru">Услуги и цены</span><span class="t-uk lang-hide">Послуги та ціни</span><span class="t-en lang-hide">Services</span></a></li>
+        <li><a href="#checker"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="https://t.me/cryptojustice_help_bot" target="_blank">Telegram Bot</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="https://ic3.gov" target="_blank">IC3.gov &#8212; FBI</a></li>
+        <li><a href="https://www.europol.europa.eu" target="_blank">Europol</a></li>
+      </ul>
     </div>
   </div>
-</footer>
+  <div class="footer-bottom">
+    <div class="footer-copy">&#169; 2026 CryptoJustice &#183; <a href="mailto:info@cryptojustice.com" style="color:var(--text3)">info@cryptojustice.com</a></div>
+    <div class="footer-disc t-ru">Мы предоставляем технические и консультационные услуги. Мы не являемся юридической фирмой.</div>
+    <div class="footer-disc t-uk lang-hide">Ми надаємо технічні та консультаційні послуги. Ми не є юридичною фірмою.</div>
+    <div class="footer-disc t-en lang-hide">We provide technical and consulting services. We are not a law firm.</div>
+  </div>
+</div></footer>
 
 <script>
-// ── LANGUAGE ─────────────────────────────────────────────────────────────────
-var currentLang = localStorage.getItem('cj_lang') || 'ru';
-var suggestedLang = null;
+var cLang = localStorage.getItem('cj_lang') || 'ru';
+var sugLang = null;
 
 function setLang(lang) {
-  currentLang = lang;
+  cLang = lang;
   localStorage.setItem('cj_lang', lang);
   document.documentElement.lang = lang;
   ['uk','ru','en'].forEach(function(l) {
     document.querySelectorAll('.t-'+l).forEach(function(el) {
       el.classList.toggle('lang-hide', l !== lang);
     });
-    var btn = document.getElementById('btn-'+l);
-    if(btn) btn.classList.toggle('active', l === lang);
+    var b = document.getElementById('btn-'+l);
+    if(b) b.classList.toggle('active', l === lang);
   });
 }
 
 async function detectCountry() {
   try {
-    var r = await fetch('https://ipapi.co/json/');
-    var d = await r.json();
+    var d = await (await fetch('https://ipapi.co/json/')).json();
     var c = d.country_code;
-    var modal = document.getElementById('lang-modal');
-    if (c === 'UA' && currentLang !== 'uk') {
-      suggestedLang = 'uk';
+    var m = document.getElementById('lang-modal');
+    if(c === 'UA' && cLang !== 'uk') {
+      sugLang = 'uk';
       document.getElementById('modal-title').textContent = 'Переключити на українську?';
       document.getElementById('modal-sub').textContent = 'Ми визначили вашу локацію: Україна';
       document.getElementById('modal-accept').textContent = 'Переключити';
-      modal.style.display = 'block';
-    } else if (!['UA','RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c) && currentLang !== 'en') {
-      suggestedLang = 'en';
+      m.style.display = 'block';
+    } else if(!['UA','RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c) && cLang !== 'en') {
+      sugLang = 'en';
       document.getElementById('modal-title').textContent = 'Switch to English?';
-      document.getElementById('modal-sub').textContent = 'We detected your location: ' + (d.country_name || c);
+      document.getElementById('modal-sub').textContent = 'We detected: ' + (d.country_name || c);
       document.getElementById('modal-accept').textContent = 'Switch';
-      modal.style.display = 'block';
+      m.style.display = 'block';
     }
   } catch(e) {}
 }
-
 function acceptLang() {
-  if (suggestedLang) setLang(suggestedLang);
+  if(sugLang) setLang(sugLang);
   document.getElementById('lang-modal').style.display = 'none';
 }
 
-// ── MOBILE MENU ───────────────────────────────────────────────────────────────
 var menuOpen = false;
 function toggleMenu() {
   menuOpen = !menuOpen;
@@ -1140,170 +697,104 @@ function toggleMenu() {
   document.body.style.overflow = menuOpen ? 'hidden' : '';
 }
 
-// ── SCROLL ANIMATIONS ─────────────────────────────────────────────────────────
-var observer = new IntersectionObserver(function(entries) {
+var ro = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold: .1});
-document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+}, {threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el) { ro.observe(el); });
 
-// ── FAQ ───────────────────────────────────────────────────────────────────────
 function toggleFaq(el) {
   var item = el.parentElement;
-  var isOpen = item.classList.contains('open');
+  var open = item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
-  if (!isOpen) item.classList.add('open');
+  if(!open) item.classList.add('open');
 }
 
-// ── FORM ──────────────────────────────────────────────────────────────────────
 function submitForm() {
   document.getElementById('contact-form').style.display = 'none';
   document.getElementById('form-success').style.display = 'block';
 }
 
-// ── SWIPER ────────────────────────────────────────────────────────────────────
-var swiperIdx = 0;
-var swiperTotal = 3;
-
-function getSwiperCols() {
-  if (window.innerWidth >= 1025) return 3;
-  if (window.innerWidth >= 901) return 2;
-  return 1;
-}
-
-function swiperUpdate() {
-  var cols = getSwiperCols();
-  var maxIdx = swiperTotal - cols;
-  if (swiperIdx > maxIdx) swiperIdx = maxIdx;
-  if (swiperIdx < 0) swiperIdx = 0;
-  var sw = document.getElementById('tswiper');
-  var cardW = sw.parentElement.offsetWidth / cols;
-  sw.style.transform = 'translateX(-' + (swiperIdx * (cardW + 1)) + 'px)';
-  // update dots
-  document.querySelectorAll('.swiper-dot').forEach(function(d, i) {
-    d.classList.toggle('active', i === swiperIdx);
-  });
-}
-
-function swiperNext() { swiperIdx++; swiperUpdate(); }
-function swiperPrev() { swiperIdx--; swiperUpdate(); }
-function swiperGo(i) { swiperIdx = i; swiperUpdate(); }
-
-// Touch swipe support
-(function() {
-  var wrap = document.querySelector('.tswiper-wrap');
-  var startX = 0;
-  wrap.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive:true});
-  wrap.addEventListener('touchend', function(e) {
-    var dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 50) { dx < 0 ? swiperNext() : swiperPrev(); }
-  }, {passive:true});
-})();
-
-window.addEventListener('resize', swiperUpdate);
-
-// ── COUNTER ANIMATION ─────────────────────────────────────────────────────────
-function animateCounter(el, target, pre, suf) {
-  var start = 0, dur = 1800, startTime = null;
-  var isFloat = String(target).indexOf('.') > -1;
-  function step(ts) {
-    if (!startTime) startTime = ts;
-    var p = Math.min((ts - startTime) / dur, 1);
-    var ease = 1 - Math.pow(1 - p, 3);
-    var cur = isFloat ? (start + (target-start)*ease).toFixed(1) : Math.floor(start + (target-start)*ease);
-    el.innerHTML = (pre||'') + cur + '<span>' + (suf||'') + '</span>';
-    if (p < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-var countersDone = false;
-new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting && !countersDone) {
-      countersDone = true;
-      document.querySelectorAll('[data-counter]').forEach(function(el) {
-        var v = parseFloat(el.getAttribute('data-counter'));
-        var pre = el.innerHTML.indexOf('$') > -1 ? '$' : '';
-        var suf = el.innerHTML.replace(/[\d\.\$]/g,'').trim();
-        animateCounter(el, v, pre, suf.replace('<span>','').replace('</span>',''));
-      });
-    }
-  });
-}, {threshold:.3}).observe(document.querySelector('.hero-stats'));
-
-// ── BROKER CHECKER ────────────────────────────────────────────────────────────
-var DB = [
-  {n:'tradecapital',label:'TradeCapital Pro',reg:'ESMA',warn:true,ru:'В базе предупреждений ESMA. Работает без авторизации ЕС.',en:'Listed in ESMA warnings. Operates without EU authorization.'},
-  {n:'bitmaxglobal',label:'BitMaxGlobal',reg:'FCA',warn:true,ru:'Предупреждение FCA. Без лицензии. Не отправляйте деньги.',en:'FCA warning. No license. Do not send money.'},
-  {n:'safeinvest',label:'SafeInvest',reg:'CySEC',warn:true,ru:'В списке предупреждений CySEC. Нелицензированная деятельность.',en:'CySEC warning list. Unlicensed investment activity.'},
-  {n:'coinpro',label:'CoinPro Trading',reg:'ASIC',warn:true,ru:'Предупреждение ASIC. Нет австралийской лицензии.',en:'ASIC warning. No Australian financial services licence.'},
-  {n:'cryptotrader',label:'CryptoTrader Ltd',reg:'FSMA',warn:true,ru:'Предупреждение FSMA (Бельгия). Несанкционированная деятельность.',en:'FSMA (Belgium) warning. Unauthorized investment service.'},
-  {n:'trademax',label:'TradeMax',reg:'FCA · ESMA',warn:true,ru:'Двойное предупреждение FCA и ESMA. Клонированная фирма.',en:'Dual FCA and ESMA warning. Cloned firm.'},
-  {n:'profitcoin',label:'ProfitCoin',reg:'CySEC',warn:true,ru:'Предупреждение CySEC. Фиктивная платформа.',en:'CySEC investor alert. Fake trading platform.'},
-  {n:'binance',label:'Binance',reg:'Multiple',warn:false,ru:'Зарегистрирована в нескольких юрисдикциях. Активных предупреждений нет.',en:'Registered in multiple jurisdictions. No active warnings.'},
-  {n:'coinbase',label:'Coinbase',reg:'FinCEN · FCA · ASIC',warn:false,ru:'Лицензирована в США, UK, Австралии. Публичная компания (NASDAQ).',en:'Licensed in US, UK, Australia. Public company (NASDAQ: COIN).'},
-  {n:'kraken',label:'Kraken',reg:'FinCEN · FCA',warn:false,ru:'Американская биржа с 2011 года. FCA в UK. Нарушений нет.',en:'US-based since 2011. FCA registered in UK. No violations.'},
-  {n:'bybit',label:'Bybit',reg:'Multiple',warn:false,ru:'Зарегистрирована в нескольких юрисдикциях. Предупреждений нет.',en:'Registered in multiple jurisdictions. No warnings.'},
-  {n:'okx',label:'OKX',reg:'Multiple',warn:false,ru:'Крупная международная биржа. Предупреждений нет.',en:'Major international exchange. No active warnings.'},
-];
-
-function checkBroker() {
-  var val = document.getElementById('broker-input').value.trim();
-  if (!val) return;
-  var loading = document.getElementById('checker-loading');
-  var result = document.getElementById('checker-result');
-  result.className = 'checker-result';
-  loading.className = 'checker-loading show';
-  setTimeout(function() {
-    loading.className = 'checker-loading';
-    var q = val.toLowerCase().replace(/[\s\-\.]/g,'');
-    var found = null;
-    DB.forEach(function(b) {
-      if (q.includes(b.n) || b.n.includes(q.substring(0,6))) found = b;
-    });
-    var detail = found ? (currentLang === 'en' ? found.en : found.ru) : '';
-    result.className = 'checker-result show ' + (found ? (found.warn ? 'warning' : 'safe') : 'unknown');
-    if (found && found.warn) {
-      result.innerHTML = '<div class="result-title">⛔ ' + found.label + ' — ' + (currentLang==='ru'?'Предупреждение найдено':currentLang==='uk'?'Попередження знайдено':'Warning found') + '</div><div>' + detail + '</div><div class="rtags"><span class="rtag rtag-red">' + found.reg + ' Warning</span><span class="rtag rtag-red">Unauthorized</span></div><div style="margin-top:.7rem;font-size:12px;opacity:.85">' + (currentLang==='ru'?'Уже вложили деньги? ':currentLang==='uk'?'Вже вклали гроші? ':'Already invested? ') + '<a href="#contact" style="color:var(--red);text-decoration:underline">' + (currentLang==='ru'?'Получить помощь →':currentLang==='uk'?'Отримати допомогу →':'Get help →') + '</a></div>';
-    } else if (found && !found.warn) {
-      result.innerHTML = '<div class="result-title">✓ ' + found.label + ' — ' + (currentLang==='ru'?'Предупреждений не найдено':currentLang==='uk'?'Попереджень не знайдено':'No warnings found') + '</div><div>' + detail + '</div><div class="rtags"><span class="rtag rtag-green">' + found.reg + '</span><span class="rtag rtag-green">Regulated</span></div>';
-    } else {
-      var msg = currentLang==='ru' ? 'Название «'+val+'» не найдено в наших базах. Это может означать что брокер слишком новый или использует другое название. <a href="#contact" style="color:var(--amber);text-decoration:underline">Запросить ручную проверку →</a>' : currentLang==='uk' ? 'Назву «'+val+'» не знайдено в наших базах. <a href="#contact" style="color:var(--amber);text-decoration:underline">Запросити ручну перевірку →</a>' : '«'+val+'» was not found in our databases. <a href="#contact" style="color:var(--amber);text-decoration:underline">Request manual check →</a>';
-      result.innerHTML = '<div class="result-title">⚠ «' + val + '» — ' + (currentLang==='ru'?'Не найдено':currentLang==='uk'?'Не знайдено':'Not found') + '</div><div>' + msg + '</div><div class="rtags"><span class="rtag rtag-amber">Not verified</span></div>';
-    }
-  }, 700 + Math.random() * 600);
-}
-
-// ── FLIP CARDS — close others on open ────────────────────────────────────────
-document.querySelectorAll('.flip-card').forEach(function(card) {
+document.querySelectorAll('.scam-card').forEach(function(card) {
   card.addEventListener('click', function() {
     var wasFlipped = this.classList.contains('flipped');
-    // Close all in same grid
-    var grid = this.closest('.flip-grid');
-    if(grid) grid.querySelectorAll('.flip-card').forEach(function(c) { c.classList.remove('flipped'); });
+    document.querySelectorAll('.scam-card.flipped').forEach(function(c) { c.classList.remove('flipped'); });
     if(!wasFlipped) this.classList.add('flipped');
   });
 });
 
-// ── STEPS GRID — hide empty cell on mobile ────────────────────────────────────
-function fixStepsGrid() {
-  var grid = document.querySelector('.steps-grid');
-  if (!grid) return;
-  var cols = window.innerWidth <= 600 ? 2 : window.innerWidth <= 1024 ? 3 : 5;
-  var cards = grid.querySelectorAll('.step-card:not(.step-card-empty)');
-  var existing = grid.querySelector('.step-card-empty');
-  if(existing) existing.remove();
-  if(cards.length % cols !== 0) {
-    var empty = document.createElement('div');
-    empty.className = 'step-card step-card-empty';
-    empty.style.cssText = 'background:var(--bg2);border:none;';
-    grid.appendChild(empty);
-  }
+var sIdx = 0;
+var sTot = 3;
+function getCols() {
+  if(window.innerWidth >= 1025) return 3;
+  if(window.innerWidth >= 700) return 2;
+  return 1;
 }
-fixStepsGrid();
-window.addEventListener('resize', fixStepsGrid);
+function sUpdate() {
+  var cols = getCols();
+  var max = sTot - cols;
+  sIdx = Math.max(0, Math.min(sIdx, max));
+  var sw = document.getElementById('tswiper');
+  if(!sw) return;
+  var w = sw.parentElement.offsetWidth;
+  var cw = (w - (cols-1)*16) / cols;
+  sw.style.transform = 'translateX(-' + (sIdx * (cw + 16)) + 'px)';
+  document.querySelectorAll('.swiper-dot').forEach(function(d,i) {
+    d.classList.toggle('active', i === sIdx);
+  });
+}
+function sNext() { sIdx++; sUpdate(); }
+function sPrev() { sIdx--; sUpdate(); }
+function sGo(i) { sIdx = i; sUpdate(); }
+(function() {
+  var wrap = document.querySelector('.tswiper-wrap');
+  if(!wrap) return;
+  var sx = 0;
+  wrap.addEventListener('touchstart', function(e) { sx = e.touches[0].clientX; }, {passive:true});
+  wrap.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - sx;
+    if(Math.abs(dx) > 45) dx < 0 ? sNext() : sPrev();
+  }, {passive:true});
+})();
+window.addEventListener('resize', sUpdate);
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-setLang(currentLang);
+var DB = [
+  {n:'tradecapital',l:'TradeCapital Pro',r:'ESMA',w:true,ru:'В базе предупреждений ESMA. Работает без авторизации ЕС.',en:'Listed in ESMA warnings. Operates without EU authorization.'},
+  {n:'bitmaxglobal',l:'BitMaxGlobal',r:'FCA',w:true,ru:'Предупреждение FCA. Без лицензии.',en:'FCA warning. No license. Do not send money.'},
+  {n:'safeinvest',l:'SafeInvest',r:'CySEC',w:true,ru:'В списке предупреждений CySEC.',en:'CySEC warning. Unlicensed investment activity.'},
+  {n:'coinpro',l:'CoinPro Trading',r:'ASIC',w:true,ru:'Предупреждение ASIC.',en:'ASIC warning. No financial services licence.'},
+  {n:'trademax',l:'TradeMax',r:'FCA + ESMA',w:true,ru:'Двойное предупреждение FCA и ESMA. Клонированная фирма.',en:'Dual FCA and ESMA warning. Cloned firm.'},
+  {n:'profitcoin',l:'ProfitCoin',r:'CySEC',w:true,ru:'Предупреждение CySEC. Фиктивная платформа.',en:'CySEC alert. Fake trading platform.'},
+  {n:'binance',l:'Binance',r:'Multiple',w:false,ru:'Зарегистрирована в нескольких юрисдикциях. Предупреждений нет.',en:'Registered in multiple jurisdictions. No active warnings.'},
+  {n:'coinbase',l:'Coinbase',r:'FinCEN + FCA',w:false,ru:'Лицензирована в США, UK. Публичная компания.',en:'Licensed in US, UK. Public company (NASDAQ: COIN).'},
+  {n:'kraken',l:'Kraken',r:'FinCEN + FCA',w:false,ru:'Американская биржа с 2011 года.',en:'US-based since 2011. FCA registered in UK.'},
+  {n:'okx',l:'OKX',r:'Multiple',w:false,ru:'Крупная международная биржа. Предупреждений нет.',en:'Major international exchange. No warnings.'},
+];
+function checkBroker() {
+  var val = document.getElementById('broker-input').value.trim();
+  if(!val) return;
+  var cl = document.getElementById('cloading');
+  var cr = document.getElementById('cresult');
+  cr.className = 'cresult';
+  cl.className = 'cloading show';
+  setTimeout(function() {
+    cl.className = 'cloading';
+    var q = val.toLowerCase().replace(/[\s\-.]/g,'');
+    var found = null;
+    DB.forEach(function(b) { if(q.includes(b.n) || b.n.includes(q.substring(0,6))) found = b; });
+    var det = found ? (cLang === 'en' ? found.en : found.ru) : '';
+    cr.className = 'cresult show ' + (found ? (found.w ? 'warning' : 'safe') : 'unknown');
+    if(found && found.w) {
+      cr.innerHTML = '<div class="rtitle">&#9940; ' + found.l + ' &#8212; ' + (cLang==='ru'?'Предупреждение':'Warning') + '</div><div style="font-size:13px;opacity:.9">' + det + '</div><div class="rtags"><span class="rtag rtag-r">' + found.r + ' Warning</span></div><div style="margin-top:.7rem;font-size:12px"><a href="#contact" style="color:#f87171;text-decoration:underline">' + (cLang==='ru'?'Уже вложили? Получить помощь &#8594;':'Already invested? Get help &#8594;') + '</a></div>';
+    } else if(found) {
+      cr.innerHTML = '<div class="rtitle">&#10003; ' + found.l + ' &#8212; ' + (cLang==='ru'?'Предупреждений нет':'No warnings found') + '</div><div style="font-size:13px;opacity:.9">' + det + '</div><div class="rtags"><span class="rtag rtag-g">' + found.r + '</span><span class="rtag rtag-g">Regulated</span></div>';
+    } else {
+      var msg = cLang==='ru' ? '&#171;'+val+'&#187; не найдено. <a href="#contact" style="color:#fbbf24;text-decoration:underline">Запросить ручную проверку &#8594;</a>' : '&#171;'+val+'&#187; not found. <a href="#contact" style="color:#fbbf24;text-decoration:underline">Request manual check &#8594;</a>';
+      cr.innerHTML = '<div class="rtitle">&#9888; &#171;' + val + '&#187; &#8212; ' + (cLang==='ru'?'Не найдено':'Not found') + '</div><div style="font-size:13px;opacity:.9">' + msg + '</div>';
+    }
+  }, 600 + Math.random()*500);
+}
+
+setLang(cLang);
 detectCountry();
 </script>
 </body>
