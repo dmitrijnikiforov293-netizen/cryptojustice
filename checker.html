@@ -3,345 +3,327 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Проверить брокера — база предупреждений FCA, ESMA, CySEC | CryptoJustice</title>
-<meta name="description" content="Бесплатная проверка брокера по базам предупреждений FCA, ESMA, CySEC, ASIC и FSMA. Введите название платформы и узнайте есть ли предупреждения регуляторов.">
-<link rel="canonical" href="https://cryptojustice.com/checker.html">
-<meta property="og:title" content="Проверить брокера — бесплатная проверка по реестрам регуляторов">
-<meta property="og:description" content="Проверьте брокера по базам FCA, ESMA, CySEC, ASIC. Бесплатно, без регистрации.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0f'/%3E%3Cpolygon points='16,3 24,7.5 24,17 16,21.5 8,17 8,7.5' fill='none' stroke='%2322d3ee' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='12' r='3' fill='%2322d3ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080c10;--bg2:#0d1117;--bg3:#111820;--surface:#141c24;--surface2:#1a2432;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--accent:#00e5ff;--green:#00d68f;--red:#ff4f4f;--amber:#ffb800;--text:#e8edf2;--text2:#8a97a6;--text3:#4a5568;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan2:#22d3ee;--green:#10b981;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-nav{position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
-.nav-logo{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);text-decoration:none}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--accent)}
-.nav-cta{font-family:var(--font-display);font-size:12px;font-weight:700;padding:8px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
-.nav-cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
-
-/* HERO */
-.checker-hero{padding:5rem 2.5rem 3rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
-.checker-hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,229,255,0.05) 0%,transparent 70%);pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.05);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:1.5rem}
-.hero-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent)}
-h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:1rem}
-h1 em{font-style:normal;color:var(--accent)}
-.hero-sub{font-size:1rem;color:var(--text2);font-weight:300;max-width:520px;margin:0 auto 2.5rem}
-
-/* MAIN CHECKER */
-.checker-main{max-width:700px;margin:0 auto;padding:3rem 2.5rem}
-.checker-box{background:var(--surface);border:1px solid var(--border2);padding:2rem;position:relative;overflow:hidden}
-.checker-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.checker-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.8rem}
-.checker-row{display:flex;gap:0}
-.checker-input{flex:1;background:var(--bg);border:1px solid var(--border2);border-right:none;padding:13px 16px;font-family:var(--font-body);font-size:15px;color:var(--text);outline:none;transition:border-color .2s}
-.checker-input:focus{border-color:var(--accent)}
-.checker-input::placeholder{color:var(--text3)}
-.checker-btn{font-family:var(--font-display);font-size:12px;font-weight:700;padding:13px 22px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:background .2s;flex-shrink:0}
-.checker-btn:hover{background:#00ccee}
-.checker-loading{display:none;margin-top:1.2rem;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:.08em}
-.checker-loading.show{display:flex}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
+.lang-hide{display:none!important}
+@keyframes pulse{0%{transform:scale(.85);opacity:.8}100%{transform:scale(1.5);opacity:0}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.spinner{width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
-.checker-result{display:none;margin-top:1.2rem;padding:1.2rem 1.4rem;font-size:13px;line-height:1.7}
-.checker-result.show{display:block}
-.checker-result.safe{background:rgba(0,214,143,.07);border:1px solid rgba(0,214,143,.2);color:var(--green)}
-.checker-result.warning{background:rgba(255,79,79,.07);border:1px solid rgba(255,79,79,.2);color:var(--red)}
-.checker-result.unknown{background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.2);color:var(--amber)}
-.result-title{font-family:var(--font-display);font-size:15px;font-weight:800;margin-bottom:.5rem}
-.result-detail{color:var(--text2);font-size:13px;font-weight:300;margin-bottom:.8rem}
-.result-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:.7rem}
-.rtag{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase}
-.rtag-red{background:rgba(255,79,79,.1);color:var(--red);border:1px solid rgba(255,79,79,.2)}
-.rtag-green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
-.rtag-amber{background:rgba(255,184,0,.1);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
-.result-cta{display:inline-block;margin-top:1rem;font-family:var(--font-mono);font-size:11px;letter-spacing:.07em;text-decoration:underline;color:inherit;opacity:.9}
-.disclaimer{font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:1.2rem;line-height:1.6;letter-spacing:.03em}
-
-/* REGULATORS */
-.reg-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 2.5rem}
-.reg-inner{max-width:700px;margin:0 auto}
-.section-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.section-tag::before{content:'//'}
-h2{font-family:var(--font-display);font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.8rem}
-.reg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:1.5rem}
-.reg-card{background:var(--bg);padding:1.4rem;transition:background .2s}
-.reg-card:hover{background:var(--surface)}
-.reg-name{font-family:var(--font-display);font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
-.reg-country{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem}
-.reg-desc{font-size:12px;color:var(--text3);font-weight:300;line-height:1.5}
-.reg-link{display:inline-block;margin-top:.6rem;font-family:var(--font-mono);font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:.05em;transition:color .2s}
-.reg-link:hover{color:var(--accent);text-decoration:none}
-
-/* HOW TO CHECK */
-.how-section{padding:3rem 2.5rem}
-.how-inner{max-width:700px;margin:0 auto}
-.how-steps{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:1.5rem}
-.how-step{background:var(--bg2);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:flex-start}
-.how-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);flex-shrink:0;padding-top:2px;letter-spacing:.07em}
-.how-text{font-size:14px;color:var(--text2);font-weight:300;line-height:1.6}
-.how-text strong{color:var(--text);font-weight:600}
-
-/* POPULAR */
-.popular-section{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2.5rem}
-.popular-inner{max-width:700px;margin:0 auto}
-.popular-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:1.5rem}
-.popular-item{background:var(--bg);padding:1.2rem 1.4rem;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-.popular-item:hover{background:var(--surface)}
-.popular-name{font-family:var(--font-display);font-size:.85rem;font-weight:700;color:var(--text)}
-.popular-status{font-family:var(--font-mono);font-size:10px;padding:2px 7px;border-radius:2px;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
-.status-warn{background:rgba(255,79,79,.1);color:var(--red);border:1px solid rgba(255,79,79,.2)}
-.status-ok{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
-
-/* CTA BOTTOM */
-.cta-section{padding:3rem 2.5rem}
-.cta-inner{max-width:700px;margin:0 auto}
-.cta-box{background:var(--surface);border:1px solid var(--border2);padding:2.5rem;text-align:center;position:relative;overflow:hidden}
-.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.cta-box h3{font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:.8rem}
-.cta-box p{font-size:14px;color:var(--text2);font-weight:300;margin-bottom:1.5rem;max-width:440px;margin-left:auto;margin-right:auto}
-.btn-primary{display:inline-block;font-family:var(--font-display);font-size:13px;font-weight:700;padding:13px 30px;background:var(--accent);color:var(--bg);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
-.btn-primary:hover{background:#00ccee;transform:translateY(-2px);text-decoration:none;color:var(--bg)}
-
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-logo{font-family:var(--font-display);font-size:14px;font-weight:800}
-.footer-logo span{color:var(--accent)}
-.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
-.footer-links-row{display:flex;gap:1.5rem}
-.footer-links-row a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
-.footer-links-row a:hover{color:var(--accent)}
-@media(max-width:768px){.reg-grid{grid-template-columns:1fr 1fr}.popular-grid{grid-template-columns:1fr}}
-@media(max-width:600px){nav{padding:0 1.25rem}.nav-links{display:none}.checker-hero,.checker-main,.reg-section,.how-section,.popular-section,.cta-section{padding-left:1.25rem;padding-right:1.25rem}.reg-grid{grid-template-columns:1fr}footer{padding:1.5rem 1.25rem;flex-direction:column;align-items:flex-start}}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;height:36px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.lang-btn{font-family:var(--fb);font-size:11px;letter-spacing:.08em;padding:3px 8px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
+.lang-btn:hover,.lang-btn.active{color:var(--cyan2)}
+.lang-btn.active{border-bottom:1px solid var(--cyan2)}
+.lang-sep{color:var(--text3);font-size:9px}
+nav{position:fixed;top:36px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:rgba(10,10,15,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--cyan2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);transition:color .2s;white-space:nowrap;text-decoration:none}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-cta{font-family:var(--fb);font-size:13px;font-weight:600;padding:9px 20px;background:var(--blue);color:#fff;border:none;cursor:pointer;border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--blue2);transform:translateY(-1px);color:#fff}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;width:34px;height:34px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text2);transition:all .25s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:100px;left:0;right:0;bottom:0;background:rgba(10,10,15,.99);z-index:98;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:17px;font-weight:500;color:var(--text);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color .2s;text-decoration:none;display:block}
+.mobile-menu a:hover{color:var(--cyan2)}
+.mm-btns{display:flex;flex-direction:column;gap:.8rem;margin-top:1.8rem}
+.mm-primary{padding:14px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block;text-decoration:none}
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:-.02em}
+.footer-brand span{color:var(--cyan2)}
+.footer-links-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links-row a{font-size:13px;color:var(--text2);transition:color .2s;text-decoration:none}
+.footer-links-row a:hover{color:var(--text)}
+.footer-copy{font-size:12px;color:var(--text3)}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:600px){nav{padding:0 1rem}.lang-bar{padding:0 1rem}.footer-inner{flex-direction:column;align-items:flex-start}}
+</style>
+<title>Проверить брокера — FCA, ESMA, CySEC, ASIC | CryptoJustice</title>
+<meta name="description" content="Бесплатная проверка брокера по базам регуляторов FCA, ESMA, CySEC и ASIC. Введите название — мгновенный результат.">
+<link rel="canonical" href="https://cryptojustice.com/checker.html">
+<style>
+.page-wrap{max-width:900px;margin:0 auto;padding:120px 2rem 6rem}
+.page-hero{margin-bottom:3rem}
+.slabel{font-size:12px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem;display:flex;align-items:center;gap:8px}
+.slabel::before{content:'';width:20px;height:1px;background:var(--blue3)}
+.page-hero h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:.8rem}
+.page-hero h1 span{color:var(--cyan2)}
+.page-hero p{font-size:1rem;color:var(--text2);max-width:600px;line-height:1.75}
+.checker-box{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;margin-bottom:2rem}
+.checker-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.checker-label{font-size:12px;color:var(--text3);margin-bottom:.8rem;font-weight:500}
+.checker-row{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border2);transition:border-color .2s}
+.checker-row:focus-within{border-color:var(--blue2)}
+.checker-input{flex:1;background:var(--dark);border:none;outline:none;padding:14px 16px;font-family:var(--fb);font-size:15px;color:var(--text);min-width:0}
+.checker-input::placeholder{color:var(--text3)}
+.checker-btn{font-family:var(--fb);font-size:14px;font-weight:600;padding:0 24px;background:var(--blue);color:#fff;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+.checker-btn:hover{background:var(--blue2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cloading{display:none;align-items:center;gap:10px;margin-top:1rem;font-size:13px;color:var(--text3)}
+.cloading.show{display:flex}
+.spinning{width:14px;height:14px;border:1.5px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite}
+.cresult{display:none;margin-top:1rem;padding:1.2rem 1.5rem;border-radius:8px;font-size:14px}
+.cresult.show{display:block}
+.cresult.safe{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.cresult.warning{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.cresult.unknown{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);color:#fbbf24}
+.rtitle{font-family:var(--fd);font-size:15px;font-weight:700;margin-bottom:.5rem}
+.rtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:.7rem}
+.rtag{font-size:10px;padding:3px 10px;border-radius:100px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.rtag-r{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.rtag-g{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.rtag-a{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.cnote{font-size:12px;color:var(--text3);margin-top:1rem;line-height:1.6}
+.regs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.reg-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:border-color .3s}
+.reg-card:hover{border-color:rgba(37,99,235,.3)}
+.reg-name{font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.reg-country{font-size:12px;color:var(--text3);margin-bottom:.6rem;font-weight:500}
+.reg-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.reg-link{font-size:12px;color:var(--blue3);margin-top:.6rem;display:inline-block}
+.reg-link:hover{color:var(--cyan2)}
+.tip-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:2rem}
+.tip-item{background:var(--dark2);padding:1rem 1.2rem;display:flex;gap:.8rem;font-size:14px;color:var(--text2)}
+.tip-num{color:var(--blue3);font-weight:700;flex-shrink:0;font-family:var(--fd)}
+.warn-box{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:1.5rem;margin-top:2rem}
+.warn-box h3{font-family:var(--fd);font-size:.95rem;font-weight:700;color:#f87171;margin-bottom:.6rem}
+.warn-box p{font-size:13px;color:var(--text2);line-height:1.65}
+h2{font-family:var(--fd);font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin:2.5rem 0 1rem;color:var(--text)}
+h2 span{color:var(--cyan2)}
+@media(max-width:600px){.page-wrap{padding:110px 1rem 4rem}.regs-grid{grid-template-columns:1fr}.checker-row{flex-direction:column}.checker-btn{padding:12px;border-radius:0 0 8px 8px}}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo">Crypto<span>Justice</span></a>
-  <ul class="nav-links">
-    <li><a href="/#how">Как это работает</a></li>
-    <li><a href="/#services">Услуги и цены</a></li>
-    <li><a href="/checker.html" class="active">Проверить брокера</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-  </ul>
-  <a href="/#contact" class="nav-cta">Консультация</a>
-</nav>
-
-<!-- HERO -->
-<div class="checker-hero">
-  <div class="hero-tag">Бесплатный инструмент</div>
-  <h1>Проверьте <em>брокера</em><br>до того как вложить деньги</h1>
-  <p class="hero-sub">Мгновенная проверка по базам предупреждений FCA, ESMA, CySEC, ASIC и FSMA. Без регистрации.</p>
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <span class="lang-sep">|</span>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
+<nav>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 32 32" width="28" height="28" style="flex-shrink:0">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <polygon points="16,5 23,9 23,17 16,21 9,17 9,9" fill="rgba(34,211,238,0.08)"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+      <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
+    </svg>
+    Crypto<span>Justice</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#how"><span class="t-ru">Как работает</span><span class="t-uk lang-hide">Як працює</span><span class="t-en lang-hide">How it works</span></a></li>
+    <li><a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a></li>
+    <li><a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
+    <li><a href="/blog/"><span class="t-ru" style="color:var(--cyan2)">Блог</span><span class="t-uk lang-hide" style="color:var(--cyan2)">Блог</span><span class="t-en lang-hide" style="color:var(--cyan2)">Blog</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#how" onclick="toggleMenu()"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a>
+  <a href="/#services" onclick="toggleMenu()"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+  <a href="/checker.html" onclick="toggleMenu()"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a>
+  <a href="/blog/" onclick="toggleMenu()"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+  <div class="mm-btns">
+    <a href="/#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
+  </div>
+</div>
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="slabel t-ru">Бесплатный инструмент</div>
+    <div class="slabel t-uk lang-hide">Безкоштовний інструмент</div>
+    <div class="slabel t-en lang-hide">Free tool</div>
+    <h1><span class="t-ru">Проверить <span>брокера</span></span><span class="t-uk lang-hide">Перевірити <span>брокера</span></span><span class="t-en lang-hide">Check a <span>broker</span></span></h1>
+    <p class="t-ru">Введите название брокера или платформы &#8212; мгновенно проверим по официальным базам предупреждений FCA, ESMA, CySEC и ASIC.</p>
+    <p class="t-uk lang-hide">Введіть назву брокера &#8212; миттєво перевіримо по офіційних базах FCA, ESMA, CySEC та ASIC.</p>
+    <p class="t-en lang-hide">Enter a broker or platform name &#8212; we&#39;ll instantly check against official FCA, ESMA, CySEC and ASIC warning databases.</p>
+  </div>
 
-<!-- CHECKER -->
-<div class="checker-main">
   <div class="checker-box">
-    <div class="checker-label">// Введите название брокера или платформы</div>
+    <div class="checker-label t-ru">Название брокера или торговой платформы</div>
+    <div class="checker-label t-uk lang-hide">Назва брокера або торгової платформи</div>
+    <div class="checker-label t-en lang-hide">Broker or trading platform name</div>
     <div class="checker-row">
       <input class="checker-input" id="broker-input" type="text"
-        placeholder="например: TradeCapital Pro, BitMaxGlobal, SafeInvest..."
+        placeholder="TradeCapital Pro, BitMaxGlobal, SafeInvest..."
         onkeydown="if(event.key==='Enter')checkBroker()">
-      <button class="checker-btn" onclick="checkBroker()">Проверить →</button>
+      <button class="checker-btn" onclick="checkBroker()">
+        <span class="t-ru">Проверить &#8594;</span>
+        <span class="t-uk lang-hide">Перевірити &#8594;</span>
+        <span class="t-en lang-hide">Check &#8594;</span>
+      </button>
     </div>
-    <div class="checker-loading" id="checker-loading">
-      <div class="spinner"></div>
-      <span>Проверяем по базам предупреждений...</span>
+    <div class="cloading" id="cloading">
+      <div class="spinning"></div>
+      <span class="t-ru">Проверяем по базам регуляторов...</span>
+      <span class="t-uk lang-hide">Перевіряємо по базах регуляторів...</span>
+      <span class="t-en lang-hide">Checking regulatory databases...</span>
     </div>
-    <div class="checker-result" id="checker-result"></div>
-    <div class="disclaimer">
-      Данные из публичных реестров: FCA (Великобритания), ESMA (ЕС), CySEC (Кипр), ASIC (Австралия), FSMA (Бельгия).
-      Отсутствие в базе ≠ легитимность. База обновляется регулярно, но не в реальном времени.
-      При сомнениях — обратитесь к нам для ручной проверки.
+    <div class="cresult" id="cresult"></div>
+    <div class="cnote t-ru">&#128274; Данные из реестров: FCA (UK), ESMA (EU), CySEC (Кипр), ASIC (Австралия), FSMA (Бельгия). Отсутствие в базе не означает легитимность.</div>
+    <div class="cnote t-uk lang-hide">&#128274; Дані: FCA, ESMA, CySEC, ASIC, FSMA. Відсутність у базі не означає легітимність.</div>
+    <div class="cnote t-en lang-hide">&#128274; Data from: FCA, ESMA, CySEC, ASIC, FSMA. Not found does not mean legitimate.</div>
+  </div>
+
+  <h2><span class="t-ru">Базы данных <span>регуляторов</span></span><span class="t-uk lang-hide">Бази даних <span>регуляторів</span></span><span class="t-en lang-hide">Regulatory <span>databases</span></span></h2>
+  <div class="regs-grid">
+    <div class="reg-card">
+      <div class="reg-name">FCA</div>
+      <div class="reg-country t-ru">Великобритания</div><div class="reg-country t-uk lang-hide">Велика Британія</div><div class="reg-country t-en lang-hide">United Kingdom</div>
+      <div class="reg-desc t-ru">Финансовый регулятор UK. Один из строжайших в мире.</div>
+      <div class="reg-desc t-uk lang-hide">Фінансовий регулятор UK. Один з найсуворіших у світі.</div>
+      <div class="reg-desc t-en lang-hide">UK financial regulator. One of the strictest globally.</div>
+      <a href="https://register.fca.org.uk" target="_blank" class="reg-link">register.fca.org.uk &#8594;</a>
+    </div>
+    <div class="reg-card">
+      <div class="reg-name">ESMA</div>
+      <div class="reg-country">European Union</div>
+      <div class="reg-desc t-ru">Единый регулятор рынков ЕС. Выпускает предупреждения для инвесторов.</div>
+      <div class="reg-desc t-uk lang-hide">Єдиний регулятор ринків ЄС. Випускає попередження для інвесторів.</div>
+      <div class="reg-desc t-en lang-hide">EU single markets regulator. Issues investor warnings.</div>
+      <a href="https://www.esma.europa.eu" target="_blank" class="reg-link">esma.europa.eu &#8594;</a>
+    </div>
+    <div class="reg-card">
+      <div class="reg-name">CySEC</div>
+      <div class="reg-country t-ru">Кипр</div><div class="reg-country t-uk lang-hide">Кіпр</div><div class="reg-country t-en lang-hide">Cyprus</div>
+      <div class="reg-desc t-ru">Регулятор Кипра. Многие европейские брокеры лицензированы через CySEC.</div>
+      <div class="reg-desc t-uk lang-hide">Регулятор Кіпру. Багато брокерів ЄС ліцензовані через CySEC.</div>
+      <div class="reg-desc t-en lang-hide">Cyprus regulator. Many EU brokers are licensed through CySEC.</div>
+      <a href="https://www.cysec.gov.cy" target="_blank" class="reg-link">cysec.gov.cy &#8594;</a>
+    </div>
+    <div class="reg-card">
+      <div class="reg-name">ASIC</div>
+      <div class="reg-country t-ru">Австралия</div><div class="reg-country t-uk lang-hide">Австралія</div><div class="reg-country t-en lang-hide">Australia</div>
+      <div class="reg-desc t-ru">Австралийский регулятор. Один из крупнейших в Азиатско-Тихоокеанском регионе.</div>
+      <div class="reg-desc t-uk lang-hide">Австралійський регулятор фінансових послуг.</div>
+      <div class="reg-desc t-en lang-hide">Australian financial services regulator. Major APAC authority.</div>
+      <a href="https://www.asic.gov.au" target="_blank" class="reg-link">asic.gov.au &#8594;</a>
+    </div>
+    <div class="reg-card">
+      <div class="reg-name">IC3 / FBI</div>
+      <div class="reg-country t-ru">США</div><div class="reg-country t-uk lang-hide">США</div><div class="reg-country t-en lang-hide">USA</div>
+      <div class="reg-desc t-ru">Центр жалоб на интернет-преступления ФБР. Принимает заявления от жертв.</div>
+      <div class="reg-desc t-uk lang-hide">Центр скарг на інтернет-злочини ФБР.</div>
+      <div class="reg-desc t-en lang-hide">FBI Internet Crime Complaint Center. Accepts reports from victims worldwide.</div>
+      <a href="https://ic3.gov" target="_blank" class="reg-link">ic3.gov &#8594;</a>
+    </div>
+    <div class="reg-card">
+      <div class="reg-name">Europol EC3</div>
+      <div class="reg-country">Europe</div>
+      <div class="reg-desc t-ru">Европейский центр по киберпреступности. Координирует расследования в ЕС.</div>
+      <div class="reg-desc t-uk lang-hide">Європейський центр з кіберзлочинності.</div>
+      <div class="reg-desc t-en lang-hide">European Cybercrime Centre. Coordinates investigations across EU member states.</div>
+      <a href="https://www.europol.europa.eu" target="_blank" class="reg-link">europol.europa.eu &#8594;</a>
     </div>
   </div>
-</div>
 
-<!-- REGULATORS -->
-<div class="reg-section">
-  <div class="reg-inner">
-    <div class="section-tag">Источники данных</div>
-    <h2>Реестры регуляторов</h2>
-    <p style="color:var(--text2);font-weight:300;font-size:14px;max-width:560px">Мы проверяем по официальным базам предупреждений ведущих финансовых регуляторов. Предупреждения в этих реестрах — официальное заявление регулятора о том, что компания работает незаконно.</p>
-    <div class="reg-grid">
-      <div class="reg-card">
-        <div class="reg-name">FCA</div>
-        <div class="reg-country">🇬🇧 Великобритания</div>
-        <div class="reg-desc">Financial Conduct Authority. Один из самых строгих регуляторов. Публикует предупреждения о клонированных фирмах и неавторизованных брокерах.</div>
-        <a href="https://www.fca.org.uk/consumers/warning-list" target="_blank" class="reg-link">register.fca.org.uk →</a>
-      </div>
-      <div class="reg-card">
-        <div class="reg-name">ESMA</div>
-        <div class="reg-country">🇪🇺 Евросоюз</div>
-        <div class="reg-desc">European Securities and Markets Authority. Координирует предупреждения всех европейских регуляторов. База охватывает 27 стран ЕС.</div>
-        <a href="https://www.esma.europa.eu/databases-library/esma-registers" target="_blank" class="reg-link">esma.europa.eu →</a>
-      </div>
-      <div class="reg-card">
-        <div class="reg-name">CySEC</div>
-        <div class="reg-country">🇨🇾 Кипр</div>
-        <div class="reg-desc">Cyprus Securities and Exchange Commission. Важен потому что многие мошеннические платформы незаконно используют кипрские реквизиты.</div>
-        <a href="https://www.cysec.gov.cy/en-GB/investor-protection/investor-warnings/" target="_blank" class="reg-link">cysec.gov.cy →</a>
-      </div>
-      <div class="reg-card">
-        <div class="reg-name">ASIC</div>
-        <div class="reg-country">🇦🇺 Австралия</div>
-        <div class="reg-desc">Australian Securities & Investments Commission. MoneySmart предупреждения охватывают компании, работающие с австралийскими инвесторами.</div>
-        <a href="https://moneysmart.gov.au/investment-warnings" target="_blank" class="reg-link">moneysmart.gov.au →</a>
-      </div>
-      <div class="reg-card">
-        <div class="reg-name">FSMA</div>
-        <div class="reg-country">🇧🇪 Бельгия</div>
-        <div class="reg-desc">Financial Services and Markets Authority. Один из самых обширных европейских реестров предупреждений — тысячи записей.</div>
-        <a href="https://www.fsma.be/en/warnings" target="_blank" class="reg-link">fsma.be →</a>
-      </div>
-      <div class="reg-card">
-        <div class="reg-name">AMF</div>
-        <div class="reg-country">🇫🇷 Франция</div>
-        <div class="reg-desc">Autorité des marchés financiers. Французский регулятор ведёт подробный список нелегальных инвестиционных платформ.</div>
-        <a href="https://www.amf-france.org/en/warnings-and-blacklists" target="_blank" class="reg-link">amf-france.org →</a>
-      </div>
-    </div>
-  </div>
-</div>
+  <h2><span class="t-ru">Как ещё проверить <span>брокера</span></span><span class="t-uk lang-hide">Як ще перевірити <span>брокера</span></span><span class="t-en lang-hide">Other ways to <span>check a broker</span></span></h2>
+  <ul class="tip-list">
+    <li class="tip-item"><span class="tip-num">01</span><span class="t-ru">Проверьте возраст домена через whois.domaintools.com &#8212; &#171;работаем с 2015&#187;, а домену 3 месяца &#8212; красный флаг</span><span class="t-uk lang-hide">Перевірте вік домену. &#171;Працюємо з 2015&#187;, а домену 3 місяці &#8212; червоний прапор</span><span class="t-en lang-hide">Check domain age at whois.domaintools.com &#8212; "since 2015" but 3 months old domain &#8212; red flag</span></li>
+    <li class="tip-item"><span class="tip-num">02</span><span class="t-ru">Введите название + &#171;мошенничество&#187; / &#171;scam&#187; / &#171;отзывы&#187; в Google &#8212; ищите реальные жалобы жертв</span><span class="t-uk lang-hide">Введіть назву + &#171;шахрайство&#187; в Google &#8212; шукайте реальні скарги</span><span class="t-en lang-hide">Search name + "scam" / "fraud" / "reviews" on Google &#8212; look for real victim complaints</span></li>
+    <li class="tip-item"><span class="tip-num">03</span><span class="t-ru">Проверьте реальный физический адрес компании &#8212; виртуальные офисы и P.O. Box &#8212; плохой знак</span><span class="t-uk lang-hide">Перевірте реальну адресу компанії</span><span class="t-en lang-hide">Verify the company&#39;s real physical address &#8212; virtual offices and P.O. Boxes are a bad sign</span></li>
+    <li class="tip-item"><span class="tip-num">04</span><span class="t-ru">Попробуйте вывести небольшую сумму сразу после первого депозита &#8212; легитимные платформы не блокируют вывод</span><span class="t-uk lang-hide">Спробуйте вивести невелику суму одразу після першого депозиту</span><span class="t-en lang-hide">Try to withdraw a small amount right after your first deposit &#8212; legitimate platforms don&#39;t block withdrawals</span></li>
+  </ul>
 
-<!-- HOW TO CHECK -->
-<div class="how-section">
-  <div class="how-inner">
-    <div class="section-tag">Инструкция</div>
-    <h2>Как проверить брокера самостоятельно</h2>
-    <div class="how-steps">
-      <div class="how-step"><span class="how-num">01 //</span><div class="how-text"><strong>Введите название выше</strong> — наш инструмент проверяет по нескольким базам одновременно. Это первый и самый быстрый шаг.</div></div>
-      <div class="how-step"><span class="how-num">02 //</span><div class="how-text"><strong>Проверьте FCA Register вручную</strong> — зайдите на register.fca.org.uk и введите название компании. Ищите точное совпадение, а не похожие названия.</div></div>
-      <div class="how-step"><span class="how-num">03 //</span><div class="how-text"><strong>Поищите название + "scam" в Google</strong> — форумы Trustpilot, Reddit, Forex Peace Army часто содержат отзывы реальных жертв раньше, чем регуляторы успевают добавить запись.</div></div>
-      <div class="how-step"><span class="how-num">04 //</span><div class="how-text"><strong>Проверьте возраст домена</strong> — зайдите на whois.domaintools.com и введите домен платформы. Если платформа «работает с 2015 года», а домену 3 месяца — это красный флаг.</div></div>
-      <div class="how-step"><span class="how-num">05 //</span><div class="how-text"><strong>Не нашли ничего подозрительного, но сомневаетесь?</strong> — запросите у нас ручную проверку. Это бесплатно и занимает 24 часа.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- POPULAR SEARCHES -->
-<div class="popular-section">
-  <div class="popular-inner">
-    <div class="section-tag">Часто проверяют</div>
-    <h2>Популярные запросы</h2>
-    <p style="color:var(--text2);font-weight:300;font-size:14px;margin-bottom:.5rem">Нажмите на название чтобы проверить</p>
-    <div class="popular-grid" id="popular-grid">
-      <div class="popular-item" onclick="quickCheck('TradeCapital Pro')"><span class="popular-name">TradeCapital Pro</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('BitMaxGlobal')"><span class="popular-name">BitMaxGlobal</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('SafeInvest')"><span class="popular-name">SafeInvest</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('CoinPro Trading')"><span class="popular-name">CoinPro Trading</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('TradeMax')"><span class="popular-name">TradeMax</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('ProfitCoin')"><span class="popular-name">ProfitCoin</span><span class="popular-status status-warn">Warning</span></div>
-      <div class="popular-item" onclick="quickCheck('Binance')"><span class="popular-name">Binance</span><span class="popular-status status-ok">Regulated</span></div>
-      <div class="popular-item" onclick="quickCheck('Coinbase')"><span class="popular-name">Coinbase</span><span class="popular-status status-ok">Regulated</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- BOTTOM CTA -->
-<div class="cta-section">
-  <div class="cta-inner">
-    <div class="cta-box">
-      <h3>Брокер оказался мошенником?</h3>
-      <p>Расскажите нам о ситуации — проведём блокчейн-анализ и оценим шансы на возврат средств. Первая консультация бесплатно.</p>
-      <a href="/#contact" class="btn-primary">Бесплатная консультация →</a>
-    </div>
+  <div class="warn-box">
+    <h3>&#9888; <span class="t-ru">Уже вложили деньги?</span><span class="t-uk lang-hide">Вже вклали гроші?</span><span class="t-en lang-hide">Already invested?</span></h3>
+    <p class="t-ru">Если брокер найден в базе предупреждений или вы не можете вывести средства &#8212; не платите больше ничего. Обратитесь к нам &#8212; оценим шансы на возврат бесплатно в течение 24 часов.</p>
+    <p class="t-uk lang-hide">Якщо брокер знайдений у базі попереджень або ви не можете вивести кошти &#8212; не платіть більше нічого. Зверніться до нас.</p>
+    <p class="t-en lang-hide">If the broker is in a warning database or you can&#39;t withdraw funds &#8212; don&#39;t pay anything more. Contact us &#8212; free assessment within 24 hours.</p>
+    <a href="/#contact" style="display:inline-block;margin-top:1rem;font-family:var(--fb);font-size:13px;font-weight:600;padding:10px 20px;background:var(--blue);color:#fff;border-radius:6px;text-decoration:none;transition:background .2s" class="t-ru">Получить помощь &#8594;</a>
+    <a href="/#contact" style="display:inline-block;margin-top:1rem;font-family:var(--fb);font-size:13px;font-weight:600;padding:10px 20px;background:var(--blue);color:#fff;border-radius:6px;text-decoration:none" class="t-uk lang-hide">Отримати допомогу &#8594;</a>
+    <a href="/#contact" style="display:inline-block;margin-top:1rem;font-family:var(--fb);font-size:13px;font-weight:600;padding:10px 20px;background:var(--blue);color:#fff;border-radius:6px;text-decoration:none" class="t-en lang-hide">Get help &#8594;</a>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo">Crypto<span>Justice</span></div>
-  <div class="footer-links-row">
-    <a href="/blog/kak-vernut-dengi-ot-brokera.html">Как вернуть деньги</a>
-    <a href="/blog/fake-broker-spisok.html">Фейковые брокеры</a>
-    <a href="/#services">Услуги</a>
-    <a href="/#contact">Контакт</a>
+  <div class="footer-inner">
+    <div class="footer-brand">Crypto<span>Justice</span></div>
+    <div class="footer-links-row">
+      <a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+      <a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити</span><span class="t-en lang-hide">Check broker</span></a>
+      <a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+      <a href="/#contact"><span class="t-ru">Контакт</span><span class="t-uk lang-hide">Контакт</span><span class="t-en lang-hide">Contact</span></a>
+    </div>
+    <div class="footer-copy">&#169; 2026 CryptoJustice</div>
   </div>
-  <div class="footer-copy">© 2026 CryptoJustice</div>
 </footer>
-
 <script>
-var DB = [
-  {n:'tradecapital',label:'TradeCapital Pro',reg:'ESMA',warn:true,detail:'Внесена в базу предупреждений ESMA. Работает без авторизации ЕС. Зафиксированы многочисленные жалобы от инвесторов.'},
-  {n:'bitmaxglobal',label:'BitMaxGlobal',reg:'FCA',warn:true,detail:'Предупреждение FCA. Работает без лицензии FCA. Не отправляйте деньги и не передавайте личные данные.'},
-  {n:'safeinvest',label:'SafeInvest',reg:'CySEC',warn:true,detail:'В списке предупреждений CySEC. Имитирует регулируемые компании. Нелицензированная инвестиционная деятельность.'},
-  {n:'coinpro',label:'CoinPro Trading',reg:'ASIC',warn:true,detail:'Предупреждение ASIC MoneySmart. Нет австралийской лицензии на финансовые услуги. Многочисленные жалобы.'},
-  {n:'cryptotrader',label:'CryptoTrader Ltd',reg:'FSMA',warn:true,detail:'Предупреждение FSMA (Бельгия). Несанкционированная инвестиционная деятельность. Схема pig butchering.'},
-  {n:'trademax',label:'TradeMax',reg:'FCA · ESMA',warn:true,detail:'Двойное предупреждение FCA и ESMA. Клонированная фирма — использует украденную идентичность лицензированного брокера.'},
-  {n:'profitcoin',label:'ProfitCoin',reg:'CySEC',warn:true,detail:'Предупреждение CySEC. Фиктивная торговая платформа, ордера не исполняются реально. Зафиксирован exit scam.'},
-  {n:'forexvip',label:'ForexVIP Pro',reg:'AMF',warn:true,detail:'Предупреждение AMF (Франция). Нелегальное предложение инвестиционных услуг. Не имеет лицензии ни одного регулятора ЕС.'},
-  {n:'cryptovault',label:'CryptoVault',reg:'FCA',warn:true,detail:'Предупреждение FCA. Операции с клиентскими средствами без авторизации. Вывод средств заблокирован для клиентов.'},
-  {n:'globaltraders',label:'Global Traders Inc',reg:'ASIC · FCA',warn:true,detail:'Предупреждения ASIC и FCA. Мошенническая платформа, действующая под несколькими названиями.'},
-  {n:'binance',label:'Binance',reg:'Multiple',warn:false,detail:'Крупнейшая криптобиржа по объёму торгов. Зарегистрирована и регулируется во множестве юрисдикций. Активных предупреждений нет.'},
-  {n:'coinbase',label:'Coinbase',reg:'FinCEN · FCA · ASIC',warn:false,detail:'Лицензирована в США, Великобритании, Австралии. Публичная компания (NASDAQ: COIN). Предупреждений регуляторов нет.'},
-  {n:'kraken',label:'Kraken',reg:'FinCEN · FCA',warn:false,detail:'Американская биржа, зарегистрированная с 2011 года. Зарегистрирована в FinCEN, лицензирована FCA в Великобритании. Нарушений не выявлено.'},
-  {n:'bybit',label:'Bybit',reg:'Multiple',warn:false,detail:'Зарегистрирована на БВО, лицензирована в ряде юрисдикций. Активных предупреждений регуляторов нет.'},
-  {n:'okx',label:'OKX',reg:'Multiple',warn:false,detail:'Крупная международная биржа. Лицензирована в нескольких юрисдикциях. Активных предупреждений нет.'},
-];
-
-function findBroker(val){
-  var q = val.toLowerCase().replace(/[\s\-\.]/g,'');
-  var found = null;
-  DB.forEach(function(b){
-    var bn = b.n.replace(/[\s\-\.]/g,'');
-    var lbl = b.label.toLowerCase().replace(/[\s\-\.]/g,'');
-    if(q === bn || q === lbl || q.includes(bn) || bn.includes(q) || lbl.includes(q)){
-      found = b;
-    }
+var cLang = localStorage.getItem('cj_lang') || 'ru';
+function setLang(lang) {
+  cLang = lang;
+  localStorage.setItem('cj_lang', lang);
+  document.documentElement.lang = lang;
+  ['uk','ru','en'].forEach(function(l) {
+    document.querySelectorAll('.t-'+l).forEach(function(el) { el.classList.toggle('lang-hide', l !== lang); });
+    var b = document.getElementById('btn-'+l);
+    if(b) b.classList.toggle('active', l === lang);
   });
-  return found;
 }
-
-function renderResult(found, query){
-  var r = document.getElementById('checker-result');
-  if(found && found.warn){
-    r.className = 'checker-result show warning';
-    r.innerHTML = '<div class="result-title">⛔ ' + found.label + ' — Предупреждение найдено</div>'
-      + '<div class="result-detail">' + found.detail + '</div>'
-      + '<div class="result-tags"><span class="rtag rtag-red">' + found.reg + ' Warning</span><span class="rtag rtag-red">Unauthorized</span></div>'
-      + '<a href="/#contact" class="result-cta">Уже вложили деньги? Бесплатная консультация →</a>';
-  } else if(found && !found.warn){
-    r.className = 'checker-result show safe';
-    r.innerHTML = '<div class="result-title">✓ ' + found.label + ' — Предупреждений не найдено</div>'
-      + '<div class="result-detail">' + found.detail + '</div>'
-      + '<div class="result-tags"><span class="rtag rtag-green">' + found.reg + '</span><span class="rtag rtag-green">Regulated</span></div>'
-      + '<div style="margin-top:.7rem;font-size:12px;color:var(--text3)">Даже легитимные биржи могут быть использованы мошенниками. Если вас обманули — мы поможем. <a href="/#contact" style="color:var(--accent)">Консультация →</a></div>';
-  } else {
-    r.className = 'checker-result show unknown';
-    r.innerHTML = '<div class="result-title">⚠ «' + query + '» — Не найдено в базах</div>'
-      + '<div class="result-detail">Название не найдено в наших базах. Это может означать что брокер слишком новый, использует другое название, или ещё не внесён в реестры предупреждений. Отсутствие записи <strong>не гарантирует легитимность</strong>.</div>'
-      + '<div class="result-tags"><span class="rtag rtag-amber">Not verified</span><span class="rtag rtag-amber">Manual check needed</span></div>'
-      + '<a href="/#contact" class="result-cta">Запросить ручную проверку бесплатно →</a>';
-  }
+var menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
+  document.getElementById('hamburger').classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
 }
-
-function checkBroker(){
+var DB = [
+  {n:'tradecapital',l:'TradeCapital Pro',r:'ESMA',w:true,ru:'В базе предупреждений ESMA. Работает без авторизации ЕС.',en:'Listed in ESMA warnings. Operates without EU authorization.'},
+  {n:'bitmaxglobal',l:'BitMaxGlobal',r:'FCA',w:true,ru:'Предупреждение FCA. Без лицензии.',en:'FCA warning. No license. Do not send money.'},
+  {n:'safeinvest',l:'SafeInvest',r:'CySEC',w:true,ru:'В списке предупреждений CySEC.',en:'CySEC warning list. Unlicensed investment activity.'},
+  {n:'coinpro',l:'CoinPro Trading',r:'ASIC',w:true,ru:'Предупреждение ASIC.',en:'ASIC warning. No financial services licence.'},
+  {n:'trademax',l:'TradeMax',r:'FCA + ESMA',w:true,ru:'Двойное предупреждение FCA и ESMA. Клонированная фирма.',en:'Dual FCA and ESMA warning. Cloned firm.'},
+  {n:'profitcoin',l:'ProfitCoin',r:'CySEC',w:true,ru:'Предупреждение CySEC. Фиктивная платформа.',en:'CySEC investor alert. Fake trading platform.'},
+  {n:'binance',l:'Binance',r:'Multiple',w:false,ru:'Зарегистрирована в нескольких юрисдикциях. Предупреждений нет.',en:'Registered in multiple jurisdictions. No active warnings.'},
+  {n:'coinbase',l:'Coinbase',r:'FinCEN + FCA',w:false,ru:'Лицензирована в США, UK. Публичная компания.',en:'Licensed in US, UK. Public company (NASDAQ: COIN).'},
+  {n:'kraken',l:'Kraken',r:'FinCEN + FCA',w:false,ru:'Американская биржа с 2011 года.',en:'US-based since 2011. FCA registered in UK.'},
+  {n:'okx',l:'OKX',r:'Multiple',w:false,ru:'Крупная международная биржа. Предупреждений нет.',en:'Major international exchange. No warnings.'},
+];
+function checkBroker() {
   var val = document.getElementById('broker-input').value.trim();
   if(!val) return;
-  var loading = document.getElementById('checker-loading');
-  var result = document.getElementById('checker-result');
-  result.className = 'checker-result';
-  loading.className = 'checker-loading show';
-  setTimeout(function(){
-    loading.className = 'checker-loading';
-    renderResult(findBroker(val), val);
-    document.getElementById('checker-result').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }, 700 + Math.random()*600);
+  var cl = document.getElementById('cloading');
+  var cr = document.getElementById('cresult');
+  cr.className = 'cresult';
+  cl.className = 'cloading show';
+  setTimeout(function() {
+    cl.className = 'cloading';
+    var q = val.toLowerCase().replace(/[\s\-.]/g,'');
+    var found = null;
+    DB.forEach(function(b) { if(q.includes(b.n) || b.n.includes(q.substring(0,6))) found = b; });
+    var det = found ? (cLang === 'en' ? found.en : found.ru) : '';
+    cr.className = 'cresult show ' + (found ? (found.w ? 'warning' : 'safe') : 'unknown');
+    if(found && found.w) {
+      cr.innerHTML = '<div class="rtitle">&#9940; ' + found.l + ' &#8212; ' + (cLang==='ru'?'Предупреждение найдено':cLang==='uk'?'Попередження знайдено':'Warning found') + '</div><div style="font-size:13px;opacity:.9;margin-top:.3rem">' + det + '</div><div class="rtags"><span class="rtag rtag-r">' + found.r + ' Warning</span><span class="rtag rtag-r">Unauthorized</span></div><div style="margin-top:.8rem;font-size:13px"><a href="/#contact" style="color:#f87171;text-decoration:underline;font-weight:600">' + (cLang==='ru'?'Уже вложили деньги? Получить помощь &#8594;':cLang==='uk'?'Вже вклали гроші? Отримати допомогу &#8594;':'Already invested? Get help &#8594;') + '</a></div>';
+    } else if(found) {
+      cr.innerHTML = '<div class="rtitle">&#10003; ' + found.l + ' &#8212; ' + (cLang==='ru'?'Предупреждений не найдено':cLang==='uk'?'Попереджень не знайдено':'No warnings found') + '</div><div style="font-size:13px;opacity:.9;margin-top:.3rem">' + det + '</div><div class="rtags"><span class="rtag rtag-g">' + found.r + '</span><span class="rtag rtag-g">Regulated</span></div>';
+    } else {
+      var msg = cLang==='ru' ? '&#171;'+val+'&#187; не найдено в базах. Возможно брокер новый или использует другое название. <a href="/#contact" style="color:#fbbf24;text-decoration:underline;font-weight:600">Запросить ручную проверку &#8594;</a>' : cLang==='uk' ? '&#171;'+val+'&#187; не знайдено в базах. <a href="/#contact" style="color:#fbbf24;text-decoration:underline">Запросити перевірку &#8594;</a>' : '&#171;'+val+'&#187; not found in databases. <a href="/#contact" style="color:#fbbf24;text-decoration:underline;font-weight:600">Request manual check &#8594;</a>';
+      cr.innerHTML = '<div class="rtitle">&#9888; &#171;' + val + '&#187; &#8212; ' + (cLang==='ru'?'Не найдено':cLang==='uk'?'Не знайдено':'Not found') + '</div><div style="font-size:13px;opacity:.9;margin-top:.3rem">' + msg + '</div>';
+    }
+  }, 600 + Math.random()*500);
 }
-
-function quickCheck(name){
-  document.getElementById('broker-input').value = name;
-  document.getElementById('broker-input').scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(checkBroker, 300);
-}
+setLang(cLang);
 </script>
 </body>
 </html>

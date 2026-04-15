@@ -3,184 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Как заморозить украденные средства на Binance | CryptoJustice</title>
-<meta name="description" content="Пошаговая инструкция: запрос на заморозку через Binance, Kraken, OKX и Bybit. Документы и сроки.">
-<link rel="canonical" href="https://cryptojustice.com/blog/kak-umorozit-sredstva-binance.html">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpolygon points='16,3 24,3 28,10 24,22 16,22 12,15 12,8' fill='none' stroke='%2300e5ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='13' r='1.4' fill='%23080c10'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0f'/%3E%3Cpolygon points='16,3 24,7.5 24,17 16,21.5 8,17 8,7.5' fill='none' stroke='%2322d3ee' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='12' r='3' fill='%2322d3ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080c10;--bg2:#0d1117;--surface:#141c24;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--accent:#00e5ff;--green:#00d68f;--red:#ff4f4f;--amber:#ffb800;--text:#e8edf2;--text2:#8a97a6;--text3:#4a5568;--font-display:'Arial Black','Arial Bold',Arial,sans-serif;--font-body:'DM Sans','Segoe UI',Arial,sans-serif;--font-mono:'JetBrains Mono','Courier New',monospace}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan2:#22d3ee;--green:#10b981;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
 .lang-hide{display:none!important}
-@keyframes hex-draw{0%{stroke-dashoffset:160}100%{stroke-dashoffset:0}}
-@keyframes dot-pulse{0%,100%{r:3}50%{r:4.5}}
-@keyframes dot-ring{0%{r:3;opacity:.5}100%{r:11;opacity:0}}
-@keyframes glow-j{0%,100%{fill:#00e5ff}50%{fill:#00ccdd}}
-@keyframes logo-word{0%{opacity:0;letter-spacing:4px}100%{opacity:1;letter-spacing:-.5px}}
-@keyframes logo-sub{0%{opacity:0}100%{opacity:.7}}
-.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 2rem;height:40px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border)}
-.lang-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;padding:4px 10px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
-.lang-btn:hover,.lang-btn.active{color:var(--accent)}
-.lang-btn.active{border-bottom:1px solid var(--accent)}
-.lang-sep{color:var(--text3);font-size:10px}
-nav{position:fixed;top:40px;left:0;right:0;z-index:99;display:flex;align-items:center;padding:0 2rem;height:64px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);gap:2rem}
-.nav-logo-wrap{flex-shrink:0;text-decoration:none;display:flex;align-items:center}
-.nav-links{display:flex;gap:1.2rem;list-style:none;flex:1;justify-content:center}
-.nav-links a{font-size:12px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;white-space:nowrap}
-.nav-links a:hover{color:var(--accent)}
-.nav-cta{font-family:var(--font-display);font-size:11px;font-weight:700;padding:7px 14px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s;white-space:nowrap;flex-shrink:0}
-.nav-cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
-.article-wrap{max-width:780px;margin:0 auto;padding:8rem 2.5rem 6rem}
-.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-.meta-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--border2);color:var(--accent)}
-.meta-date{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
-.meta-read{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
-h1{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.5rem}
-h1 em{font-style:normal;color:var(--accent)}
-.article-lead{font-size:1.1rem;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-h2{font-family:var(--font-display);font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:2.5rem 0 .8rem;color:var(--text)}
-p{color:var(--text2);margin-bottom:1.2rem;font-weight:300}
-ul,ol{color:var(--text2);padding-left:1.4rem;margin-bottom:1.2rem;font-weight:300}
-li{margin-bottom:.4rem}
+@keyframes pulse{0%{transform:scale(.85);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;height:36px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.lang-btn{font-family:var(--fb);font-size:11px;letter-spacing:.08em;padding:3px 8px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
+.lang-btn:hover,.lang-btn.active{color:var(--cyan2)}
+.lang-btn.active{border-bottom:1px solid var(--cyan2)}
+.lang-sep{color:var(--text3);font-size:9px}
+nav{position:fixed;top:36px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:rgba(10,10,15,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--cyan2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);transition:color .2s;white-space:nowrap;text-decoration:none}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-cta{font-family:var(--fb);font-size:13px;font-weight:600;padding:9px 20px;background:var(--blue);color:#fff;border:none;cursor:pointer;border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--blue2);transform:translateY(-1px);color:#fff}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;width:34px;height:34px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text2);transition:all .25s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:100px;left:0;right:0;bottom:0;background:rgba(10,10,15,.99);z-index:98;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:17px;font-weight:500;color:var(--text);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color .2s;text-decoration:none;display:block}
+.mobile-menu a:hover{color:var(--cyan2)}
+.mm-btns{display:flex;flex-direction:column;gap:.8rem;margin-top:1.8rem}
+.mm-primary{padding:14px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block;text-decoration:none}
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:-.02em}
+.footer-brand span{color:var(--cyan2)}
+.footer-links-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links-row a{font-size:13px;color:var(--text2);transition:color .2s;text-decoration:none}
+.footer-links-row a:hover{color:var(--text)}
+.footer-copy{font-size:12px;color:var(--text3)}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:600px){nav{padding:0 1rem}.lang-bar{padding:0 1rem}.footer-inner{flex-direction:column;align-items:flex-start}}
+</style>
+<title>Как заморозить украденные средства на Binance | CryptoJustice</title>
+<meta name="description" content="Пошаговая инструкция: запрос на заморозку через Binance, Kraken, OKX и Bybit.">
+<meta property="og:title" content="How to freeze stolen funds on Binance | CryptoJustice">
+<link rel="canonical" href="https://cryptojustice.com/blog/kak-umorozit-sredstva-binance.html">
+<style>
+.article-wrap{max-width:780px;margin:0 auto;padding:120px 2rem 6rem}
+.article-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-size:10px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border:1px solid rgba(37,99,235,.3);border-radius:100px;margin-bottom:1rem}
+.article-header h1{font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem}
+.article-header h1 span{color:var(--cyan2)}
+.article-meta{display:flex;align-items:center;gap:.8rem;font-size:12px;color:var(--text3);flex-wrap:wrap}
+.article-lead{font-size:1.05rem;color:var(--text2);line-height:1.8;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+h2{font-family:var(--fd);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;margin:2.5rem 0 .8rem;color:var(--text)}
+p{color:var(--text2);margin-bottom:1.2rem;line-height:1.75;font-size:15px}
+ul,ol{color:var(--text2);padding-left:1.4rem;margin-bottom:1.2rem;font-size:15px}
+li{margin-bottom:.4rem;line-height:1.65}
 strong{color:var(--text);font-weight:600}
-.callout{background:var(--surface);border-left:3px solid var(--accent);padding:1.2rem 1.5rem;margin:2rem 0;font-size:14px;color:var(--text2)}
-.callout.warn{border-color:var(--amber);background:rgba(255,184,0,.05)}
-.callout.danger{border-color:var(--red);background:rgba(255,79,79,.05)}
+a{color:var(--blue3)}
+a:hover{color:var(--cyan2)}
+.callout{background:var(--dark2);border-left:3px solid var(--blue);padding:1.2rem 1.5rem;margin:2rem 0;font-size:14px;color:var(--text2);border-radius:0 6px 6px 0}
+.callout.warn{border-color:#f59e0b;background:rgba(245,158,11,.05)}
+.callout.danger{border-color:#ef4444;background:rgba(239,68,68,.05)}
 .callout strong{color:var(--text)}
 .step-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--border);margin:1.5rem 0}
-.step-list li{background:var(--bg2);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:flex-start}
-.step-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);flex-shrink:0;padding-top:2px}
-.step-text{font-size:14px;color:var(--text2);font-weight:300;line-height:1.6}
-.step-text strong{color:var(--text);font-weight:600}
-.toc{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:2.5rem}
-.toc-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
-.toc ol{color:var(--text2);font-size:14px;padding-left:1.2rem}
-.toc ol li{margin-bottom:.35rem}
-.toc a{color:var(--text2);text-decoration:none;transition:color .2s}
-.toc a:hover{color:var(--accent)}
-.badge-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0}
-.badge{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase}
-.badge-green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
-.badge-amber{background:rgba(255,184,0,.1);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
-.cta-block{background:var(--surface);border:1px solid var(--border2);padding:2.5rem;margin:3rem 0;text-align:center;position:relative;overflow:hidden}
-.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.cta-block h3{font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:.8rem;color:var(--text)}
-.cta-block p{font-size:14px;color:var(--text2);margin-bottom:1.5rem;font-weight:300}
-.btn-accent{display:inline-block;font-family:var(--font-display);font-size:13px;font-weight:700;padding:13px 30px;background:var(--accent);color:var(--bg);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
-.btn-accent:hover{background:#00ccee;transform:translateY(-2px);text-decoration:none;color:var(--bg)}
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-logo{font-family:var(--font-display);font-size:14px;font-weight:800}
-.footer-logo span{color:var(--accent)}
-.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
-.footer-links-row{display:flex;gap:1.5rem}
-.footer-links-row a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
-.footer-links-row a:hover{color:var(--accent)}
-@media(max-width:768px){nav{padding:0 1.25rem;gap:1rem}.nav-links{display:none}.article-wrap{padding:7rem 1.25rem 4rem}footer{padding:1.5rem 1.25rem;flex-direction:column;align-items:flex-start}}
+.step-list li{background:var(--dark2);padding:1rem 1.2rem;display:flex;gap:.8rem;align-items:flex-start;font-size:14px}
+.step-num{font-family:var(--fb);font-size:11px;color:var(--blue3);flex-shrink:0;padding-top:1px;font-weight:600}
+.cta-block{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(6,182,212,.04));border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:2.5rem;margin:3rem 0;text-align:center}
+.cta-block h3{font-family:var(--fd);font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
+.cta-block p{font-size:13px;color:var(--text2);margin-bottom:1.5rem}
+.btn-cta{display:inline-block;font-family:var(--fb);font-size:14px;font-weight:600;padding:12px 28px;background:var(--blue);color:#fff;border-radius:6px;text-decoration:none;transition:all .2s}
+.btn-cta:hover{background:var(--blue2);color:#fff}
+@media(max-width:600px){.article-wrap{padding:110px 1rem 4rem}}
 </style>
-</head>
-<body>
+</head><body>
+
 <div class="lang-bar">
-  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
-  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
 <nav>
-  <a href="/" class="nav-logo-wrap">
-    <svg width="170" height="32" viewBox="0 0 200 34">
-      <polygon points="17,1 29,1 35,11 29,22 17,22 11,11" fill="none" stroke="#00e5ff" stroke-width="1.4" style="stroke-dasharray:160;animation:hex-draw 1.1s ease-out forwards"/>
-      <polygon points="17,4 29,4 34,11 29,18 17,18 12,11" fill="rgba(0,229,255,0.06)"/>
-      <circle cx="23" cy="11" r="6" fill="none" stroke="#00e5ff" stroke-width=".4" style="animation:dot-ring 2.2s ease-out infinite"/>
-      <circle cx="23" cy="11" r="3" fill="#00e5ff" style="animation:dot-pulse 2.2s ease-in-out infinite"/>
-      <circle cx="23" cy="11" r="1.4" fill="#080c10"/>
-      <text x="43" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#ffffff" letter-spacing="-.3" style="animation:logo-word .6s ease .7s both">Crypto</text>
-      <text x="97" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#00e5ff" letter-spacing="-.3" style="animation:glow-j 3s ease-in-out infinite 1.2s,logo-word .6s ease 1s both">Justice</text>
-      <text x="44" y="26" font-family="monospace" font-size="6.5" fill="#334e5f" letter-spacing="1.8" style="animation:logo-sub .8s ease 1.5s both">BLOCKCHAIN RECOVERY</text>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 32 32" width="28" height="28" style="flex-shrink:0">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <polygon points="16,5 23,9 23,17 16,21 9,17 9,9" fill="rgba(34,211,238,0.08)"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+      <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
     </svg>
+    Crypto<span>Justice</span>
   </a>
   <ul class="nav-links">
-    <li><a href="/#how" id="nav-how">Как это работает</a></li>
-    <li><a href="/#services" id="nav-srv">Услуги</a></li>
-    <li><a href="/checker.html" id="nav-chk">Проверить брокера</a></li>
-    <li><a href="/blog/" id="nav-blog" style="color:var(--accent)">Блог</a></li>
+    <li><a href="/#how"><span class="t-ru">Как работает</span><span class="t-uk lang-hide">Як працює</span><span class="t-en lang-hide">How it works</span></a></li>
+    <li><a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a></li>
+    <li><a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
+    <li><a href="/blog/"><span class="t-ru" style="color:var(--cyan2)">Блог</span><span class="t-uk lang-hide" style="color:var(--cyan2)">Блог</span><span class="t-en lang-hide" style="color:var(--cyan2)">Blog</span></a></li>
   </ul>
-  <a href="/#contact" class="nav-cta" id="nav-cta">Консультация</a>
-</nav>
-<div class="article-wrap">
-  <div class="article-meta">
-    <span class="meta-tag t-uk">Інструкція</span><span class="meta-tag t-ru lang-hide">Инструкция</span><span class="meta-tag t-en lang-hide">How-to</span>
-    <span class="meta-date">Апрель 2026</span>
-    <span class="meta-read t-uk">10 хв читання</span><span class="meta-read t-ru lang-hide">10 мин чтения</span><span class="meta-read t-en lang-hide">10 min read</span>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
-  <h1><span class="t-uk">Як <em>заморозити</em> вкрадені кошти на Binance</span><span class="t-ru lang-hide">Как <em>заморозить</em> украденные средства на Binance</span><span class="t-en lang-hide">How to <em>freeze</em> stolen funds on Binance</span></h1>
-  <p class="article-lead"><span class="t-uk">Якщо гроші, які у вас вкрали, потрапили на велику біржу — їх можна заморозити. Біржі зобов'язані співпрацювати з правоохоронними органами. Ось як це працює на практиці.</span><span class="t-ru lang-hide">Если деньги, которые у вас украли, ушли на крупную биржу — их можно заморозить. Биржи обязаны сотрудничать с правоохранительными органами. Вот как это работает на практике.</span><span class="t-en lang-hide">If stolen funds reached a major exchange — they can be frozen. Exchanges must cooperate with law enforcement. Here's how it works in practice.</span></p>
-  <div class="callout"><strong><span class="t-uk">Важливо:</span><span class="t-ru lang-hide">Важно:</span><span class="t-en lang-hide">Important:</span></strong> <span class="t-uk">це працює лише якщо кошти ще на біржі. Шахраї намагаються вивести гроші швидко — саме тому перші 48 годин критичні.</span><span class="t-ru lang-hide">это работает только если средства ещё на бирже. Мошенники стараются вывести деньги быстро — именно поэтому первые 48 часов критичны.</span><span class="t-en lang-hide">this only works if funds are still on the exchange. Scammers try to withdraw quickly — that's why the first 48 hours are critical.</span></div>
-  <h2><span class="t-uk">Процес для Binance</span><span class="t-ru lang-hide">Процесс для Binance</span><span class="t-en lang-hide">Binance process</span></h2>
-  <ul class="step-list">
-    <li><span class="step-num">01 //</span><div class="step-text"><strong><span class="t-uk">Підготуйте блокчейн-звіт</span><span class="t-ru lang-hide">Подготовьте блокчейн-отчёт</span><span class="t-en lang-hide">Prepare blockchain report</span></strong> — <span class="t-uk">з ланцюжком транзакцій до адреси Binance</span><span class="t-ru lang-hide">с цепочкой транзакций до адреса Binance</span><span class="t-en lang-hide">with transaction chain leading to the Binance address</span></div></li>
-    <li><span class="step-num">02 //</span><div class="step-text"><strong><span class="t-uk">Офіційний запит</span><span class="t-ru lang-hide">Официальный запрос</span><span class="t-en lang-hide">Official request</span></strong> — <span class="t-uk">через law-enforcement.binance.com або compliance@binance.com</span><span class="t-ru lang-hide">через law-enforcement.binance.com или compliance@binance.com</span><span class="t-en lang-hide">via law-enforcement.binance.com or compliance@binance.com</span></div></li>
-    <li><span class="step-num">03 //</span><div class="step-text"><strong><span class="t-uk">Очікування відповіді</span><span class="t-ru lang-hide">Ожидание ответа</span><span class="t-en lang-hide">Awaiting response</span></strong> — <span class="t-uk">зазвичай 2–8 тижнів. Binance підтверджує отримання.</span><span class="t-ru lang-hide">обычно 2–8 недель. Binance подтверждает получение.</span><span class="t-en lang-hide">usually 2–8 weeks. Binance confirms receipt.</span></div></li>
-    <li><span class="step-num">04 //</span><div class="step-text"><strong><span class="t-uk">Заморожування</span><span class="t-ru lang-hide">Заморозка</span><span class="t-en lang-hide">Freeze</span></strong> — <span class="t-uk">при позитивному рішенні кошти заморожуються. Для повернення може знадобитися судове рішення.</span><span class="t-ru lang-hide">при положительном решении средства замораживаются. Для возврата может потребоваться судебное решение.</span><span class="t-en lang-hide">if approved, funds are frozen. Final return may require a court order.</span></div></li>
-  </ul>
-  <h2><span class="t-uk">Інші біржі</span><span class="t-ru lang-hide">Другие биржи</span><span class="t-en lang-hide">Other exchanges</span></h2>
-  <p><strong>Kraken:</strong> <span class="t-uk">приймає запити через law enforcement portal. Відома оперативною відповіддю при наявності номера поліцейської справи.</span><span class="t-ru lang-hide">принимает запросы через law enforcement portal. Известна оперативным ответом при наличии номера полицейского дела.</span><span class="t-en lang-hide">accepts requests via law enforcement portal. Known for quick response when a police case number is provided.</span></p>
-  <p><strong>OKX:</strong> compliance@okx.com — <span class="t-uk">працює з запитами через юридичні листи.</span><span class="t-ru lang-hide">работает с запросами через юридические письма.</span><span class="t-en lang-hide">handles requests through official legal letters.</span></p>
-  <p><strong>Bybit:</strong> <span class="t-uk">розділ для правоохоронних органів на support.bybit.com.</span><span class="t-ru lang-hide">раздел для правоохранительных органов на support.bybit.com.</span><span class="t-en lang-hide">law enforcement section at support.bybit.com.</span></p>
-  <div class="cta-block">
-    <h3><span class="t-uk">Потрібна допомога із заморожуванням?</span><span class="t-ru lang-hide">Нужна помощь с заморозкой?</span><span class="t-en lang-hide">Need help with freezing?</span></h3>
-    <p><span class="t-uk">Ми підготуємо всі документи і подамо запити на біржі від вашого імені.</span><span class="t-ru lang-hide">Мы подготовим все документы и подадим запросы на биржи от вашего имени.</span><span class="t-en lang-hide">We'll prepare all documents and submit requests to exchanges on your behalf.</span></p>
-    <a href="/#contact" class="btn-accent"><span class="t-uk">Безкоштовна консультація →</span><span class="t-ru lang-hide">Бесплатная консультация →</span><span class="t-en lang-hide">Free consultation →</span></a>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#how" onclick="toggleMenu()"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a>
+  <a href="/#services" onclick="toggleMenu()"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+  <a href="/checker.html" onclick="toggleMenu()"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a>
+  <a href="/blog/" onclick="toggleMenu()"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+  <div class="mm-btns">
+    <a href="/#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
   </div>
 </div>
-<footer>
-  <div class="footer-logo">Crypto<span>Justice</span></div>
-  <div class="footer-links-row">
-    <a href="/blog/" id="ft-blog">Блог</a>
-    <a href="/checker.html" id="ft-chk">Проверить брокера</a>
-    <a href="/#services" id="ft-srv">Услуги</a>
-    <a href="/#contact" id="ft-con">Контакт</a>
+<div class="article-wrap">
+  <div class="article-header">
+    <div class="article-tag t-ru">Инструкция</div><div class="article-tag t-uk lang-hide">Інструкція</div><div class="article-tag t-en lang-hide">How-to</div>
+    <h1><span class="t-ru">Как заморозить украденные средства на Binance</span><span class="t-uk lang-hide">Як заморозити вкрадені кошти на Binance</span><span class="t-en lang-hide">How to freeze stolen funds on Binance</span></h1>
+    <div class="article-meta">
+      <span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span>
+      <span>&#183;</span>
+      <span class="t-ru">10 мин чтения</span><span class="t-uk lang-hide">10 хв читання</span><span class="t-en lang-hide">10 min read</span>
+    </div>
   </div>
-  <div class="footer-copy">© 2026 CryptoJustice</div>
+  <div class="article-lead"><span class="t-ru">Пошаговая инструкция: запрос на заморозку через Binance, Kraken, OKX и Bybit.</span><span class="t-uk lang-hide">Покрокова інструкція: запит на заморожування через Binance, Kraken, OKX та Bybit.</span><span class="t-en lang-hide">Step-by-step: freeze requests via Binance, Kraken, OKX and Bybit. Documents and timelines.</span></div>
+  <div class="t-ru"><div class="callout"><strong>Важно:</strong> это работает только если средства ещё на бирже. Мошенники выводят деньги быстро &#8212; поэтому скорость критична.</div>
+<h2>Процесс для Binance</h2>
+<ol class="step-list">
+<li><span class="step-num">01</span><div><strong>Подготовьте блокчейн-отчёт</strong> &#8212; с цепочкой транзакций до адреса Binance</div></li>
+<li><span class="step-num">02</span><div><strong>Официальный запрос</strong> &#8212; через law-enforcement.binance.com или compliance@binance.com</div></li>
+<li><span class="step-num">03</span><div><strong>Ожидание ответа</strong> &#8212; обычно 2&#8211;8 недель. Binance подтверждает получение</div></li>
+<li><span class="step-num">04</span><div><strong>Заморозка</strong> &#8212; при положительном решении средства замораживаются. Для возврата может потребоваться судебное решение</div></li>
+</ol>
+<h2>Другие биржи</h2>
+<p><strong>Kraken:</strong> принимает запросы через law enforcement portal. Известен оперативным ответом при наличии номера полицейского дела.</p>
+<p><strong>OKX:</strong> compliance@okx.com &#8212; работает с запросами через юридические письма.</p>
+<p><strong>Bybit:</strong> раздел для правоохранительных органов на support.bybit.com.</p>
+<h2>Что нужно для запроса</h2>
+<ul>
+<li>Блокчейн-отчёт с цепочкой транзакций</li>
+<li>Копия заявления в полицию (повышает приоритет)</li>
+<li>Доказательства мошенничества &#8212; переписка, транзакции</li>
+<li>Контактные данные заявителя</li>
+</ul></div>
+  <div class="t-uk lang-hide"><div class="callout"><strong>Важливо:</strong> це працює лише якщо кошти ще на біржі. Шахраї намагаються швидко вивести гроші.</div>
+<h2>Процес для Binance</h2>
+<ol class="step-list">
+<li><span class="step-num">01</span><div><strong>Підготуйте блокчейн-звіт</strong> &#8212; з ланцюжком транзакцій до адреси Binance</div></li>
+<li><span class="step-num">02</span><div><strong>Офіційний запит</strong> &#8212; через law-enforcement.binance.com</div></li>
+<li><span class="step-num">03</span><div><strong>Очікування відповіді</strong> &#8212; зазвичай 2&#8211;8 тижнів</div></li>
+</ol></div>
+  <div class="t-en lang-hide"><div class="callout"><strong>Important:</strong> this only works if funds are still on the exchange. Scammers try to withdraw quickly &#8212; speed is critical.</div>
+<h2>Binance process</h2>
+<ol class="step-list">
+<li><span class="step-num">01</span><div><strong>Prepare blockchain report</strong> &#8212; with transaction chain leading to the Binance address</div></li>
+<li><span class="step-num">02</span><div><strong>Official request</strong> &#8212; via law-enforcement.binance.com or compliance@binance.com</div></li>
+<li><span class="step-num">03</span><div><strong>Await response</strong> &#8212; usually 2&#8211;8 weeks. Binance confirms receipt</div></li>
+<li><span class="step-num">04</span><div><strong>Freeze</strong> &#8212; if approved, funds are frozen. Final return may require a court order</div></li>
+</ol></div>
+  <div class="cta-block">
+    <h3 class="t-ru">Стали жертвой мошенничества?</h3><h3 class="t-uk lang-hide">Стали жертвою шахрайства?</h3><h3 class="t-en lang-hide">Victim of a scam?</h3>
+    <p class="t-ru">Расскажите нам о ситуации &#8212; оценим шансы бесплатно в течение 24 часов.</p>
+    <p class="t-uk lang-hide">Розкажіть нам &#8212; оцінимо шанси безкоштовно протягом 24 годин.</p>
+    <p class="t-en lang-hide">Tell us what happened &#8212; we&#39;ll assess your chances for free within 24 hours.</p>
+    <a href="/#contact" class="btn-cta t-ru">Бесплатная консультация &#8594;</a>
+    <a href="/#contact" class="btn-cta t-uk lang-hide">Безкоштовна консультація &#8594;</a>
+    <a href="/#contact" class="btn-cta t-en lang-hide">Free consultation &#8594;</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Crypto<span>Justice</span></div>
+    <div class="footer-links-row">
+      <a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+      <a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити</span><span class="t-en lang-hide">Check broker</span></a>
+      <a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+      <a href="/#contact"><span class="t-ru">Контакт</span><span class="t-uk lang-hide">Контакт</span><span class="t-en lang-hide">Contact</span></a>
+    </div>
+    <div class="footer-copy">&#169; 2026 CryptoJustice</div>
+  </div>
 </footer>
 <script>
-var NAV = {
-  uk:{how:'Як це працює',srv:'Послуги',chk:'Перевірити брокера',blog:'Блог',cta:'Консультація','ft-blog':'Блог','ft-chk':'Перевірити брокера','ft-srv':'Послуги','ft-con':'Контакт'},
-  ru:{how:'Как это работает',srv:'Услуги',chk:'Проверить брокера',blog:'Блог',cta:'Консультация','ft-blog':'Блог','ft-chk':'Проверить брокера','ft-srv':'Услуги','ft-con':'Контакт'},
-  en:{how:'How it works',srv:'Services',chk:'Check broker',blog:'Blog',cta:'Consult','ft-blog':'Blog','ft-chk':'Check broker','ft-srv':'Services','ft-con':'Contact'}
-};
-var MAP = {'nav-how':'how','nav-srv':'srv','nav-chk':'chk','nav-blog':'blog','nav-cta':'cta','ft-blog':'ft-blog','ft-chk':'ft-chk','ft-srv':'ft-srv','ft-con':'ft-con'};
-
+var cLang = localStorage.getItem('cj_lang') || 'ru';
 function setLang(lang) {
+  cLang = lang;
   localStorage.setItem('cj_lang', lang);
   document.documentElement.lang = lang;
-  var t = NAV[lang] || NAV.ru;
   ['uk','ru','en'].forEach(function(l) {
-    document.querySelectorAll('.t-'+l).forEach(function(el){ el.classList.toggle('lang-hide', l!==lang); });
+    document.querySelectorAll('.t-'+l).forEach(function(el) {
+      el.classList.toggle('lang-hide', l !== lang);
+    });
     var b = document.getElementById('btn-'+l);
-    if(b) b.classList.toggle('active', l===lang);
-  });
-  Object.keys(MAP).forEach(function(id) {
-    var el = document.getElementById(id);
-    if(el) el.textContent = t[MAP[id]] || '';
+    if(b) b.classList.toggle('active', l === lang);
   });
 }
-async function init() {
-  var s = localStorage.getItem('cj_lang');
-  if(s) { setLang(s); return; }
-  try {
-    var d = await (await fetch('https://ipapi.co/json/')).json();
-    var c = d.country_code;
-    setLang(c==='UA'?'uk':['RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c)?'ru':'en');
-  } catch(e) { setLang('ru'); }
+var menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
+  document.getElementById('hamburger').classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
 }
-init();
-</script>
-</body>
-</html>
+setLang(cLang);
+</script></body></html>

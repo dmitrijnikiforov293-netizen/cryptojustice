@@ -2,279 +2,265 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080c10'/%3E%3Cpolygon points='16,3 24,3 28,10 24,22 16,22 12,15 12,8' fill='none' stroke='%2300e5ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='13' r='1.4' fill='%23080c10'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Блог — Руководства по возврату крипто-средств | CryptoJustice</title>
-<meta name="description" content="Экспертные статьи о возврате средств от мошенников, блокчейн-анализе и защите от крипто-скамов.">
-<link rel="canonical" href="https://cryptojustice.com/blog/">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0f'/%3E%3Cpolygon points='16,3 24,7.5 24,17 16,21.5 8,17 8,7.5' fill='none' stroke='%2322d3ee' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='12' r='3' fill='%2322d3ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080c10;--bg2:#0d1117;--surface:#141c24;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--accent:#00e5ff;--text:#e8edf2;--text2:#8a97a6;--text3:#4a5568;--font-display:'Arial Black','Arial Bold',Arial,sans-serif;--font-body:'DM Sans','Segoe UI',Arial,sans-serif;--font-mono:'JetBrains Mono','Courier New',monospace}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan2:#22d3ee;--green:#10b981;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
 .lang-hide{display:none!important}
-
-@keyframes hex-draw{0%{stroke-dashoffset:160}100%{stroke-dashoffset:0}}
-@keyframes dot-pulse{0%,100%{r:3}50%{r:4.5}}
-@keyframes dot-ring{0%{r:3;opacity:.5}100%{r:11;opacity:0}}
-@keyframes glow-j{0%,100%{fill:#00e5ff}50%{fill:#00ccdd}}
-@keyframes logo-word{0%{opacity:0;letter-spacing:4px}100%{opacity:1;letter-spacing:-.5px}}
-@keyframes logo-sub{0%{opacity:0}100%{opacity:.7}}
-
-.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 2rem;height:40px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border)}
-.lang-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;padding:4px 10px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
-.lang-btn:hover,.lang-btn.active{color:var(--accent)}
-.lang-btn.active{border-bottom:1px solid var(--accent)}
-.lang-sep{color:var(--text3);font-size:10px}
-
-nav{position:fixed;top:40px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:64px;background:rgba(8,12,16,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);gap:.5rem;flex-wrap:nowrap}
-.nav-links{display:flex;gap:1.5rem;list-style:none}
-.nav-links a{font-size:12px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;white-space:nowrap}
-.nav-links a:hover{color:var(--accent)}
-.nav-cta{font-family:var(--font-display);font-size:12px;font-weight:700;padding:8px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:all .2s;white-space:nowrap;flex-shrink:0}
-.nav-cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
-
-.hero{padding:8rem 2.5rem 2rem;border-bottom:1px solid var(--border)}
-.hero-inner{max-width:1000px;margin:0 auto}
-.section-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.section-tag::before{content:'//'}
-h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1rem}
-
-/* SEARCH */
-.search-wrap{max-width:1000px;margin:0 auto;padding:1.5rem 2.5rem 0}
-.search-box{display:flex;gap:0;background:var(--surface);border:1px solid var(--border2);position:relative}
-.search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;opacity:.5}
-.search-input{flex:1;background:transparent;border:none;outline:none;padding:12px 14px 12px 42px;font-family:var(--font-body);font-size:14px;color:var(--text);font-weight:300}
-.search-input::placeholder{color:var(--text3)}
-.search-count{font-family:var(--font-mono);font-size:11px;color:var(--text3);padding:12px 14px;align-self:center;flex-shrink:0}
-
-.blog-wrap{max-width:1000px;margin:0 auto;padding:2rem 2.5rem 5rem}
-.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
-.blog-card{background:var(--bg2);padding:2rem;transition:background .3s;display:flex;flex-direction:column;gap:.8rem;position:relative;overflow:hidden;text-decoration:none}
-.blog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
-.blog-card:hover{background:var(--surface);text-decoration:none}
-.blog-card:hover::before{background:var(--accent)}
-.blog-card.hidden{display:none}
-.card-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--border2);color:var(--text3);display:inline-block;width:fit-content}
-.card-title{font-family:var(--font-display);font-size:1.1rem;font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--text)}
-.card-desc{font-size:13px;color:var(--text2);font-weight:300;line-height:1.6;flex:1}
-.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}
-.card-read{font-family:var(--font-mono);font-size:10px;color:var(--text3)}
-.card-link{font-family:var(--font-mono);font-size:11px;color:var(--accent)}
-.featured{grid-column:1/-1}
-.featured .card-title{font-size:1.5rem}
-.no-results{grid-column:1/-1;padding:3rem;text-align:center;font-family:var(--font-mono);font-size:13px;color:var(--text3);letter-spacing:.06em}
-
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-logo{font-family:var(--font-display);font-size:14px;font-weight:800}
-.footer-logo span{color:var(--accent)}
-.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--text3)}
-.footer-links-row{display:flex;gap:1.5rem}
-.footer-links-row a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
-.footer-links-row a:hover{color:var(--accent)}
-
-@media(max-width:768px){.blog-grid{grid-template-columns:1fr}.featured{grid-column:1}.nav-links{display:none}}
-@media(max-width:600px){nav,.lang-bar{padding-left:1.25rem;padding-right:1.25rem}.hero,.search-wrap,.blog-wrap{padding-left:1.25rem;padding-right:1.25rem}footer{padding:1.5rem 1.25rem;flex-direction:column;align-items:flex-start}}
+@keyframes pulse{0%{transform:scale(.85);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:0 1.5rem;height:36px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.lang-btn{font-family:var(--fb);font-size:11px;letter-spacing:.08em;padding:3px 8px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:color .2s;text-transform:uppercase}
+.lang-btn:hover,.lang-btn.active{color:var(--cyan2)}
+.lang-btn.active{border-bottom:1px solid var(--cyan2)}
+.lang-sep{color:var(--text3);font-size:9px}
+nav{position:fixed;top:36px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:rgba(10,10,15,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--cyan2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);transition:color .2s;white-space:nowrap;text-decoration:none}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-cta{font-family:var(--fb);font-size:13px;font-weight:600;padding:9px 20px;background:var(--blue);color:#fff;border:none;cursor:pointer;border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--blue2);transform:translateY(-1px);color:#fff}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;width:34px;height:34px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text2);transition:all .25s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:100px;left:0;right:0;bottom:0;background:rgba(10,10,15,.99);z-index:98;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:17px;font-weight:500;color:var(--text);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color .2s;text-decoration:none;display:block}
+.mobile-menu a:hover{color:var(--cyan2)}
+.mm-btns{display:flex;flex-direction:column;gap:.8rem;margin-top:1.8rem}
+.mm-primary{padding:14px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block;text-decoration:none}
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:-.02em}
+.footer-brand span{color:var(--cyan2)}
+.footer-links-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links-row a{font-size:13px;color:var(--text2);transition:color .2s;text-decoration:none}
+.footer-links-row a:hover{color:var(--text)}
+.footer-copy{font-size:12px;color:var(--text3)}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:600px){nav{padding:0 1rem}.lang-bar{padding:0 1rem}.footer-inner{flex-direction:column;align-items:flex-start}}
+</style>
+<title>Блог — CryptoJustice | Blockchain Recovery</title>
+<meta name="description" content="Руководства по возврату крипто-средств, блокчейн-анализу и защите от мошенников.">
+<style>
+.page-wrap{max-width:900px;margin:0 auto;padding:120px 2rem 6rem}
+.page-hero{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.page-hero-label{font-size:12px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem;display:flex;align-items:center;gap:8px}
+.page-hero-label::before{content:'';width:20px;height:1px;background:var(--blue3)}
+.page-hero h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:.8rem}
+.page-hero h1 span{color:var(--cyan2)}
+.page-hero p{font-size:1rem;color:var(--text2);max-width:540px;line-height:1.75}
+.article-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.article-item{background:var(--dark2);padding:2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;transition:background .25s;text-decoration:none;color:var(--text)}
+.article-item:hover{background:var(--dark3);text-decoration:none;color:var(--text)}
+.article-item:hover .article-read{color:var(--blue3)}
+.article-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+.article-item{position:relative;overflow:hidden}
+.article-item:hover::before{transform:scaleY(1)}
+.article-tag{display:inline-block;font-size:10px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border:1px solid rgba(37,99,235,.3);border-radius:100px;margin-bottom:.7rem}
+.article-title{font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:.5rem;letter-spacing:-.02em;line-height:1.2}
+.article-desc{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:.8rem}
+.article-meta{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:.8rem}
+.article-read{font-size:13px;font-weight:600;color:var(--blue2);white-space:nowrap;transition:color .2s;display:flex;align-items:center;gap:4px}
+.checker-cta{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(6,182,212,.04));border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:2rem;margin-top:3rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.checker-cta-text h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+.checker-cta-text p{font-size:13px;color:var(--text2)}
+.btn-blue{font-family:var(--fb);font-size:13px;font-weight:600;padding:11px 22px;background:var(--blue);color:#fff;border:none;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:all .2s}
+.btn-blue:hover{background:var(--blue2);color:#fff}
+@media(max-width:600px){.page-wrap{padding:110px 1rem 4rem}.article-item{grid-template-columns:1fr}.article-read{display:none}.checker-cta{flex-direction:column}}
 </style>
 </head>
 <body>
 
 <div class="lang-bar">
-  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
   <span class="lang-sep">|</span>
-  <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
   <span class="lang-sep">|</span>
   <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
 </div>
-
 <nav>
-  <a href="/" style="text-decoration:none;display:flex;align-items:center">
-    <svg width="180" height="34" viewBox="0 0 200 34">
-      <polygon points="17,1 29,1 35,11 29,22 17,22 11,11" fill="none" stroke="#00e5ff" stroke-width="1.4" style="stroke-dasharray:160;animation:hex-draw 1.1s ease-out forwards"/>
-      <polygon points="17,4 29,4 34,11 29,18 17,18 12,11" fill="rgba(0,229,255,0.06)"/>
-      <circle cx="23" cy="11" r="6" fill="none" stroke="#00e5ff" stroke-width=".4" style="animation:dot-ring 2.2s ease-out infinite"/>
-      <circle cx="23" cy="11" r="3" fill="#00e5ff" style="animation:dot-pulse 2.2s ease-in-out infinite"/>
-      <circle cx="23" cy="11" r="1.4" fill="#080c10"/>
-      <text x="43" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#ffffff" letter-spacing="-.3" style="animation:logo-word .6s ease .7s both">Crypto</text>
-      <text x="97" y="16" font-family="Arial" font-weight="800" font-size="15" fill="#00e5ff" letter-spacing="-.3" style="animation:glow-j 3s ease-in-out infinite 1.2s,logo-word .6s ease 1s both">Justice</text>
-      <text x="44" y="26" font-family="monospace" font-size="6.5" fill="#334e5f" letter-spacing="1.8" style="animation:logo-sub .8s ease 1.5s both">BLOCKCHAIN RECOVERY</text>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 32 32" width="28" height="28" style="flex-shrink:0">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <polygon points="16,5 23,9 23,17 16,21 9,17 9,9" fill="rgba(34,211,238,0.08)"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+      <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
     </svg>
+    Crypto<span>Justice</span>
   </a>
   <ul class="nav-links">
-    <li><a href="/#how" class="t-ru">Как это работает</a><a href="/#how" class="t-uk lang-hide">Як це працює</a><a href="/#how" class="t-en lang-hide">How it works</a></li>
-    <li><a href="/#services" class="t-ru">Услуги и цены</a><a href="/#services" class="t-uk lang-hide">Послуги та ціни</a><a href="/#services" class="t-en lang-hide">Services</a></li>
-    <li><a href="/checker.html" class="t-ru">Проверить брокера</a><a href="/checker.html" class="t-uk lang-hide">Перевірити брокера</a><a href="/checker.html" class="t-en lang-hide">Check broker</a></li>
-    <li><a href="/blog/" class="t-ru" style="color:var(--accent)">Блог</a><a href="/blog/" class="t-uk lang-hide" style="color:var(--accent)">Блог</a><a href="/blog/" class="t-en lang-hide" style="color:var(--accent)">Blog</a></li>
+    <li><a href="/#how"><span class="t-ru">Как работает</span><span class="t-uk lang-hide">Як працює</span><span class="t-en lang-hide">How it works</span></a></li>
+    <li><a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a></li>
+    <li><a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a></li>
+    <li><a href="/blog/"><span class="t-ru" style="color:var(--cyan2)">Блог</span><span class="t-uk lang-hide" style="color:var(--cyan2)">Блог</span><span class="t-en lang-hide" style="color:var(--cyan2)">Blog</span></a></li>
   </ul>
-  <a href="/#contact" class="nav-cta" id="nav-cta-text">Консультация</a>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
 </nav>
-
-<div class="hero">
-  <div class="hero-inner">
-    <div class="section-tag">
-      <span class="t-ru">База знаний</span><span class="t-uk lang-hide">База знань</span><span class="t-en lang-hide">Knowledge base</span>
-    </div>
-    <h1>
-      <span class="t-ru">Руководства и статьи</span>
-      <span class="t-uk lang-hide">Посібники та статті</span>
-      <span class="t-en lang-hide">Guides & articles</span>
-    </h1>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#how" onclick="toggleMenu()"><span class="t-ru">Как это работает</span><span class="t-uk lang-hide">Як це працює</span><span class="t-en lang-hide">How it works</span></a>
+  <a href="/#services" onclick="toggleMenu()"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+  <a href="/checker.html" onclick="toggleMenu()"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a>
+  <a href="/blog/" onclick="toggleMenu()"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+  <div class="mm-btns">
+    <a href="/#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
   </div>
 </div>
-
-<div class="search-wrap">
-  <div class="search-box">
-    <input class="search-input" id="search-input" type="text"
-      placeholder="Поиск статей..."
-      oninput="filterCards(this.value)">
-    <span class="search-count" id="search-count"></span>
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-hero-label t-ru">Блог</div>
+    <div class="page-hero-label t-uk lang-hide">Блог</div>
+    <div class="page-hero-label t-en lang-hide">Blog</div>
+    <h1><span class="t-ru">Руководства по <span>возврату средств</span></span><span class="t-uk lang-hide">Посібники з <span>повернення коштів</span></span><span class="t-en lang-hide">Guides on <span>fund recovery</span></span></h1>
+    <p><span class="t-ru">Экспертные статьи о блокчейн-анализе, защите от мошенников и возврате крипто-средств.</span><span class="t-uk lang-hide">Експертні статті про блокчейн-аналіз та захист від шахраїв.</span><span class="t-en lang-hide">Expert articles on blockchain analysis, scam protection and crypto fund recovery.</span></p>
   </div>
-</div>
 
-<div class="blog-wrap">
-  <div class="blog-grid" id="blog-grid">
-
-    <a href="/blog/kak-vernut-dengi-ot-brokera.html" class="blog-card featured" data-ru="Как вернуть деньги от брокера мошенника 2026 руководство блокчейн" data-uk="Як повернути гроші від брокера шахрая 2026" data-en="How to recover funds from fraudulent broker 2026">
-      <span class="card-tag t-ru">Руководство</span><span class="card-tag t-uk lang-hide">Посібник</span><span class="card-tag t-en lang-hide">Guide</span>
-      <div class="card-title t-ru">Как вернуть деньги от брокера-мошенника в 2026 году</div>
-      <div class="card-title t-uk lang-hide">Як повернути гроші від брокера-шахрая у 2026 році</div>
-      <div class="card-title t-en lang-hide">How to recover funds from a fraudulent broker in 2026</div>
-      <div class="card-desc t-ru">Пошаговый план: блокчейн-анализ, заморозка активов на бирже, обращение в полицию и Europol. Реальные шансы и сроки.</div>
-      <div class="card-desc t-uk lang-hide">Покроковий план: блокчейн-аналіз, заморожування активів на біржі, звернення до поліції та Europol.</div>
-      <div class="card-desc t-en lang-hide">Step-by-step plan: blockchain analysis, asset freezing, police reports and Europol. Real chances and timelines.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">12 мин чтения</span><span class="card-read t-uk lang-hide">12 хв читання</span><span class="card-read t-en lang-hide">12 min read</span>
-        <span class="card-link t-ru">Читать →</span><span class="card-link t-uk lang-hide">Читати →</span><span class="card-link t-en lang-hide">Read →</span>
+  <div class="article-list">
+    <a href="/blog/kak-vernut-dengi-ot-brokera.html" class="article-item">
+      <div>
+        <div class="article-tag t-ru">Руководство</div><div class="article-tag t-uk lang-hide">Посібник</div><div class="article-tag t-en lang-hide">Guide</div>
+        <div class="article-title t-ru">Как вернуть деньги от брокера-мошенника в 2026 году</div>
+        <div class="article-title t-uk lang-hide">Як повернути гроші від брокера-шахрая у 2026 році</div>
+        <div class="article-title t-en lang-hide">How to recover funds from a fraudulent broker in 2026</div>
+        <div class="article-desc t-ru">Пошаговый план: блокчейн-анализ, заморозка активов на бирже, обращение в полицию и Europol. Реальные шансы и сроки.</div>
+        <div class="article-desc t-uk lang-hide">Покроковий план: блокчейн-аналіз, заморожування активів, звернення до поліції та Europol.</div>
+        <div class="article-desc t-en lang-hide">Step-by-step plan: blockchain analysis, asset freezing, police report and Europol. Real chances and timelines.</div>
+        <div class="article-meta"><span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span><span>&#183;</span><span class="t-ru">12 мин чтения</span><span class="t-uk lang-hide">12 хв читання</span><span class="t-en lang-hide">12 min read</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Читать</span><span class="t-uk lang-hide">Читати</span><span class="t-en lang-hide">Read</span> &#8594;</div>
     </a>
 
-    <a href="/blog/fake-broker-spisok.html" class="blog-card" data-ru="фейковый брокер список мошенничество признаки проверить" data-uk="фейковий брокер список шахрайство" data-en="fake broker list scam signs check">
-      <span class="card-tag t-ru">Предупреждение</span><span class="card-tag t-uk lang-hide">Попередження</span><span class="card-tag t-en lang-hide">Warning</span>
-      <div class="card-title t-ru">Список фейковых брокеров и 10 признаков мошенничества</div>
-      <div class="card-title t-uk lang-hide">Список фейкових брокерів і 10 ознак шахрайства</div>
-      <div class="card-title t-en lang-hide">Fake broker list and 10 signs of fraud</div>
-      <div class="card-desc t-ru">Как распознать мошенническую платформу и проверить брокера по реестрам регуляторов за 5 минут.</div>
-      <div class="card-desc t-uk lang-hide">Як розпізнати шахрайську платформу та перевірити брокера за реєстрами регуляторів.</div>
-      <div class="card-desc t-en lang-hide">How to spot a fraudulent platform and check a broker against regulator databases in 5 minutes.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">8 мин чтения</span><span class="card-read t-uk lang-hide">8 хв читання</span><span class="card-read t-en lang-hide">8 min read</span>
-        <span class="card-link t-ru">Читать →</span><span class="card-link t-uk lang-hide">Читати →</span><span class="card-link t-en lang-hide">Read →</span>
+    <a href="/blog/fake-broker-spisok.html" class="article-item">
+      <div>
+        <div class="article-tag t-ru">Предупреждение</div><div class="article-tag t-uk lang-hide">Попередження</div><div class="article-tag t-en lang-hide">Warning</div>
+        <div class="article-title t-ru">Список фейковых брокеров и 10 признаков мошенничества</div>
+        <div class="article-title t-uk lang-hide">Список фейкових брокерів і 10 ознак шахрайства</div>
+        <div class="article-title t-en lang-hide">Fake broker list and 10 signs of fraud</div>
+        <div class="article-desc t-ru">Как распознать мошенническую платформу и проверить брокера по реестрам регуляторов за 5 минут.</div>
+        <div class="article-desc t-uk lang-hide">Як розпізнати шахрайську платформу та перевірити брокера за 5 хвилин.</div>
+        <div class="article-desc t-en lang-hide">How to spot a fraudulent platform and check a broker against regulatory registers in 5 minutes.</div>
+        <div class="article-meta"><span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span><span>&#183;</span><span class="t-ru">8 мин чтения</span><span class="t-uk lang-hide">8 хв читання</span><span class="t-en lang-hide">8 min read</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Читать</span><span class="t-uk lang-hide">Читати</span><span class="t-en lang-hide">Read</span> &#8594;</div>
     </a>
 
-    <a href="/blog/pig-butchering-schema.html" class="blog-card" data-ru="pig butchering схема разделка свиньи криптовалюта" data-uk="pig butchering схема крипто" data-en="pig butchering scheme crypto fraud">
-      <span class="card-tag t-ru">Разбор схемы</span><span class="card-tag t-uk lang-hide">Розбір схеми</span><span class="card-tag t-en lang-hide">Scheme breakdown</span>
-      <div class="card-title t-ru">Pig Butchering: самая распространённая крипто-схема</div>
-      <div class="card-title t-uk lang-hide">Pig Butchering: найпоширеніша крипто-схема</div>
-      <div class="card-title t-en lang-hide">Pig Butchering: the most common crypto fraud scheme</div>
-      <div class="card-desc t-ru">Как работает «разделка свиньи», стадии схемы и реальные шансы вернуть деньги.</div>
-      <div class="card-desc t-uk lang-hide">Як працює схема та реальні шанси повернути гроші.</div>
-      <div class="card-desc t-en lang-hide">How pig butchering works, stages, and real chances of recovering funds.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">9 мин чтения</span><span class="card-read t-uk lang-hide">9 хв читання</span><span class="card-read t-en lang-hide">9 min read</span>
-        <span class="card-link t-ru">Читать →</span><span class="card-link t-uk lang-hide">Читати →</span><span class="card-link t-en lang-hide">Read →</span>
+    <a href="/blog/pig-butchering-schema.html" class="article-item">
+      <div>
+        <div class="article-tag t-ru">Разбор схемы</div><div class="article-tag t-uk lang-hide">Розбір схеми</div><div class="article-tag t-en lang-hide">Scheme breakdown</div>
+        <div class="article-title t-ru">Pig Butchering: самая распространённая крипто-схема</div>
+        <div class="article-title t-uk lang-hide">Pig Butchering: найпоширеніша крипто-схема</div>
+        <div class="article-title t-en lang-hide">Pig Butchering: the most common crypto scam scheme</div>
+        <div class="article-desc t-ru">Как работает «разделка свиньи», стадии схемы и реальные шансы вернуть деньги.</div>
+        <div class="article-desc t-uk lang-hide">Як працює схема, стадії та реальні шанси повернути гроші.</div>
+        <div class="article-desc t-en lang-hide">How pig butchering works, scheme stages and real chances of recovering money.</div>
+        <div class="article-meta"><span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span><span>&#183;</span><span class="t-ru">9 мин чтения</span><span class="t-uk lang-hide">9 хв читання</span><span class="t-en lang-hide">9 min read</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Читать</span><span class="t-uk lang-hide">Читати</span><span class="t-en lang-hide">Read</span> &#8594;</div>
     </a>
 
-    <a href="/blog/kak-umorozit-sredstva-binance.html" class="blog-card" data-ru="заморозить средства binance kraken okx украденные" data-uk="заморозити кошти binance" data-en="freeze funds binance kraken stolen assets">
-      <span class="card-tag t-ru">Инструкция</span><span class="card-tag t-uk lang-hide">Інструкція</span><span class="card-tag t-en lang-hide">How-to</span>
-      <div class="card-title t-ru">Как заморозить украденные средства на Binance</div>
-      <div class="card-title t-uk lang-hide">Як заморозити вкрадені кошти на Binance</div>
-      <div class="card-title t-en lang-hide">How to freeze stolen funds on Binance</div>
-      <div class="card-desc t-ru">Процесс подачи запроса через Binance, Kraken, OKX и Bybit. Документы и сроки.</div>
-      <div class="card-desc t-uk lang-hide">Процес подання запиту через Binance, Kraken, OKX та Bybit.</div>
-      <div class="card-desc t-en lang-hide">How to submit freeze requests through Binance, Kraken, OKX and Bybit.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">10 мин чтения</span><span class="card-read t-uk lang-hide">10 хв читання</span><span class="card-read t-en lang-hide">10 min read</span>
-        <span class="card-link t-ru">Читать →</span><span class="card-link t-uk lang-hide">Читати →</span><span class="card-link t-en lang-hide">Read →</span>
+    <a href="/blog/kak-umorozit-sredstva-binance.html" class="article-item">
+      <div>
+        <div class="article-tag t-ru">Инструкция</div><div class="article-tag t-uk lang-hide">Інструкція</div><div class="article-tag t-en lang-hide">How-to</div>
+        <div class="article-title t-ru">Как заморозить украденные средства на <b style="color:var(--amber,#f59e0b)">Binance</b></div>
+        <div class="article-title t-uk lang-hide">Як заморозити вкрадені кошти на <b style="color:#f59e0b">Binance</b></div>
+        <div class="article-title t-en lang-hide">How to freeze stolen funds on <b style="color:#f59e0b">Binance</b></div>
+        <div class="article-desc t-ru">Процесс подачи запроса через Binance, Kraken, OKX и Bybit. Документы и сроки.</div>
+        <div class="article-desc t-uk lang-hide">Процес подачі запиту через Binance, Kraken, OKX та Bybit. Документи та терміни.</div>
+        <div class="article-desc t-en lang-hide">How to submit a freeze request via Binance, Kraken, OKX and Bybit. Documents and timelines.</div>
+        <div class="article-meta"><span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span><span>&#183;</span><span class="t-ru">10 мин чтения</span><span class="t-uk lang-hide">10 хв читання</span><span class="t-en lang-hide">10 min read</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Читать</span><span class="t-uk lang-hide">Читати</span><span class="t-en lang-hide">Read</span> &#8594;</div>
     </a>
 
-    <a href="/blog/romance-scam-vernut-dengi.html" class="blog-card" data-ru="romance scam романтическое мошенничество вернуть деньги знакомства" data-uk="romance scam романтичне шахрайство" data-en="romance scam recover money dating fraud">
-      <span class="card-tag t-ru">Руководство</span><span class="card-tag t-uk lang-hide">Посібник</span><span class="card-tag t-en lang-hide">Guide</span>
-      <div class="card-title t-ru">Romance Scam: как вернуть деньги</div>
-      <div class="card-title t-uk lang-hide">Romance Scam: як повернути гроші</div>
-      <div class="card-title t-en lang-hide">Romance Scam: how to recover funds</div>
-      <div class="card-desc t-ru">Типичные сценарии, установление личности мошенника через KYC и план действий.</div>
-      <div class="card-desc t-uk lang-hide">Типові сценарії, встановлення особи шахрая через KYC та план дій.</div>
-      <div class="card-desc t-en lang-hide">Typical scenarios, identifying the scammer via KYC data, and action plan.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">7 мин чтения</span><span class="card-read t-uk lang-hide">7 хв читання</span><span class="card-read t-en lang-hide">7 min read</span>
-        <span class="card-link t-ru">Читать →</span><span class="card-link t-uk lang-hide">Читати →</span><span class="card-link t-en lang-hide">Read →</span>
+    <a href="/blog/romance-scam-vernut-dengi.html" class="article-item">
+      <div>
+        <div class="article-tag t-ru">Руководство</div><div class="article-tag t-uk lang-hide">Посібник</div><div class="article-tag t-en lang-hide">Guide</div>
+        <div class="article-title t-ru">Romance Scam: как вернуть деньги</div>
+        <div class="article-title t-uk lang-hide">Romance Scam: як повернути гроші</div>
+        <div class="article-title t-en lang-hide">Romance Scam: how to recover funds</div>
+        <div class="article-desc t-ru">Типичные сценарии, установление личности мошенника через KYC и план действий.</div>
+        <div class="article-desc t-uk lang-hide">Типові сценарії, встановлення особи шахрая через KYC та план дій.</div>
+        <div class="article-desc t-en lang-hide">Common scenarios, scammer identification via KYC and action plan.</div>
+        <div class="article-meta"><span class="t-ru">Апрель 2026</span><span class="t-uk lang-hide">Квітень 2026</span><span class="t-en lang-hide">April 2026</span><span>&#183;</span><span class="t-ru">7 мин чтения</span><span class="t-uk lang-hide">7 хв читання</span><span class="t-en lang-hide">7 min read</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Читать</span><span class="t-uk lang-hide">Читати</span><span class="t-en lang-hide">Read</span> &#8594;</div>
     </a>
 
-    <a href="/checker.html" class="blog-card featured" data-ru="проверить брокера инструмент FCA ESMA бесплатно" data-uk="перевірити брокера інструмент" data-en="check broker tool FCA ESMA free">
-      <span class="card-tag t-ru">Инструмент</span><span class="card-tag t-uk lang-hide">Інструмент</span><span class="card-tag t-en lang-hide">Tool</span>
-      <div class="card-title t-ru">Бесплатная проверка брокера по базам FCA, ESMA, CySEC</div>
-      <div class="card-title t-uk lang-hide">Безкоштовна перевірка брокера за базами FCA, ESMA, CySEC</div>
-      <div class="card-title t-en lang-hide">Free broker check against FCA, ESMA, CySEC</div>
-      <div class="card-desc t-ru">Введите название брокера — мгновенно проверим по официальным базам предупреждений.</div>
-      <div class="card-desc t-uk lang-hide">Введіть назву брокера — миттєво перевіримо за офіційними базами попереджень.</div>
-      <div class="card-desc t-en lang-hide">Enter a broker name — instantly checked against official regulator warning databases.</div>
-      <div class="card-meta">
-        <span class="card-read t-ru">Инструмент</span><span class="card-read t-uk lang-hide">Інструмент</span><span class="card-read t-en lang-hide">Tool</span>
-        <span class="card-link t-ru">Открыть →</span><span class="card-link t-uk lang-hide">Відкрити →</span><span class="card-link t-en lang-hide">Open →</span>
+    <a href="/checker.html" class="article-item">
+      <div>
+        <div class="article-tag">Tool</div>
+        <div class="article-title t-ru">Бесплатная проверка брокера по базам FCA, ESMA, CySEC</div>
+        <div class="article-title t-uk lang-hide">Безкоштовна перевірка брокера по базах FCA, ESMA, CySEC</div>
+        <div class="article-title t-en lang-hide">Free broker check against FCA, ESMA, CySEC databases</div>
+        <div class="article-desc t-ru">Введите название брокера &#8212; мгновенно проверим по официальным базам предупреждений.</div>
+        <div class="article-desc t-uk lang-hide">Введіть назву брокера &#8212; миттєво перевіримо по офіційних базах попереджень.</div>
+        <div class="article-desc t-en lang-hide">Enter a broker name &#8212; instantly check against official warning databases.</div>
+        <div class="article-meta"><span class="t-ru">Инструмент</span><span class="t-uk lang-hide">Інструмент</span><span class="t-en lang-hide">Tool</span></div>
       </div>
+      <div class="article-read"><span class="t-ru">Открыть</span><span class="t-uk lang-hide">Відкрити</span><span class="t-en lang-hide">Open</span> &#8594;</div>
     </a>
+  </div>
 
-    <div class="no-results lang-hide" id="no-results">
-      <span class="t-ru">Ничего не найдено</span><span class="t-uk lang-hide">Нічого не знайдено</span><span class="t-en lang-hide">No results found</span>
+  <div class="checker-cta">
+    <div class="checker-cta-text">
+      <h3><span class="t-ru">Потеряли деньги? Получите бесплатную оценку</span><span class="t-uk lang-hide">Втратили гроші? Отримайте безкоштовну оцінку</span><span class="t-en lang-hide">Lost money? Get a free assessment</span></h3>
+      <p><span class="t-ru">Ответим в течение 24 часов — расскажем что можно сделать в вашем случае.</span><span class="t-uk lang-hide">Відповімо протягом 24 годин.</span><span class="t-en lang-hide">We&#39;ll respond within 24 hours with an honest assessment.</span></p>
     </div>
-
+    <a href="/#contact" class="btn-blue"><span class="t-ru">Написать нам &#8594;</span><span class="t-uk lang-hide">Написати нам &#8594;</span><span class="t-en lang-hide">Contact us &#8594;</span></a>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo">Crypto<span>Justice</span></div>
-  <div class="footer-links-row">
-    <a href="/checker.html" class="t-ru">Проверить брокера</a><a href="/checker.html" class="t-uk lang-hide">Перевірити брокера</a><a href="/checker.html" class="t-en lang-hide">Check broker</a>
-    <a href="/#services" class="t-ru">Услуги</a><a href="/#services" class="t-uk lang-hide">Послуги</a><a href="/#services" class="t-en lang-hide">Services</a>
-    <a href="/#contact" class="t-ru">Контакт</a><a href="/#contact" class="t-uk lang-hide">Контакт</a><a href="/#contact" class="t-en lang-hide">Contact</a>
+  <div class="footer-inner">
+    <div class="footer-brand">Crypto<span>Justice</span></div>
+    <div class="footer-links-row">
+      <a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+      <a href="/checker.html"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити</span><span class="t-en lang-hide">Check broker</span></a>
+      <a href="/#services"><span class="t-ru">Услуги</span><span class="t-uk lang-hide">Послуги</span><span class="t-en lang-hide">Services</span></a>
+      <a href="/#contact"><span class="t-ru">Контакт</span><span class="t-uk lang-hide">Контакт</span><span class="t-en lang-hide">Contact</span></a>
+    </div>
+    <div class="footer-copy">&#169; 2026 CryptoJustice</div>
   </div>
-  <div class="footer-copy">© 2026 CryptoJustice</div>
 </footer>
-
 <script>
-var currentLang = localStorage.getItem('cj_lang') || 'ru';
-
+var cLang = localStorage.getItem('cj_lang') || 'ru';
 function setLang(lang) {
-  currentLang = lang;
+  cLang = lang;
   localStorage.setItem('cj_lang', lang);
   document.documentElement.lang = lang;
   ['uk','ru','en'].forEach(function(l) {
-    document.querySelectorAll('.t-' + l).forEach(function(el) {
+    document.querySelectorAll('.t-'+l).forEach(function(el) {
       el.classList.toggle('lang-hide', l !== lang);
     });
-    var btn = document.getElementById('btn-' + l);
-    if(btn) btn.classList.toggle('active', l === lang);
+    var b = document.getElementById('btn-'+l);
+    if(b) b.classList.toggle('active', l === lang);
   });
-  // Update CTA button text
-  var cta = document.getElementById('nav-cta-text');
-  if(cta) {
-    var ctaText = {uk:'Консультація', ru:'Консультация', en:'Consult'};
-    cta.textContent = ctaText[lang] || 'Консультация';
-  }
 }
-
-async function detectAndSetLang() {
-  if(localStorage.getItem('cj_lang')) { setLang(currentLang); return; }
-  try {
-    var r = await fetch('https://ipapi.co/json/');
-    var d = await r.json();
-    var c = d.country_code;
-    if(c === 'UA') setLang('uk');
-    else if(['RU','BY','KZ','MD','AM','AZ','GE','UZ','TJ','TM','KG'].includes(c)) setLang('ru');
-    else setLang('en');
-  } catch(e) { setLang('ru'); }
+var menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
+  document.getElementById('hamburger').classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
 }
-
-detectAndSetLang();
+setLang(cLang);
 </script>
 </body>
 </html>
