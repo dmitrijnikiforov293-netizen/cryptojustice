@@ -331,6 +331,9 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
     <li><a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
   </ul>
   <div class="nav-right">
+    <a href="/portal/login.html" style="font-family:var(--fb);font-size:13px;font-weight:600;padding:8px 16px;background:transparent;color:var(--cyan2);border:1px solid rgba(34,211,238,.3);border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none" onmouseover="this.style.background='rgba(34,211,238,.1)'" onmouseout="this.style.background='transparent'">
+      <span class="t-ru">Личный кабинет</span><span class="t-uk lang-hide">Особистий кабінет</span><span class="t-en lang-hide">Client Portal</span>
+    </a>
     <a href="#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
@@ -341,6 +344,9 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
   <a href="#checker" onclick="toggleMenu()"><span class="t-ru">Проверить брокера</span><span class="t-uk lang-hide">Перевірити брокера</span><span class="t-en lang-hide">Check broker</span></a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
   <a href="/blog/" onclick="toggleMenu()"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a>
+  <a href="/portal/login.html" onclick="toggleMenu()" style="color:var(--cyan2)!important">
+    <span class="t-ru">🔐 Личный кабинет</span><span class="t-uk lang-hide">🔐 Особистий кабінет</span><span class="t-en lang-hide">🔐 Client Portal</span>
+  </a>
   <div class="mm-btns">
     <a href="#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
     <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="mm-tg">&#9992; Telegram</a>
@@ -633,6 +639,44 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
     </div>
   </div>
 </div></section>
+
+<!-- PORTAL CTA -->
+<section style="background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(6,182,212,.06));border-top:1px solid rgba(37,99,235,.2);border-bottom:1px solid rgba(37,99,235,.2);padding:3rem 2rem">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap">
+    <div>
+      <div style="font-size:11px;font-weight:600;color:var(--blue3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;display:flex;align-items:center;gap:8px">
+        <span style="width:20px;height:1px;background:var(--blue3);display:inline-block"></span>
+        <span class="t-ru">Клиентский портал</span><span class="t-uk lang-hide">Клієнтський портал</span><span class="t-en lang-hide">Client Portal</span>
+      </div>
+      <div style="font-family:var(--fd);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:.5rem">
+        <span class="t-ru">Следите за своим <span style="color:var(--cyan2)">делом онлайн</span></span>
+        <span class="t-uk lang-hide">Слідкуйте за своєю <span style="color:var(--cyan2)">справою онлайн</span></span>
+        <span class="t-en lang-hide">Track your <span style="color:var(--cyan2)">case online</span></span>
+      </div>
+      <div style="font-size:14px;color:var(--text2);max-width:500px;line-height:1.7">
+        <span class="t-ru">Статус дела в реальном времени, документы, инвойсы и прямая связь со специалистом — всё в одном месте.</span>
+        <span class="t-uk lang-hide">Статус справи в реальному часі, документи, інвойси та зв'язок зі спеціалістом.</span>
+        <span class="t-en lang-hide">Real-time case status, documents, invoices and direct communication with your specialist — all in one place.</span>
+      </div>
+      <div style="display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)"><span style="color:var(--green)">✓</span><span class="t-ru">Статус и прогресс дела</span><span class="t-uk lang-hide">Статус і прогрес справи</span><span class="t-en lang-hide">Case status & progress</span></div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)"><span style="color:var(--green)">✓</span><span class="t-ru">Документы и договора</span><span class="t-uk lang-hide">Документи та договори</span><span class="t-en lang-hide">Documents & contracts</span></div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)"><span style="color:var(--green)">✓</span><span class="t-ru">Инвойсы</span><span class="t-uk lang-hide">Інвойси</span><span class="t-en lang-hide">Invoices</span></div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)"><span style="color:var(--green)">✓</span><span class="t-ru">Чат со специалистом</span><span class="t-uk lang-hide">Чат зі спеціалістом</span><span class="t-en lang-hide">Chat with specialist</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.8rem;align-items:flex-start">
+      <a href="/portal/login.html" style="font-family:var(--fb);font-size:14px;font-weight:600;padding:13px 28px;background:var(--blue);color:#fff;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;white-space:nowrap" onmouseover="this.style.background='var(--blue2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--blue)';this.style.transform='translateY(0)'">
+        🔐 <span class="t-ru">Войти в кабинет →</span><span class="t-uk lang-hide">Увійти в кабінет →</span><span class="t-en lang-hide">Enter portal →</span>
+      </a>
+      <div style="font-size:12px;color:var(--text3);text-align:center;width:100%">
+        <span class="t-ru">Нет аккаунта? <a href="/portal/login.html" style="color:var(--blue3)">Зарегистрируйтесь</a></span>
+        <span class="t-uk lang-hide">Немає акаунту? <a href="/portal/login.html" style="color:var(--blue3)">Зареєструйтесь</a></span>
+        <span class="t-en lang-hide">No account? <a href="/portal/login.html" style="color:var(--blue3)">Register here</a></span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer><div class="footer-inner">

@@ -3,430 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Admin Panel — CryptoJustice</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;
-  --surface:#1e1e30;--surface2:#252538;
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
-  --blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;
-  --cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;
-  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
-  --fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
-}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;min-height:100vh}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:14px;line-height:1.6;min-height:100vh}
 a{color:var(--blue3);text-decoration:none}
-a:hover{color:var(--cyan2)}
 button{cursor:pointer;font-family:var(--fb)}
 input,select,textarea{font-family:var(--fb)}
 .hidden{display:none!important}
 
-/* ── PORTAL NAV ── */
-.portal-nav{position:fixed;top:0;left:0;right:0;z-index:99;height:60px;background:rgba(10,10,15,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
-.portal-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem;text-decoration:none}
-.portal-logo span{color:var(--cyan2)}
-.portal-logo-badge{font-size:10px;font-weight:600;color:var(--blue3);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
-.nav-user{display:flex;align-items:center;gap:.8rem}
-.nav-user-name{font-size:13px;color:var(--text2)}
-.btn-sm{font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;transition:all .2s}
-.btn-sm.primary{background:var(--blue);color:#fff}
-.btn-sm.primary:hover{background:var(--blue2)}
-.btn-sm.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
-.btn-sm.ghost:hover{border-color:var(--blue3);color:var(--text)}
-.btn-sm.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:99;height:56px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.nav-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem}
+.nav-logo span{color:var(--cyan2)}
+.nav-badge{font-size:10px;font-weight:600;color:var(--amber);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-user{font-size:13px;color:var(--text2)}
 
-/* ── PORTAL LAYOUT ── */
-.portal-wrap{display:flex;min-height:100vh;padding-top:60px}
-.portal-sidebar{width:220px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);padding:1.5rem 0;position:fixed;top:60px;bottom:0;overflow-y:auto}
-.sidebar-section{padding:0 .75rem;margin-bottom:1.5rem}
-.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.5rem .75rem;margin-bottom:.3rem}
-.sidebar-link{display:flex;align-items:center;gap:.7rem;padding:.65rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
-.sidebar-link:hover{background:var(--dark3);color:var(--text)}
-.sidebar-link.active{background:rgba(37,99,235,.15);color:var(--blue3)}
-.sidebar-link .icon{font-size:15px;width:20px;text-align:center}
-.sidebar-link .badge{margin-left:auto;font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:100px;font-weight:700}
-.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px}
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;padding-top:56px}
+.sidebar{width:210px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);position:fixed;top:56px;bottom:0;overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-section{padding:1rem .75rem .5rem}
+.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.4rem .75rem;margin-bottom:.2rem}
+.slink{display:flex;align-items:center;gap:.65rem;padding:.6rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border:none;background:transparent;width:100%;text-align:left;transition:all .15s}
+.slink:hover{background:var(--dark3);color:var(--text)}
+.slink.active{background:rgba(37,99,235,.15);color:var(--blue3)}
+.slink .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.slink .badge{margin-left:auto;font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:100px;font-weight:700}
+.main{margin-left:210px;flex:1;padding:1.5rem;max-width:1300px}
 
-/* ── CARDS & PANELS ── */
-.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.card-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.card-title{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text)}
-.card-body{padding:1.5rem}
-.page-title{font-family:var(--fd);font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem}
-.page-title span{color:var(--cyan2)}
-.page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
+/* CARDS */
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.2rem}
+.card-head{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.card-title{font-family:var(--fd);font-size:.9rem;font-weight:600;color:var(--text)}
+.card-body{padding:1.2rem}
+.page-title{font-family:var(--fd);font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem}
+.page-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem}
 
-/* ── STATUS BADGES ── */
-.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase}
-.status-badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.s-new{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}.s-new::before{background:#94a3b8}
-.s-assessment{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}.s-assessment::before{background:#fbbf24}
-.s-analysis{background:rgba(37,99,235,.1);color:#60a5fa;border:1px solid rgba(37,99,235,.2)}.s-analysis::before{background:#60a5fa}
-.s-documents{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}.s-documents::before{background:#a78bfa}
-.s-freeze{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}.s-freeze::before{background:#22d3ee}
-.s-legal{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}.s-legal::before{background:#fb923c}
-.s-closed_won{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}.s-closed_won::before{background:#34d399}
-.s-closed_lost{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2)}.s-closed_lost::before{background:#f87171}
-
-/* ── PROGRESS BAR ── */
-.progress-steps{display:flex;align-items:center;gap:0;margin:1.5rem 0}
-.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.progress-step::before{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border2);z-index:0}
-.progress-step:last-child::before{display:none}
-.progress-step.done::before,.progress-step.active::before{background:var(--blue)}
-.ps-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);position:relative;z-index:1;transition:all .3s}
-.progress-step.done .ps-dot{background:var(--blue);border-color:var(--blue);color:#fff}
-.progress-step.active .ps-dot{background:transparent;border-color:var(--blue2);color:var(--blue3);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
-.ps-label{font-size:10px;color:var(--text3);margin-top:.4rem;text-align:center;letter-spacing:.03em;max-width:80px}
-.progress-step.done .ps-label,.progress-step.active .ps-label{color:var(--text2)}
-
-/* ── FORMS ── */
-.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-.form-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
-.form-input{background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
-.form-input:focus{border-color:var(--blue2)}
-.form-input::placeholder{color:var(--text3)}
-select.form-input{appearance:none;cursor:pointer}
-select.form-input option{background:var(--dark2)}
-textarea.form-input{resize:vertical;min-height:80px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.btn{font-family:var(--fb);font-size:14px;font-weight:600;padding:11px 22px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+/* FORMS */
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
+.fg label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em}
+.fi{background:var(--dark3);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
+.fi:focus{border-color:var(--blue2)}
+.fi::placeholder{color:var(--text3)}
+select.fi{appearance:none;cursor:pointer}
+select.fi option{background:var(--dark2)}
+textarea.fi{resize:vertical;min-height:70px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.btn{font-family:var(--fb);font-size:13px;font-weight:600;padding:9px 18px;border-radius:7px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn.primary{background:var(--blue);color:#fff}
 .btn.primary:hover{background:var(--blue2)}
-.btn.outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
-.btn.outline:hover{border-color:var(--blue3);color:var(--blue3)}
 .btn.success{background:var(--green);color:#fff}
+.btn.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.btn.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn.ghost:hover{border-color:var(--blue3);color:var(--blue3)}
+.btn.sm{padding:6px 12px;font-size:12px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.loading{opacity:.7;pointer-events:none}
 
-/* ── TABLES ── */
-.table-wrap{overflow-x:auto}
+/* TABLES */
+.tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-th{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:left}
-td{padding:.9rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
-tr:hover td{background:rgba(255,255,255,.02)}
+th{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.65rem 1rem;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+td{padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,.015)}
 tr:last-child td{border-bottom:none}
 
-/* ── ALERT ── */
-.alert{padding:1rem 1.2rem;border-radius:8px;font-size:13px;margin-bottom:1rem;display:none}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+/* ALERTS */
+.alert{padding:.8rem 1rem;border-radius:7px;font-size:13px;margin-bottom:.8rem;display:none}
 .alert.show{display:block}
-.alert.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
-.alert.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.alert.err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.alert.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
 .alert.info{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue3)}
 
-/* ── EMPTY STATE ── */
-.empty-state{text-align:center;padding:3rem 2rem;color:var(--text3)}
-.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
-.empty-state p{font-size:14px;line-height:1.6}
-
-/* ── FILE UPLOAD ── */
-.file-drop{border:2px dashed var(--border2);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--dark3)}
-.file-drop:hover,.file-drop.dragover{border-color:var(--blue2);background:rgba(37,99,235,.05)}
-.file-drop p{font-size:13px;color:var(--text3);margin-top:.5rem}
-
-/* ── SPINNER ── */
+/* SPINNER */
 @keyframes spin{to{transform:rotate(360deg)}}
-.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+.spin{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
 
-/* ── CHAT ── */
-.messages-wrap{display:flex;flex-direction:column;gap:.8rem;max-height:400px;overflow-y:auto;padding:.5rem 0}
-.message{max-width:80%;display:flex;flex-direction:column;gap:.2rem}
-.message.mine{align-self:flex-end;align-items:flex-end}
-.message.theirs{align-self:flex-start}
-.message-bubble{padding:.7rem 1rem;border-radius:12px;font-size:13px;line-height:1.5}
-.message.mine .message-bubble{background:rgba(37,99,235,.3);color:var(--text);border-radius:12px 12px 2px 12px}
-.message.theirs .message-bubble{background:var(--dark3);color:var(--text);border-radius:12px 12px 12px 2px}
-.message-meta{font-size:10px;color:var(--text3)}
-.msg-input-row{display:flex;gap:.5rem;margin-top:1rem}
-.msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+/* STATS ROW */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
+.stat{background:var(--dark2);border:1px solid var(--border);border-radius:9px;padding:1.1rem;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
+.stat-n{font-family:var(--fd);font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--text)}
+.stat-n span{color:var(--cyan2)}
+.stat-l{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
+
+/* STATUS CHIP */
+.status-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* PRIORITY */
+.pri-low{color:#94a3b8}.pri-normal{color:var(--blue3)}.pri-high{color:var(--amber)}.pri-urgent{color:#f87171}
+
+/* FILE DROP */
+.file-drop{border:2px dashed var(--border2);border-radius:9px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.02)}
+.file-drop:hover,.file-drop.over{border-color:var(--blue2);background:rgba(37,99,235,.05)}
+.file-drop .ico{font-size:1.8rem;margin-bottom:.5rem}
+.file-drop p{font-size:12px;color:var(--text3)}
+
+/* CHAT */
+.msgs{display:flex;flex-direction:column;gap:.7rem;max-height:380px;overflow-y:auto;padding:.5rem 0}
+.msg{max-width:80%;display:flex;flex-direction:column;gap:.15rem}
+.msg.mine{align-self:flex-end;align-items:flex-end}
+.msg.theirs{align-self:flex-start}
+.msg-bubble{padding:.65rem .9rem;border-radius:10px;font-size:13px;line-height:1.5}
+.msg.mine .msg-bubble{background:rgba(37,99,235,.3);color:var(--text);border-radius:10px 10px 2px 10px}
+.msg.theirs .msg-bubble{background:var(--dark3);color:var(--text);border-radius:10px 10px 10px 2px}
+.msg-meta{font-size:10px;color:var(--text3)}
+.msg-input-row{display:flex;gap:.5rem;margin-top:.8rem}
+.msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
 .msg-input:focus{border-color:var(--blue2)}
 
-/* ── INVOICE ── */
-.invoice-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.invoice-amount{font-family:var(--fd);font-size:1.2rem;font-weight:700}
-.invoice-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;text-transform:uppercase}
-.inv-pending{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
-.inv-paid{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
-.inv-cancelled{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}
+/* COLOR PICKER */
+.color-grid{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem}
+.color-opt{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.color-opt.sel{border-color:#fff;transform:scale(1.2)}
 
-/* ── TIMELINE ── */
-.timeline{display:flex;flex-direction:column;gap:0}
-.tl-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.tl-item:last-child{border-bottom:none}
-.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
-.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.tl-line{width:1px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
-.tl-content{flex:1;padding-bottom:.5rem}
-.tl-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.2rem}
-.tl-text{font-size:12px;color:var(--text2);line-height:1.5}
-.tl-date{font-size:11px;color:var(--text3);margin-top:.3rem}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal{background:var(--dark2);border:1px solid var(--border2);border-radius:12px;padding:1.8rem;width:100%;max-width:480px;position:relative}
+.modal-title{font-family:var(--fd);font-size:1.1rem;font-weight:700;margin-bottom:1.2rem}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer}
 
-/* ── STATS ── */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
-.stat-box{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.2rem;position:relative;overflow:hidden}
-.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
-.stat-box-num{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-.03em}
-.stat-box-num span{color:var(--cyan2)}
-.stat-box-label{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
+/* TIMELINE */
+.tl{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-item:last-child{border:none}
+.tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;background:var(--dark3)}
+.tl-body{flex:1}
+.tl-title{font-size:13px;font-weight:500;color:var(--text)}
+.tl-text{font-size:12px;color:var(--text2);margin-top:.15rem}
+.tl-date{font-size:11px;color:var(--text3);margin-top:.2rem}
 
-/* ── MOBILE ── */
-@media(max-width:768px){
-  .portal-sidebar{display:none}
-  .portal-main{margin-left:0;padding:1rem}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .form-row{grid-template-columns:1fr}
-  .progress-steps{overflow-x:auto}
-}
+/* STAFF CARD */
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem}
+.staff-card{background:var(--dark3);border:1px solid var(--border);border-radius:9px;padding:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.staff-avatar{width:44px;height:44px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--blue3);margin-bottom:.4rem}
+
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.stats{grid-template-columns:repeat(2,1fr)}.frow{grid-template-columns:1fr}}
 </style>
-<title>Admin Panel — CryptoJustice Portal</title>
 </head>
 <body>
 
-<nav class="portal-nav">
-  <a href="/portal/admin.html" class="portal-logo">
-    <svg viewBox="0 0 32 32" width="24" height="24">
-      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
-      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/><circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
-    </svg>
+<nav class="nav">
+  <div class="nav-logo">
+    <svg viewBox="0 0 28 28" width="22" height="22"><polygon points="14,2 23,6.5 23,16 14,21 5,16 5,6.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/><circle cx="14" cy="11" r="3" fill="#22d3ee"/><circle cx="14" cy="11" r="1.3" fill="#0a0a0f"/></svg>
     Crypto<span>Justice</span>
-    <span class="portal-logo-badge" style="color:#f59e0b;border-color:rgba(245,158,11,.3)">Admin</span>
-  </a>
-  <div class="nav-user">
-    <span class="nav-user-name" id="admin-name">Admin</span>
-    <button class="btn-sm ghost" onclick="logout()">Выйти</button>
+    <span class="nav-badge">Admin</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-user" id="admin-name">...</span>
+    <button class="btn ghost sm" onclick="logout()">Выйти</button>
+    <a href="/" class="btn ghost sm">← Сайт</a>
   </div>
 </nav>
 
-<div class="portal-wrap">
-  <div class="portal-sidebar">
-    <div class="sidebar-label">Управление</div>
+<div class="layout">
+  <div class="sidebar">
     <div class="sidebar-section">
-      <button class="sidebar-link active" onclick="showPage('clients')"><span class="icon">👥</span>Клиенты</button>
-      <button class="sidebar-link" onclick="showPage('cases')"><span class="icon">📋</span>Все дела</button>
-      <button class="sidebar-link" onclick="showPage('new-case')"><span class="icon">➕</span>Создать дело</button>
-      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon">💬</span>Сообщения<span class="badge" id="admin-msg-badge" style="display:none">!</span></button>
+      <div class="sidebar-label">Дела</div>
+      <button class="slink active" onclick="nav('dashboard')"><span class="ico">📊</span>Дашборд</button>
+      <button class="slink" onclick="nav('cases')"><span class="ico">📋</span>Все дела</button>
+      <button class="slink" onclick="nav('new-case')"><span class="ico">➕</span>Создать дело</button>
+      <button class="slink" onclick="nav('clients')"><span class="ico">👥</span>Клиенты</button>
     </div>
-    <div class="sidebar-label">Система</div>
     <div class="sidebar-section">
-      <button class="sidebar-link" onclick="showPage('specialists')"><span class="icon">👤</span>Специалисты</button>
-      <a class="sidebar-link" href="/"><span class="icon">🌐</span>На сайт</a>
+      <div class="sidebar-label">Команда</div>
+      <button class="slink" onclick="nav('staff')"><span class="ico">👤</span>Сотрудники</button>
+      <button class="slink" onclick="nav('invite')"><span class="ico">✉️</span>Пригласить</button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Настройки</div>
+      <button class="slink" onclick="nav('statuses')"><span class="ico">🏷️</span>Статусы дел</button>
+      <button class="slink" onclick="nav('messages')"><span class="ico">💬</span>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
     </div>
   </div>
 
-  <div class="portal-main">
+  <div class="main">
 
-    <!-- CLIENTS PAGE -->
-    <div id="page-clients">
-      <div class="page-title">👥 Клиенты</div>
-      <div class="page-sub" id="clients-count">Загрузка...</div>
+    <!-- DASHBOARD -->
+    <div id="p-dashboard">
+      <div class="page-title">📊 Дашборд</div>
+      <div class="page-sub" id="dash-date">Загрузка...</div>
+      <div class="stats" id="dash-stats">
+        <div class="stat"><div class="stat-n" id="s-cases">—</div><div class="stat-l">Всего дел</div></div>
+        <div class="stat"><div class="stat-n" id="s-active">—</div><div class="stat-l">Активных</div></div>
+        <div class="stat"><div class="stat-n" id="s-clients">—</div><div class="stat-l">Клиентов</div></div>
+        <div class="stat"><div class="stat-n" id="s-won">—<span>%</span></div><div class="stat-l">Успешных</div></div>
+      </div>
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">Все клиенты</div>
-          <input class="form-input" id="clients-search" placeholder="Поиск по имени или email..." style="width:220px;padding:7px 12px">
-        </div>
-        <div class="table-wrap" id="clients-table">
-          <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
-        </div>
+        <div class="card-head"><div class="card-title">Последние дела</div><button class="btn ghost sm" onclick="nav('cases')">Все →</button></div>
+        <div class="tw" id="recent-cases-table"><div style="padding:1.5rem;text-align:center"><div class="spin"></div></div></div>
       </div>
     </div>
 
-    <!-- CASES PAGE -->
-    <div id="page-cases" class="hidden">
+    <!-- ALL CASES -->
+    <div id="p-cases" class="hidden">
       <div class="page-title">📋 Все дела</div>
-      <div class="page-sub">Управление делами клиентов.</div>
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">Дела</div>
-          <div style="display:flex;gap:.5rem;align-items:center">
-            <select class="form-input" id="cases-filter" style="padding:7px 12px;width:160px" onchange="loadCases()">
+        <div class="card-head">
+          <div class="card-title">Фильтры</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+            <select class="fi" id="filter-status" style="width:160px;padding:7px 10px" onchange="loadCases()">
               <option value="">Все статусы</option>
-              <option value="new">Новые</option>
-              <option value="assessment">Оценка</option>
-              <option value="analysis">Анализ</option>
-              <option value="documents">Документы</option>
-              <option value="freeze">Заморозка</option>
-              <option value="legal">Судебное</option>
-              <option value="closed_won">Закрыто ✓</option>
             </select>
+            <select class="fi" id="filter-priority" style="width:130px;padding:7px 10px" onchange="loadCases()">
+              <option value="">Все приоритеты</option>
+              <option value="urgent">🔴 Срочно</option>
+              <option value="high">🟡 Высокий</option>
+              <option value="normal">🔵 Нормальный</option>
+              <option value="low">⚪ Низкий</option>
+            </select>
+            <input class="fi" id="filter-search" placeholder="Поиск..." style="width:180px;padding:7px 10px" oninput="loadCases()">
           </div>
         </div>
-        <div class="table-wrap" id="cases-table">
-          <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
-        </div>
+        <div class="tw" id="cases-table"></div>
       </div>
     </div>
 
-    <!-- CASE DETAIL (modal-like page) -->
-    <div id="page-case-detail" class="hidden">
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
-        <button class="btn-sm ghost" onclick="showPage('cases')">← Назад</button>
-        <div class="page-title" style="margin:0" id="detail-case-title">Дело</div>
+    <!-- CASE DETAIL -->
+    <div id="p-case-detail" class="hidden">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;flex-wrap:wrap">
+        <button class="btn ghost sm" onclick="nav('cases')">← Назад</button>
+        <div class="page-title" style="margin:0" id="detail-title">Дело</div>
+        <div id="detail-priority-badge"></div>
       </div>
 
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem" id="detail-grid">
-        <div style="display:flex;flex-direction:column;gap:1.5rem">
-          <!-- Status control -->
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.2rem" id="detail-grid">
+        <div>
+          <!-- Status + управление -->
           <div class="card">
-            <div class="card-header">
+            <div class="card-head">
               <div class="card-title">Управление делом</div>
               <div id="detail-status-badge"></div>
             </div>
             <div class="card-body">
-              <div class="form-row" style="margin-bottom:1rem">
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Изменить статус</label>
-                  <select class="form-input" id="detail-status-select">
-                    <option value="new">Новое обращение</option>
-                    <option value="assessment">Оценка</option>
-                    <option value="analysis">Блокчейн-анализ</option>
-                    <option value="documents">Подготовка документов</option>
-                    <option value="freeze">Заморозка активов</option>
-                    <option value="legal">Судебное сопровождение</option>
-                    <option value="closed_won">Закрыто — успешно</option>
-                    <option value="closed_lost">Закрыто — без результата</option>
-                  </select>
+              <div class="frow">
+                <div class="fg" style="margin:0">
+                  <label>Статус</label>
+                  <select class="fi" id="d-status"></select>
                 </div>
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Назначить специалиста</label>
-                  <select class="form-input" id="detail-specialist-select">
-                    <option value="">Не назначен</option>
+                <div class="fg" style="margin:0">
+                  <label>Приоритет</label>
+                  <select class="fi" id="d-priority">
+                    <option value="low">⚪ Низкий</option>
+                    <option value="normal">🔵 Нормальный</option>
+                    <option value="high">🟡 Высокий</option>
+                    <option value="urgent">🔴 Срочно</option>
                   </select>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="form-label">Заметка к изменению (необязательно)</label>
-                <input class="form-input" id="detail-note" placeholder="Например: получен ответ от Binance...">
+              <div class="frow" style="margin-bottom:.8rem">
+                <div class="fg" style="margin:0">
+                  <label>Специалист</label>
+                  <select class="fi" id="d-specialist"><option value="">Не назначен</option></select>
+                </div>
+                <div class="fg" style="margin:0">
+                  <label>Теги (через запятую)</label>
+                  <input class="fi" id="d-tags" placeholder="binance, urgent, kyc">
+                </div>
               </div>
-              <div id="detail-alert" class="alert"></div>
-              <button class="btn primary" onclick="updateCase()">Сохранить изменения</button>
+              <div class="fg">
+                <label>Заметка к изменению</label>
+                <input class="fi" id="d-note" placeholder="Получен ответ от биржи...">
+              </div>
+              <div id="d-alert" class="alert"></div>
+              <button class="btn primary" onclick="updateCase()">💾 Сохранить изменения</button>
             </div>
           </div>
 
-          <!-- Send document -->
+          <!-- Документы -->
           <div class="card">
-            <div class="card-header"><div class="card-title">Загрузить документ клиенту</div></div>
+            <div class="card-head"><div class="card-title">📎 Документы и вложения</div></div>
             <div class="card-body">
-              <div class="form-row" style="margin-bottom:.8rem">
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Категория</label>
-                  <select class="form-input" id="admin-doc-cat">
+              <div class="frow" style="margin-bottom:.8rem">
+                <div class="fg" style="margin:0"><label>Категория</label>
+                  <select class="fi" id="doc-cat">
                     <option value="contract">Договор</option>
                     <option value="report">Блокчейн-отчёт</option>
                     <option value="police">Заявление в полицию</option>
+                    <option value="evidence">Доказательства</option>
                     <option value="other">Другое</option>
                   </select>
                 </div>
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Название</label>
-                  <input class="form-input" id="admin-doc-name" placeholder="Договор об оказании услуг">
-                </div>
+                <div class="fg" style="margin:0"><label>Описание</label><input class="fi" id="doc-note" placeholder="Договор об оказании услуг..."></div>
               </div>
-              <div class="file-drop" onclick="document.getElementById('admin-file').click()">
-                <div style="font-size:1.5rem">📎</div>
-                <p>Нажмите для выбора файла</p>
+              <div class="file-drop" id="doc-drop" onclick="document.getElementById('doc-file').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropDoc(event)">
+                <div class="ico">📎</div><p>Нажмите или перетащите файл</p>
               </div>
-              <input type="file" id="admin-file" style="display:none" onchange="adminUploadDoc(this.files[0])">
-              <div id="admin-upload-progress" class="hidden" style="margin-top:.8rem;font-size:13px;color:var(--text2);display:flex;gap:.5rem;align-items:center"><div class="spinner"></div><span id="admin-upload-status"></span></div>
+              <input type="file" id="doc-file" style="display:none" onchange="uploadDoc(this.files[0])">
+              <div id="doc-progress" class="hidden" style="margin-top:.6rem;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:.5rem"><div class="spin"></div><span id="doc-status"></span></div>
+              <div id="docs-list" style="margin-top:.8rem"></div>
             </div>
           </div>
 
-          <!-- Create invoice -->
+          <!-- Инвойс -->
           <div class="card">
-            <div class="card-header"><div class="card-title">Выставить инвойс</div></div>
+            <div class="card-head"><div class="card-title">💳 Выставить инвойс</div></div>
             <div class="card-body">
-              <div class="form-row">
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Описание услуги</label>
-                  <input class="form-input" id="inv-desc" placeholder="Блокчейн-анализ">
-                </div>
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Сумма (USD)</label>
-                  <input class="form-input" id="inv-amount" type="number" placeholder="300">
-                </div>
+              <div class="frow">
+                <div class="fg" style="margin:0"><label>Описание *</label><input class="fi" id="inv-desc" placeholder="Блокчейн-анализ"></div>
+                <div class="fg" style="margin:0"><label>Сумма USD *</label><input class="fi" id="inv-amount" type="number" placeholder="300"></div>
               </div>
-              <div class="form-row" style="margin-top:.8rem">
-                <div class="form-group" style="margin:0">
-                  <label class="form-label">Срок оплаты</label>
-                  <input class="form-input" id="inv-due" type="date">
-                </div>
-                <div style="display:flex;align-items:flex-end">
-                  <button class="btn primary" style="width:100%" onclick="createInvoice()">Выставить инвойс</button>
-                </div>
+              <div class="frow" style="margin-top:0">
+                <div class="fg" style="margin:0"><label>Срок оплаты</label><input class="fi" id="inv-due" type="date"></div>
+                <div style="display:flex;align-items:flex-end"><button class="btn primary" style="width:100%" onclick="createInv()">Выставить →</button></div>
               </div>
-            </div>
-          </div>
-
-          <!-- Documents list -->
-          <div class="card">
-            <div class="card-header"><div class="card-title">Документы по делу</div></div>
-            <div id="admin-docs-list" class="card-body">
-              <div class="empty-state"><div class="icon">📄</div><p>Нет документов</p></div>
             </div>
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:1.5rem">
+        <div>
           <!-- Case info -->
           <div class="card">
-            <div class="card-header"><div class="card-title">Информация</div></div>
-            <div class="card-body" id="detail-info" style="display:flex;flex-direction:column;gap:.8rem"></div>
+            <div class="card-head"><div class="card-title">ℹ️ Информация</div></div>
+            <div class="card-body" id="d-info" style="display:flex;flex-direction:column;gap:.7rem"></div>
           </div>
-
           <!-- Invoices -->
           <div class="card">
-            <div class="card-header"><div class="card-title">Инвойсы</div></div>
-            <div id="detail-invoices" class="card-body">
-              <div class="empty-state"><div class="icon">💳</div><p>Нет инвойсов</p></div>
-            </div>
+            <div class="card-head"><div class="card-title">Инвойсы</div></div>
+            <div class="card-body" id="d-invoices"></div>
           </div>
-
           <!-- Timeline -->
           <div class="card">
-            <div class="card-header"><div class="card-title">История</div></div>
-            <div class="card-body" style="max-height:400px;overflow-y:auto">
-              <div class="timeline" id="detail-timeline">
-                <div class="empty-state"><p>Пусто</p></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Messages preview -->
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Сообщения</div>
-              <button class="btn-sm primary" onclick="showPage('messages')">Открыть чат</button>
-            </div>
-            <div id="detail-msgs-preview" class="card-body">
-              <div class="empty-state"><p>Нет сообщений</p></div>
+            <div class="card-head"><div class="card-title">📋 История</div></div>
+            <div class="card-body" style="max-height:320px;overflow-y:auto">
+              <div class="tl" id="d-timeline"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- NEW CASE PAGE -->
-    <div id="page-new-case" class="hidden">
+    <!-- NEW CASE -->
+    <div id="p-new-case" class="hidden">
       <div class="page-title">➕ Создать дело</div>
-      <div class="page-sub">Создайте дело для клиента после консультации.</div>
-      <div id="new-case-alert" class="alert"></div>
-      <div class="card" style="max-width:680px">
-        <div class="card-header"><div class="card-title">Новое дело</div></div>
+      <div id="nc-alert" class="alert"></div>
+      <div class="card" style="max-width:640px">
+        <div class="card-head"><div class="card-title">Данные дела</div></div>
         <div class="card-body">
-          <div class="form-group">
-            <label class="form-label">Email клиента *</label>
-            <input class="form-input" id="nc-email" type="email" placeholder="client@email.com">
-            <div style="font-size:11px;color:var(--text3);margin-top:.3rem">Клиент должен быть зарегистрирован в портале</div>
-          </div>
-          <div class="form-row">
-            <div class="form-group" style="margin:0">
-              <label class="form-label">Тип мошенничества *</label>
-              <select class="form-input" id="nc-type">
+          <div class="fg"><label>Email клиента *</label><input class="fi" id="nc-email" type="email" placeholder="client@email.com"><div style="font-size:11px;color:var(--text3);margin-top:.3rem">Клиент должен быть зарегистрирован в портале</div></div>
+          <div class="frow">
+            <div class="fg" style="margin:0"><label>Тип мошенничества *</label>
+              <select class="fi" id="nc-type">
                 <option value="fake_broker">Фейковый брокер</option>
                 <option value="romance_scam">Romance scam</option>
                 <option value="pig_butchering">Pig Butchering</option>
@@ -435,64 +361,116 @@ tr:last-child td{border-bottom:none}
                 <option value="corporate">Корпоративное</option>
               </select>
             </div>
-            <div class="form-group" style="margin:0">
-              <label class="form-label">Сумма потерь (USD) *</label>
-              <input class="form-input" id="nc-amount" type="number" placeholder="15000">
-            </div>
+            <div class="fg" style="margin:0"><label>Сумма потерь (USD) *</label><input class="fi" id="nc-amount" type="number" placeholder="15000"></div>
           </div>
-          <div class="form-row">
-            <div class="form-group" style="margin:0">
-              <label class="form-label">Назначить специалиста</label>
-              <select class="form-input" id="nc-specialist">
-                <option value="">Не назначать</option>
-              </select>
-            </div>
-            <div class="form-group" style="margin:0">
-              <label class="form-label">Начальный статус</label>
-              <select class="form-input" id="nc-status">
-                <option value="assessment">Оценка</option>
-                <option value="analysis">Блокчейн-анализ</option>
+          <div class="frow">
+            <div class="fg" style="margin:0"><label>Специалист</label><select class="fi" id="nc-specialist"><option value="">Не назначать</option></select></div>
+            <div class="fg" style="margin:0"><label>Приоритет</label>
+              <select class="fi" id="nc-priority">
+                <option value="normal">🔵 Нормальный</option>
+                <option value="high">🟡 Высокий</option>
+                <option value="urgent">🔴 Срочно</option>
+                <option value="low">⚪ Низкий</option>
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Описание</label>
-            <textarea class="form-input" id="nc-desc" placeholder="Краткое описание ситуации клиента..."></textarea>
-          </div>
+          <div class="fg"><label>Начальный статус</label><select class="fi" id="nc-status"></select></div>
+          <div class="fg"><label>Описание</label><textarea class="fi" id="nc-desc" placeholder="Краткое описание ситуации..."></textarea></div>
           <button class="btn primary" onclick="createCase()">Создать дело →</button>
         </div>
       </div>
     </div>
 
-    <!-- MESSAGES PAGE (admin) -->
-    <div id="page-messages" class="hidden">
-      <div class="page-title">💬 Сообщения</div>
-      <div style="display:grid;grid-template-columns:280px 1fr;gap:1.5rem;height:calc(100vh - 200px)">
-        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
-          <div class="card-header"><div class="card-title">Дела</div></div>
-          <div id="admin-cases-list" style="overflow-y:auto;flex:1"></div>
+    <!-- CLIENTS -->
+    <div id="p-clients" class="hidden">
+      <div class="page-title">👥 Клиенты</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title" id="clients-count">Клиенты</div>
+          <input class="fi" id="clients-search" placeholder="Поиск..." style="width:200px;padding:7px 10px" oninput="filterClients()">
         </div>
-        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
-          <div class="card-header"><div class="card-title" id="chat-case-title">Выберите дело</div></div>
-          <div class="card-body" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
-            <div class="messages-wrap" id="admin-messages-wrap" style="flex:1">
-              <div class="empty-state"><p>Выберите дело для просмотра сообщений</p></div>
+        <div class="tw" id="clients-table"></div>
+      </div>
+    </div>
+
+    <!-- STAFF -->
+    <div id="p-staff" class="hidden">
+      <div class="page-title">👤 Сотрудники</div>
+      <div class="page-sub">Управляйте ролями и доступами команды.</div>
+      <div class="staff-grid" id="staff-list"></div>
+    </div>
+
+    <!-- INVITE -->
+    <div id="p-invite" class="hidden">
+      <div class="page-title">✉️ Пригласить сотрудника</div>
+      <div id="inv-alert" class="alert"></div>
+      <div class="card" style="max-width:480px">
+        <div class="card-head"><div class="card-title">Новое приглашение</div></div>
+        <div class="card-body">
+          <div class="fg"><label>Email сотрудника *</label><input class="fi" id="staff-email" type="email" placeholder="colleague@email.com"></div>
+          <div class="fg"><label>Роль</label>
+            <select class="fi" id="staff-role">
+              <option value="specialist">Специалист — видит дела, может менять статус</option>
+              <option value="admin">Администратор — полный доступ</option>
+            </select>
+          </div>
+          <div class="fg"><label>Имя</label><input class="fi" id="staff-name" placeholder="Имя Фамилия"></div>
+          <div class="fg"><label>Должность</label><input class="fi" id="staff-role-title" placeholder="Blockchain Analyst"></div>
+          <button class="btn primary" onclick="inviteStaff()">Пригласить →</button>
+          <div style="font-size:11px;color:var(--text3);margin-top:.7rem">Сотрудник получит email с приглашением и сможет зарегистрироваться в системе. Доступ к порталу появится сразу после регистрации с указанным email.</div>
+        </div>
+      </div>
+      <div class="card" style="max-width:640px;margin-top:1.2rem">
+        <div class="card-head"><div class="card-title">Активные приглашения</div></div>
+        <div class="tw" id="invites-list"></div>
+      </div>
+    </div>
+
+    <!-- STATUSES -->
+    <div id="p-statuses" class="hidden">
+      <div class="page-title">🏷️ Статусы дел</div>
+      <div class="page-sub">Создавайте и редактируйте статусы — они будут доступны при управлении делами.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Текущие статусы</div></div>
+          <div id="statuses-list" style="padding:.5rem 0"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Добавить статус</div></div>
+          <div class="card-body">
+            <div id="status-alert" class="alert"></div>
+            <div class="fg"><label>Название *</label><input class="fi" id="st-label" placeholder="Ожидание биржи"></div>
+            <div class="fg"><label>Иконка (эмодзи)</label><input class="fi" id="st-icon" placeholder="⏳" style="width:80px"></div>
+            <div class="fg">
+              <label>Цвет</label>
+              <div class="color-grid" id="color-grid"></div>
+              <input type="hidden" id="st-color" value="#2563eb">
             </div>
-            <div class="msg-input-row" id="admin-msg-row" style="display:none">
-              <input class="msg-input" id="admin-msg-input" placeholder="Ответить клиенту..." onkeydown="if(event.key==='Enter')adminSendMessage()">
-              <button class="btn primary" onclick="adminSendMessage()">Отправить</button>
-            </div>
+            <div class="fg"><label>Порядок сортировки</label><input class="fi" id="st-order" type="number" placeholder="9" style="width:100px"></div>
+            <button class="btn primary" onclick="addStatus()">Добавить статус →</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SPECIALISTS PAGE -->
-    <div id="page-specialists" class="hidden">
-      <div class="page-title">👤 Специалисты</div>
-      <div class="page-sub">Управление командой.</div>
-      <div id="specialists-list">
-        <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
+    <!-- MESSAGES -->
+    <div id="p-messages" class="hidden">
+      <div class="page-title">💬 Сообщения</div>
+      <div style="display:grid;grid-template-columns:260px 1fr;gap:1.2rem;height:calc(100vh - 160px)">
+        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+          <div class="card-head"><div class="card-title">Дела</div></div>
+          <div id="chat-cases" style="overflow-y:auto;flex:1"></div>
+        </div>
+        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+          <div class="card-head"><div class="card-title" id="chat-title">Выберите дело</div></div>
+          <div class="card-body" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+            <div class="msgs" id="chat-msgs" style="flex:1"><div style="text-align:center;color:var(--text3);padding:2rem">Выберите дело слева</div></div>
+            <div class="msg-input-row" id="chat-input-row" style="display:none">
+              <input class="msg-input" id="chat-input" placeholder="Написать клиенту..." onkeydown="if(event.key==='Enter')sendAdminMsg()">
+              <button class="btn primary" onclick="sendAdminMsg()">→</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -500,324 +478,335 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <script>
-const SUPABASE_URL = 'https://rntlijrlvqgdxtkacjwp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJudGxpanJsdnFnZHh0a2FjandwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMjk0MDUsImV4cCI6MjA5MTkwNTQwNX0.K0NIVKYW8QzTQKTkG7r0h2MQnHTDGd1LleRscBm8n3M';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SB_URL = 'https://rntlijrlvqgdxtkacjwp.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJudGxpanJsdnFnZHh0a2FjandwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMjk0MDUsImV4cCI6MjA5MTkwNTQwNX0.K0NIVKYW8QzTQKTkG7r0h2MQnHTDGd1LleRscBm8n3M';
+const sb = supabase.createClient(SB_URL, SB_KEY);
 
-let adminUser = null;
+let me = null;
 let activeCaseId = null;
-let selectedChatCaseId = null;
-const statusLabels = {new:'Новое',assessment:'Оценка',analysis:'Блокчейн-анализ',documents:'Документы',freeze:'Заморозка',legal:'Судебное',closed_won:'Закрыто ✓',closed_lost:'Закрыто'};
-const fraudLabels = {fake_broker:'Фейковый брокер',romance_scam:'Romance scam',pig_butchering:'Pig Butchering',nft_scam:'NFT scam',wallet_drain:'Wallet drain',corporate:'Корпоративное'};
+let chatCaseId = null;
+let allStatuses = [];
+let allSpecialists = [];
+let allClients = [];
+const COLORS = ['#2563eb','#06b6d4','#10b981','#f59e0b','#f97316','#ef4444','#7c3aed','#ec4899','#64748b','#0f172a'];
+const FRAUD = {fake_broker:'Фейковый брокер',romance_scam:'Romance scam',pig_butchering:'Pig Butchering',nft_scam:'NFT scam',wallet_drain:'Wallet drain',corporate:'Корпоративное'};
 
+// ── INIT ──────────────────────────────────────────────────────────────────────
 async function init() {
   const {data:{session}} = await sb.auth.getSession();
-  if(!session) { window.location.href = '/portal/login.html'; return; }
-  adminUser = session.user;
-
-  const {data:p} = await sb.from('profiles').select('*').eq('id', adminUser.id).single();
-  if(p?.role !== 'admin' && p?.role !== 'specialist') {
-    alert('Нет доступа к панели администратора');
-    window.location.href = '/portal/dashboard.html';
-    return;
+  if(!session) { window.location.href='/portal/login.html'; return; }
+  me = session.user;
+  const {data:p} = await sb.from('profiles').select('*').eq('id',me.id).single();
+  if(!p || (p.role !== 'admin' && p.role !== 'specialist')) {
+    alert('Нет доступа'); window.location.href='/portal/login.html'; return;
   }
-  document.getElementById('admin-name').textContent = p?.full_name || adminUser.email;
-  loadClients();
-  loadSpecialistsSelect();
+  document.getElementById('admin-name').textContent = p.full_name || me.email;
+  await Promise.all([loadStatuses(), loadSpecialists()]);
+  loadDashboard();
 }
 
-async function loadClients() {
-  const {data} = await sb.from('profiles').select('*, cases(id,status,amount_lost,fraud_type,created_at)').eq('role','client').order('created_at',{ascending:false});
-  document.getElementById('clients-count').textContent = `${data?.length || 0} клиентов зарегистрировано`;
-  if(!data?.length) { document.getElementById('clients-table').innerHTML = '<div class="empty-state" style="padding:2rem"><p>Клиентов нет</p></div>'; return; }
-  document.getElementById('clients-table').innerHTML = `<table>
-    <thead><tr><th>Клиент</th><th>Email</th><th>Дел</th><th>Регистрация</th><th></th></tr></thead>
-    <tbody>${data.map(c=>`<tr>
-      <td><div style="font-weight:500;color:var(--text)">${c.full_name||'—'}</div></td>
-      <td>${c.email}</td>
-      <td>${c.cases?.length||0}</td>
-      <td>${new Date(c.created_at).toLocaleDateString('ru-RU')}</td>
-      <td>${c.cases?.length ? `<button class="btn-sm primary" onclick="openCase('${c.cases[0].id}')">Открыть дело</button>` : `<button class="btn-sm ghost" onclick="prefillNewCase('${c.email}')">Создать дело</button>`}</td>
-    </tr>`).join('')}</tbody></table>`;
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function nav(page) {
+  document.querySelectorAll('[id^="p-"]').forEach(el => el.classList.add('hidden'));
+  document.getElementById('p-' + page)?.classList.remove('hidden');
+  document.querySelectorAll('.slink').forEach(el => el.classList.remove('active'));
+  if(page === 'dashboard') loadDashboard();
+  else if(page === 'cases') loadCases();
+  else if(page === 'clients') loadClients();
+  else if(page === 'staff') loadStaff();
+  else if(page === 'invite') loadInvites();
+  else if(page === 'statuses') loadStatusesPage();
+  else if(page === 'messages') loadChatCases();
 }
 
+// ── LOAD STATUSES ─────────────────────────────────────────────────────────────
+async function loadStatuses() {
+  const {data} = await sb.from('case_statuses').select('*').order('sort_order');
+  allStatuses = data || [];
+  // Populate status selects
+  ['filter-status','d-status','nc-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const hasAll = id === 'filter-status';
+    el.innerHTML = (hasAll ? '<option value="">Все статусы</option>' : '') +
+      allStatuses.map(s => `<option value="${s.id}">${s.icon} ${s.label}</option>`).join('');
+  });
+}
+
+// ── LOAD SPECIALISTS ─────────────────────────────────────────────────────────
+async function loadSpecialists() {
+  const {data} = await sb.from('specialists').select('*').order('name');
+  allSpecialists = data || [];
+  ['d-specialist','nc-specialist'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.innerHTML = '<option value="">Не назначен</option>' +
+      allSpecialists.map(s => `<option value="${s.id}">${s.name} — ${s.role}</option>`).join('');
+  });
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  const now = new Date();
+  document.getElementById('dash-date').textContent = now.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const [{count:totalCases}, {data:cases}, {count:clients}, {data:wonCases}] = await Promise.all([
+    sb.from('cases').select('*',{count:'exact',head:true}),
+    sb.from('cases').select('*,profiles!client_id(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false}).limit(10),
+    sb.from('profiles').select('*',{count:'exact',head:true}).eq('role','client'),
+    sb.from('cases').select('*',{count:'exact',head:true}).eq('status','closed_won')
+  ]);
+  const activeSt = allStatuses.filter(s => !s.label.includes('Закрыто') && !s.label.includes('Новое')).map(s=>s.id);
+  const {count:active} = await sb.from('cases').select('*',{count:'exact',head:true}).in('custom_status_id', activeSt.length ? activeSt : ['none']);
+  document.getElementById('s-cases').textContent = totalCases||0;
+  document.getElementById('s-active').textContent = active||0;
+  document.getElementById('s-clients').textContent = clients||0;
+  const pct = totalCases ? Math.round(((wonCases?.length||0)/totalCases)*100) : 0;
+  document.getElementById('s-won').innerHTML = pct + '<span>%</span>';
+  renderCasesTable('recent-cases-table', cases||[]);
+}
+
+// ── LOAD CASES ────────────────────────────────────────────────────────────────
 async function loadCases() {
-  const filter = document.getElementById('cases-filter').value;
-  let q = sb.from('cases').select('*, profiles!client_id(full_name,email), specialists(name)').order('created_at',{ascending:false});
-  if(filter) q = q.eq('status', filter);
+  const statusId = document.getElementById('filter-status')?.value;
+  const priority = document.getElementById('filter-priority')?.value;
+  const search = document.getElementById('filter-search')?.value?.toLowerCase();
+  let q = sb.from('cases').select('*,profiles!client_id(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false});
+  if(statusId) q = q.eq('custom_status_id', statusId);
+  if(priority) q = q.eq('priority', priority);
   const {data} = await q;
-  if(!data?.length) { document.getElementById('cases-table').innerHTML = '<div class="empty-state" style="padding:2rem"><p>Дел нет</p></div>'; return; }
-  document.getElementById('cases-table').innerHTML = `<table>
-    <thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th></th></tr></thead>
-    <tbody>${data.map(c=>`<tr>
-      <td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td>
-      <td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td>
-      <td>${fraudLabels[c.fraud_type]||c.fraud_type}</td>
-      <td style="font-weight:600;color:var(--red)">$${Number(c.amount_lost).toLocaleString()}</td>
-      <td><span class="status-badge s-${c.status}">${statusLabels[c.status]}</span></td>
-      <td>${c.specialists?.name||'<span style="color:var(--text3)">Не назначен</span>'}</td>
-      <td><button class="btn-sm primary" onclick="openCase('${c.id}')">Открыть</button></td>
-    </tr>`).join('')}</tbody></table>`;
+  let filtered = data || [];
+  if(search) filtered = filtered.filter(c => c.profiles?.full_name?.toLowerCase().includes(search) || c.profiles?.email?.toLowerCase().includes(search) || c.case_number?.toLowerCase().includes(search));
+  renderCasesTable('cases-table', filtered);
 }
 
+function renderCasesTable(containerId, cases) {
+  const priLabel = {low:'⚪',normal:'🔵',high:'🟡',urgent:'🔴'};
+  if(!cases.length) { document.getElementById(containerId).innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3)">Дел нет</div>'; return; }
+  document.getElementById(containerId).innerHTML = `<table><thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th>Приоритет</th><th></th></tr></thead><tbody>`+
+    cases.map(c => {
+      const st = c.case_statuses;
+      const statusHtml = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '<span style="color:var(--text3)">—</span>';
+      return `<tr><td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td><td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td><td>${FRAUD[c.fraud_type]||c.fraud_type}</td><td style="color:#f87171;font-weight:600">$${Number(c.amount_lost).toLocaleString()}</td><td>${statusHtml}</td><td style="color:var(--text2)">${c.specialists?.name||'—'}</td><td>${priLabel[c.priority]||'🔵'}</td><td><button class="btn primary sm" onclick="openCase('${c.id}')">Открыть</button></td></tr>`;
+    }).join('') + '</tbody></table>';
+}
+
+// ── CASE DETAIL ───────────────────────────────────────────────────────────────
 async function openCase(caseId) {
   activeCaseId = caseId;
-  const {data:c} = await sb.from('cases').select('*, profiles!client_id(full_name,email,phone), specialists(*)').eq('id',caseId).single();
+  const {data:c} = await sb.from('cases').select('*,profiles!client_id(full_name,email,phone),specialists(*),case_statuses(*)').eq('id',caseId).single();
   if(!c) return;
-
-  document.getElementById('detail-case-title').textContent = c.case_number;
-  document.getElementById('detail-status-badge').innerHTML = `<span class="status-badge s-${c.status}">${statusLabels[c.status]}</span>`;
-  document.getElementById('detail-status-select').value = c.status;
-  document.getElementById('detail-specialist-select').value = c.specialist_id || '';
-
-  document.getElementById('detail-info').innerHTML = [
-    ['Номер дела', `<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
-    ['Клиент', `${c.profiles?.full_name||'—'}<br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
-    ['Телефон', c.profiles?.phone || '—'],
-    ['Тип мошенничества', fraudLabels[c.fraud_type]||c.fraud_type],
-    ['Сумма потерь', `<span style="color:var(--red);font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()}</span>`],
-    ['Дата открытия', new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
-  ].map(([l,v])=>`<div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
-
-  loadDetailTimeline(caseId);
-  loadDetailDocs(caseId);
-  loadDetailInvoices(caseId);
-
-  showPage('case-detail');
+  document.getElementById('detail-title').textContent = c.case_number;
+  const priColors = {low:'#94a3b8',normal:'#60a5fa',high:'#f59e0b',urgent:'#ef4444'};
+  const priNames = {low:'Низкий',normal:'Нормальный',high:'Высокий',urgent:'СРОЧНО'};
+  document.getElementById('detail-priority-badge').innerHTML = `<span class="badge" style="background:${priColors[c.priority]}22;color:${priColors[c.priority]};border:1px solid ${priColors[c.priority]}44">${priNames[c.priority]}</span>`;
+  const st = c.case_statuses;
+  document.getElementById('detail-status-badge').innerHTML = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '';
+  document.getElementById('d-status').value = c.custom_status_id||'';
+  document.getElementById('d-priority').value = c.priority||'normal';
+  document.getElementById('d-specialist').value = c.specialist_id||'';
+  document.getElementById('d-tags').value = (c.tags||[]).join(', ');
+  document.getElementById('d-info').innerHTML = [
+    ['Номер дела',`<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
+    ['Клиент',`<span style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</span><br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
+    ['Телефон',c.profiles?.phone||'—'],
+    ['Тип мошенничества',FRAUD[c.fraud_type]||c.fraud_type],
+    ['Сумма потерь',`<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()} ${c.currency||'USD'}</span>`],
+    ['Открыто',new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
+  ].map(([l,v])=>`<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
+  await Promise.all([loadDetailDocs(caseId), loadDetailInv(caseId), loadDetailTl(caseId)]);
+  nav('case-detail');
 }
 
 async function updateCase() {
-  const status = document.getElementById('detail-status-select').value;
-  const specialist_id = document.getElementById('detail-specialist-select').value || null;
-  const note = document.getElementById('detail-note').value.trim();
-  const btn = event.target;
-  btn.textContent = '...'; btn.disabled = true;
-
-  const {data:oldCase} = await sb.from('cases').select('status').eq('id',activeCaseId).single();
-  await sb.from('cases').update({status, specialist_id}).eq('id', activeCaseId);
-
-  if(oldCase.status !== status) {
-    await sb.from('case_timeline').insert({
-      case_id: activeCaseId,
-      author_name: document.getElementById('admin-name').textContent,
-      type: 'status_change',
-      title: `Статус изменён: ${statusLabels[oldCase.status]} → ${statusLabels[status]}`,
-      content: note || null
-    });
+  const statusId = document.getElementById('d-status').value || null;
+  const priority = document.getElementById('d-priority').value;
+  const specialist_id = document.getElementById('d-specialist').value || null;
+  const note = document.getElementById('d-note').value.trim();
+  const tagsRaw = document.getElementById('d-tags').value;
+  const tags = tagsRaw ? tagsRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
+  const btn = event.target; btn.textContent='...'; btn.disabled=true;
+  const {data:old} = await sb.from('cases').select('custom_status_id').eq('id',activeCaseId).single();
+  await sb.from('cases').update({custom_status_id:statusId, priority, specialist_id, tags}).eq('id',activeCaseId);
+  const newSt = allStatuses.find(s=>s.id===statusId);
+  const oldSt = allStatuses.find(s=>s.id===old?.custom_status_id);
+  if(old?.custom_status_id !== statusId) {
+    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'status_change', title:`Статус: ${oldSt?.label||'—'} → ${newSt?.label||'—'}`, content:note||null, author_name:document.getElementById('admin-name').textContent});
   } else if(note) {
-    await sb.from('case_timeline').insert({
-      case_id: activeCaseId,
-      author_name: document.getElementById('admin-name').textContent,
-      type: 'note',
-      title: 'Заметка',
-      content: note
-    });
+    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'note', title:'Заметка', content:note, author_name:document.getElementById('admin-name').textContent});
   }
-
-  const a = document.getElementById('detail-alert');
-  a.textContent = '✓ Сохранено'; a.className='alert show success';
-  document.getElementById('detail-note').value = '';
-  btn.textContent = 'Сохранить изменения'; btn.disabled = false;
+  const a = document.getElementById('d-alert');
+  a.textContent='✓ Сохранено'; a.className='alert show ok';
+  btn.textContent='💾 Сохранить изменения'; btn.disabled=false;
+  document.getElementById('d-note').value='';
   setTimeout(()=>a.className='alert',3000);
-  loadDetailTimeline(activeCaseId);
+  loadDetailTl(activeCaseId);
+  document.getElementById('detail-status-badge').innerHTML = newSt ? `<span class="status-chip" style="background:${newSt.color}22;color:${newSt.color};border:1px solid ${newSt.color}44"><span class="status-dot" style="background:${newSt.color}"></span>${newSt.icon} ${newSt.label}</span>` : '';
 }
 
-async function createInvoice() {
-  const desc = document.getElementById('inv-desc').value.trim();
-  const amount = parseFloat(document.getElementById('inv-amount').value);
-  const due = document.getElementById('inv-due').value;
-  if(!desc || !amount) return;
-
-  await sb.from('invoices').insert({
-    case_id: activeCaseId,
-    description: desc,
-    amount,
-    due_date: due || null
-  });
-  await sb.from('case_timeline').insert({
-    case_id: activeCaseId,
-    author_name: document.getElementById('admin-name').textContent,
-    type: 'invoice',
-    title: `Выставлен инвойс: ${desc}`,
-    content: `Сумма: $${amount}`
-  });
-  document.getElementById('inv-desc').value='';
-  document.getElementById('inv-amount').value='';
-  loadDetailInvoices(activeCaseId);
-  loadDetailTimeline(activeCaseId);
-}
-
-async function adminUploadDoc(file) {
-  if(!file || !activeCaseId) return;
-  const prog = document.getElementById('admin-upload-progress');
-  const status = document.getElementById('admin-upload-status');
-  prog.classList.remove('hidden'); prog.style.display='flex';
-  status.textContent = 'Загрузка...';
-
-  const ext = file.name.split('.').pop();
-  const path = `${activeCaseId}/admin_${Date.now()}.${ext}`;
-  const {error} = await sb.storage.from('case-documents').upload(path, file);
-  if(error) { status.textContent = 'Ошибка: '+error.message; return; }
-
-  const name = document.getElementById('admin-doc-name').value || file.name;
-  const category = document.getElementById('admin-doc-cat').value;
-  await sb.from('documents').insert({case_id:activeCaseId, uploaded_by:adminUser.id, name, file_path:path, file_size:file.size, file_type:file.type, category});
-  await sb.from('case_timeline').insert({case_id:activeCaseId, author_name:document.getElementById('admin-name').textContent, type:'document', title:`Загружен документ: ${name}`});
-
-  prog.style.display='none';
-  document.getElementById('admin-doc-name').value='';
-  document.getElementById('admin-file').value='';
-  loadDetailDocs(activeCaseId);
-  loadDetailTimeline(activeCaseId);
-}
-
+// ── DOCS ──────────────────────────────────────────────────────────────────────
 async function loadDetailDocs(cid) {
   const {data} = await sb.from('documents').select('*').eq('case_id',cid).order('created_at',{ascending:false});
-  const catL = {evidence:'Доказательства',contract:'Договор',report:'Отчёт',invoice:'Инвойс',police:'Заявление',other:'Другое'};
-  if(!data?.length) return;
-  document.getElementById('admin-docs-list').innerHTML = `<table style="margin:-1rem"><thead><tr><th>Файл</th><th>Категория</th><th>Загрузил</th><th></th></tr></thead><tbody>${data.map(d=>`<tr><td>${d.name}</td><td>${catL[d.category]||d.category}</td><td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn-sm ghost" onclick="adminDownload('${d.file_path}','${d.name}')">↓</button></td></tr>`).join('')}</tbody></table>`;
+  if(!data?.length) { document.getElementById('docs-list').innerHTML='<div style="font-size:12px;color:var(--text3)">Нет документов</div>'; return; }
+  const catL={evidence:'Доказательства',contract:'Договор',report:'Отчёт',police:'Заявление',invoice:'Инвойс',other:'Другое'};
+  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')">↓</button></div>`).join('');
 }
 
-async function loadDetailInvoices(cid) {
+async function uploadDoc(file) {
+  if(!file||!activeCaseId) return;
+  const prog=document.getElementById('doc-progress'); const st=document.getElementById('doc-status');
+  prog.style.display='flex'; st.textContent='Загрузка...';
+  const ext=file.name.split('.').pop(); const path=`${activeCaseId}/admin_${Date.now()}.${ext}`;
+  const {error:upErr} = await sb.storage.from('case-documents').upload(path,file);
+  if(upErr){st.textContent='Ошибка: '+upErr.message; return;}
+  const name=document.getElementById('doc-note').value||file.name;
+  const category=document.getElementById('doc-cat').value;
+  await sb.from('documents').insert({case_id:activeCaseId,uploaded_by:me.id,name,file_path:path,file_size:file.size,file_type:file.type,category,note:document.getElementById('doc-note').value});
+  await sb.from('case_timeline').insert({case_id:activeCaseId,type:'document',title:`Документ: ${name}`,author_name:document.getElementById('admin-name').textContent});
+  prog.style.display='none'; document.getElementById('doc-note').value=''; document.getElementById('doc-file').value='';
+  loadDetailDocs(activeCaseId); loadDetailTl(activeCaseId);
+}
+function dropDoc(e){e.preventDefault();document.getElementById('doc-drop').classList.remove('over');uploadDoc(e.dataTransfer.files[0]);}
+async function dlDoc(path,name){const{data}=await sb.storage.from('case-documents').createSignedUrl(path,60);if(data?.signedUrl){const a=document.createElement('a');a.href=data.signedUrl;a.download=name;a.click();}}
+
+// ── INVOICES ──────────────────────────────────────────────────────────────────
+async function createInv() {
+  const desc=document.getElementById('inv-desc').value.trim(); const amount=parseFloat(document.getElementById('inv-amount').value); const due=document.getElementById('inv-due').value;
+  if(!desc||!amount) return;
+  await sb.from('invoices').insert({case_id:activeCaseId,description:desc,amount,due_date:due||null});
+  await sb.from('case_timeline').insert({case_id:activeCaseId,type:'invoice',title:`Инвойс: ${desc} — $${amount}`,author_name:document.getElementById('admin-name').textContent});
+  document.getElementById('inv-desc').value=''; document.getElementById('inv-amount').value='';
+  loadDetailInv(activeCaseId); loadDetailTl(activeCaseId);
+}
+async function loadDetailInv(cid) {
   const {data} = await sb.from('invoices').select('*').eq('case_id',cid).order('created_at',{ascending:false});
-  if(!data?.length) return;
-  document.getElementById('detail-invoices').innerHTML = data.map(inv=>`
-    <div style="padding:.7rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-      <div><div style="font-size:12px;color:var(--text2)">${inv.description}</div>
-      <div style="font-size:11px;color:var(--text3)">${inv.invoice_number}</div></div>
-      <div style="text-align:right">
-        <div style="font-weight:700;font-family:var(--fd)">$${Number(inv.amount).toLocaleString()}</div>
-        <button class="btn-sm ${inv.status==='pending'?'primary':'ghost'}" onclick="markPaid('${inv.id}')" ${inv.status==='paid'?'disabled':''}>${inv.status==='paid'?'✓ Оплачено':'Отметить оплаченным'}</button>
-      </div>
-    </div>`).join('');
+  const el = document.getElementById('d-invoices');
+  if(!data?.length){el.innerHTML='<div style="font-size:12px;color:var(--text3)">Нет инвойсов</div>';return;}
+  el.innerHTML=data.map(inv=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)"><div><div style="font-size:12px;color:var(--text)">${inv.description}</div><div style="font-size:10px;color:var(--text3)">${inv.invoice_number}</div></div><div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem"><div style="font-family:var(--fd);font-weight:700">$${Number(inv.amount).toLocaleString()}</div><button class="btn sm ${inv.status==='paid'?'ghost':'success'}" onclick="markPaid('${inv.id}')" ${inv.status==='paid'?'disabled':''}>${inv.status==='paid'?'✓ Оплачено':'Отметить оплаченным'}</button></div></div>`).join('');
+}
+async function markPaid(id){await sb.from('invoices').update({status:'paid'}).eq('id',id);loadDetailInv(activeCaseId);}
+
+// ── TIMELINE ──────────────────────────────────────────────────────────────────
+async function loadDetailTl(cid) {
+  const {data} = await sb.from('case_timeline').select('*').eq('case_id',cid).order('created_at',{ascending:false}).limit(20);
+  const icons={status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
+  document.getElementById('d-timeline').innerHTML = !data?.length ? '<div style="font-size:12px;color:var(--text3)">История пуста</div>' :
+    data.map(e=>`<div class="tl-item"><div class="tl-dot">${icons[e.type]||'•'}</div><div class="tl-body"><div class="tl-title">${e.title}</div>${e.content?`<div class="tl-text">${e.content}</div>`:''}<div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${e.author_name?' · '+e.author_name:''}</div></div></div>`).join('');
 }
 
-async function markPaid(invId) {
-  await sb.from('invoices').update({status:'paid'}).eq('id',invId);
-  loadDetailInvoices(activeCaseId);
-}
-
-async function loadDetailTimeline(cid) {
-  const {data} = await sb.from('case_timeline').select('*').eq('case_id',cid).order('created_at',{ascending:false}).limit(10);
-  const icons = {status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
-  if(!data?.length) return;
-  document.getElementById('detail-timeline').innerHTML = data.map(e=>`
-    <div class="tl-item">
-      <div class="tl-dot-wrap"><div class="tl-dot" style="background:var(--dark3)">${icons[e.type]||'•'}</div></div>
-      <div class="tl-content">
-        <div class="tl-title">${e.title}</div>
-        ${e.content?`<div class="tl-text">${e.content}</div>`:''}
-        <div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-      </div>
-    </div>`).join('');
-}
-
-async function loadSpecialistsSelect() {
-  const {data} = await sb.from('specialists').select('*').order('name');
-  const opts = data?.map(s=>`<option value="${s.id}">${s.name} — ${s.role}</option>`).join('') || '';
-  ['detail-specialist-select','nc-specialist'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.innerHTML += opts;
-  });
-  if(document.getElementById('specialists-list')) {
-    document.getElementById('specialists-list').innerHTML = data?.length ?
-      `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">${data.map(s=>`
-        <div class="card"><div class="card-body">
-          <div style="width:48px;height:48px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--blue3);margin-bottom:1rem">${s.name[0]}</div>
-          <div style="font-family:var(--fd);font-weight:700;color:var(--text)">${s.name}</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:.2rem">${s.role}</div>
-          ${s.email?`<div style="font-size:12px;color:var(--text2);margin-top:.5rem">${s.email}</div>`:''}
-        </div></div>`).join('')}</div>` :
-      '<div class="empty-state"><p>Специалистов нет</p></div>';
-  }
-}
-
+// ── NEW CASE ──────────────────────────────────────────────────────────────────
 async function createCase() {
-  const email = document.getElementById('nc-email').value.trim();
-  const fraud_type = document.getElementById('nc-type').value;
-  const amount_lost = parseFloat(document.getElementById('nc-amount').value);
-  const specialist_id = document.getElementById('nc-specialist').value || null;
-  const status = document.getElementById('nc-status').value;
-  const description = document.getElementById('nc-desc').value.trim();
-
-  if(!email || !amount_lost) return showNewCaseAlert('Заполните обязательные поля');
-
+  const email=document.getElementById('nc-email').value.trim(); const amount=parseFloat(document.getElementById('nc-amount').value);
+  if(!email||!amount){showAlert('nc-alert','Заполните обязательные поля','err');return;}
   const {data:client} = await sb.from('profiles').select('id').eq('email',email).eq('role','client').single();
-  if(!client) return showNewCaseAlert('Клиент с таким email не найден. Попросите его зарегистрироваться.');
-
-  const {error} = await sb.from('cases').insert({client_id:client.id, fraud_type, amount_lost, specialist_id, status, description});
-  if(error) return showNewCaseAlert('Ошибка: ' + error.message);
-
-  await sb.from('case_timeline').insert({
-    case_id: (await sb.from('cases').select('id').eq('client_id',client.id).order('created_at',{ascending:false}).limit(1)).data[0].id,
-    author_name: document.getElementById('admin-name').textContent,
-    type: 'status_change',
-    title: 'Дело открыто',
-    content: description || null
-  });
-  showNewCaseAlert('✓ Дело создано!', 'success');
+  if(!client){showAlert('nc-alert','Клиент не найден. Попросите зарегистрироваться.','err');return;}
+  const statusId=document.getElementById('nc-status').value||null;
+  const {error,data:nc} = await sb.from('cases').insert({client_id:client.id,fraud_type:document.getElementById('nc-type').value,amount_lost:amount,specialist_id:document.getElementById('nc-specialist').value||null,priority:document.getElementById('nc-priority').value,custom_status_id:statusId,description:document.getElementById('nc-desc').value.trim()}).select().single();
+  if(error){showAlert('nc-alert','Ошибка: '+error.message,'err');return;}
+  await sb.from('case_timeline').insert({case_id:nc.id,type:'status_change',title:'Дело открыто',author_name:document.getElementById('admin-name').textContent});
+  showAlert('nc-alert','✓ Дело создано! Номер: '+nc.case_number,'ok');
   ['nc-email','nc-amount','nc-desc'].forEach(id=>document.getElementById(id).value='');
 }
-function showNewCaseAlert(msg,type='error'){const a=document.getElementById('new-case-alert');a.textContent=msg;a.className='alert show '+type;setTimeout(()=>a.className='alert',4000);}
 
-async function adminDownload(path, name) {
-  const {data} = await sb.storage.from('case-documents').createSignedUrl(path, 60);
-  if(data?.signedUrl){const a=document.createElement('a');a.href=data.signedUrl;a.download=name;a.click();}
+// ── CLIENTS ───────────────────────────────────────────────────────────────────
+async function loadClients() {
+  const {data} = await sb.from('profiles').select('*,cases(id,custom_status_id)').eq('role','client').order('created_at',{ascending:false});
+  allClients = data||[];
+  document.getElementById('clients-count').textContent = `Клиенты (всего: ${allClients.length})`;
+  renderClients(allClients);
+}
+function filterClients(){const s=document.getElementById('clients-search').value.toLowerCase();renderClients(allClients.filter(c=>(c.full_name||'').toLowerCase().includes(s)||c.email.toLowerCase().includes(s)));}
+function renderClients(clients) {
+  if(!clients.length){document.getElementById('clients-table').innerHTML='<div style="padding:1.5rem;text-align:center;color:var(--text3)">Клиентов нет</div>';return;}
+  document.getElementById('clients-table').innerHTML=`<table><thead><tr><th>Имя</th><th>Email</th><th>Дел</th><th>Регистрация</th><th></th></tr></thead><tbody>`+
+    clients.map(c=>`<tr><td style="color:var(--text);font-weight:500">${c.full_name||'—'}</td><td>${c.email}</td><td>${c.cases?.length||0}</td><td>${new Date(c.created_at).toLocaleDateString('ru-RU')}</td><td>${c.cases?.length?`<button class="btn primary sm" onclick="openCase('${c.cases[0].id}')">Дело</button>`:`<button class="btn ghost sm" onclick="document.getElementById('nc-email').value='${c.email}';nav('new-case')">+ Создать</button>`}</td></tr>`).join('')+'</tbody></table>';
 }
 
-function prefillNewCase(email) {
-  document.getElementById('nc-email').value = email;
-  showPage('new-case');
+// ── STAFF ─────────────────────────────────────────────────────────────────────
+async function loadStaff() {
+  const {data} = await sb.from('profiles').select('*').in('role',['admin','specialist']).order('created_at');
+  const roleColors={admin:'var(--amber)',specialist:'var(--blue3)'};
+  document.getElementById('staff-list').innerHTML = !data?.length ? '<div style="color:var(--text3)">Сотрудников нет</div>' :
+    data.map(p=>`<div class="staff-card"><div class="staff-avatar">${(p.full_name||p.email)[0].toUpperCase()}</div><div style="font-weight:600;color:var(--text)">${p.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${p.email}</div><div><span class="badge" style="background:${roleColors[p.role]}22;color:${roleColors[p.role]};border:1px solid ${roleColors[p.role]}44">${p.role}</span></div>${p.id!==me.id?`<button class="btn danger sm" style="margin-top:.3rem" onclick="changeRole('${p.id}','${p.role}')">${p.role==='admin'?'→ Специалист':'→ Админ'}</button>`:''}${p.id!==me.id?`<button class="btn ghost sm" onclick="removeStaff('${p.id}')">Удалить</button>`:''}</div>`).join('');
 }
+async function changeRole(uid,currentRole){await sb.from('profiles').update({role:currentRole==='admin'?'specialist':'admin'}).eq('id',uid);loadStaff();}
+async function removeStaff(uid){if(!confirm('Удалить сотрудника?'))return;await sb.from('profiles').update({role:'client'}).eq('id',uid);loadStaff();}
 
-// Admin messages
-async function loadAdminCases() {
+// ── INVITE ────────────────────────────────────────────────────────────────────
+async function inviteStaff() {
+  const email=document.getElementById('staff-email').value.trim(); const role=document.getElementById('staff-role').value;
+  const name=document.getElementById('staff-name').value.trim(); const roleTitle=document.getElementById('staff-role-title').value.trim();
+  if(!email){showAlert('inv-alert','Укажите email','err');return;}
+  // Check if user already exists
+  const {data:existing} = await sb.from('profiles').select('id,role').eq('email',email).single();
+  if(existing){
+    await sb.from('profiles').update({role,full_name:name||existing.full_name}).eq('id',existing.id);
+    if(roleTitle){await sb.from('specialists').upsert({name:name,role:roleTitle,email},{onConflict:'email'});}
+    showAlert('inv-alert',`✓ Роль обновлена для ${email}`,'ok');
+  } else {
+    // Create invite record so when they register they get the right role
+    const {error} = await sb.from('staff_invites').upsert({email,role,invited_by:me.id},{onConflict:'email'});
+    if(error){showAlert('inv-alert','Ошибка: '+error.message,'err');return;}
+    if(roleTitle){await sb.from('specialists').upsert({name:name||email,role:roleTitle,email},{onConflict:'email'});}
+    showAlert('inv-alert',`✓ Приглашение создано. После регистрации с ${email} — роль '${role}' будет назначена автоматически.`,'ok');
+  }
+  loadInvites();
+}
+async function loadInvites() {
+  const {data} = await sb.from('staff_invites').select('*').order('created_at',{ascending:false});
+  if(!data?.length){document.getElementById('invites-list').innerHTML='<div style="padding:1rem;font-size:12px;color:var(--text3)">Нет приглашений</div>';return;}
+  document.getElementById('invites-list').innerHTML=`<table><thead><tr><th>Email</th><th>Роль</th><th>Принято</th><th>Дата</th><th></th></tr></thead><tbody>`+
+    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')">✕</button></td></tr>`).join('')+'</tbody></table>';
+}
+async function deleteInvite(id){await sb.from('staff_invites').delete().eq('id',id);loadInvites();}
+
+// ── STATUSES PAGE ─────────────────────────────────────────────────────────────
+function initColorGrid() {
+  const grid = document.getElementById('color-grid');
+  grid.innerHTML = COLORS.map(c=>`<div class="color-opt" style="background:${c}" data-color="${c}" onclick="selectColor('${c}')"></div>`).join('');
+  document.querySelector('.color-opt').classList.add('sel');
+}
+function selectColor(c){document.getElementById('st-color').value=c;document.querySelectorAll('.color-opt').forEach(el=>el.classList.toggle('sel',el.dataset.color===c));}
+async function loadStatusesPage() {
+  initColorGrid();
+  const {data} = await sb.from('case_statuses').select('*').order('sort_order');
+  allStatuses = data||[];
+  document.getElementById('statuses-list').innerHTML = allStatuses.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.7rem"><span style="font-size:16px">${s.icon}</span><span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44"><span class="status-dot" style="background:${s.color}"></span>${s.label}</span><span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span></div><div style="display:flex;gap:.4rem">${!s.is_default?`<button class="btn danger sm" onclick="deleteStatus('${s.id}')">✕</button>`:''}` + '</div></div>').join('');
+}
+async function addStatus() {
+  const label=document.getElementById('st-label').value.trim(); const icon=document.getElementById('st-icon').value.trim()||'📋'; const color=document.getElementById('st-color').value; const sort_order=parseInt(document.getElementById('st-order').value)||allStatuses.length+1;
+  if(!label){showAlert('status-alert','Введите название','err');return;}
+  const {error} = await sb.from('case_statuses').insert({label,icon,color,sort_order});
+  if(error){showAlert('status-alert','Ошибка: '+error.message,'err');return;}
+  showAlert('status-alert','✓ Статус добавлен','ok');
+  document.getElementById('st-label').value=''; document.getElementById('st-icon').value=''; document.getElementById('st-order').value='';
+  await loadStatuses(); loadStatusesPage();
+}
+async function deleteStatus(id){if(!confirm('Удалить статус?'))return;await sb.from('case_statuses').delete().eq('id',id);await loadStatuses();loadStatusesPage();}
+
+// ── MESSAGES ──────────────────────────────────────────────────────────────────
+async function loadChatCases() {
   const {data} = await sb.from('cases').select('id,case_number,profiles!client_id(full_name)').order('created_at',{ascending:false});
-  if(!data?.length) return;
-  document.getElementById('admin-cases-list').innerHTML = data.map(c=>`
-    <button onclick="openAdminChat('${c.id}','${c.case_number}')" class="sidebar-link" style="padding:.8rem 1rem;border-radius:0;border-bottom:1px solid var(--border)">
-      <div style="text-align:left"><div style="font-family:var(--fd);font-weight:700;color:var(--blue3)">${c.case_number}</div>
-      <div style="font-size:12px;color:var(--text2)">${c.profiles?.full_name||'Клиент'}</div></div>
-    </button>`).join('');
+  document.getElementById('chat-cases').innerHTML = (data||[]).map(c=>`<button onclick="openChat('${c.id}','${c.case_number}')" style="display:block;width:100%;text-align:left;padding:.8rem 1rem;background:transparent;border:none;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='var(--dark3)'" onmouseout="this.style.background='transparent'"><div style="font-family:var(--fd);color:var(--blue3);font-weight:700;font-size:12px">${c.case_number}</div><div style="font-size:12px;color:var(--text2)">${c.profiles?.full_name||'Клиент'}</div></button>`).join('');
 }
-
-async function openAdminChat(caseId, caseNum) {
-  selectedChatCaseId = caseId;
-  document.getElementById('chat-case-title').textContent = caseNum;
-  document.getElementById('admin-msg-row').style.display='flex';
-  await loadAdminMessages(caseId);
+async function openChat(cid, caseNum) {
+  chatCaseId=cid; document.getElementById('chat-title').textContent=caseNum; document.getElementById('chat-input-row').style.display='flex';
+  const {data} = await sb.from('messages').select('*').eq('case_id',cid).order('created_at');
+  const wrap = document.getElementById('chat-msgs');
+  wrap.innerHTML = !data?.length ? '<div style="text-align:center;color:var(--text3);padding:2rem">Нет сообщений</div>' :
+    data.map(m=>`<div class="msg ${m.is_admin?'mine':'theirs'}"><div class="msg-bubble">${esc(m.content)}</div><div class="msg-meta">${m.sender_name||''} · ${new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('');
+  wrap.scrollTop=wrap.scrollHeight;
 }
-
-async function loadAdminMessages(caseId) {
-  const {data} = await sb.from('messages').select('*').eq('case_id',caseId).order('created_at',{ascending:true});
-  if(!data?.length) return;
-  document.getElementById('admin-messages-wrap').innerHTML = data.map(m=>`
-    <div class="message ${m.is_admin ? 'mine' : 'theirs'}">
-      <div class="message-bubble">${m.content}</div>
-      <div class="message-meta">${m.sender_name||''} · ${new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</div>
-    </div>`).join('');
-  const w=document.getElementById('admin-messages-wrap');w.scrollTop=w.scrollHeight;
-}
-
-async function adminSendMessage() {
-  const input = document.getElementById('admin-msg-input');
-  const content = input.value.trim();
-  if(!content || !selectedChatCaseId) return;
+async function sendAdminMsg() {
+  const input=document.getElementById('chat-input'); const content=input.value.trim(); if(!content||!chatCaseId) return;
   input.value='';
-  const {data:p} = await sb.from('profiles').select('full_name').eq('id',adminUser.id).single();
-  await sb.from('messages').insert({case_id:selectedChatCaseId, sender_id:adminUser.id, sender_name:p?.full_name||'Специалист', content, is_admin:true});
-  loadAdminMessages(selectedChatCaseId);
+  const {data:p} = await sb.from('profiles').select('full_name').eq('id',me.id).single();
+  await sb.from('messages').insert({case_id:chatCaseId,sender_id:me.id,sender_name:p?.full_name||'Специалист',content,is_admin:true});
+  openChat(chatCaseId,document.getElementById('chat-title').textContent);
 }
 
-function showPage(page) {
-  document.querySelectorAll('[id^="page-"]').forEach(el=>el.classList.add('hidden'));
-  document.getElementById('page-'+page).classList.remove('hidden');
-  document.querySelectorAll('.sidebar-link').forEach(el=>el.classList.remove('active'));
-  if(page==='cases') loadCases();
-  if(page==='messages') loadAdminCases();
-  if(page==='specialists') loadSpecialistsSelect();
-}
-
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function showAlert(id,msg,type){const a=document.getElementById(id);a.textContent=msg;a.className='alert show '+type;setTimeout(()=>a.className='alert',5000);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 async function logout(){await sb.auth.signOut();window.location.href='/portal/login.html';}
 init();
 </script>
