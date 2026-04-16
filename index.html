@@ -47,9 +47,10 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:99;display:flex;align-items:c
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:17px;font-weight:500;color:var(--text);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color .2s}
 .mobile-menu a:hover{color:var(--cyan2)}
-.mm-btns{display:flex;flex-direction:column;gap:.8rem;margin-top:1.8rem}
-.mm-primary{padding:14px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block}
-.mm-tg{padding:14px;background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.3);font-size:14px;font-weight:600;border-radius:6px;text-align:center;display:block}
+.mm-btns{display:flex;flex-direction:column;gap:.7rem;margin-top:1.5rem}
+.mm-primary{padding:13px 16px;background:var(--blue);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;border-radius:8px;text-align:center;display:block;text-decoration:none}
+.mm-tg{padding:13px 16px;background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.3);font-size:14px;font-weight:600;border-radius:8px;text-align:center;display:block;text-decoration:none}
+.mm-portal{padding:13px 16px;background:transparent;color:var(--cyan2);border:1px solid rgba(34,211,238,.3);font-size:14px;font-weight:600;border-radius:8px;text-align:center;display:block;text-decoration:none}
 .hero{min-height:100svh;padding:130px 2rem 6rem;position:relative;overflow:hidden;display:flex;align-items:center}
 .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 65% 40%,rgba(37,99,235,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(6,182,212,.1) 0%,transparent 60%)}
 .hero-grid-bg{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 20%,transparent 100%)}
@@ -66,7 +67,7 @@ h1 span{color:var(--cyan2)}
 .btn-outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
 .btn-tg{font-family:var(--fb);font-size:14px;font-weight:600;padding:12px 22px;background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.3);border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;text-decoration:none}
 .btn-tg:hover{background:rgba(6,182,212,.2);border-color:var(--cyan2)}
-.hero-stats{display:flex;gap:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding-top:2rem;border-top:1px solid var(--border)}
 .hstat-num{font-family:var(--fd);font-size:1.9rem;font-weight:700;letter-spacing:-.03em;color:var(--text);line-height:1}
 .hstat-num span{color:var(--cyan2)}
 .hstat-label{font-size:12px;color:var(--text3);margin-top:3px;font-weight:500}
@@ -258,7 +259,7 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
 .lm-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px}
 @media(max-width:1024px){.hero-inner{grid-template-columns:1fr}.hero-right{display:flex;margin-top:2rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{border-bottom:1px solid var(--border)}.stat-card:nth-child(2){border-right:none}.stat-card:nth-child(3),.stat-card:nth-child(4){border-bottom:none}.chain-grid{grid-template-columns:1fr;gap:2.5rem}.contact-grid{grid-template-columns:1fr;gap:2.5rem}.tcard{flex:0 0 calc(50% - .5rem)}.footer-top{grid-template-columns:1fr 1fr}.footer-top>div:first-child{grid-column:1/-1}}
 @media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}.how-grid{grid-template-columns:repeat(2,1fr)}.svcs-grid{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}.tcard{flex:0 0 100%}}
-@media(max-width:600px){nav{padding:0 1rem}.lang-bar{padding:0 1rem}.hero{padding:106px 1rem 4rem}section{padding:4rem 1rem}h1{font-size:2rem}.hero-btns{flex-direction:column}.btn-blue,.btn-outline,.btn-tg{width:100%;justify-content:center}.hero-stats{gap:1.2rem}.hstat-num{font-size:1.6rem}
+@media(max-width:600px){nav{padding:0 .8rem;height:56px}.lang-bar{padding:0 .8rem;height:32px}.mobile-menu{top:88px}.nav-logo{font-size:15px}.nav-logo svg{width:22px;height:22px}.nav-right{gap:.4rem}.nav-portal-btn{display:none!important}.nav-cta{font-size:12px;padding:8px 12px}.hero{padding:100px .9rem 3.5rem}section{padding:3.5rem .9rem}h1{font-size:1.85rem;letter-spacing:-.025em}h2{font-size:1.5rem}.hero-sub{font-size:.93rem}.hero-btns{flex-direction:column;gap:.6rem}.btn-blue,.btn-outline,.btn-tg{width:100%;justify-content:center;font-size:14px;padding:13px 18px}.hero-stats{grid-template-columns:repeat(2,1fr);gap:.8rem}.hstat-num{font-size:1.5rem}.hstat-label{font-size:11px}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{padding:1.2rem;border-right:none}.stat-number{font-size:2rem}.how-grid{grid-template-columns:1fr}.svcs-grid{grid-template-columns:1fr}.scam-grid{grid-template-columns:1fr 1fr}.scam-card{height:175px}.chain-grid{grid-template-columns:1fr;gap:1.5rem}.contact-grid{grid-template-columns:1fr;gap:1.5rem}.tcard{flex:0 0 100%}.footer-top{grid-template-columns:1fr}.footer-top>div:first-child{grid-column:1/-1}.footer-bottom{flex-direction:column;align-items:flex-start}.footer-disc{text-align:left}.form-row{grid-template-columns:1fr}.form-row .form-field:first-child{border-right:none;border-bottom:1px solid var(--border)}.checker-row{flex-direction:column}.checker-btn{padding:12px;border-radius:0 0 8px 8px}.trust-logos{gap:1.2rem}.trust-logo{font-size:12px}.why-grid{grid-template-columns:1fr}.faq-q{font-size:.9rem;padding:1rem 1.2rem}.checker-wrap{padding:1.2rem}.hero-right{max-width:260px!important;margin:0 auto}.hero-right>div{max-width:100%!important}}.lang-bar{padding:0 1rem}.hero{padding:106px 1rem 4rem}section{padding:4rem 1rem}h1{font-size:2rem}.hero-btns{flex-direction:column}.btn-blue,.btn-outline,.btn-tg{width:100%;justify-content:center}.hero-stats{gap:1.2rem}.hstat-num{font-size:1.6rem}
   .hero-right{max-width:320px;margin:0 auto;width:100%}
   .hero-right>div{max-width:100%!important}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{padding:1.5rem;border-right:none}.how-grid{grid-template-columns:1fr}.scam-grid{grid-template-columns:repeat(2,1fr)}.scam-card{height:180px}.footer-top{grid-template-columns:1fr 1fr}.footer-top>div:first-child{grid-column:1/-1}.footer-bottom{flex-direction:column;align-items:flex-start}.footer-disc{text-align:left}.form-row{grid-template-columns:1fr}.form-row .form-field:first-child{border-right:none;border-bottom:1px solid var(--border)}.checker-row{flex-direction:column}.checker-btn{padding:12px;border-radius:0 0 8px 8px}}
 </style>
@@ -331,8 +332,8 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
     <li><a href="/blog/"><span class="t-ru">Блог</span><span class="t-uk lang-hide">Блог</span><span class="t-en lang-hide">Blog</span></a></li>
   </ul>
   <div class="nav-right">
-    <a href="/portal/login.html" style="font-family:var(--fb);font-size:13px;font-weight:600;padding:8px 16px;background:transparent;color:var(--cyan2);border:1px solid rgba(34,211,238,.3);border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none" onmouseover="this.style.background='rgba(34,211,238,.1)'" onmouseout="this.style.background='transparent'">
-      <span class="t-ru">Личный кабинет</span><span class="t-uk lang-hide">Особистий кабінет</span><span class="t-en lang-hide">Client Portal</span>
+    <a href="/portal/login.html" class="nav-portal-btn" style="font-family:var(--fb);font-size:13px;font-weight:600;padding:8px 14px;background:transparent;color:var(--cyan2);border:1px solid rgba(34,211,238,.3);border-radius:6px;transition:all .2s;white-space:nowrap;text-decoration:none" onmouseover="this.style.background='rgba(34,211,238,.1)'" onmouseout="this.style.background='transparent'">
+      <span class="t-ru">Кабинет</span><span class="t-uk lang-hide">Кабінет</span><span class="t-en lang-hide">Portal</span>
     </a>
     <a href="#contact" class="nav-cta"><span class="t-ru">Консультация</span><span class="t-uk lang-hide">Консультація</span><span class="t-en lang-hide">Get help</span></a>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
@@ -348,8 +349,9 @@ footer h4{font-size:11px;font-weight:600;color:var(--text3);text-transform:upper
     <span class="t-ru">🔐 Личный кабинет</span><span class="t-uk lang-hide">🔐 Особистий кабінет</span><span class="t-en lang-hide">🔐 Client Portal</span>
   </a>
   <div class="mm-btns">
-    <a href="#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">Получить консультацию</span><span class="t-uk lang-hide">Отримати консультацію</span><span class="t-en lang-hide">Get consultation</span></a>
-    <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="mm-tg">&#9992; Telegram</a>
+    <a href="#contact" class="mm-primary" onclick="toggleMenu()"><span class="t-ru">&#128170; Получить консультацию</span><span class="t-uk lang-hide">&#128170; Отримати консультацію</span><span class="t-en lang-hide">&#128170; Get consultation</span></a>
+    <a href="https://t.me/cryptojustice_help_bot" target="_blank" class="mm-tg" onclick="toggleMenu()">&#9992; Telegram</a>
+    <a href="/portal/login.html" class="mm-portal" onclick="toggleMenu()">&#128274; <span class="t-ru">Личный кабинет</span><span class="t-uk lang-hide">Особистий кабінет</span><span class="t-en lang-hide">Client Portal</span></a>
   </div>
 </div>
 
