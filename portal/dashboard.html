@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<!-- v20260416_204046 -->
+<!-- v_FINAL_MOB -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -459,10 +459,10 @@ async function init() {
   document.getElementById('settings-email').value = currentUser.email;
   document.getElementById('settings-phone').value = profile?.phone || '';
 
-  // Check if admin → redirect
-  if(profile?.role === 'admin') {
-    const goAdmin = confirm('У вас роль администратора. Перейти в панель управления?');
-    if(goAdmin) { window.location.href = '/portal/admin.html'; return; }
+  // Auto-redirect admin — no confirm dialog
+  if(profile?.role === 'admin' || profile?.role === 'specialist') {
+    window.location.href = '/portal/admin.html';
+    return;
   }
 
   await loadCase();
