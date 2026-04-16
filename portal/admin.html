@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;
+  --surface:#1e1e30;--surface2:#252538;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;
+  --cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;min-height:100vh}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
+button{cursor:pointer;font-family:var(--fb)}
+input,select,textarea{font-family:var(--fb)}
+.hidden{display:none!important}
+
+/* ── PORTAL NAV ── */
+.portal-nav{position:fixed;top:0;left:0;right:0;z-index:99;height:60px;background:rgba(10,10,15,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.portal-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.portal-logo span{color:var(--cyan2)}
+.portal-logo-badge{font-size:10px;font-weight:600;color:var(--blue3);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+.nav-user{display:flex;align-items:center;gap:.8rem}
+.nav-user-name{font-size:13px;color:var(--text2)}
+.btn-sm{font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;transition:all .2s}
+.btn-sm.primary{background:var(--blue);color:#fff}
+.btn-sm.primary:hover{background:var(--blue2)}
+.btn-sm.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-sm.ghost:hover{border-color:var(--blue3);color:var(--text)}
+.btn-sm.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+
+/* ── PORTAL LAYOUT ── */
+.portal-wrap{display:flex;min-height:100vh;padding-top:60px}
+.portal-sidebar{width:220px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);padding:1.5rem 0;position:fixed;top:60px;bottom:0;overflow-y:auto}
+.sidebar-section{padding:0 .75rem;margin-bottom:1.5rem}
+.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.5rem .75rem;margin-bottom:.3rem}
+.sidebar-link{display:flex;align-items:center;gap:.7rem;padding:.65rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
+.sidebar-link:hover{background:var(--dark3);color:var(--text)}
+.sidebar-link.active{background:rgba(37,99,235,.15);color:var(--blue3)}
+.sidebar-link .icon{font-size:15px;width:20px;text-align:center}
+.sidebar-link .badge{margin-left:auto;font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:100px;font-weight:700}
+.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px}
+
+/* ── CARDS & PANELS ── */
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.card-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text)}
+.card-body{padding:1.5rem}
+.page-title{font-family:var(--fd);font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem}
+.page-title span{color:var(--cyan2)}
+.page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
+
+/* ── STATUS BADGES ── */
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase}
+.status-badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.s-new{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}.s-new::before{background:#94a3b8}
+.s-assessment{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}.s-assessment::before{background:#fbbf24}
+.s-analysis{background:rgba(37,99,235,.1);color:#60a5fa;border:1px solid rgba(37,99,235,.2)}.s-analysis::before{background:#60a5fa}
+.s-documents{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}.s-documents::before{background:#a78bfa}
+.s-freeze{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}.s-freeze::before{background:#22d3ee}
+.s-legal{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}.s-legal::before{background:#fb923c}
+.s-closed_won{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}.s-closed_won::before{background:#34d399}
+.s-closed_lost{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2)}.s-closed_lost::before{background:#f87171}
+
+/* ── PROGRESS BAR ── */
+.progress-steps{display:flex;align-items:center;gap:0;margin:1.5rem 0}
+.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.progress-step::before{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border2);z-index:0}
+.progress-step:last-child::before{display:none}
+.progress-step.done::before,.progress-step.active::before{background:var(--blue)}
+.ps-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);position:relative;z-index:1;transition:all .3s}
+.progress-step.done .ps-dot{background:var(--blue);border-color:var(--blue);color:#fff}
+.progress-step.active .ps-dot{background:transparent;border-color:var(--blue2);color:var(--blue3);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.ps-label{font-size:10px;color:var(--text3);margin-top:.4rem;text-align:center;letter-spacing:.03em;max-width:80px}
+.progress-step.done .ps-label,.progress-step.active .ps-label{color:var(--text2)}
+
+/* ── FORMS ── */
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.form-input{background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
+.form-input:focus{border-color:var(--blue2)}
+.form-input::placeholder{color:var(--text3)}
+select.form-input{appearance:none;cursor:pointer}
+select.form-input option{background:var(--dark2)}
+textarea.form-input{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn{font-family:var(--fb);font-size:14px;font-weight:600;padding:11px 22px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue2)}
+.btn.outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn.outline:hover{border-color:var(--blue3);color:var(--blue3)}
+.btn.success{background:var(--green);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.loading{opacity:.7;pointer-events:none}
+
+/* ── TABLES ── */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:left}
+td{padding:.9rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,.02)}
+tr:last-child td{border-bottom:none}
+
+/* ── ALERT ── */
+.alert{padding:1rem 1.2rem;border-radius:8px;font-size:13px;margin-bottom:1rem;display:none}
+.alert.show{display:block}
+.alert.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.alert.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.alert.info{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue3)}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:3rem 2rem;color:var(--text3)}
+.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* ── FILE UPLOAD ── */
+.file-drop{border:2px dashed var(--border2);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--dark3)}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue2);background:rgba(37,99,235,.05)}
+.file-drop p{font-size:13px;color:var(--text3);margin-top:.5rem}
+
+/* ── SPINNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+
+/* ── CHAT ── */
+.messages-wrap{display:flex;flex-direction:column;gap:.8rem;max-height:400px;overflow-y:auto;padding:.5rem 0}
+.message{max-width:80%;display:flex;flex-direction:column;gap:.2rem}
+.message.mine{align-self:flex-end;align-items:flex-end}
+.message.theirs{align-self:flex-start}
+.message-bubble{padding:.7rem 1rem;border-radius:12px;font-size:13px;line-height:1.5}
+.message.mine .message-bubble{background:rgba(37,99,235,.3);color:var(--text);border-radius:12px 12px 2px 12px}
+.message.theirs .message-bubble{background:var(--dark3);color:var(--text);border-radius:12px 12px 12px 2px}
+.message-meta{font-size:10px;color:var(--text3)}
+.msg-input-row{display:flex;gap:.5rem;margin-top:1rem}
+.msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+.msg-input:focus{border-color:var(--blue2)}
+
+/* ── INVOICE ── */
+.invoice-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.invoice-amount{font-family:var(--fd);font-size:1.2rem;font-weight:700}
+.invoice-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;text-transform:uppercase}
+.inv-pending{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.inv-paid{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.inv-cancelled{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.tl-line{width:1px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
+.tl-content{flex:1;padding-bottom:.5rem}
+.tl-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.tl-text{font-size:12px;color:var(--text2);line-height:1.5}
+.tl-date{font-size:11px;color:var(--text3);margin-top:.3rem}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-box{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.2rem;position:relative;overflow:hidden}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
+.stat-box-num{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-.03em}
+.stat-box-num span{color:var(--cyan2)}
+.stat-box-label{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .portal-sidebar{display:none}
+  .portal-main{margin-left:0;padding:1rem}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .progress-steps{overflow-x:auto}
+}
+</style>
+<title>Admin Panel — CryptoJustice Portal</title>
+</head>
+<body>
+
+<nav class="portal-nav">
+  <a href="/portal/admin.html" class="portal-logo">
+    <svg viewBox="0 0 32 32" width="24" height="24">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/><circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
+    </svg>
+    Crypto<span>Justice</span>
+    <span class="portal-logo-badge" style="color:#f59e0b;border-color:rgba(245,158,11,.3)">Admin</span>
+  </a>
+  <div class="nav-user">
+    <span class="nav-user-name" id="admin-name">Admin</span>
+    <button class="btn-sm ghost" onclick="logout()">Выйти</button>
+  </div>
+</nav>
+
+<div class="portal-wrap">
+  <div class="portal-sidebar">
+    <div class="sidebar-label">Управление</div>
+    <div class="sidebar-section">
+      <button class="sidebar-link active" onclick="showPage('clients')"><span class="icon">👥</span>Клиенты</button>
+      <button class="sidebar-link" onclick="showPage('cases')"><span class="icon">📋</span>Все дела</button>
+      <button class="sidebar-link" onclick="showPage('new-case')"><span class="icon">➕</span>Создать дело</button>
+      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon">💬</span>Сообщения<span class="badge" id="admin-msg-badge" style="display:none">!</span></button>
+    </div>
+    <div class="sidebar-label">Система</div>
+    <div class="sidebar-section">
+      <button class="sidebar-link" onclick="showPage('specialists')"><span class="icon">👤</span>Специалисты</button>
+      <a class="sidebar-link" href="/"><span class="icon">🌐</span>На сайт</a>
+    </div>
+  </div>
+
+  <div class="portal-main">
+
+    <!-- CLIENTS PAGE -->
+    <div id="page-clients">
+      <div class="page-title">👥 Клиенты</div>
+      <div class="page-sub" id="clients-count">Загрузка...</div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Все клиенты</div>
+          <input class="form-input" id="clients-search" placeholder="Поиск по имени или email..." style="width:220px;padding:7px 12px">
+        </div>
+        <div class="table-wrap" id="clients-table">
+          <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASES PAGE -->
+    <div id="page-cases" class="hidden">
+      <div class="page-title">📋 Все дела</div>
+      <div class="page-sub">Управление делами клиентов.</div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Дела</div>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <select class="form-input" id="cases-filter" style="padding:7px 12px;width:160px" onchange="loadCases()">
+              <option value="">Все статусы</option>
+              <option value="new">Новые</option>
+              <option value="assessment">Оценка</option>
+              <option value="analysis">Анализ</option>
+              <option value="documents">Документы</option>
+              <option value="freeze">Заморозка</option>
+              <option value="legal">Судебное</option>
+              <option value="closed_won">Закрыто ✓</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap" id="cases-table">
+          <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE DETAIL (modal-like page) -->
+    <div id="page-case-detail" class="hidden">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+        <button class="btn-sm ghost" onclick="showPage('cases')">← Назад</button>
+        <div class="page-title" style="margin:0" id="detail-case-title">Дело</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem" id="detail-grid">
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+          <!-- Status control -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Управление делом</div>
+              <div id="detail-status-badge"></div>
+            </div>
+            <div class="card-body">
+              <div class="form-row" style="margin-bottom:1rem">
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Изменить статус</label>
+                  <select class="form-input" id="detail-status-select">
+                    <option value="new">Новое обращение</option>
+                    <option value="assessment">Оценка</option>
+                    <option value="analysis">Блокчейн-анализ</option>
+                    <option value="documents">Подготовка документов</option>
+                    <option value="freeze">Заморозка активов</option>
+                    <option value="legal">Судебное сопровождение</option>
+                    <option value="closed_won">Закрыто — успешно</option>
+                    <option value="closed_lost">Закрыто — без результата</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Назначить специалиста</label>
+                  <select class="form-input" id="detail-specialist-select">
+                    <option value="">Не назначен</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Заметка к изменению (необязательно)</label>
+                <input class="form-input" id="detail-note" placeholder="Например: получен ответ от Binance...">
+              </div>
+              <div id="detail-alert" class="alert"></div>
+              <button class="btn primary" onclick="updateCase()">Сохранить изменения</button>
+            </div>
+          </div>
+
+          <!-- Send document -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Загрузить документ клиенту</div></div>
+            <div class="card-body">
+              <div class="form-row" style="margin-bottom:.8rem">
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Категория</label>
+                  <select class="form-input" id="admin-doc-cat">
+                    <option value="contract">Договор</option>
+                    <option value="report">Блокчейн-отчёт</option>
+                    <option value="police">Заявление в полицию</option>
+                    <option value="other">Другое</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Название</label>
+                  <input class="form-input" id="admin-doc-name" placeholder="Договор об оказании услуг">
+                </div>
+              </div>
+              <div class="file-drop" onclick="document.getElementById('admin-file').click()">
+                <div style="font-size:1.5rem">📎</div>
+                <p>Нажмите для выбора файла</p>
+              </div>
+              <input type="file" id="admin-file" style="display:none" onchange="adminUploadDoc(this.files[0])">
+              <div id="admin-upload-progress" class="hidden" style="margin-top:.8rem;font-size:13px;color:var(--text2);display:flex;gap:.5rem;align-items:center"><div class="spinner"></div><span id="admin-upload-status"></span></div>
+            </div>
+          </div>
+
+          <!-- Create invoice -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Выставить инвойс</div></div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Описание услуги</label>
+                  <input class="form-input" id="inv-desc" placeholder="Блокчейн-анализ">
+                </div>
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Сумма (USD)</label>
+                  <input class="form-input" id="inv-amount" type="number" placeholder="300">
+                </div>
+              </div>
+              <div class="form-row" style="margin-top:.8rem">
+                <div class="form-group" style="margin:0">
+                  <label class="form-label">Срок оплаты</label>
+                  <input class="form-input" id="inv-due" type="date">
+                </div>
+                <div style="display:flex;align-items:flex-end">
+                  <button class="btn primary" style="width:100%" onclick="createInvoice()">Выставить инвойс</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documents list -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Документы по делу</div></div>
+            <div id="admin-docs-list" class="card-body">
+              <div class="empty-state"><div class="icon">📄</div><p>Нет документов</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+          <!-- Case info -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Информация</div></div>
+            <div class="card-body" id="detail-info" style="display:flex;flex-direction:column;gap:.8rem"></div>
+          </div>
+
+          <!-- Invoices -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Инвойсы</div></div>
+            <div id="detail-invoices" class="card-body">
+              <div class="empty-state"><div class="icon">💳</div><p>Нет инвойсов</p></div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">История</div></div>
+            <div class="card-body" style="max-height:400px;overflow-y:auto">
+              <div class="timeline" id="detail-timeline">
+                <div class="empty-state"><p>Пусто</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Messages preview -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Сообщения</div>
+              <button class="btn-sm primary" onclick="showPage('messages')">Открыть чат</button>
+            </div>
+            <div id="detail-msgs-preview" class="card-body">
+              <div class="empty-state"><p>Нет сообщений</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW CASE PAGE -->
+    <div id="page-new-case" class="hidden">
+      <div class="page-title">➕ Создать дело</div>
+      <div class="page-sub">Создайте дело для клиента после консультации.</div>
+      <div id="new-case-alert" class="alert"></div>
+      <div class="card" style="max-width:680px">
+        <div class="card-header"><div class="card-title">Новое дело</div></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Email клиента *</label>
+            <input class="form-input" id="nc-email" type="email" placeholder="client@email.com">
+            <div style="font-size:11px;color:var(--text3);margin-top:.3rem">Клиент должен быть зарегистрирован в портале</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Тип мошенничества *</label>
+              <select class="form-input" id="nc-type">
+                <option value="fake_broker">Фейковый брокер</option>
+                <option value="romance_scam">Romance scam</option>
+                <option value="pig_butchering">Pig Butchering</option>
+                <option value="nft_scam">NFT / Token scam</option>
+                <option value="wallet_drain">Wallet drain</option>
+                <option value="corporate">Корпоративное</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Сумма потерь (USD) *</label>
+              <input class="form-input" id="nc-amount" type="number" placeholder="15000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Назначить специалиста</label>
+              <select class="form-input" id="nc-specialist">
+                <option value="">Не назначать</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Начальный статус</label>
+              <select class="form-input" id="nc-status">
+                <option value="assessment">Оценка</option>
+                <option value="analysis">Блокчейн-анализ</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea class="form-input" id="nc-desc" placeholder="Краткое описание ситуации клиента..."></textarea>
+          </div>
+          <button class="btn primary" onclick="createCase()">Создать дело →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES PAGE (admin) -->
+    <div id="page-messages" class="hidden">
+      <div class="page-title">💬 Сообщения</div>
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:1.5rem;height:calc(100vh - 200px)">
+        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+          <div class="card-header"><div class="card-title">Дела</div></div>
+          <div id="admin-cases-list" style="overflow-y:auto;flex:1"></div>
+        </div>
+        <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+          <div class="card-header"><div class="card-title" id="chat-case-title">Выберите дело</div></div>
+          <div class="card-body" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+            <div class="messages-wrap" id="admin-messages-wrap" style="flex:1">
+              <div class="empty-state"><p>Выберите дело для просмотра сообщений</p></div>
+            </div>
+            <div class="msg-input-row" id="admin-msg-row" style="display:none">
+              <input class="msg-input" id="admin-msg-input" placeholder="Ответить клиенту..." onkeydown="if(event.key==='Enter')adminSendMessage()">
+              <button class="btn primary" onclick="adminSendMessage()">Отправить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIALISTS PAGE -->
+    <div id="page-specialists" class="hidden">
+      <div class="page-title">👤 Специалисты</div>
+      <div class="page-sub">Управление командой.</div>
+      <div id="specialists-list">
+        <div style="padding:2rem;text-align:center"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://rntlijrlvqgdxtkacjwp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJudGxpanJsdnFnZHh0a2FjandwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMjk0MDUsImV4cCI6MjA5MTkwNTQwNX0.K0NIVKYW8QzTQKTkG7r0h2MQnHTDGd1LleRscBm8n3M';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let adminUser = null;
+let activeCaseId = null;
+let selectedChatCaseId = null;
+const statusLabels = {new:'Новое',assessment:'Оценка',analysis:'Блокчейн-анализ',documents:'Документы',freeze:'Заморозка',legal:'Судебное',closed_won:'Закрыто ✓',closed_lost:'Закрыто'};
+const fraudLabels = {fake_broker:'Фейковый брокер',romance_scam:'Romance scam',pig_butchering:'Pig Butchering',nft_scam:'NFT scam',wallet_drain:'Wallet drain',corporate:'Корпоративное'};
+
+async function init() {
+  const {data:{session}} = await sb.auth.getSession();
+  if(!session) { window.location.href = '/portal/login.html'; return; }
+  adminUser = session.user;
+
+  const {data:p} = await sb.from('profiles').select('*').eq('id', adminUser.id).single();
+  if(p?.role !== 'admin' && p?.role !== 'specialist') {
+    alert('Нет доступа к панели администратора');
+    window.location.href = '/portal/dashboard.html';
+    return;
+  }
+  document.getElementById('admin-name').textContent = p?.full_name || adminUser.email;
+  loadClients();
+  loadSpecialistsSelect();
+}
+
+async function loadClients() {
+  const {data} = await sb.from('profiles').select('*, cases(id,status,amount_lost,fraud_type,created_at)').eq('role','client').order('created_at',{ascending:false});
+  document.getElementById('clients-count').textContent = `${data?.length || 0} клиентов зарегистрировано`;
+  if(!data?.length) { document.getElementById('clients-table').innerHTML = '<div class="empty-state" style="padding:2rem"><p>Клиентов нет</p></div>'; return; }
+  document.getElementById('clients-table').innerHTML = `<table>
+    <thead><tr><th>Клиент</th><th>Email</th><th>Дел</th><th>Регистрация</th><th></th></tr></thead>
+    <tbody>${data.map(c=>`<tr>
+      <td><div style="font-weight:500;color:var(--text)">${c.full_name||'—'}</div></td>
+      <td>${c.email}</td>
+      <td>${c.cases?.length||0}</td>
+      <td>${new Date(c.created_at).toLocaleDateString('ru-RU')}</td>
+      <td>${c.cases?.length ? `<button class="btn-sm primary" onclick="openCase('${c.cases[0].id}')">Открыть дело</button>` : `<button class="btn-sm ghost" onclick="prefillNewCase('${c.email}')">Создать дело</button>`}</td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+async function loadCases() {
+  const filter = document.getElementById('cases-filter').value;
+  let q = sb.from('cases').select('*, profiles!client_id(full_name,email), specialists(name)').order('created_at',{ascending:false});
+  if(filter) q = q.eq('status', filter);
+  const {data} = await q;
+  if(!data?.length) { document.getElementById('cases-table').innerHTML = '<div class="empty-state" style="padding:2rem"><p>Дел нет</p></div>'; return; }
+  document.getElementById('cases-table').innerHTML = `<table>
+    <thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th></th></tr></thead>
+    <tbody>${data.map(c=>`<tr>
+      <td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td>
+      <td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td>
+      <td>${fraudLabels[c.fraud_type]||c.fraud_type}</td>
+      <td style="font-weight:600;color:var(--red)">$${Number(c.amount_lost).toLocaleString()}</td>
+      <td><span class="status-badge s-${c.status}">${statusLabels[c.status]}</span></td>
+      <td>${c.specialists?.name||'<span style="color:var(--text3)">Не назначен</span>'}</td>
+      <td><button class="btn-sm primary" onclick="openCase('${c.id}')">Открыть</button></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+async function openCase(caseId) {
+  activeCaseId = caseId;
+  const {data:c} = await sb.from('cases').select('*, profiles!client_id(full_name,email,phone), specialists(*)').eq('id',caseId).single();
+  if(!c) return;
+
+  document.getElementById('detail-case-title').textContent = c.case_number;
+  document.getElementById('detail-status-badge').innerHTML = `<span class="status-badge s-${c.status}">${statusLabels[c.status]}</span>`;
+  document.getElementById('detail-status-select').value = c.status;
+  document.getElementById('detail-specialist-select').value = c.specialist_id || '';
+
+  document.getElementById('detail-info').innerHTML = [
+    ['Номер дела', `<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
+    ['Клиент', `${c.profiles?.full_name||'—'}<br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
+    ['Телефон', c.profiles?.phone || '—'],
+    ['Тип мошенничества', fraudLabels[c.fraud_type]||c.fraud_type],
+    ['Сумма потерь', `<span style="color:var(--red);font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()}</span>`],
+    ['Дата открытия', new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
+  ].map(([l,v])=>`<div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
+
+  loadDetailTimeline(caseId);
+  loadDetailDocs(caseId);
+  loadDetailInvoices(caseId);
+
+  showPage('case-detail');
+}
+
+async function updateCase() {
+  const status = document.getElementById('detail-status-select').value;
+  const specialist_id = document.getElementById('detail-specialist-select').value || null;
+  const note = document.getElementById('detail-note').value.trim();
+  const btn = event.target;
+  btn.textContent = '...'; btn.disabled = true;
+
+  const {data:oldCase} = await sb.from('cases').select('status').eq('id',activeCaseId).single();
+  await sb.from('cases').update({status, specialist_id}).eq('id', activeCaseId);
+
+  if(oldCase.status !== status) {
+    await sb.from('case_timeline').insert({
+      case_id: activeCaseId,
+      author_name: document.getElementById('admin-name').textContent,
+      type: 'status_change',
+      title: `Статус изменён: ${statusLabels[oldCase.status]} → ${statusLabels[status]}`,
+      content: note || null
+    });
+  } else if(note) {
+    await sb.from('case_timeline').insert({
+      case_id: activeCaseId,
+      author_name: document.getElementById('admin-name').textContent,
+      type: 'note',
+      title: 'Заметка',
+      content: note
+    });
+  }
+
+  const a = document.getElementById('detail-alert');
+  a.textContent = '✓ Сохранено'; a.className='alert show success';
+  document.getElementById('detail-note').value = '';
+  btn.textContent = 'Сохранить изменения'; btn.disabled = false;
+  setTimeout(()=>a.className='alert',3000);
+  loadDetailTimeline(activeCaseId);
+}
+
+async function createInvoice() {
+  const desc = document.getElementById('inv-desc').value.trim();
+  const amount = parseFloat(document.getElementById('inv-amount').value);
+  const due = document.getElementById('inv-due').value;
+  if(!desc || !amount) return;
+
+  await sb.from('invoices').insert({
+    case_id: activeCaseId,
+    description: desc,
+    amount,
+    due_date: due || null
+  });
+  await sb.from('case_timeline').insert({
+    case_id: activeCaseId,
+    author_name: document.getElementById('admin-name').textContent,
+    type: 'invoice',
+    title: `Выставлен инвойс: ${desc}`,
+    content: `Сумма: $${amount}`
+  });
+  document.getElementById('inv-desc').value='';
+  document.getElementById('inv-amount').value='';
+  loadDetailInvoices(activeCaseId);
+  loadDetailTimeline(activeCaseId);
+}
+
+async function adminUploadDoc(file) {
+  if(!file || !activeCaseId) return;
+  const prog = document.getElementById('admin-upload-progress');
+  const status = document.getElementById('admin-upload-status');
+  prog.classList.remove('hidden'); prog.style.display='flex';
+  status.textContent = 'Загрузка...';
+
+  const ext = file.name.split('.').pop();
+  const path = `${activeCaseId}/admin_${Date.now()}.${ext}`;
+  const {error} = await sb.storage.from('case-documents').upload(path, file);
+  if(error) { status.textContent = 'Ошибка: '+error.message; return; }
+
+  const name = document.getElementById('admin-doc-name').value || file.name;
+  const category = document.getElementById('admin-doc-cat').value;
+  await sb.from('documents').insert({case_id:activeCaseId, uploaded_by:adminUser.id, name, file_path:path, file_size:file.size, file_type:file.type, category});
+  await sb.from('case_timeline').insert({case_id:activeCaseId, author_name:document.getElementById('admin-name').textContent, type:'document', title:`Загружен документ: ${name}`});
+
+  prog.style.display='none';
+  document.getElementById('admin-doc-name').value='';
+  document.getElementById('admin-file').value='';
+  loadDetailDocs(activeCaseId);
+  loadDetailTimeline(activeCaseId);
+}
+
+async function loadDetailDocs(cid) {
+  const {data} = await sb.from('documents').select('*').eq('case_id',cid).order('created_at',{ascending:false});
+  const catL = {evidence:'Доказательства',contract:'Договор',report:'Отчёт',invoice:'Инвойс',police:'Заявление',other:'Другое'};
+  if(!data?.length) return;
+  document.getElementById('admin-docs-list').innerHTML = `<table style="margin:-1rem"><thead><tr><th>Файл</th><th>Категория</th><th>Загрузил</th><th></th></tr></thead><tbody>${data.map(d=>`<tr><td>${d.name}</td><td>${catL[d.category]||d.category}</td><td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn-sm ghost" onclick="adminDownload('${d.file_path}','${d.name}')">↓</button></td></tr>`).join('')}</tbody></table>`;
+}
+
+async function loadDetailInvoices(cid) {
+  const {data} = await sb.from('invoices').select('*').eq('case_id',cid).order('created_at',{ascending:false});
+  if(!data?.length) return;
+  document.getElementById('detail-invoices').innerHTML = data.map(inv=>`
+    <div style="padding:.7rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:12px;color:var(--text2)">${inv.description}</div>
+      <div style="font-size:11px;color:var(--text3)">${inv.invoice_number}</div></div>
+      <div style="text-align:right">
+        <div style="font-weight:700;font-family:var(--fd)">$${Number(inv.amount).toLocaleString()}</div>
+        <button class="btn-sm ${inv.status==='pending'?'primary':'ghost'}" onclick="markPaid('${inv.id}')" ${inv.status==='paid'?'disabled':''}>${inv.status==='paid'?'✓ Оплачено':'Отметить оплаченным'}</button>
+      </div>
+    </div>`).join('');
+}
+
+async function markPaid(invId) {
+  await sb.from('invoices').update({status:'paid'}).eq('id',invId);
+  loadDetailInvoices(activeCaseId);
+}
+
+async function loadDetailTimeline(cid) {
+  const {data} = await sb.from('case_timeline').select('*').eq('case_id',cid).order('created_at',{ascending:false}).limit(10);
+  const icons = {status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
+  if(!data?.length) return;
+  document.getElementById('detail-timeline').innerHTML = data.map(e=>`
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot" style="background:var(--dark3)">${icons[e.type]||'•'}</div></div>
+      <div class="tl-content">
+        <div class="tl-title">${e.title}</div>
+        ${e.content?`<div class="tl-text">${e.content}</div>`:''}
+        <div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function loadSpecialistsSelect() {
+  const {data} = await sb.from('specialists').select('*').order('name');
+  const opts = data?.map(s=>`<option value="${s.id}">${s.name} — ${s.role}</option>`).join('') || '';
+  ['detail-specialist-select','nc-specialist'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.innerHTML += opts;
+  });
+  if(document.getElementById('specialists-list')) {
+    document.getElementById('specialists-list').innerHTML = data?.length ?
+      `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">${data.map(s=>`
+        <div class="card"><div class="card-body">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--blue3);margin-bottom:1rem">${s.name[0]}</div>
+          <div style="font-family:var(--fd);font-weight:700;color:var(--text)">${s.name}</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:.2rem">${s.role}</div>
+          ${s.email?`<div style="font-size:12px;color:var(--text2);margin-top:.5rem">${s.email}</div>`:''}
+        </div></div>`).join('')}</div>` :
+      '<div class="empty-state"><p>Специалистов нет</p></div>';
+  }
+}
+
+async function createCase() {
+  const email = document.getElementById('nc-email').value.trim();
+  const fraud_type = document.getElementById('nc-type').value;
+  const amount_lost = parseFloat(document.getElementById('nc-amount').value);
+  const specialist_id = document.getElementById('nc-specialist').value || null;
+  const status = document.getElementById('nc-status').value;
+  const description = document.getElementById('nc-desc').value.trim();
+
+  if(!email || !amount_lost) return showNewCaseAlert('Заполните обязательные поля');
+
+  const {data:client} = await sb.from('profiles').select('id').eq('email',email).eq('role','client').single();
+  if(!client) return showNewCaseAlert('Клиент с таким email не найден. Попросите его зарегистрироваться.');
+
+  const {error} = await sb.from('cases').insert({client_id:client.id, fraud_type, amount_lost, specialist_id, status, description});
+  if(error) return showNewCaseAlert('Ошибка: ' + error.message);
+
+  await sb.from('case_timeline').insert({
+    case_id: (await sb.from('cases').select('id').eq('client_id',client.id).order('created_at',{ascending:false}).limit(1)).data[0].id,
+    author_name: document.getElementById('admin-name').textContent,
+    type: 'status_change',
+    title: 'Дело открыто',
+    content: description || null
+  });
+  showNewCaseAlert('✓ Дело создано!', 'success');
+  ['nc-email','nc-amount','nc-desc'].forEach(id=>document.getElementById(id).value='');
+}
+function showNewCaseAlert(msg,type='error'){const a=document.getElementById('new-case-alert');a.textContent=msg;a.className='alert show '+type;setTimeout(()=>a.className='alert',4000);}
+
+async function adminDownload(path, name) {
+  const {data} = await sb.storage.from('case-documents').createSignedUrl(path, 60);
+  if(data?.signedUrl){const a=document.createElement('a');a.href=data.signedUrl;a.download=name;a.click();}
+}
+
+function prefillNewCase(email) {
+  document.getElementById('nc-email').value = email;
+  showPage('new-case');
+}
+
+// Admin messages
+async function loadAdminCases() {
+  const {data} = await sb.from('cases').select('id,case_number,profiles!client_id(full_name)').order('created_at',{ascending:false});
+  if(!data?.length) return;
+  document.getElementById('admin-cases-list').innerHTML = data.map(c=>`
+    <button onclick="openAdminChat('${c.id}','${c.case_number}')" class="sidebar-link" style="padding:.8rem 1rem;border-radius:0;border-bottom:1px solid var(--border)">
+      <div style="text-align:left"><div style="font-family:var(--fd);font-weight:700;color:var(--blue3)">${c.case_number}</div>
+      <div style="font-size:12px;color:var(--text2)">${c.profiles?.full_name||'Клиент'}</div></div>
+    </button>`).join('');
+}
+
+async function openAdminChat(caseId, caseNum) {
+  selectedChatCaseId = caseId;
+  document.getElementById('chat-case-title').textContent = caseNum;
+  document.getElementById('admin-msg-row').style.display='flex';
+  await loadAdminMessages(caseId);
+}
+
+async function loadAdminMessages(caseId) {
+  const {data} = await sb.from('messages').select('*').eq('case_id',caseId).order('created_at',{ascending:true});
+  if(!data?.length) return;
+  document.getElementById('admin-messages-wrap').innerHTML = data.map(m=>`
+    <div class="message ${m.is_admin ? 'mine' : 'theirs'}">
+      <div class="message-bubble">${m.content}</div>
+      <div class="message-meta">${m.sender_name||''} · ${new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</div>
+    </div>`).join('');
+  const w=document.getElementById('admin-messages-wrap');w.scrollTop=w.scrollHeight;
+}
+
+async function adminSendMessage() {
+  const input = document.getElementById('admin-msg-input');
+  const content = input.value.trim();
+  if(!content || !selectedChatCaseId) return;
+  input.value='';
+  const {data:p} = await sb.from('profiles').select('full_name').eq('id',adminUser.id).single();
+  await sb.from('messages').insert({case_id:selectedChatCaseId, sender_id:adminUser.id, sender_name:p?.full_name||'Специалист', content, is_admin:true});
+  loadAdminMessages(selectedChatCaseId);
+}
+
+function showPage(page) {
+  document.querySelectorAll('[id^="page-"]').forEach(el=>el.classList.add('hidden'));
+  document.getElementById('page-'+page).classList.remove('hidden');
+  document.querySelectorAll('.sidebar-link').forEach(el=>el.classList.remove('active'));
+  if(page==='cases') loadCases();
+  if(page==='messages') loadAdminCases();
+  if(page==='specialists') loadSpecialistsSelect();
+}
+
+async function logout(){await sb.auth.signOut();window.location.href='/portal/login.html';}
+init();
+</script>
+</body>
+</html>

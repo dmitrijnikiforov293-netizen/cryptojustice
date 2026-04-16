@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;
+  --surface:#1e1e30;--surface2:#252538;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;
+  --cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;min-height:100vh}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
+button{cursor:pointer;font-family:var(--fb)}
+input,select,textarea{font-family:var(--fb)}
+.hidden{display:none!important}
+
+/* ── PORTAL NAV ── */
+.portal-nav{position:fixed;top:0;left:0;right:0;z-index:99;height:60px;background:rgba(10,10,15,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.portal-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.portal-logo span{color:var(--cyan2)}
+.portal-logo-badge{font-size:10px;font-weight:600;color:var(--blue3);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+.nav-user{display:flex;align-items:center;gap:.8rem}
+.nav-user-name{font-size:13px;color:var(--text2)}
+.btn-sm{font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;transition:all .2s}
+.btn-sm.primary{background:var(--blue);color:#fff}
+.btn-sm.primary:hover{background:var(--blue2)}
+.btn-sm.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-sm.ghost:hover{border-color:var(--blue3);color:var(--text)}
+.btn-sm.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+
+/* ── PORTAL LAYOUT ── */
+.portal-wrap{display:flex;min-height:100vh;padding-top:60px}
+.portal-sidebar{width:220px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);padding:1.5rem 0;position:fixed;top:60px;bottom:0;overflow-y:auto}
+.sidebar-section{padding:0 .75rem;margin-bottom:1.5rem}
+.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.5rem .75rem;margin-bottom:.3rem}
+.sidebar-link{display:flex;align-items:center;gap:.7rem;padding:.65rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
+.sidebar-link:hover{background:var(--dark3);color:var(--text)}
+.sidebar-link.active{background:rgba(37,99,235,.15);color:var(--blue3)}
+.sidebar-link .icon{font-size:15px;width:20px;text-align:center}
+.sidebar-link .badge{margin-left:auto;font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:100px;font-weight:700}
+.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px}
+
+/* ── CARDS & PANELS ── */
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.card-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text)}
+.card-body{padding:1.5rem}
+.page-title{font-family:var(--fd);font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem}
+.page-title span{color:var(--cyan2)}
+.page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
+
+/* ── STATUS BADGES ── */
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase}
+.status-badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.s-new{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}.s-new::before{background:#94a3b8}
+.s-assessment{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}.s-assessment::before{background:#fbbf24}
+.s-analysis{background:rgba(37,99,235,.1);color:#60a5fa;border:1px solid rgba(37,99,235,.2)}.s-analysis::before{background:#60a5fa}
+.s-documents{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}.s-documents::before{background:#a78bfa}
+.s-freeze{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}.s-freeze::before{background:#22d3ee}
+.s-legal{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}.s-legal::before{background:#fb923c}
+.s-closed_won{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}.s-closed_won::before{background:#34d399}
+.s-closed_lost{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2)}.s-closed_lost::before{background:#f87171}
+
+/* ── PROGRESS BAR ── */
+.progress-steps{display:flex;align-items:center;gap:0;margin:1.5rem 0}
+.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.progress-step::before{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border2);z-index:0}
+.progress-step:last-child::before{display:none}
+.progress-step.done::before,.progress-step.active::before{background:var(--blue)}
+.ps-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);position:relative;z-index:1;transition:all .3s}
+.progress-step.done .ps-dot{background:var(--blue);border-color:var(--blue);color:#fff}
+.progress-step.active .ps-dot{background:transparent;border-color:var(--blue2);color:var(--blue3);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.ps-label{font-size:10px;color:var(--text3);margin-top:.4rem;text-align:center;letter-spacing:.03em;max-width:80px}
+.progress-step.done .ps-label,.progress-step.active .ps-label{color:var(--text2)}
+
+/* ── FORMS ── */
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.form-input{background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
+.form-input:focus{border-color:var(--blue2)}
+.form-input::placeholder{color:var(--text3)}
+select.form-input{appearance:none;cursor:pointer}
+select.form-input option{background:var(--dark2)}
+textarea.form-input{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn{font-family:var(--fb);font-size:14px;font-weight:600;padding:11px 22px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue2)}
+.btn.outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn.outline:hover{border-color:var(--blue3);color:var(--blue3)}
+.btn.success{background:var(--green);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.loading{opacity:.7;pointer-events:none}
+
+/* ── TABLES ── */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:left}
+td{padding:.9rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,.02)}
+tr:last-child td{border-bottom:none}
+
+/* ── ALERT ── */
+.alert{padding:1rem 1.2rem;border-radius:8px;font-size:13px;margin-bottom:1rem;display:none}
+.alert.show{display:block}
+.alert.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.alert.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.alert.info{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue3)}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:3rem 2rem;color:var(--text3)}
+.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* ── FILE UPLOAD ── */
+.file-drop{border:2px dashed var(--border2);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--dark3)}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue2);background:rgba(37,99,235,.05)}
+.file-drop p{font-size:13px;color:var(--text3);margin-top:.5rem}
+
+/* ── SPINNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+
+/* ── CHAT ── */
+.messages-wrap{display:flex;flex-direction:column;gap:.8rem;max-height:400px;overflow-y:auto;padding:.5rem 0}
+.message{max-width:80%;display:flex;flex-direction:column;gap:.2rem}
+.message.mine{align-self:flex-end;align-items:flex-end}
+.message.theirs{align-self:flex-start}
+.message-bubble{padding:.7rem 1rem;border-radius:12px;font-size:13px;line-height:1.5}
+.message.mine .message-bubble{background:rgba(37,99,235,.3);color:var(--text);border-radius:12px 12px 2px 12px}
+.message.theirs .message-bubble{background:var(--dark3);color:var(--text);border-radius:12px 12px 12px 2px}
+.message-meta{font-size:10px;color:var(--text3)}
+.msg-input-row{display:flex;gap:.5rem;margin-top:1rem}
+.msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+.msg-input:focus{border-color:var(--blue2)}
+
+/* ── INVOICE ── */
+.invoice-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.invoice-amount{font-family:var(--fd);font-size:1.2rem;font-weight:700}
+.invoice-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;text-transform:uppercase}
+.inv-pending{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.inv-paid{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.inv-cancelled{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.tl-line{width:1px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
+.tl-content{flex:1;padding-bottom:.5rem}
+.tl-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.tl-text{font-size:12px;color:var(--text2);line-height:1.5}
+.tl-date{font-size:11px;color:var(--text3);margin-top:.3rem}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-box{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.2rem;position:relative;overflow:hidden}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
+.stat-box-num{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-.03em}
+.stat-box-num span{color:var(--cyan2)}
+.stat-box-label{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .portal-sidebar{display:none}
+  .portal-main{margin-left:0;padding:1rem}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .progress-steps{overflow-x:auto}
+}
+</style>
+<title>Войти — CryptoJustice Portal</title>
+<style>
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--black);position:relative;overflow:hidden}
+.auth-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(37,99,235,.12) 0%,transparent 70%)}
+.auth-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%)}
+.auth-card{background:var(--dark2);border:1px solid var(--border2);border-radius:16px;padding:2.5rem;width:100%;max-width:440px;position:relative;z-index:1}
+.auth-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:20px;font-weight:700;color:var(--text);margin-bottom:2rem;justify-content:center}
+.auth-logo span{color:var(--cyan2)}
+.auth-tabs{display:flex;gap:0;margin-bottom:2rem;background:var(--dark3);border-radius:8px;padding:3px}
+.auth-tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;border-radius:6px;transition:all .2s;border:none;background:transparent}
+.auth-tab.active{background:var(--dark2);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.auth-title{font-family:var(--fd);font-size:1.4rem;font-weight:700;margin-bottom:.4rem}
+.auth-sub{font-size:13px;color:var(--text2);margin-bottom:1.8rem;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-bg"></div>
+  <div class="auth-grid"></div>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+        <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+        <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
+      </svg>
+      Crypto<span>Justice</span>
+      <span style="font-size:10px;color:var(--blue3);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em;font-weight:600">PORTAL</span>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Войти</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Регистрация</button>
+    </div>
+
+    <div id="alert" class="alert"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="form-login">
+      <div class="auth-title">Добро пожаловать</div>
+      <div class="auth-sub">Войдите в личный кабинет для управления вашим делом</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="login-email" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input class="form-input" id="login-password" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn primary" style="width:100%;margin-top:.5rem" onclick="login()" id="btn-login">
+        Войти →
+      </button>
+      <div style="text-align:center;margin-top:1rem">
+        <a href="#" onclick="showReset()" style="font-size:12px;color:var(--text3)">Забыли пароль?</a>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="form-register" class="hidden">
+      <div class="auth-title">Создать аккаунт</div>
+      <div class="auth-sub">Уже подали заявку? Создайте кабинет чтобы отслеживать ваше дело.</div>
+      <div class="form-group">
+        <label class="form-label">Полное имя</label>
+        <input class="form-input" id="reg-name" type="text" placeholder="Иван Петров">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reg-email" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Пароль (минимум 6 символов)</label>
+        <input class="form-input" id="reg-password" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn primary" style="width:100%;margin-top:.5rem" onclick="register()" id="btn-register">
+        Создать аккаунт →
+      </button>
+    </div>
+
+    <!-- RESET FORM -->
+    <div id="form-reset" class="hidden">
+      <div class="auth-title">Сброс пароля</div>
+      <div class="auth-sub">Введите email — мы отправим ссылку для сброса пароля.</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reset-email" type="email" placeholder="your@email.com">
+      </div>
+      <button class="btn primary" style="width:100%" onclick="resetPassword()" id="btn-reset">
+        Отправить письмо →
+      </button>
+      <div style="text-align:center;margin-top:1rem">
+        <a href="#" onclick="switchTab('login')" style="font-size:12px;color:var(--text3)">← Назад</a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <a href="/" style="font-size:12px;color:var(--text3)">← Вернуться на сайт</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://rntlijrlvqgdxtkacjwp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJudGxpanJsdnFnZHh0a2FjandwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMjk0MDUsImV4cCI6MjA5MTkwNTQwNX0.K0NIVKYW8QzTQKTkG7r0h2MQnHTDGd1LleRscBm8n3M';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Redirect if already logged in
+sb.auth.getSession().then(({data}) => {
+  if(data.session) window.location.href = '/portal/dashboard.html';
+});
+
+function switchTab(tab) {
+  document.getElementById('form-login').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('form-register').classList.toggle('hidden', tab !== 'register');
+  document.getElementById('form-reset').classList.toggle('hidden', tab !== 'reset');
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  hideAlert();
+}
+function showReset() {
+  document.getElementById('form-login').classList.add('hidden');
+  document.getElementById('form-reset').classList.remove('hidden');
+  document.getElementById('tab-login').classList.remove('active');
+}
+function showAlert(msg, type='error') {
+  const a = document.getElementById('alert');
+  a.textContent = msg;
+  a.className = 'alert show ' + type;
+}
+function hideAlert() {
+  document.getElementById('alert').className = 'alert';
+}
+
+async function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if(!email || !password) return showAlert('Заполните все поля');
+  const btn = document.getElementById('btn-login');
+  btn.textContent = '...'; btn.disabled = true;
+  const {error} = await sb.auth.signInWithPassword({email, password});
+  if(error) { showAlert(error.message); btn.textContent = 'Войти →'; btn.disabled = false; }
+  else window.location.href = '/portal/dashboard.html';
+}
+
+async function register() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  if(!name || !email || !password) return showAlert('Заполните все поля');
+  if(password.length < 6) return showAlert('Пароль минимум 6 символов');
+  const btn = document.getElementById('btn-register');
+  btn.textContent = '...'; btn.disabled = true;
+  const {error} = await sb.auth.signUp({
+    email, password,
+    options: {data: {full_name: name}}
+  });
+  if(error) { showAlert(error.message); btn.textContent = 'Создать аккаунт →'; btn.disabled = false; }
+  else showAlert('✓ Аккаунт создан! Проверьте email для подтверждения.', 'success');
+}
+
+async function resetPassword() {
+  const email = document.getElementById('reset-email').value.trim();
+  if(!email) return showAlert('Введите email');
+  const btn = document.getElementById('btn-reset');
+  btn.textContent = '...'; btn.disabled = true;
+  const {error} = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/portal/reset-confirm.html'
+  });
+  if(error) { showAlert(error.message); }
+  else showAlert('✓ Письмо отправлено. Проверьте inbox.', 'success');
+  btn.textContent = 'Отправить письмо →'; btn.disabled = false;
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter') {
+    if(!document.getElementById('form-login').classList.contains('hidden')) login();
+    else if(!document.getElementById('form-register').classList.contains('hidden')) register();
+  }
+});
+</script>
+</body>
+</html>

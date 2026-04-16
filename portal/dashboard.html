@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;
+  --surface:#1e1e30;--surface2:#252538;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;
+  --cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;min-height:100vh}
+a{color:var(--blue3);text-decoration:none}
+a:hover{color:var(--cyan2)}
+button{cursor:pointer;font-family:var(--fb)}
+input,select,textarea{font-family:var(--fb)}
+.hidden{display:none!important}
+
+/* ── PORTAL NAV ── */
+.portal-nav{position:fixed;top:0;left:0;right:0;z-index:99;height:60px;background:rgba(10,10,15,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.portal-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.portal-logo span{color:var(--cyan2)}
+.portal-logo-badge{font-size:10px;font-weight:600;color:var(--blue3);border:1px solid rgba(37,99,235,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+.nav-user{display:flex;align-items:center;gap:.8rem}
+.nav-user-name{font-size:13px;color:var(--text2)}
+.btn-sm{font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;transition:all .2s}
+.btn-sm.primary{background:var(--blue);color:#fff}
+.btn-sm.primary:hover{background:var(--blue2)}
+.btn-sm.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-sm.ghost:hover{border-color:var(--blue3);color:var(--text)}
+.btn-sm.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+
+/* ── PORTAL LAYOUT ── */
+.portal-wrap{display:flex;min-height:100vh;padding-top:60px}
+.portal-sidebar{width:220px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);padding:1.5rem 0;position:fixed;top:60px;bottom:0;overflow-y:auto}
+.sidebar-section{padding:0 .75rem;margin-bottom:1.5rem}
+.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.5rem .75rem;margin-bottom:.3rem}
+.sidebar-link{display:flex;align-items:center;gap:.7rem;padding:.65rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
+.sidebar-link:hover{background:var(--dark3);color:var(--text)}
+.sidebar-link.active{background:rgba(37,99,235,.15);color:var(--blue3)}
+.sidebar-link .icon{font-size:15px;width:20px;text-align:center}
+.sidebar-link .badge{margin-left:auto;font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:100px;font-weight:700}
+.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px}
+
+/* ── CARDS & PANELS ── */
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.card-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--text)}
+.card-body{padding:1.5rem}
+.page-title{font-family:var(--fd);font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem}
+.page-title span{color:var(--cyan2)}
+.page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
+
+/* ── STATUS BADGES ── */
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase}
+.status-badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.s-new{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}.s-new::before{background:#94a3b8}
+.s-assessment{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}.s-assessment::before{background:#fbbf24}
+.s-analysis{background:rgba(37,99,235,.1);color:#60a5fa;border:1px solid rgba(37,99,235,.2)}.s-analysis::before{background:#60a5fa}
+.s-documents{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.2)}.s-documents::before{background:#a78bfa}
+.s-freeze{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2)}.s-freeze::before{background:#22d3ee}
+.s-legal{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)}.s-legal::before{background:#fb923c}
+.s-closed_won{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}.s-closed_won::before{background:#34d399}
+.s-closed_lost{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2)}.s-closed_lost::before{background:#f87171}
+
+/* ── PROGRESS BAR ── */
+.progress-steps{display:flex;align-items:center;gap:0;margin:1.5rem 0}
+.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.progress-step::before{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border2);z-index:0}
+.progress-step:last-child::before{display:none}
+.progress-step.done::before,.progress-step.active::before{background:var(--blue)}
+.ps-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);position:relative;z-index:1;transition:all .3s}
+.progress-step.done .ps-dot{background:var(--blue);border-color:var(--blue);color:#fff}
+.progress-step.active .ps-dot{background:transparent;border-color:var(--blue2);color:var(--blue3);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.ps-label{font-size:10px;color:var(--text3);margin-top:.4rem;text-align:center;letter-spacing:.03em;max-width:80px}
+.progress-step.done .ps-label,.progress-step.active .ps-label{color:var(--text2)}
+
+/* ── FORMS ── */
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.form-input{background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
+.form-input:focus{border-color:var(--blue2)}
+.form-input::placeholder{color:var(--text3)}
+select.form-input{appearance:none;cursor:pointer}
+select.form-input option{background:var(--dark2)}
+textarea.form-input{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn{font-family:var(--fb);font-size:14px;font-weight:600;padding:11px 22px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue2)}
+.btn.outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn.outline:hover{border-color:var(--blue3);color:var(--blue3)}
+.btn.success{background:var(--green);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.loading{opacity:.7;pointer-events:none}
+
+/* ── TABLES ── */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:left}
+td{padding:.9rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,.02)}
+tr:last-child td{border-bottom:none}
+
+/* ── ALERT ── */
+.alert{padding:1rem 1.2rem;border-radius:8px;font-size:13px;margin-bottom:1rem;display:none}
+.alert.show{display:block}
+.alert.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.alert.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
+.alert.info{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue3)}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:3rem 2rem;color:var(--text3)}
+.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* ── FILE UPLOAD ── */
+.file-drop{border:2px dashed var(--border2);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--dark3)}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue2);background:rgba(37,99,235,.05)}
+.file-drop p{font-size:13px;color:var(--text3);margin-top:.5rem}
+
+/* ── SPINNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+
+/* ── CHAT ── */
+.messages-wrap{display:flex;flex-direction:column;gap:.8rem;max-height:400px;overflow-y:auto;padding:.5rem 0}
+.message{max-width:80%;display:flex;flex-direction:column;gap:.2rem}
+.message.mine{align-self:flex-end;align-items:flex-end}
+.message.theirs{align-self:flex-start}
+.message-bubble{padding:.7rem 1rem;border-radius:12px;font-size:13px;line-height:1.5}
+.message.mine .message-bubble{background:rgba(37,99,235,.3);color:var(--text);border-radius:12px 12px 2px 12px}
+.message.theirs .message-bubble{background:var(--dark3);color:var(--text);border-radius:12px 12px 12px 2px}
+.message-meta{font-size:10px;color:var(--text3)}
+.msg-input-row{display:flex;gap:.5rem;margin-top:1rem}
+.msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+.msg-input:focus{border-color:var(--blue2)}
+
+/* ── INVOICE ── */
+.invoice-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.invoice-amount{font-family:var(--fd);font-size:1.2rem;font-weight:700}
+.invoice-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;text-transform:uppercase}
+.inv-pending{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.inv-paid{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.inv-cancelled{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.tl-line{width:1px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
+.tl-content{flex:1;padding-bottom:.5rem}
+.tl-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.tl-text{font-size:12px;color:var(--text2);line-height:1.5}
+.tl-date{font-size:11px;color:var(--text3);margin-top:.3rem}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-box{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.2rem;position:relative;overflow:hidden}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
+.stat-box-num{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-.03em}
+.stat-box-num span{color:var(--cyan2)}
+.stat-box-label{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .portal-sidebar{display:none}
+  .portal-main{margin-left:0;padding:1rem}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .progress-steps{overflow-x:auto}
+}
+</style>
+<title>Мой кабинет — CryptoJustice Portal</title>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="portal-nav">
+  <a href="/portal/dashboard.html" class="portal-logo">
+    <svg viewBox="0 0 32 32" width="24" height="24">
+      <polygon points="16,2 26,7.5 26,18.5 16,24 6,18.5 6,7.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+      <circle cx="16" cy="13" r="3.5" fill="#22d3ee"/>
+      <circle cx="16" cy="13" r="1.5" fill="#0a0a0f"/>
+    </svg>
+    Crypto<span>Justice</span>
+    <span class="portal-logo-badge">Portal</span>
+  </a>
+  <div class="nav-user">
+    <span class="nav-user-name" id="user-name">...</span>
+    <button class="btn-sm ghost" onclick="logout()">Выйти</button>
+  </div>
+</nav>
+
+<div class="portal-wrap">
+  <!-- SIDEBAR -->
+  <div class="portal-sidebar">
+    <div class="sidebar-label">Навигация</div>
+    <div class="sidebar-section">
+      <button class="sidebar-link active" onclick="showPage('overview')"><span class="icon">📊</span>Обзор</button>
+      <button class="sidebar-link" onclick="showPage('documents')"><span class="icon">📁</span>Документы<span class="badge" id="docs-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('invoices')"><span class="icon">💳</span>Инвойсы<span class="badge" id="inv-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon">💬</span>Сообщения<span class="badge" id="msg-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('timeline')"><span class="icon">📋</span>История</button>
+    </div>
+    <div class="sidebar-label">Аккаунт</div>
+    <div class="sidebar-section">
+      <button class="sidebar-link" onclick="showPage('settings')"><span class="icon">⚙️</span>Настройки</button>
+      <a class="sidebar-link" href="/"><span class="icon">🌐</span>На сайт</a>
+    </div>
+    <div id="sidebar-case-info" style="margin:1rem .75rem 0;padding:1rem;background:var(--dark3);border-radius:8px;font-size:12px;display:none">
+      <div style="color:var(--text3);margin-bottom:.4rem">Номер дела</div>
+      <div id="sidebar-case-num" style="font-family:var(--fd);font-weight:700;color:var(--blue3);font-size:13px"></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="portal-main">
+
+    <!-- OVERVIEW PAGE -->
+    <div id="page-overview">
+      <div id="no-case-banner" class="card" style="margin-bottom:2rem;display:none">
+        <div class="card-body" style="text-align:center;padding:3rem 2rem">
+          <div style="font-size:2.5rem;margin-bottom:1rem">📋</div>
+          <div style="font-family:var(--fd);font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Дело ещё не создано</div>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;max-width:400px;margin-left:auto;margin-right:auto">Наш специалист создаст ваше дело после консультации. Если вы ещё не обращались — напишите нам.</div>
+          <a href="/#contact" class="btn primary">Написать нам →</a>
+        </div>
+      </div>
+
+      <div id="case-overview" class="hidden">
+        <div class="stats-row" id="stats-row">
+          <div class="stat-box">
+            <div class="stat-box-num" id="stat-amount">—</div>
+            <div class="stat-box-label">Сумма потерь</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" id="stat-docs">0</div>
+            <div class="stat-box-label">Документов</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" id="stat-inv">0</div>
+            <div class="stat-box-label">Инвойсов</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" id="stat-days">0</div>
+            <div class="stat-box-label">Дней в работе</div>
+          </div>
+        </div>
+
+        <!-- Case Status Card -->
+        <div class="card" style="margin-bottom:1.5rem">
+          <div class="card-header">
+            <div class="card-title">Статус дела</div>
+            <div id="case-status-badge">—</div>
+          </div>
+          <div class="card-body">
+            <div class="progress-steps" id="progress-steps">
+              <div class="progress-step" id="ps-assessment"><div class="ps-dot">1</div><div class="ps-label">Оценка</div></div>
+              <div class="progress-step" id="ps-analysis"><div class="ps-dot">2</div><div class="ps-label">Анализ</div></div>
+              <div class="progress-step" id="ps-documents"><div class="ps-dot">3</div><div class="ps-label">Документы</div></div>
+              <div class="progress-step" id="ps-freeze"><div class="ps-dot">4</div><div class="ps-label">Заморозка</div></div>
+              <div class="progress-step" id="ps-legal"><div class="ps-dot">5</div><div class="ps-label">Суд</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case Info + Specialist -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem" id="case-info-grid">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Детали дела</div></div>
+            <div class="card-body">
+              <div style="display:flex;flex-direction:column;gap:.8rem">
+                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Номер дела</div><div id="detail-num" style="font-family:var(--fd);font-weight:700;color:var(--blue3)"></div></div>
+                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Тип мошенничества</div><div id="detail-type" style="font-size:13px"></div></div>
+                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Сумма потерь</div><div id="detail-amount" style="font-family:var(--fd);font-weight:700;color:var(--red);font-size:1.1rem"></div></div>
+                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Дата открытия</div><div id="detail-date" style="font-size:13px"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Ваш специалист</div></div>
+            <div class="card-body" id="specialist-card">
+              <div class="empty-state"><div class="icon">👤</div><p>Специалист будет назначен после начала работы по делу</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Documents -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Последние документы</div>
+            <button class="btn-sm ghost" onclick="showPage('documents')">Все документы</button>
+          </div>
+          <div class="card-body" id="recent-docs">
+            <div class="empty-state"><div class="icon">📄</div><p>Документов пока нет</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS PAGE -->
+    <div id="page-documents" class="hidden">
+      <div class="page-title">📁 Документы</div>
+      <div class="page-sub">Загружайте доказательства и скачивайте документы по вашему делу.</div>
+      <div id="alert-docs" class="alert"></div>
+
+      <!-- Upload -->
+      <div class="card" style="margin-bottom:1.5rem">
+        <div class="card-header"><div class="card-title">Загрузить документ</div></div>
+        <div class="card-body">
+          <div class="form-row" style="margin-bottom:1rem">
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Категория</label>
+              <select class="form-input" id="doc-category">
+                <option value="evidence">Доказательства</option>
+                <option value="police">Заявление в полицию</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Описание (необязательно)</label>
+              <input class="form-input" id="doc-name" placeholder="Переписка с мошенником">
+            </div>
+          </div>
+          <div class="file-drop" id="file-drop" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event)">
+            <div style="font-size:2rem">📎</div>
+            <p>Нажмите или перетащите файл сюда</p>
+            <p style="font-size:11px;margin-top:.3rem">PDF, DOCX, PNG, JPG, XLSX — до 50MB</p>
+          </div>
+          <input type="file" id="file-input" style="display:none" onchange="uploadFile(this.files[0])">
+          <div id="upload-progress" class="hidden" style="margin-top:.8rem">
+            <div style="display:flex;align-items:center;gap:.8rem;font-size:13px;color:var(--text2)">
+              <div class="spinner"></div>
+              <span id="upload-status">Загрузка...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documents list -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Все документы</div></div>
+        <div id="docs-list">
+          <div class="empty-state" style="padding:2rem"><div class="icon">📄</div><p>Документов пока нет</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVOICES PAGE -->
+    <div id="page-invoices" class="hidden">
+      <div class="page-title">💳 Инвойсы</div>
+      <div class="page-sub">Выставленные счета и история оплат.</div>
+      <div id="invoices-list">
+        <div class="empty-state" style="padding:3rem"><div class="icon">💳</div><p>Инвойсов пока нет</p></div>
+      </div>
+    </div>
+
+    <!-- MESSAGES PAGE -->
+    <div id="page-messages" class="hidden">
+      <div class="page-title">💬 Сообщения</div>
+      <div class="page-sub">Общайтесь со специалистом по вашему делу.</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="messages-wrap" id="messages-wrap">
+            <div class="empty-state"><div class="icon">💬</div><p>Сообщений пока нет. Напишите первым!</p></div>
+          </div>
+          <div class="msg-input-row">
+            <input class="msg-input" id="msg-input" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendMessage()">
+            <button class="btn primary" onclick="sendMessage()">Отправить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE PAGE -->
+    <div id="page-timeline" class="hidden">
+      <div class="page-title">📋 История дела</div>
+      <div class="page-sub">Все события и изменения по вашему делу.</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="timeline" id="timeline-list">
+            <div class="empty-state"><div class="icon">📋</div><p>История пуста</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div id="page-settings" class="hidden">
+      <div class="page-title">⚙️ Настройки</div>
+      <div class="page-sub">Управление аккаунтом.</div>
+      <div id="alert-settings" class="alert"></div>
+      <div class="card" style="max-width:500px">
+        <div class="card-header"><div class="card-title">Профиль</div></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Полное имя</label>
+            <input class="form-input" id="settings-name" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="settings-email" type="email" disabled style="opacity:.6">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон</label>
+            <input class="form-input" id="settings-phone" type="tel" placeholder="+38...">
+          </div>
+          <button class="btn primary" onclick="saveSettings()">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://rntlijrlvqgdxtkacjwp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJudGxpanJsdnFnZHh0a2FjandwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMjk0MDUsImV4cCI6MjA5MTkwNTQwNX0.K0NIVKYW8QzTQKTkG7r0h2MQnHTDGd1LleRscBm8n3M';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let currentCase = null;
+let currentPage = 'overview';
+
+// ── INIT ──────────────────────────────────────────────────
+async function init() {
+  const {data: {session}} = await sb.auth.getSession();
+  if(!session) { window.location.href = '/portal/login.html'; return; }
+  currentUser = session.user;
+
+  // Load profile
+  const {data: profile} = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  document.getElementById('user-name').textContent = profile?.full_name || currentUser.email;
+
+  // Prefill settings
+  document.getElementById('settings-name').value = profile?.full_name || '';
+  document.getElementById('settings-email').value = currentUser.email;
+  document.getElementById('settings-phone').value = profile?.phone || '';
+
+  // Check if admin → redirect
+  if(profile?.role === 'admin') {
+    const goAdmin = confirm('У вас роль администратора. Перейти в панель управления?');
+    if(goAdmin) { window.location.href = '/portal/admin.html'; return; }
+  }
+
+  await loadCase();
+}
+
+// ── LOAD CASE ─────────────────────────────────────────────
+async function loadCase() {
+  const {data: cases} = await sb.from('cases')
+    .select('*, specialists(*)')
+    .eq('client_id', currentUser.id)
+    .order('created_at', {ascending: false})
+    .limit(1);
+
+  if(!cases || cases.length === 0) {
+    document.getElementById('no-case-banner').style.display = 'block';
+    return;
+  }
+
+  currentCase = cases[0];
+  document.getElementById('case-overview').classList.remove('hidden');
+  document.getElementById('sidebar-case-info').style.display = 'block';
+  document.getElementById('sidebar-case-num').textContent = currentCase.case_number;
+
+  renderCaseOverview();
+  loadStats();
+}
+
+function renderCaseOverview() {
+  const c = currentCase;
+  const fraudTypes = {
+    fake_broker: 'Фейковый брокер',
+    romance_scam: 'Romance scam',
+    pig_butchering: 'Pig Butchering',
+    nft_scam: 'NFT / Token scam',
+    wallet_drain: 'Wallet drain',
+    corporate: 'Корпоративное'
+  };
+  const statusLabels = {
+    new: 'Новое', assessment: 'Оценка', analysis: 'Блокчейн-анализ',
+    documents: 'Документы', freeze: 'Заморозка', legal: 'Судебное',
+    closed_won: 'Закрыто ✓', closed_lost: 'Закрыто'
+  };
+
+  document.getElementById('stat-amount').textContent = '$' + Number(c.amount_lost).toLocaleString();
+  document.getElementById('detail-num').textContent = c.case_number;
+  document.getElementById('detail-type').textContent = fraudTypes[c.fraud_type] || c.fraud_type;
+  document.getElementById('detail-amount').textContent = '$' + Number(c.amount_lost).toLocaleString() + ' ' + (c.currency || 'USD');
+  document.getElementById('detail-date').textContent = new Date(c.created_at).toLocaleDateString('ru-RU', {day:'numeric',month:'long',year:'numeric'});
+
+  const days = Math.floor((Date.now() - new Date(c.created_at)) / 86400000);
+  document.getElementById('stat-days').textContent = days;
+
+  // Status badge
+  document.getElementById('case-status-badge').innerHTML = `<span class="status-badge s-${c.status}">${statusLabels[c.status] || c.status}</span>`;
+
+  // Progress
+  const steps = ['assessment','analysis','documents','freeze','legal'];
+  const idx = steps.indexOf(c.status);
+  steps.forEach((s, i) => {
+    const el = document.getElementById('ps-' + s);
+    if(i < idx) el.classList.add('done');
+    else if(i === idx) el.classList.add('active');
+  });
+
+  // Specialist
+  if(c.specialists) {
+    const sp = c.specialists;
+    document.getElementById('specialist-card').innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div style="width:48px;height:48px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">${sp.name[0]}</div>
+        <div>
+          <div style="font-family:var(--fd);font-weight:700;color:var(--text)">${sp.name}</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:1px">${sp.role}</div>
+          ${sp.telegram ? `<a href="https://t.me/${sp.telegram.replace('@','')}" target="_blank" style="font-size:12px;color:var(--blue3);margin-top:4px;display:inline-block">✈ ${sp.telegram}</a>` : ''}
+        </div>
+      </div>`;
+  }
+}
+
+async function loadStats() {
+  if(!currentCase) return;
+  const cid = currentCase.id;
+
+  const [{count: docCount}, {count: invCount}, {data: msgs}] = await Promise.all([
+    sb.from('documents').select('*', {count:'exact',head:true}).eq('case_id', cid),
+    sb.from('invoices').select('*', {count:'exact',head:true}).eq('case_id', cid),
+    sb.from('messages').select('id,read_at').eq('case_id', cid).eq('is_admin', true).is('read_at', null)
+  ]);
+
+  document.getElementById('stat-docs').textContent = docCount || 0;
+  document.getElementById('stat-inv').textContent = invCount || 0;
+  if(docCount > 0) { document.getElementById('docs-badge').textContent = docCount; document.getElementById('docs-badge').style.display = 'inline-block'; }
+  if(msgs?.length) { document.getElementById('msg-badge').textContent = msgs.length; document.getElementById('msg-badge').style.display = 'inline-block'; }
+
+  loadRecentDocs();
+}
+
+async function loadRecentDocs() {
+  if(!currentCase) return;
+  const {data} = await sb.from('documents').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false}).limit(3);
+  if(!data?.length) return;
+  const catLabels = {evidence:'Доказательства',contract:'Договор',report:'Отчёт',invoice:'Инвойс',police:'Заявление',other:'Другое'};
+  document.getElementById('recent-docs').innerHTML = data.map(d => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:.8rem">
+        <span style="font-size:1.2rem">📄</span>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:1px">${catLabels[d.category]||d.category} · ${new Date(d.created_at).toLocaleDateString('ru-RU')}</div>
+        </div>
+      </div>
+      <button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">Скачать</button>
+    </div>`).join('') + `<div style="text-align:center;margin-top:1rem"><button class="btn-sm ghost" onclick="showPage('documents')">Все документы →</button></div>`;
+}
+
+// ── PAGES ────────────────────────────────────────────────
+function showPage(page) {
+  document.querySelectorAll('[id^="page-"]').forEach(el => el.classList.add('hidden'));
+  document.getElementById('page-' + page).classList.remove('hidden');
+  document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+  currentPage = page;
+
+  if(page === 'documents') loadDocuments();
+  if(page === 'invoices') loadInvoices();
+  if(page === 'messages') loadMessages();
+  if(page === 'timeline') loadTimeline();
+}
+
+// ── DOCUMENTS ────────────────────────────────────────────
+async function loadDocuments() {
+  if(!currentCase) return;
+  const {data} = await sb.from('documents').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false});
+  const catLabels = {evidence:'Доказательства',contract:'Договор',report:'Блокчейн-отчёт',invoice:'Инвойс',police:'Заявление в полицию',other:'Другое'};
+  const catColors = {contract:'var(--blue3)',report:'var(--cyan2)',invoice:'var(--amber)',police:'var(--green)'};
+  if(!data?.length) return;
+  document.getElementById('docs-list').innerHTML = `<table><thead><tr><th>Файл</th><th>Категория</th><th>Дата</th><th></th></tr></thead><tbody>` +
+    data.map(d => `<tr>
+      <td><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div><div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div></div></div></td>
+      <td><span style="font-size:11px;color:${catColors[d.category]||'var(--text2)'}">● ${catLabels[d.category]||d.category}</span></td>
+      <td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td>
+      <td><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">↓ Скачать</button></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+async function uploadFile(file) {
+  if(!file || !currentCase) return;
+  const prog = document.getElementById('upload-progress');
+  const status = document.getElementById('upload-status');
+  prog.classList.remove('hidden');
+  status.textContent = 'Загрузка файла...';
+
+  const ext = file.name.split('.').pop();
+  const path = `${currentCase.id}/${Date.now()}.${ext}`;
+
+  const {error: upErr} = await sb.storage.from('case-documents').upload(path, file);
+  if(upErr) { showDocAlert('Ошибка загрузки: ' + upErr.message); prog.classList.add('hidden'); return; }
+
+  status.textContent = 'Сохранение записи...';
+  const name = document.getElementById('doc-name').value || file.name;
+  const category = document.getElementById('doc-category').value;
+
+  await sb.from('documents').insert({
+    case_id: currentCase.id,
+    uploaded_by: currentUser.id,
+    name, file_path: path,
+    file_size: file.size,
+    file_type: file.type,
+    category
+  });
+
+  prog.classList.add('hidden');
+  showDocAlert('✓ Документ загружен!', 'success');
+  loadDocuments();
+  loadStats();
+  document.getElementById('doc-name').value = '';
+  document.getElementById('file-input').value = '';
+}
+
+async function downloadDoc(path, name) {
+  const {data} = await sb.storage.from('case-documents').createSignedUrl(path, 60);
+  if(data?.signedUrl) {
+    const a = document.createElement('a');
+    a.href = data.signedUrl;
+    a.download = name;
+    a.click();
+  }
+}
+
+function dragOver(e) { e.preventDefault(); document.getElementById('file-drop').classList.add('dragover'); }
+function dropFile(e) {
+  e.preventDefault();
+  document.getElementById('file-drop').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if(file) uploadFile(file);
+}
+function showDocAlert(msg, type='error') {
+  const a = document.getElementById('alert-docs');
+  a.textContent = msg;
+  a.className = 'alert show ' + type;
+  setTimeout(() => a.className='alert', 4000);
+}
+
+// ── INVOICES ─────────────────────────────────────────────
+async function loadInvoices() {
+  if(!currentCase) return;
+  const {data} = await sb.from('invoices').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false});
+  if(!data?.length) return;
+  document.getElementById('invoices-list').innerHTML = data.map(inv => `
+    <div class="invoice-card" style="margin-bottom:1rem">
+      <div>
+        <div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">${inv.invoice_number}</div>
+        <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:.2rem">${inv.description}</div>
+        <div style="font-size:12px;color:var(--text3)">${inv.due_date ? 'До ' + new Date(inv.due_date).toLocaleDateString('ru-RU') : ''}</div>
+      </div>
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem">
+        <div class="invoice-amount">${Number(inv.amount).toLocaleString()} ${inv.currency}</div>
+        <span class="invoice-status inv-${inv.status}">${inv.status==='pending'?'Ожидает оплаты':inv.status==='paid'?'Оплачено':'Отменён'}</span>
+      </div>
+    </div>`).join('');
+}
+
+// ── MESSAGES ─────────────────────────────────────────────
+async function loadMessages() {
+  if(!currentCase) return;
+  const {data} = await sb.from('messages').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:true});
+
+  // Mark admin messages as read
+  await sb.from('messages').update({read_at: new Date().toISOString()})
+    .eq('case_id', currentCase.id).eq('is_admin', true).is('read_at', null);
+
+  document.getElementById('msg-badge').style.display = 'none';
+
+  if(!data?.length) return;
+  document.getElementById('messages-wrap').innerHTML = data.map(m => `
+    <div class="message ${m.sender_id === currentUser.id ? 'mine' : 'theirs'}">
+      <div class="message-bubble">${escHtml(m.content)}</div>
+      <div class="message-meta">${m.sender_name || 'Вы'} · ${new Date(m.created_at).toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'})}</div>
+    </div>`).join('');
+
+  const wrap = document.getElementById('messages-wrap');
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('msg-input');
+  const content = input.value.trim();
+  if(!content || !currentCase) return;
+  input.value = '';
+
+  const {data: profile} = await sb.from('profiles').select('full_name').eq('id', currentUser.id).single();
+  await sb.from('messages').insert({
+    case_id: currentCase.id,
+    sender_id: currentUser.id,
+    sender_name: profile?.full_name || 'Клиент',
+    content,
+    is_admin: false
+  });
+  loadMessages();
+}
+
+// ── TIMELINE ─────────────────────────────────────────────
+async function loadTimeline() {
+  if(!currentCase) return;
+  const {data} = await sb.from('case_timeline').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false});
+  if(!data?.length) return;
+  const icons = {status_change:'🔄', note:'📝', document:'📄', invoice:'💳'};
+  const colors = {status_change:'rgba(37,99,235,.2)', note:'rgba(16,185,129,.2)', document:'rgba(6,182,212,.2)', invoice:'rgba(245,158,11,.2)'};
+  document.getElementById('timeline-list').innerHTML = data.map((e,i) => `
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" style="background:${colors[e.type]||'var(--dark3)'}">${icons[e.type]||'•'}</div>
+        ${i < data.length-1 ? '<div class="tl-line"></div>' : ''}
+      </div>
+      <div class="tl-content">
+        <div class="tl-title">${e.title}</div>
+        ${e.content ? `<div class="tl-text">${e.content}</div>` : ''}
+        <div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU', {day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})} ${e.author_name ? '· ' + e.author_name : ''}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── SETTINGS ─────────────────────────────────────────────
+async function saveSettings() {
+  const name = document.getElementById('settings-name').value.trim();
+  const phone = document.getElementById('settings-phone').value.trim();
+  const {error} = await sb.from('profiles').update({full_name: name, phone}).eq('id', currentUser.id);
+  const a = document.getElementById('alert-settings');
+  if(error) { a.textContent = error.message; a.className = 'alert show error'; }
+  else { a.textContent = '✓ Сохранено'; a.className = 'alert show success'; document.getElementById('user-name').textContent = name; }
+  setTimeout(() => a.className='alert', 3000);
+}
+
+// ── UTILS ─────────────────────────────────────────────────
+function escHtml(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+async function logout() { await sb.auth.signOut(); window.location.href = '/portal/login.html'; }
+
+init();
+</script>
+</body>
+</html>
