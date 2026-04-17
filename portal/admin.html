@@ -160,8 +160,8 @@ tr:last-child td{border-bottom:none}
   </div>
   <div class="nav-right">
     <span class="nav-user" id="admin-name">...</span>
-    <button class="btn ghost sm" onclick="logout()">Выйти</button>
-    <a href="/" class="btn ghost sm">← Сайт</a>
+    <button class="btn ghost sm" onclick="logout()" style="display:inline-flex;align-items:center;gap:5px"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 2H3a1 1 0 00-1 1v12a1 1 0 001 1h4"/><polyline points="12,5 16,9 12,13"/><line x1="7" y1="9" x2="16" y2="9"/></svg>&nbsp;Выйти</button>
+    <a href="/" class="btn ghost sm" style="display:inline-flex;align-items:center;gap:5px"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="7.5"/><path d="M9 1.5C7 4 5.5 6.5 5.5 9s1.5 5 3.5 7.5M9 1.5C11 4 12.5 6.5 12.5 9s-1.5 5-3.5 7.5"/><line x1="1.5" y1="9" x2="16.5" y2="9"/></svg>&nbsp;Сайт</a>
   </div>
 </nav>
 
@@ -169,21 +169,21 @@ tr:last-child td{border-bottom:none}
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Дела</div>
-      <button class="slink active" onclick="nav('dashboard')"><span class="ico">📊</span>Дашборд</button>
-      <button class="slink" onclick="nav('cases')"><span class="ico">📋</span>Все дела</button>
-      <button class="slink" onclick="nav('new-case')"><span class="ico">➕</span>Создать дело</button>
-      <button class="slink" onclick="nav('clients')"><span class="ico">👥</span>Клиенты</button>
+      <button class="slink active" onclick="nav('dashboard')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Дашборд</button>
+      <button class="slink" onclick="nav('cases')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Все дела</button>
+      <button class="slink" onclick="nav('new-case')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>Создать дело</button>
+      <button class="slink" onclick="nav('clients')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Клиенты</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Команда</div>
-      <button class="slink" onclick="nav('staff')"><span class="ico">👤</span>Сотрудники</button>
-      <button class="slink" onclick="nav('invite')"><span class="ico">✉️</span>Пригласить</button>
-      <button class="slink" onclick="nav('specialists')"><span class="ico">⭐</span>Специалисты</button>
+      <button class="slink" onclick="nav('staff')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Сотрудники</button>
+      <button class="slink" onclick="nav('invite')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Пригласить</button>
+      <button class="slink" onclick="nav('specialists')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Специалисты</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Настройки</div>
-      <button class="slink" onclick="nav('statuses')"><span class="ico">🏷️</span>Статусы дел</button>
-      <button class="slink" onclick="nav('messages')"><span class="ico">💬</span>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
+      <button class="slink" onclick="nav('statuses')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>Статусы дел</button>
+      <button class="slink" onclick="nav('messages')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
     </div>
   </div>
 
@@ -191,7 +191,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- DASHBOARD -->
     <div id="p-dashboard">
-      <div class="page-title">📊 Дашборд</div>
+      <div class="page-title">Дашборд</div>
       <div class="page-sub" id="dash-date">Загрузка...</div>
       <div class="stats" id="dash-stats">
         <div class="stat"><div class="stat-n" id="s-cases">—</div><div class="stat-l">Всего дел</div></div>
@@ -207,7 +207,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- ALL CASES -->
     <div id="p-cases" class="hidden">
-      <div class="page-title">📋 Все дела</div>
+      <div class="page-title">Все дела</div>
       <div class="card">
         <div class="card-head">
           <div class="card-title">Фильтры</div>
@@ -276,13 +276,13 @@ tr:last-child td{border-bottom:none}
                 <input class="fi" id="d-note" placeholder="Получен ответ от биржи...">
               </div>
               <div id="d-alert" class="alert"></div>
-              <button class="btn primary" onclick="updateCase()">💾 Сохранить изменения</button>
+              <button class="btn primary" onclick="updateCase()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить</button>
             </div>
           </div>
 
           <!-- Документы -->
           <div class="card">
-            <div class="card-head"><div class="card-title">📎 Документы и вложения</div></div>
+            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 1H4a1 1 0 00-1 1v14a1 1 0 001 1h10a1 1 0 001-1V6z"/><polyline points="11,1 11,6 15,6"/><line x1="6" y1="9" x2="12" y2="9"/><line x1="6" y1="12" x2="10" y2="12"/></svg></span>&nbsp;Документы</div></div>
             <div class="card-body">
               <div class="frow" style="margin-bottom:.8rem">
                 <div class="fg" style="margin:0"><label>Категория</label>
@@ -307,7 +307,7 @@ tr:last-child td{border-bottom:none}
 
           <!-- Инвойс -->
           <div class="card">
-            <div class="card-head"><div class="card-title">💳 Выставить инвойс</div></div>
+            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg></span>&nbsp;Выставить инвойс</div></div>
             <div class="card-body">
               <div class="frow">
                 <div class="fg" style="margin:0"><label>Описание *</label><input class="fi" id="inv-desc" placeholder="Блокчейн-анализ"></div>
@@ -315,7 +315,7 @@ tr:last-child td{border-bottom:none}
               </div>
               <div class="frow" style="margin-top:0">
                 <div class="fg" style="margin:0"><label>Срок оплаты</label><input class="fi" id="inv-due" type="date"></div>
-                <div style="display:flex;align-items:flex-end"><button class="btn primary" style="width:100%" onclick="createInv()">Выставить →</button></div>
+                <div style="display:flex;align-items:flex-end"><button class="btn primary" style="width:100%" onclick="createInv()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg>&nbsp;Выставить</button></div>
               </div>
             </div>
           </div>
@@ -324,17 +324,17 @@ tr:last-child td{border-bottom:none}
         <div>
           <!-- Case info -->
           <div class="card">
-            <div class="card-head"><div class="card-title">ℹ️ Информация</div></div>
+            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4h12a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><line x1="2" y1="8" x2="16" y2="8"/></svg></span>&nbsp;Информация</div></div>
             <div class="card-body" id="d-info" style="display:flex;flex-direction:column;gap:.7rem"></div>
           </div>
           <!-- Invoices -->
           <div class="card">
-            <div class="card-head"><div class="card-title">Инвойсы</div></div>
+            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg></span>&nbsp;Инвойсы</div></div>
             <div class="card-body" id="d-invoices"></div>
           </div>
           <!-- Timeline -->
           <div class="card">
-            <div class="card-head"><div class="card-title">📋 История</div></div>
+            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="3" x2="4" y2="15"/><circle cx="4" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="13" r="1.5" fill="currentColor" stroke="none"/><line x1="7" y1="5" x2="15" y2="5"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg></span>&nbsp;История</div></div>
             <div class="card-body" style="max-height:320px;overflow-y:auto">
               <div class="tl" id="d-timeline"></div>
             </div>
@@ -345,7 +345,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- NEW CASE -->
     <div id="p-new-case" class="hidden">
-      <div class="page-title">➕ Создать дело</div>
+      <div class="page-title">Создать дело</div>
       <div id="nc-alert" class="alert"></div>
       <div class="card" style="max-width:640px">
         <div class="card-head"><div class="card-title">Данные дела</div></div>
@@ -377,14 +377,14 @@ tr:last-child td{border-bottom:none}
           </div>
           <div class="fg"><label>Начальный статус</label><select class="fi" id="nc-status"></select></div>
           <div class="fg"><label>Описание</label><textarea class="fi" id="nc-desc" placeholder="Краткое описание ситуации..."></textarea></div>
-          <button class="btn primary" onclick="createCase()">Создать дело →</button>
+          <button class="btn primary" onclick="createCase()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="7.5"/><line x1="9" y1="5.5" x2="9" y2="12.5"/><line x1="5.5" y1="9" x2="12.5" y2="9"/></svg>&nbsp;Создать дело</button>
         </div>
       </div>
     </div>
 
     <!-- CLIENTS -->
     <div id="p-clients" class="hidden">
-      <div class="page-title">👥 Клиенты</div>
+      <div class="page-title">Клиенты</div>
       <div class="card">
         <div class="card-head">
           <div class="card-title" id="clients-count">Клиенты</div>
@@ -396,14 +396,14 @@ tr:last-child td{border-bottom:none}
 
     <!-- STAFF -->
     <div id="p-staff" class="hidden">
-      <div class="page-title">👤 Сотрудники</div>
+      <div class="page-title">Сотрудники</div>
       <div class="page-sub">Управляйте ролями и доступами команды.</div>
       <div class="staff-grid" id="staff-list"></div>
     </div>
 
     <!-- SPECIALISTS -->
     <div id="p-specialists" class="hidden">
-      <div class="page-title">⭐ Специалисты</div>
+      <div class="page-title">Специалисты</div>
       <div class="page-sub">Профили команды — отображаются клиентам в деле.</div>
       <div style="display:grid;grid-template-columns:1fr 320px;gap:1.2rem">
         <div id="specialists-list"><div style="padding:2rem;text-align:center"><div class="spin"></div></div></div>
@@ -427,8 +427,8 @@ tr:last-child td{border-bottom:none}
             <div class="fg"><label>О себе</label><textarea class="fi" id="spec-bio" placeholder="Краткое описание..."></textarea></div>
             <input type="hidden" id="spec-edit-id">
             <div style="display:flex;gap:.5rem">
-              <button class="btn primary" onclick="saveSpecialist()" style="flex:1">💾 Сохранить</button>
-              <button class="btn ghost sm" onclick="clearSpecEdit()">✕</button>
+              <button class="btn primary" onclick="saveSpecialist()" style="flex:1"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить</button>
+              <button class="btn ghost sm" onclick="clearSpecEdit()"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button>
             </div>
           </div>
         </div>
@@ -437,7 +437,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- INVITE -->
     <div id="p-invite" class="hidden">
-      <div class="page-title">✉️ Пригласить сотрудника</div>
+      <div class="page-title">Пригласить сотрудника</div>
       <div id="inv-alert" class="alert"></div>
       <div class="card" style="max-width:480px">
         <div class="card-head"><div class="card-title">Новое приглашение</div></div>
@@ -451,7 +451,7 @@ tr:last-child td{border-bottom:none}
           </div>
           <div class="fg"><label>Имя</label><input class="fi" id="staff-name" placeholder="Имя Фамилия"></div>
           <div class="fg"><label>Должность</label><input class="fi" id="staff-role-title" placeholder="Blockchain Analyst"></div>
-          <button class="btn primary" onclick="inviteStaff()">Пригласить →</button>
+          <button class="btn primary" onclick="inviteStaff()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="16" height="11" rx="1.5"/><path d="M1 5l8 6 8-6"/><line x1="13" y1="10" x2="17" y2="10"/><line x1="15" y1="8" x2="15" y2="12"/></svg>&nbsp;Пригласить</button>
           <div style="font-size:11px;color:var(--text3);margin-top:.7rem">Сотрудник получит email с приглашением и сможет зарегистрироваться в системе. Доступ к порталу появится сразу после регистрации с указанным email.</div>
         </div>
       </div>
@@ -463,7 +463,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- STATUSES -->
     <div id="p-statuses" class="hidden">
-      <div class="page-title">🏷️ Статусы дел</div>
+      <div class="page-title">Статусы дел</div>
       <div class="page-sub">Создавайте и редактируйте статусы — они будут доступны при управлении делами.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
         <div class="card">
@@ -482,7 +482,7 @@ tr:last-child td{border-bottom:none}
               <input type="hidden" id="st-color" value="#2563eb">
             </div>
             <div class="fg"><label>Порядок сортировки</label><input class="fi" id="st-order" type="number" placeholder="9" style="width:100px"></div>
-            <button class="btn primary" onclick="addStatus()">Добавить статус →</button>
+            <button class="btn primary" onclick="addStatus()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="3,9 7,13 15,5"/></svg>&nbsp;Добавить</button>
           </div>
         </div>
       </div>
@@ -490,7 +490,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- MESSAGES -->
     <div id="p-messages" class="hidden">
-      <div class="page-title">💬 Сообщения</div>
+      <div class="page-title">Сообщения</div>
       <div style="display:grid;grid-template-columns:260px 1fr;gap:1.2rem;height:calc(100vh - 160px)">
         <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
           <div class="card-head"><div class="card-title">Дела</div></div>
@@ -671,7 +671,7 @@ async function updateCase() {
   }
   const a = document.getElementById('d-alert');
   a.textContent='✓ Сохранено'; a.className='alert show ok';
-  btn.textContent='💾 Сохранить изменения'; btn.disabled=false;
+  btn.textContent='<svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить'; btn.disabled=false;
   document.getElementById('d-note').value='';
   setTimeout(()=>a.className='alert',3000);
   loadDetailTl(activeCaseId);
@@ -683,7 +683,7 @@ async function loadDetailDocs(cid) {
   const {data} = await sb.from('documents').select('*').eq('case_id',cid).order('created_at',{ascending:false});
   if(!data?.length) { document.getElementById('docs-list').innerHTML='<div style="font-size:12px;color:var(--text3)">Нет документов</div>'; return; }
   const catL={evidence:'Доказательства',contract:'Договор',report:'Отчёт',police:'Заявление',invoice:'Инвойс',other:'Другое'};
-  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')">↓</button></div>`).join('');
+  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg></button></div>`).join('');
 }
 
 async function uploadDoc(file) {
@@ -850,7 +850,7 @@ async function loadStaff() {
   const {data} = await sb.from('profiles').select('*').in('role',['admin','specialist']).order('created_at');
   const roleColors={admin:'var(--amber)',specialist:'var(--blue3)'};
   document.getElementById('staff-list').innerHTML = !data?.length ? '<div style="color:var(--text3)">Сотрудников нет</div>' :
-    data.map(p=>`<div class="staff-card"><div class="staff-avatar">${(p.full_name||p.email)[0].toUpperCase()}</div><div style="font-weight:600;color:var(--text)">${p.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${p.email}</div><div><span class="badge" style="background:${roleColors[p.role]}22;color:${roleColors[p.role]};border:1px solid ${roleColors[p.role]}44">${p.role}</span></div>${p.id!==me.id?`<button class="btn danger sm" style="margin-top:.3rem" onclick="changeRole('${p.id}','${p.role}')">${p.role==='admin'?'→ Специалист':'→ Админ'}</button>`:''}${p.id!==me.id?`<button class="btn ghost sm" onclick="removeStaff('${p.id}')">Удалить</button>`:''}</div>`).join('');
+    data.map(p=>`<div class="staff-card"><div class="staff-avatar">${(p.full_name||p.email)[0].toUpperCase()}</div><div style="font-weight:600;color:var(--text)">${p.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${p.email}</div><div><span class="badge" style="background:${roleColors[p.role]}22;color:${roleColors[p.role]};border:1px solid ${roleColors[p.role]}44">${p.role}</span></div>${p.id!==me.id?`<button class="btn danger sm" style="margin-top:.3rem" onclick="changeRole('${p.id}','${p.role}')">${p.role==='admin'?'<svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="5.5" r="3"/><path d="M2 16c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><polyline points="7,12 9,14 12,11"/></svg>&nbsp;Специалист':'<svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="6" r="3.5"/><path d="M1.5 17c0-4.142 3.358-6.5 7.5-6.5s7.5 2.358 7.5 6.5"/></svg>&nbsp;Админ'}</button>`:''}${p.id!==me.id?`<button class="btn ghost sm" onclick="removeStaff('${p.id}')">Удалить</button>`:''}</div>`).join('');
 }
 async function changeRole(uid,currentRole){await sb.from('profiles').update({role:currentRole==='admin'?'specialist':'admin'}).eq('id',uid);loadStaff();}
 async function removeStaff(uid){if(!confirm('Удалить сотрудника?'))return;await sb.from('profiles').update({role:'client'}).eq('id',uid);loadStaff();}
@@ -879,7 +879,7 @@ async function loadInvites() {
   const {data} = await sb.from('staff_invites').select('*').order('created_at',{ascending:false});
   if(!data?.length){document.getElementById('invites-list').innerHTML='<div style="padding:1rem;font-size:12px;color:var(--text3)">Нет приглашений</div>';return;}
   document.getElementById('invites-list').innerHTML=`<table><thead><tr><th>Email</th><th>Роль</th><th>Принято</th><th>Дата</th><th></th></tr></thead><tbody>`+
-    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')">✕</button></td></tr>`).join('')+'</tbody></table>';
+    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button></td></tr>`).join('')+'</tbody></table>';
 }
 async function deleteInvite(id){await sb.from('staff_invites').delete().eq('id',id);loadInvites();}
 
@@ -894,7 +894,7 @@ async function loadStatusesPage() {
   initColorGrid();
   const {data} = await sb.from('case_statuses').select('*').order('sort_order');
   allStatuses = data||[];
-  document.getElementById('statuses-list').innerHTML = allStatuses.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.7rem"><span style="font-size:16px">${s.icon}</span><span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44"><span class="status-dot" style="background:${s.color}"></span>${s.label}</span><span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span></div><div style="display:flex;gap:.4rem">${!s.is_default?`<button class="btn danger sm" onclick="deleteStatus('${s.id}')">✕</button>`:''}` + '</div></div>').join('');
+  document.getElementById('statuses-list').innerHTML = allStatuses.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.7rem"><span style="font-size:16px">${s.icon}</span><span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44"><span class="status-dot" style="background:${s.color}"></span>${s.label}</span><span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span></div><div style="display:flex;gap:.4rem">${!s.is_default?`<button class="btn danger sm" onclick="deleteStatus('${s.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button>`:''}` + '</div></div>').join('');
 }
 async function addStatus() {
   const label=document.getElementById('st-label').value.trim(); const icon=document.getElementById('st-icon').value.trim()||'📋'; const color=document.getElementById('st-color').value; const sort_order=parseInt(document.getElementById('st-order').value)||allStatuses.length+1;
@@ -966,7 +966,7 @@ async function loadSpecialistsPage() {
             ${s.telegram ? `<span style="font-size:11px;color:var(--blue3)">✈ ${s.telegram}</span>` : ''}
           </div>
         </div>
-        <button class="btn ghost sm" onclick="event.stopPropagation();loadSpecEdit('${s.id}')">✏️ Ред.</button>
+        <button class="btn ghost sm" onclick="event.stopPropagation();loadSpecEdit('${s.id}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 2l3 3-9 9H4v-3z"/><line x1="11" y1="4" x2="14" y2="7"/></svg>&nbsp;Ред.</button>
       </div>
     </div>`).join('')}</div>`;
   

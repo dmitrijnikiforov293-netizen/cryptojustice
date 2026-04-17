@@ -213,7 +213,7 @@ tr:last-child td{border-bottom:none}
   }
   .pmn-item:hover,.pmn-item.active{color:var(--blue3)}
   .pmn-item.active{border-top:2px solid var(--blue3);margin-top:-2px}
-  .pmn-item .pmn-ico{font-size:20px;line-height:1.2}
+  .pmn-item .pmn-ico{font-size:20px;line-height:1.2;display:flex;align-items:center;justify-content:center;height:24px}.pmn-item .pmn-ico svg{width:22px;height:22px}
   .page-title{font-size:1.3rem;margin-bottom:.2rem}
   .page-sub{font-size:12px;margin-bottom:1rem}
   table{font-size:12px}
@@ -240,7 +240,7 @@ tr:last-child td{border-bottom:none}
   </a>
   <div class="nav-user">
     <span class="nav-user-name" id="user-name">...</span>
-    <button class="btn-sm ghost" onclick="logout()">Выйти</button>
+    <button class="btn-sm ghost" onclick="logout()"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 2H3a1 1 0 00-1 1v12a1 1 0 001 1h4"/><polyline points="12,5 16,9 12,13"/><line x1="7" y1="9" x2="16" y2="9"/></svg>&nbsp;Выйти</button>
   </div>
 </nav>
 
@@ -249,16 +249,16 @@ tr:last-child td{border-bottom:none}
   <div class="portal-sidebar">
     <div class="sidebar-label">Навигация</div>
     <div class="sidebar-section">
-      <button class="sidebar-link active" onclick="showPage('overview')"><span class="icon">📊</span>Обзор</button>
-      <button class="sidebar-link" onclick="showPage('documents')"><span class="icon">📁</span>Документы<span class="badge" id="docs-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('invoices')"><span class="icon">💳</span>Инвойсы<span class="badge" id="inv-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon">💬</span>Сообщения<span class="badge" id="msg-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('timeline')"><span class="icon">📋</span>История</button>
+      <button class="sidebar-link active" onclick="showPage('overview')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Обзор</button>
+      <button class="sidebar-link" onclick="showPage('documents')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Документы<span class="badge" id="docs-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('invoices')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Инвойсы<span class="badge" id="inv-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="badge" id="msg-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('timeline')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>История</button>
     </div>
     <div class="sidebar-label">Аккаунт</div>
     <div class="sidebar-section">
-      <button class="sidebar-link" onclick="showPage('settings')"><span class="icon">⚙️</span>Настройки</button>
-      <a class="sidebar-link" href="/"><span class="icon">🌐</span>На сайт</a>
+      <button class="sidebar-link" onclick="showPage('settings')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>Настройки</button>
+      <a class="sidebar-link" href="/"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>На сайт</a>
     </div>
     <div id="sidebar-case-info" style="margin:1rem .75rem 0;padding:1rem;background:var(--dark3);border-radius:8px;font-size:12px;display:none">
       <div style="color:var(--text3);margin-bottom:.4rem">Номер дела</div>
@@ -337,7 +337,7 @@ tr:last-child td{border-bottom:none}
         <!-- Timeline Preview -->
         <div class="card" style="margin-bottom:1.5rem">
           <div class="card-header">
-            <div class="card-title">🔄 Последние изменения</div>
+            <div class="card-title">Последние изменения</div>
             <button class="btn-sm ghost" onclick="showPage('timeline')">Вся история</button>
           </div>
           <div class="card-body" style="padding:.5rem 1.2rem">
@@ -352,7 +352,7 @@ tr:last-child td{border-bottom:none}
             <button class="btn-sm ghost" onclick="showPage('documents')">Все документы</button>
           </div>
           <div class="card-body" id="recent-docs">
-            <div class="empty-state"><div class="icon">📄</div><p>Документов пока нет</p></div>
+            <div class="empty-state"><div class="icon"></div><p>Документов пока нет</p></div>
           </div>
         </div>
       </div>
@@ -360,7 +360,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- DOCUMENTS PAGE -->
     <div id="page-documents" class="hidden">
-      <div class="page-title">📁 Документы</div>
+      <div class="page-title">Документы</div>
       <div class="page-sub">Загружайте доказательства и скачивайте документы по вашему делу.</div>
       <div id="alert-docs" class="alert"></div>
 
@@ -401,14 +401,14 @@ tr:last-child td{border-bottom:none}
       <div class="card">
         <div class="card-header"><div class="card-title">Все документы</div></div>
         <div id="docs-list">
-          <div class="empty-state" style="padding:2rem"><div class="icon">📄</div><p>Документов пока нет</p></div>
+          <div class="empty-state" style="padding:2rem"><div class="icon"></div><p>Документов пока нет</p></div>
         </div>
       </div>
     </div>
 
     <!-- INVOICES PAGE -->
     <div id="page-invoices" class="hidden">
-      <div class="page-title">💳 Инвойсы</div>
+      <div class="page-title">Инвойсы</div>
       <div class="page-sub">Выставленные счета и история оплат.</div>
       <div id="invoices-list">
         <div class="empty-state" style="padding:3rem"><div class="icon">💳</div><p>Инвойсов пока нет</p></div>
@@ -417,7 +417,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- MESSAGES PAGE -->
     <div id="page-messages" class="hidden">
-      <div class="page-title">💬 Сообщения</div>
+      <div class="page-title">Сообщения</div>
       <div class="page-sub" id="messages-specialist-info">Загрузка...</div>
       <div class="card">
         <div class="card-body">
@@ -434,7 +434,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- TIMELINE PAGE -->
     <div id="page-timeline" class="hidden">
-      <div class="page-title">📋 История дела</div>
+      <div class="page-title">История дела</div>
       <div class="page-sub">Все изменения по вашему делу в хронологическом порядке.</div>
       <div class="card">
         <div class="card-header">
@@ -451,7 +451,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- SETTINGS PAGE -->
     <div id="page-settings" class="hidden">
-      <div class="page-title">⚙️ Настройки</div>
+      <div class="page-title">Настройки</div>
       <div class="page-sub">Управление аккаунтом.</div>
       <div id="alert-settings" class="alert"></div>
       <div class="card" style="max-width:500px">
@@ -630,7 +630,7 @@ async function loadRecentDocs() {
     const fromAdmin = d.uploaded_by !== myId2;
     return `<div style="display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);${fromAdmin?'background:rgba(37,99,235,.03);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem':''}">
       <div style="display:flex;align-items:center;gap:.8rem">
-        <span style="font-size:1.2rem">${fromAdmin ? '📋' : '📄'}</span>
+        <span style="font-size:1.2rem">${fromAdmin ? '📋' : ''}</span>
         <div>
           <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:1px">
@@ -669,7 +669,7 @@ async function loadDocuments() {
       const fromAdmin = d.uploaded_by !== myId;
       return `<tr style="${fromAdmin ? 'background:rgba(37,99,235,.04)' : ''}">
         <td><div style="display:flex;align-items:center;gap:.6rem">
-          <span>${fromAdmin ? '📋' : '📄'}</span>
+          <span>${fromAdmin ? '📋' : ''}</span>
           <div>
             <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
             <div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div>
@@ -680,7 +680,7 @@ async function loadDocuments() {
           ${fromAdmin ? '🏢 CryptoJustice' : '👤 Вы'}
         </span></td>
         <td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td>
-        <td><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">↓ Скачать</button></td>
+        <td><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg>&nbsp;Скачать</button></td>
       </tr>`;
     }).join('') + '</tbody></table>';
 }
@@ -978,22 +978,22 @@ init();
 <!-- ── MOBILE BOTTOM NAV ── -->
 <div class="portal-mobile-nav" id="portal-mobile-nav">
   <button class="pmn-item active" id="pmn-overview" onclick="showPage('overview');setMobActive(this)">
-    <span class="pmn-ico">📊</span><span>Обзор</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span>Обзор</span>
   </button>
   <button class="pmn-item" id="pmn-documents" onclick="showPage('documents');setMobActive(this)">
-    <span class="pmn-ico">📁</span><span>Файлы</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></span><span>Файлы</span>
   </button>
   <button class="pmn-item" id="pmn-invoices" onclick="showPage('invoices');setMobActive(this)">
-    <span class="pmn-ico">💳</span><span>Счета</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span><span>Счета</span>
   </button>
   <button class="pmn-item" id="pmn-messages" onclick="showPage('messages');setMobActive(this)">
-    <span class="pmn-ico">💬</span><span>Чат</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Чат</span>
   </button>
   <button class="pmn-item" id="pmn-timeline" onclick="showPage('timeline');setMobActive(this)">
-    <span class="pmn-ico">📋</span><span>История</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.86"/></svg></span><span>История</span>
   </button>
   <button class="pmn-item" id="pmn-settings" onclick="showPage('settings');setMobActive(this)">
-    <span class="pmn-ico">⚙️</span><span>Профиль</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Профиль</span>
   </button>
 </div>
 
