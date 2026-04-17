@@ -1055,6 +1055,43 @@ function clearSpecEdit() {
 }
 
 async function logout(){await sb.auth.signOut();window.location.href='/portal/login.html';}
+// ── ADMIN REALTIME ────────────────────────────────────────────────────────────
+let adminRealtimeChannel = null;
+
+function setupAdminRealtime() {
+  if (adminRealtimeChannel) return;
+  adminRealtimeChannel = sb.channel('admin-messages')
+    .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages'}, (payload) => {
+      // If currently viewing this chat case - reload
+      if (selectedChatCaseId && payload.new?.case_id === selectedChatCaseId) {
+        loadAdminMessages(selectedChatCaseId);
+      } else if (!payload.new?.is_admin) {
+        // New message from client - show badge
+        const b = document.getElementById('admin-msg-badge');
+        if(b){b.style.display='inline-block';}
+        showAdminToast('Новое сообщение от клиента');
+        // Refresh chat list if open
+        if(document.getElementById('p-messages') && !document.getElementById('p-messages').classList.contains('hidden')) {
+          loadAdminCases();
+        }
+      }
+    })
+    .subscribe();
+}
+
+function showAdminToast(msg) {
+  let t = document.getElementById('admin-toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id='admin-toast';
+    t.style.cssText='position:fixed;top:70px;right:20px;background:rgba(37,99,235,.95);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .4s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.style.opacity='0',4000);
+}
+
 init();
 </script>
 </body>

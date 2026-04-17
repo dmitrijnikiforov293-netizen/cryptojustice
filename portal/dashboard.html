@@ -307,12 +307,8 @@ tr:last-child td{border-bottom:none}
             <div id="case-status-badge">—</div>
           </div>
           <div class="card-body">
-            <div class="progress-steps" id="progress-steps">
-              <div class="progress-step" id="ps-assessment"><div class="ps-dot">1</div><div class="ps-label">Оценка</div></div>
-              <div class="progress-step" id="ps-analysis"><div class="ps-dot">2</div><div class="ps-label">Анализ</div></div>
-              <div class="progress-step" id="ps-documents"><div class="ps-dot">3</div><div class="ps-label">Документы</div></div>
-              <div class="progress-step" id="ps-freeze"><div class="ps-dot">4</div><div class="ps-label">Заморозка</div></div>
-              <div class="progress-step" id="ps-legal"><div class="ps-dot">5</div><div class="ps-label">Суд</div></div>
+            <div id="progress-steps" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.5rem 0" class="custom-status-display">
+              <!-- Статус отображается динамически из case_statuses -->
             </div>
           </div>
         </div>
@@ -519,6 +515,7 @@ async function loadCase() {
 
   renderCaseOverview();
   loadStats();
+  setupRealtime();
 }
 
 function renderCaseOverview() {
@@ -549,14 +546,19 @@ function renderCaseOverview() {
   // Status badge
   document.getElementById('case-status-badge').innerHTML = `<span class="status-badge s-${c.status}">${statusLabels[c.status] || c.status}</span>`;
 
-  // Progress
-  const steps = ['assessment','analysis','documents','freeze','legal'];
-  const idx = steps.indexOf(c.status);
-  steps.forEach((s, i) => {
-    const el = document.getElementById('ps-' + s);
-    if(i < idx) el.classList.add('done');
-    else if(i === idx) el.classList.add('active');
-  });
+  // Custom status badge — load from case_statuses
+  const statusEl = document.getElementById('case-status-badge');
+  if (c.custom_status_id) {
+    sb.from('case_statuses').select('label,color,icon').eq('id', c.custom_status_id).single().then(({data:st}) => {
+      if (st) {
+        statusEl.innerHTML = `<span class="status-badge" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44;display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600"><span style="width:7px;height:7px;border-radius:50%;background:${st.color};flex-shrink:0"></span>${st.icon || ''} ${st.label}</span>`;
+      }
+    });
+  } else {
+    // Fallback: use old status field
+    const statusLabels = {new:'Новое',assessment:'Оценка',analysis:'Блокчейн-анализ',documents:'Документы',freeze:'Заморозка',legal:'Судебное',closed_won:'Закрыто ✓',closed_lost:'Закрыто'};
+    statusEl.innerHTML = `<span class="status-badge s-${c.status}">${statusLabels[c.status]||c.status}</span>`;
+  }
 
   // Specialist
   if(c.specialists) {
@@ -761,6 +763,8 @@ async function loadMessages() {
   wrap.scrollTop = wrap.scrollHeight;
 }
 
+async function reloadMessages() { if(currentPage === 'messages') await loadMessages(); }
+
 async function sendMessage() {
   const input = document.getElementById('msg-input');
   const content = input.value.trim();
@@ -811,6 +815,10 @@ async function saveSettings() {
 }
 
 // ── UTILS ─────────────────────────────────────────────────
+function setMobActive(el) {
+  document.querySelectorAll('.pmn-item').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
 function escHtml(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 async function logout() { await sb.auth.signOut(); window.location.href = '/portal/login.html'; }
 
@@ -818,7 +826,74 @@ function setMobileActive(el) {
   document.querySelectorAll('.pmn-item').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
 }
+
+// ── REALTIME ────────────────────────────────────────────────────────────────
+let realtimeChannel = null;
+
+function setupRealtime() {
+  if (!currentCase || realtimeChannel) return;
+  realtimeChannel = sb.channel('portal-case-' + currentCase.id)
+    .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages', filter:'case_id=eq.'+currentCase.id}, () => {
+      if (currentPage === 'messages') loadMessages();
+      else {
+        const b = document.getElementById('msg-badge');
+        if(b){b.style.display='inline-block';b.textContent=(parseInt(b.textContent)||0)+1;}
+        const pm = document.getElementById('pmn-messages');
+        if(pm) pm.setAttribute('data-badge','•');
+        showToast('Новое сообщение от специалиста');
+      }
+    })
+    .on('postgres_changes', {event:'UPDATE', schema:'public', table:'cases', filter:'id=eq.'+currentCase.id}, (payload) => {
+      if (!payload.new) return;
+      currentCase = {...currentCase, ...payload.new};
+      // Refresh status badge
+      if (payload.new.custom_status_id) {
+        sb.from('case_statuses').select('label,color,icon').eq('id', payload.new.custom_status_id).single().then(({data:st}) => {
+          if (!st) return;
+          const el = document.getElementById('case-status-badge');
+          if (el) el.innerHTML = `<span style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44;display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600"><span style="width:7px;height:7px;border-radius:50%;background:${st.color}"></span>${st.icon||''} ${st.label}</span>`;
+          showToast('Статус обновлён: ' + st.icon + ' ' + st.label);
+        });
+      }
+    })
+    .subscribe((status) => console.log('Realtime:', status));
+}
+
+function showToast(msg) {
+  let t = document.getElementById('cj-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'cj-toast';
+    t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(37,99,235,.95);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:opacity .4s;pointer-events:none;white-space:nowrap';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.style.opacity='0', 3500);
+}
+
+async function logout() { await sb.auth.signOut(); window.location.href = '/portal/login.html'; }
 init();
 </script>
+
+<!-- ── MOBILE BOTTOM NAV ── -->
+<div class="portal-mobile-nav" id="portal-mobile-nav">
+  <button class="pmn-item active" id="pmn-overview" onclick="showPage('overview');setMobActive(this)">
+    <span class="pmn-ico">📊</span><span>Обзор</span>
+  </button>
+  <button class="pmn-item" id="pmn-documents" onclick="showPage('documents');setMobActive(this)">
+    <span class="pmn-ico">📁</span><span>Файлы</span>
+  </button>
+  <button class="pmn-item" id="pmn-invoices" onclick="showPage('invoices');setMobActive(this)">
+    <span class="pmn-ico">💳</span><span>Счета</span>
+  </button>
+  <button class="pmn-item" id="pmn-messages" onclick="showPage('messages');setMobActive(this)">
+    <span class="pmn-ico">💬</span><span>Чат</span>
+  </button>
+  <button class="pmn-item" id="pmn-settings" onclick="showPage('settings');setMobActive(this)">
+    <span class="pmn-ico">⚙️</span><span>Профиль</span>
+  </button>
+</div>
+
 </body>
 </html>
