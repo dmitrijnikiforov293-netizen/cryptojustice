@@ -156,7 +156,7 @@ tr:last-child td{border-bottom:none}
   <div class="nav-logo">
     <svg viewBox="0 0 28 28" width="22" height="22"><polygon points="14,2 23,6.5 23,16 14,21 5,16 5,6.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/><circle cx="14" cy="11" r="3" fill="#22d3ee"/><circle cx="14" cy="11" r="1.3" fill="#0a0a0f"/></svg>
     Crypto<span>Justice</span>
-    <span class="nav-badge">Admin</span>
+    <span class="nav-badge" style="color:var(--cyan2);border-color:rgba(34,211,238,.3)">Portal</span>
   </div>
   <div class="nav-right">
     <span class="nav-user" id="admin-name">...</span>
@@ -362,7 +362,7 @@ tr:last-child td{border-bottom:none}
                 <option value="corporate">Корпоративное</option>
               </select>
             </div>
-            <div class="fg" style="margin:0"><label>Сумма потерь (USD) *</label><input class="fi" id="nc-amount" type="number" placeholder="15000"></div>
+            <div class="fg" style="margin:0"><label>Оспариваемая сумма (USD) *</label><input class="fi" id="nc-amount" type="number" placeholder="15000"></div>
           </div>
           <div class="frow">
             <div class="fg" style="margin:0"><label>Специалист</label><select class="fi" id="nc-specialist"><option value="">Не назначать</option></select></div>
@@ -645,7 +645,7 @@ async function openCase(caseId) {
     ['Клиент',`<span style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</span><br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
     ['Телефон',c.profiles?.phone||'—'],
     ['Тип мошенничества',FRAUD[c.fraud_type]||c.fraud_type],
-    ['Сумма потерь',`<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()} ${c.currency||'USD'}</span>`],
+    ['Оспариваемая сумма',`<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()} ${c.currency||'USD'}</span>`],
     ['Открыто',new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
   ].map(([l,v])=>`<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
   await Promise.all([loadDetailDocs(caseId), loadDetailInv(caseId), loadDetailTl(caseId)]);
@@ -716,7 +716,7 @@ async function createInv() {
 
   // Save to DB
   await sb.from('invoices').insert({case_id: activeCaseId, description: desc, amount, due_date: due||null, invoice_number: invNum});
-  await sb.from('case_timeline').insert({case_id: activeCaseId, type: 'invoice', title: `Инвойс: ${desc} — $${amount}`, author_name: document.getElementById('admin-name').textContent});
+  await sb.from('case_timeline').insert({case_id: activeCaseId, type: 'invoice', title: `Инвойс: ${desc} — $${amount}`, author_name: 'CryptoJustice'  // shown to client as company name});
   
   // Generate PDF invoice
   generateInvoicePDF({

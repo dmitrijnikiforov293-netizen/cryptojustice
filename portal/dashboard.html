@@ -284,7 +284,7 @@ tr:last-child td{border-bottom:none}
         <div class="stats-row" id="stats-row">
           <div class="stat-box">
             <div class="stat-box-num" id="stat-amount">—</div>
-            <div class="stat-box-label">Сумма потерь</div>
+            <div class="stat-box-label">Оспариваемая сумма</div>
           </div>
           <div class="stat-box">
             <div class="stat-box-num" id="stat-docs">0</div>
@@ -321,7 +321,7 @@ tr:last-child td{border-bottom:none}
               <div style="display:flex;flex-direction:column;gap:.8rem">
                 <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Номер дела</div><div id="detail-num" style="font-family:var(--fd);font-weight:700;color:var(--blue3)"></div></div>
                 <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Тип мошенничества</div><div id="detail-type" style="font-size:13px"></div></div>
-                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Сумма потерь</div><div id="detail-amount" style="font-family:var(--fd);font-weight:700;color:var(--red);font-size:1.1rem"></div></div>
+                <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Оспариваемая сумма</div><div id="detail-amount" style="font-family:var(--fd);font-weight:700;color:var(--red);font-size:1.1rem"></div></div>
                 <div><div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Дата открытия</div><div id="detail-date" style="font-size:13px"></div></div>
               </div>
             </div>
@@ -407,7 +407,7 @@ tr:last-child td{border-bottom:none}
     <!-- MESSAGES PAGE -->
     <div id="page-messages" class="hidden">
       <div class="page-title">💬 Сообщения</div>
-      <div class="page-sub">Общайтесь со специалистом по вашему делу.</div>
+      <div class="page-sub" id="messages-specialist-info">Загрузка...</div>
       <div class="card">
         <div class="card-body">
           <div class="messages-wrap" id="messages-wrap">
@@ -609,17 +609,21 @@ async function loadRecentDocs() {
   const {data} = await sb.from('documents').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false}).limit(3);
   if(!data?.length) return;
   const catLabels = {evidence:'Доказательства',contract:'Договор',report:'Отчёт',invoice:'Инвойс',police:'Заявление',other:'Другое'};
-  document.getElementById('recent-docs').innerHTML = data.map(d => `
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border)">
+  const myId2 = currentUser.id;
+  document.getElementById('recent-docs').innerHTML = data.map(d => {
+    const fromAdmin = d.uploaded_by !== myId2;
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);${fromAdmin?'background:rgba(37,99,235,.03);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem':''}">
       <div style="display:flex;align-items:center;gap:.8rem">
-        <span style="font-size:1.2rem">📄</span>
+        <span style="font-size:1.2rem">${fromAdmin ? '📋' : '📄'}</span>
         <div>
           <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:1px">${catLabels[d.category]||d.category} · ${new Date(d.created_at).toLocaleDateString('ru-RU')}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:1px">
+            ${fromAdmin ? '<span style="color:var(--blue3);font-weight:600">🏢 От CryptoJustice</span> · ' : ''}${catLabels[d.category]||d.category} · ${new Date(d.created_at).toLocaleDateString('ru-RU')}
+          </div>
         </div>
       </div>
       <button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">Скачать</button>
-    </div>`).join('') + `<div style="text-align:center;margin-top:1rem"><button class="btn-sm ghost" onclick="showPage('documents')">Все документы →</button></div>`;
+    </div>`;}).join('') + `<div style="text-align:center;margin-top:1rem"><button class="btn-sm ghost" onclick="showPage('documents')">Все документы →</button></div>`;
 }
 
 // ── PAGES ────────────────────────────────────────────────
@@ -638,17 +642,31 @@ function showPage(page) {
 // ── DOCUMENTS ────────────────────────────────────────────
 async function loadDocuments() {
   if(!currentCase) return;
+  // Load ALL documents for this case — both client uploads and admin uploads
   const {data} = await sb.from('documents').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:false});
   const catLabels = {evidence:'Доказательства',contract:'Договор',report:'Блокчейн-отчёт',invoice:'Инвойс',police:'Заявление в полицию',other:'Другое'};
   const catColors = {contract:'var(--blue3)',report:'var(--cyan2)',invoice:'var(--amber)',police:'var(--green)'};
   if(!data?.length) return;
-  document.getElementById('docs-list').innerHTML = `<table><thead><tr><th>Файл</th><th>Категория</th><th>Дата</th><th></th></tr></thead><tbody>` +
-    data.map(d => `<tr>
-      <td><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div><div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div></div></div></td>
-      <td><span style="font-size:11px;color:${catColors[d.category]||'var(--text2)'}">● ${catLabels[d.category]||d.category}</span></td>
-      <td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td>
-      <td><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">↓ Скачать</button></td>
-    </tr>`).join('') + '</tbody></table>';
+  const myId = currentUser.id;
+  document.getElementById('docs-list').innerHTML = `<table><thead><tr><th>Файл</th><th>Категория</th><th>От кого</th><th>Дата</th><th></th></tr></thead><tbody>` +
+    data.map(d => {
+      const fromAdmin = d.uploaded_by !== myId;
+      return `<tr style="${fromAdmin ? 'background:rgba(37,99,235,.04)' : ''}">
+        <td><div style="display:flex;align-items:center;gap:.6rem">
+          <span>${fromAdmin ? '📋' : '📄'}</span>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
+            <div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div>
+          </div>
+        </div></td>
+        <td><span style="font-size:11px;color:${catColors[d.category]||'var(--text2)'}">● ${catLabels[d.category]||d.category}</span></td>
+        <td><span style="font-size:11px;${fromAdmin ? 'color:var(--blue3);font-weight:600' : 'color:var(--text3)'}">
+          ${fromAdmin ? '🏢 CryptoJustice' : '👤 Вы'}
+        </span></td>
+        <td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td>
+        <td><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')">↓ Скачать</button></td>
+      </tr>`;
+    }).join('') + '</tbody></table>';
 }
 
 async function uploadFile(file) {
@@ -744,6 +762,21 @@ async function loadInvoices() {
 // ── MESSAGES ─────────────────────────────────────────────
 async function loadMessages() {
   if(!currentCase) return;
+  // Show specialist info in header
+  const specEl = document.getElementById('messages-specialist-info');
+  if (specEl && currentCase.specialist_id) {
+    const {data:sp} = await sb.from('specialists').select('name,role,telegram,avatar_url').eq('id', currentCase.specialist_id).single();
+    if (sp) {
+      const avatarHtml = sp.avatar_url
+        ? `<img src="${sp.avatar_url}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;vertical-align:middle">`
+        : `<span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:rgba(37,99,235,.2);align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue3);margin-right:8px;vertical-align:middle">${sp.name[0]}</span>`;
+      specEl.innerHTML = `${avatarHtml}<strong style="color:var(--text)">${sp.name}</strong> <span style="color:var(--text3);font-size:12px">— ${sp.role}</span>${sp.telegram ? ` <a href="https://t.me/${sp.telegram.replace('@','')}" target="_blank" style="margin-left:8px;font-size:12px;color:var(--blue3)">✈ ${sp.telegram}</a>` : ''}`;
+    } else {
+      specEl.textContent = 'Специалист ещё не назначен';
+    }
+  } else if (specEl) {
+    specEl.textContent = 'Специалист ещё не назначен';
+  }
   const {data} = await sb.from('messages').select('*').eq('case_id', currentCase.id).order('created_at', {ascending:true});
 
   // Mark admin messages as read
@@ -753,11 +786,13 @@ async function loadMessages() {
   document.getElementById('msg-badge').style.display = 'none';
 
   if(!data?.length) return;
-  document.getElementById('messages-wrap').innerHTML = data.map(m => `
-    <div class="message ${m.sender_id === currentUser.id ? 'mine' : 'theirs'}">
+  document.getElementById('messages-wrap').innerHTML = data.map(m => {
+    const isMine = m.sender_id === currentUser.id;
+    const senderLabel = isMine ? 'Вы' : (m.sender_name || 'CryptoJustice');
+    return `<div class="message ${isMine ? 'mine' : 'theirs'}">
       <div class="message-bubble">${escHtml(m.content)}</div>
-      <div class="message-meta">${m.sender_name || 'Вы'} · ${new Date(m.created_at).toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'})}</div>
-    </div>`).join('');
+      <div class="message-meta">${senderLabel} · ${new Date(m.created_at).toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'})}</div>
+    </div>`;}).join('');
 
   const wrap = document.getElementById('messages-wrap');
   wrap.scrollTop = wrap.scrollHeight;
