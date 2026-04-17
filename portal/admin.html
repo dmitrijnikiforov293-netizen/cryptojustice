@@ -716,7 +716,7 @@ async function createInv() {
 
   // Save to DB
   await sb.from('invoices').insert({case_id: activeCaseId, description: desc, amount, due_date: due||null, invoice_number: invNum});
-  await sb.from('case_timeline').insert({case_id: activeCaseId, type: 'invoice', title: `Инвойс: ${desc} — $${amount}`, author_name: 'CryptoJustice'  // shown to client as company name});
+  await sb.from('case_timeline').insert({case_id: activeCaseId, type: 'invoice', title: `Инвойс: ${desc} — $${Number(amount).toLocaleString()}`, author_name: 'CryptoJustice'});
   
   // Generate PDF invoice
   generateInvoicePDF({
@@ -924,7 +924,8 @@ async function sendAdminMsg() {
   const input=document.getElementById('chat-input'); const content=input.value.trim(); if(!content||!chatCaseId) return;
   input.value='';
   const {data:p} = await sb.from('profiles').select('full_name').eq('id',me.id).single();
-  await sb.from('messages').insert({case_id:chatCaseId,sender_id:me.id,sender_name:p?.full_name||'Специалист',content,is_admin:true});
+  const sName = p?.full_name ? p.full_name + ' · CryptoJustice' : 'CryptoJustice';
+  await sb.from('messages').insert({case_id:chatCaseId,sender_id:me.id,sender_name:sName,content,is_admin:true});
   openChat(chatCaseId,document.getElementById('chat-title').textContent);
 }
 
