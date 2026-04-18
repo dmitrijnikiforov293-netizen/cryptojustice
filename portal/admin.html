@@ -437,8 +437,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- INVITE -->
     <div id="p-invite" class="hidden">
-      <div class="page-title" style="display:flex;align-items:center;gap:.6rem">eta charset="UTF-8">
-<meta name="viewport" contentСоздать аккаунт сотрудника</div>
+      <div class="page-title">Создать аккаунт сотрудника</div>
       <div class="page-sub">Создайте логин и пароль — сотрудник сразу сможет войти.</div>
 
       <div id="inv-alert" class="alert"></div>
@@ -449,10 +448,10 @@ tr:last-child td{border-bottom:none}
           <div class="card-head"><div class="card-title">Новый сотрудник</div></div>
           <div class="card-body">
             <div class="fg"><label>Имя и фамилия *</label><input class="fi" id="staff-name" placeholder="Иван Петров"></div>
-            <div class="fg"><label>Email *</label><input class="fi" id="staff-email" type="email" placeholder="ivan@cryptojustice.com"></div>
+            <div class="fg"><label>Email *</label><input class="fi" id="staff-email" type="email" placeholder="ivan@cryptojustice.com" autocomplete="off"></div>
             <div class="fg"><label>Пароль *</label>
               <div style="position:relative">
-                <input class="fi" id="staff-pass" type="password" placeholder="Минимум 8 символов" style="padding-right:2.5rem">
+                <input class="fi" id="staff-pass" type="password" placeholder="Минимум 8 символов" style="padding-right:2.5rem" autocomplete="new-password">
                 <button onclick="togglePass()" style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px">👁</button>
               </div>
             </div>
