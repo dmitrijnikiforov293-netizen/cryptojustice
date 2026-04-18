@@ -514,7 +514,18 @@ tr:last-child td{border-bottom:none}
           <div class="card-body">
             <div id="status-alert" class="alert"></div>
             <div class="fg"><label>Название *</label><input class="fi" id="st-label" placeholder="Ожидание биржи"></div>
-            <div class="fg"><label>Иконка (эмодзи)</label><input class="fi" id="st-icon" placeholder="⏳" style="width:80px"></div>
+            <div class="fg"><label>Иконка</label>
+              <select class="fi" id="st-icon">
+                <option value="inbox">Входящее / Новое</option>
+                <option value="search">Оценка / Анализ</option>
+                <option value="chain">Блокчейн</option>
+                <option value="docs">Документы</option>
+                <option value="freeze">Заморозка</option>
+                <option value="legal">Судебное</option>
+                <option value="success">Успешно</option>
+                <option value="fail">Закрыто</option>
+              </select>
+            </div>
             <div class="fg">
               <label>Цвет</label>
               <div class="color-grid" id="color-grid"></div>
@@ -596,18 +607,24 @@ function nav(page) {
 // ── LOAD STATUSES ─────────────────────────────────────────────────────────────
 async function loadStatuses() {
   const {data} = await sb.from('case_statuses').select('*').order('sort_order');
-  allStatuses = data || [];
-  // Populate status selects
-  ['filter-status','d-status','nc-status'].forEach(id => {
-    const el = document.getElementById(id);
-    if(!el) return;
-    const hasAll = id === 'filter-status';
-    el.innerHTML = (hasAll ? '<option value="">Все статусы</option>' : '') +
-      allStatuses.map(s => `<option value="${s.id}">${s.icon} ${s.label}</option>`).join('');
-  });
+  statuses = data || [];
+  const el = document.getElementById('statuses-list');
+  if (!el) return;
+  el.innerHTML = (data||[]).map(s => {
+    const ico = getStatusIcon(s.icon, s.color, 18);
+    return '<div style="display:flex;align-items:center;gap:.8rem;padding:.65rem .8rem;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);margin-bottom:.4rem">' +
+      '<div style="width:34px;height:34px;border-radius:8px;background:' + s.color + '22;border:1px solid ' + s.color + '44;display:flex;align-items:center;justify-content:center;flex-shrink:0;filter:drop-shadow(0 0 5px ' + s.color + '55)">' + ico + '</div>' +
+      '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text)">' + s.label + '</div>' +
+      '<div style="font-size:11px;color:var(--text3)">#' + s.sort_order + ' &nbsp;&middot;&nbsp; <span style="color:' + s.color + '">' + s.color + '</span></div></div>' +
+      '<button class="btn danger sm" style="padding:4px 10px;font-size:11px" onclick="deleteStatus(\'' + s.id + '\')">&#x2715;</button></div>';
+  }).join('');
+  const sel = document.getElementById('d-status');
+  if (sel) {
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Без статуса —</option>' + (data||[]).map(s => '<option value="' + s.id + '"' + (s.id===cur?' selected':'') + '>' + s.label + '</option>').join('');
+  }
 }
 
-// ── LOAD SPECIALISTS ─────────────────────────────────────────────────────────
 async function loadSpecialists() {
   const {data} = await sb.from('specialists').select('*').order('name');
   allSpecialists = data || [];
@@ -1225,6 +1242,9 @@ function showAdminToast(msg) {
   clearTimeout(t._t);
   t._t=setTimeout(()=>t.style.opacity='0',4000);
 }
+
+
+function getStatusIcon(k,c,s){s=s||16;c=c||'#64748b';var d={inbox:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>',search:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',chain:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',docs:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',freeze:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',legal:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',success:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',fail:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'};return d[k]||d['docs'];}
 
 init();
 </script>
