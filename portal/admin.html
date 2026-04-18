@@ -148,6 +148,18 @@ tr:last-child td{border-bottom:none}
 .staff-avatar{width:44px;height:44px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--blue3);margin-bottom:.4rem}
 
 @media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.stats{grid-template-columns:repeat(2,1fr)}.frow{grid-template-columns:1fr}}
+
+/* ── NI ICON SYSTEM ──────────────────────────────── */
+@keyframes ni-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes ni-spin-r{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes ni-glow{0%,100%{filter:drop-shadow(0 0 3px #22d3ee)}50%{filter:drop-shadow(0 0 8px #22d3ee)}}
+@keyframes ni-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.ni-svg{display:block;transition:filter .3s,transform .3s}
+.slink:hover .ni-svg,.slink.active .ni-svg{filter:drop-shadow(0 0 5px rgba(34,211,238,.7))}
+.slink:hover .ni-float{animation:ni-float 1.5s ease-in-out infinite}
+.slink.active .ni-spin{animation:ni-spin-r 3s linear infinite}
+.ni-glow-always{animation:ni-glow 2s ease-in-out infinite}
+
 </style>
 </head>
 <body>
@@ -169,21 +181,21 @@ tr:last-child td{border-bottom:none}
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Дела</div>
-      <button class="slink active" onclick="nav('dashboard')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Дашборд</button>
-      <button class="slink" onclick="nav('cases')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Все дела</button>
-      <button class="slink" onclick="nav('new-case')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>Создать дело</button>
-      <button class="slink" onclick="nav('clients')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Клиенты</button>
+      <button class="slink active" onclick="nav('dashboard')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Дашборд</button>
+      <button class="slink" onclick="nav('cases')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Все дела</button>
+      <button class="slink" onclick="nav('new-case')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Создать дело</button>
+      <button class="slink" onclick="nav('clients')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Команда</div>
-      <button class="slink" onclick="nav('staff')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Сотрудники</button>
-      <button class="slink" onclick="nav('invite')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Пригласить</button>
-      <button class="slink" onclick="nav('specialists')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Специалисты</button>
+      <button class="slink" onclick="nav('staff')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Сотрудники</button>
+      <button class="slink" onclick="nav('invite')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="19" y1="13" x2="23" y2="13"/><line x1="21" y1="11" x2="21" y2="15"/></svg>Пригласить</button>
+      <button class="slink" onclick="nav('specialists')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><polyline points="10,14 12,16 15,13"/></svg>Специалисты</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Настройки</div>
-      <button class="slink" onclick="nav('statuses')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>Статусы дел</button>
-      <button class="slink" onclick="nav('messages')"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
+      <button class="slink" onclick="nav('statuses')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-glow-always" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="#22d3ee" opacity=".5"/></svg>Статусы дел</button>
+      <button class="slink" onclick="nav('messages')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
     </div>
   </div>
 
@@ -297,7 +309,7 @@ tr:last-child td{border-bottom:none}
                 <div class="fg" style="margin:0"><label>Описание</label><input class="fi" id="doc-note" placeholder="Договор об оказании услуг..."></div>
               </div>
               <div class="file-drop" id="doc-drop" onclick="document.getElementById('doc-file').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropDoc(event)">
-                <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:.6"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div><p>Нажмите или перетащите файл</p>
+                <div class="ico">📎</div><p>Нажмите или перетащите файл</p>
               </div>
               <input type="file" id="doc-file" style="display:none" onchange="uploadDoc(this.files[0])">
               <div id="doc-progress" class="hidden" style="margin-top:.6rem;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:.5rem"><div class="spin"></div><span id="doc-status"></span></div>
@@ -412,7 +424,7 @@ tr:last-child td{border-bottom:none}
           <div class="card-body">
             <div id="spec-edit-alert" class="alert"></div>
             <div style="text-align:center;margin-bottom:1.2rem">
-              <div id="spec-avatar-preview" style="width:80px;height:80px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:var(--blue3);margin:0 auto .8rem;overflow:hidden;cursor:pointer" onclick="document.getElementById('spec-avatar-file').click()"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M3 21c0-4.418 4.03-8 9-8s9 3.582 9 8"/></svg></div>
+              <div id="spec-avatar-preview" style="width:80px;height:80px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:var(--blue3);margin:0 auto .8rem;overflow:hidden;cursor:pointer" onclick="document.getElementById('spec-avatar-file').click()">👤</div>
               <input type="file" id="spec-avatar-file" accept="image/*" style="display:none" onchange="previewAvatar(this)">
               <div style="font-size:11px;color:var(--text3)">Нажмите для загрузки фото</div>
             </div>
@@ -437,7 +449,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- INVITE -->
     <div id="p-invite" class="hidden">
-      <div class="page-title">Создать аккаунт сотрудника</div>
+      <div class="page-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="19" y1="13" x2="23" y2="13"/><line x1="21" y1="11" x2="21" y2="15"/></svg> Создать аккаунт сотрудника</div>
       <div class="page-sub">Создайте логин и пароль — сотрудник сразу сможет войти.</div>
 
       <div id="inv-alert" class="alert"></div>
@@ -452,7 +464,7 @@ tr:last-child td{border-bottom:none}
             <div class="fg"><label>Пароль *</label>
               <div style="position:relative">
                 <input class="fi" id="staff-pass" type="password" placeholder="Минимум 8 символов" style="padding-right:2.5rem" autocomplete="new-password">
-                <button onclick="togglePass()" style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button>
+                <button onclick="togglePass()" style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px">👁</button>
               </div>
             </div>
             <div class="fg"><label>Роль</label>
@@ -502,7 +514,7 @@ tr:last-child td{border-bottom:none}
           <div class="card-body">
             <div id="status-alert" class="alert"></div>
             <div class="fg"><label>Название *</label><input class="fi" id="st-label" placeholder="Ожидание биржи"></div>
-            <div class="fg"><label>Иконка (эмодзи)</label><input class="fi" id="st-icon" placeholder="●" style="width:80px"></div>
+            <div class="fg"><label>Иконка (эмодзи)</label><input class="fi" id="st-icon" placeholder="⏳" style="width:80px"></div>
             <div class="fg">
               <label>Цвет</label>
               <div class="color-grid" id="color-grid"></div>
@@ -642,13 +654,13 @@ async function loadCases() {
 }
 
 function renderCasesTable(containerId, cases) {
-  const priLabel = {low:'<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#64748b\"/></svg>',normal:'<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#3b82f6\"/></svg>',high:'<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#f59e0b\"/></svg>',urgent:'<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#ef4444\"/></svg>'};
+  const priLabel = {low:'⚪',normal:'🔵',high:'🟡',urgent:'🔴'};
   if(!cases.length) { document.getElementById(containerId).innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3)">Дел нет</div>'; return; }
   document.getElementById(containerId).innerHTML = `<table><thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th>Приоритет</th><th></th></tr></thead><tbody>`+
     cases.map(c => {
       const st = c.case_statuses;
       const statusHtml = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '<span style="color:var(--text3)">—</span>';
-      return `<tr><td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td><td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td><td>${FRAUD[c.fraud_type]||c.fraud_type}</td><td style="color:#f87171;font-weight:600">$${Number(c.amount_lost).toLocaleString()}</td><td>${statusHtml}</td><td style="color:var(--text2)">${c.specialists?.name||'—'}</td><td>${priLabel[c.priority]||'<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#3b82f6\"/></svg>'}</td><td><button class="btn primary sm" onclick="openCase('${c.id}')">Открыть</button></td></tr>`;
+      return `<tr><td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td><td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td><td>${FRAUD[c.fraud_type]||c.fraud_type}</td><td style="color:#f87171;font-weight:600">$${Number(c.amount_lost).toLocaleString()}</td><td>${statusHtml}</td><td style="color:var(--text2)">${c.specialists?.name||'—'}</td><td>${priLabel[c.priority]||'🔵'}</td><td><button class="btn primary sm" onclick="openCase('${c.id}')">Открыть</button></td></tr>`;
     }).join('') + '</tbody></table>';
 }
 
@@ -710,7 +722,7 @@ async function loadDetailDocs(cid) {
   const {data} = await sb.from('documents').select('*').eq('case_id',cid).order('created_at',{ascending:false});
   if(!data?.length) { document.getElementById('docs-list').innerHTML='<div style="font-size:12px;color:var(--text3)">Нет документов</div>'; return; }
   const catL={evidence:'Доказательства',contract:'Договор',report:'Отчёт',police:'Заявление',invoice:'Инвойс',other:'Другое'};
-  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/></svg></span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg></button></div>`).join('');
+  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg></button></div>`).join('');
 }
 
 async function uploadDoc(file) {
@@ -839,7 +851,7 @@ async function markPaid(id){await sb.from('invoices').update({status:'paid'}).eq
 // ── TIMELINE ──────────────────────────────────────────────────────────────────
 async function loadDetailTl(cid) {
   const {data} = await sb.from('case_timeline').select('*').eq('case_id',cid).order('created_at',{ascending:false}).limit(20);
-  const icons={status_change:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"23 4 23 10 17 10\"/><path d=\"M20.49 15a9 9 0 1 1-.08-5.96\"/></svg>',note:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z\"/></svg>',document:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#06b6d4\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48\"/></svg>',invoice:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"2\" y1=\"10\" x2=\"22\" y2=\"10\"/></svg>'};
+  const icons={status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
   document.getElementById('d-timeline').innerHTML = !data?.length ? '<div style="font-size:12px;color:var(--text3)">История пуста</div>' :
     data.map(e=>`<div class="tl-item"><div class="tl-dot">${icons[e.type]||'•'}</div><div class="tl-body"><div class="tl-title">${e.title}</div>${e.content?`<div class="tl-text">${e.content}</div>`:''}<div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${e.author_name?' · '+e.author_name:''}</div></div></div>`).join('');
 }
@@ -906,7 +918,7 @@ async function loadInvites() {
   const {data} = await sb.from('staff_invites').select('*').order('created_at',{ascending:false});
   if(!data?.length){document.getElementById('invites-list').innerHTML='<div style="padding:1rem;font-size:12px;color:var(--text3)">Нет приглашений</div>';return;}
   document.getElementById('invites-list').innerHTML=`<table><thead><tr><th>Email</th><th>Роль</th><th>Принято</th><th>Дата</th><th></th></tr></thead><tbody>`+
-    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle\"><polyline points=\"20 6 9 17 4 12\"/></svg> Да':'<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><polyline points=\"12,7 12,12 16,14\"/></svg> Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button></td></tr>`).join('')+'</tbody></table>';
+    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button></td></tr>`).join('')+'</tbody></table>';
 }
 async function deleteInvite(id){await sb.from('staff_invites').delete().eq('id',id);loadInvites();}
 
@@ -924,7 +936,7 @@ async function loadStatusesPage() {
   document.getElementById('statuses-list').innerHTML = allStatuses.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.7rem"><span style="font-size:16px">${s.icon}</span><span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44"><span class="status-dot" style="background:${s.color}"></span>${s.label}</span><span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span></div><div style="display:flex;gap:.4rem">${!s.is_default?`<button class="btn danger sm" onclick="deleteStatus('${s.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button>`:''}` + '</div></div>').join('');
 }
 async function addStatus() {
-  const label=document.getElementById('st-label').value.trim(); const icon=document.getElementById('st-icon').value.trim()||'●'; const color=document.getElementById('st-color').value; const sort_order=parseInt(document.getElementById('st-order').value)||allStatuses.length+1;
+  const label=document.getElementById('st-label').value.trim(); const icon=document.getElementById('st-icon').value.trim()||'📋'; const color=document.getElementById('st-color').value; const sort_order=parseInt(document.getElementById('st-order').value)||allStatuses.length+1;
   if(!label){showAlert('status-alert','Введите название','err');return;}
   const {error} = await sb.from('case_statuses').insert({label,icon,color,sort_order});
   if(error){showAlert('status-alert','Ошибка: '+error.message,'err');return;}
@@ -989,8 +1001,8 @@ async function loadSpecialistsPage() {
           <div style="font-weight:600;color:var(--text)">${s.name}</div>
           <div style="font-size:12px;color:var(--text3)">${s.role}</div>
           <div style="display:flex;gap:1rem;margin-top:4px;flex-wrap:wrap">
-            ${s.email ? `<span style="font-size:11px;color:var(--text2)"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:2px\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 8l10 7 10-7\"/></svg>${s.email}</span>` : ''}
-            ${s.telegram ? `<span style="font-size:11px;color:var(--blue3)"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:2px\"><path d=\"M22 2L11 13\"/><path d=\"M22 2L15 22L11 13L2 9L22 2Z\"/></svg>${s.telegram}</span>` : ''}
+            ${s.email ? `<span style="font-size:11px;color:var(--text2)">📧 ${s.email}</span>` : ''}
+            ${s.telegram ? `<span style="font-size:11px;color:var(--blue3)">✈ ${s.telegram}</span>` : ''}
           </div>
         </div>
         <button class="btn ghost sm" onclick="event.stopPropagation();loadSpecEdit('${s.id}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 2l3 3-9 9H4v-3z"/><line x1="11" y1="4" x2="14" y2="7"/></svg>&nbsp;Ред.</button>
@@ -1078,7 +1090,7 @@ function clearSpecEdit() {
     if (el) el.value = '';
   });
   document.getElementById('spec-edit-select').value = '';
-  document.getElementById('spec-avatar-preview').innerHTML = '<svg width=\"36\" height=\"36\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#60a5fa\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M3 21c0-4.418 4.03-8 9-8s9 3.582 9 8\"/></svg>';
+  document.getElementById('spec-avatar-preview').innerHTML = '👤';
   specAvatarBlob = null;
 }
 
@@ -1217,4 +1229,4 @@ function showAdminToast(msg) {
 init();
 </script>
 </body>
-</html>18.04.2026 9:45:20
+</html>
