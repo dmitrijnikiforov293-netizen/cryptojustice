@@ -51,7 +51,7 @@ input,select,textarea{font-family:var(--fb)}
 .sidebar-link.active{background:rgba(37,99,235,.15);color:var(--blue3)}
 .sidebar-link .icon{font-size:15px;width:20px;text-align:center}
 .sidebar-link .badge{margin-left:auto;font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:100px;font-weight:700}
-.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px}
+.portal-main{margin-left:220px;flex:1;padding:2rem;max-width:1100px;min-width:0;overflow-x:hidden}
 
 /* ── CARDS & PANELS ── */
 .card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
@@ -672,7 +672,7 @@ async function loadDocuments() {
         <td><div style="display:flex;align-items:center;gap:.6rem">
           <span>${fromAdmin ? '📋' : ''}</span>
           <div>
-            <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">${fromAdmin && d.name.startsWith("admin_") ? "📋 Документ от CryptoJustice" : d.name}</div>
             <div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div>
           </div>
         </div></td>
@@ -1016,4 +1016,4 @@ init();
 </div>
 
 </body>
-</html>18.04.2026 9:45:15
+</html>
