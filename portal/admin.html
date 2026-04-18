@@ -1083,6 +1083,100 @@ function clearSpecEdit() {
   specAvatarBlob = null;
 }
 
+// ── CREATE STAFF ACCOUNT ──────────────────────────────────────────────────────
+function togglePass() {
+  var f = document.getElementById('staff-pass');
+  f.type = f.type === 'password' ? 'text' : 'password';
+}
+
+async function createStaffAccount() {
+  var name = document.getElementById('staff-name').value.trim();
+  var email = document.getElementById('staff-email').value.trim();
+  var pass = document.getElementById('staff-pass').value;
+  var role = document.getElementById('staff-role').value;
+  var roleTitle = document.getElementById('staff-role-title').value.trim();
+  var tg = document.getElementById('staff-tg') ? document.getElementById('staff-tg').value.trim() : '';
+
+  if (!name || !email || !pass) { showAlert('inv-alert', 'Заполните имя, email и пароль', 'err'); return; }
+  if (pass.length < 6) { showAlert('inv-alert', 'Пароль минимум 6 символов', 'err'); return; }
+
+  var btn = document.getElementById('create-btn');
+  var prog = document.getElementById('create-progress');
+  btn.disabled = true;
+  if (prog) prog.classList.remove('hidden');
+  var statusEl = document.getElementById('create-status');
+  if (statusEl) statusEl.textContent = 'Создаём аккаунт...';
+
+  try {
+    var res = await sb.auth.signUp({ email: email, password: pass, options: { data: { full_name: name } } });
+    if (res.error) throw new Error(res.error.message);
+
+    var userId = res.data.user ? res.data.user.id : null;
+    if (!userId) throw new Error('Не удалось создать пользователя');
+
+    if (statusEl) statusEl.textContent = 'Настраиваем роль...';
+    await new Promise(function(r) { setTimeout(r, 1500); });
+
+    var upRes = await sb.from('profiles').upsert({ id: userId, email: email, full_name: name, role: role }, { onConflict: 'id' });
+    if (upRes.error) {
+      await sb.from('profiles').update({ role: role, full_name: name }).eq('id', userId);
+    }
+
+    if (roleTitle || tg) {
+      await sb.from('specialists').upsert({ name: name, email: email, role: roleTitle || role, telegram: tg || null }, { onConflict: 'email' });
+    }
+
+    var savedPass = pass;
+    showAlert('inv-alert', '✓ Аккаунт создан! ' + name + ' (' + email + ') может войти с паролем: ' + savedPass, 'ok');
+    ['staff-name','staff-email','staff-pass','staff-role-title'].forEach(function(id) {
+      var el = document.getElementById(id); if (el) el.value = '';
+    });
+    if (document.getElementById('staff-tg')) document.getElementById('staff-tg').value = '';
+    loadStaffList();
+
+  } catch(e) {
+    showAlert('inv-alert', 'Ошибка: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    if (prog) prog.classList.add('hidden');
+  }
+}
+
+async function loadStaffList() {
+  var res = await sb.from('profiles').select('*').in('role', ['admin','specialist']).order('created_at');
+  var el = document.getElementById('staff-accounts-list');
+  if (!el) return;
+  var data = res.data;
+  if (!data || !data.length) { el.innerHTML = '<div style="padding:1rem;color:var(--text3);font-size:13px">Сотрудников нет</div>'; return; }
+  var roleColors = { admin: 'var(--amber)', specialist: 'var(--blue3)' };
+  el.innerHTML = '<div>' + data.map(function(p) {
+    var initial = (p.full_name || p.email)[0].toUpperCase();
+    var color = roleColors[p.role] || 'var(--text3)';
+    var isMe = adminUser && p.id === adminUser.id;
+    return '<div data-uid="' + p.id + '" data-name="' + (p.full_name || p.email) + '" style="display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-bottom:1px solid var(--border)">' +
+      '<div style="width:36px;height:36px;border-radius:50%;background:rgba(37,99,235,.15);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;color:var(--blue3);flex-shrink:0">' + initial + '</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-weight:600;color:var(--text);font-size:13px">' + (p.full_name || '—') + '</div>' +
+        '<div style="font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + p.email + '</div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:.4rem">' +
+        '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44">' + p.role + '</span>' +
+        (!isMe ? '<button class="btn danger sm" style="padding:4px 8px;font-size:11px" onclick="removeStaffMember(this)">✕</button>' : '<span style="font-size:11px;color:var(--text3)">(вы)</span>') +
+      '</div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+async function removeStaffMember(btn) {
+  var card = btn.closest('div[data-uid]') || btn.parentElement.parentElement.parentElement;
+  var uid = card ? card.dataset.uid : null;
+  var name = card ? card.dataset.name : '?';
+  if (!uid) return;
+  if (!confirm('Снять права у ' + name + '? Роль сменится на клиент.')) return;
+  await sb.from('profiles').update({ role: 'client' }).eq('id', uid);
+  loadStaffList();
+}
+
 async function logout(){await sb.auth.signOut();window.location.href='/portal/login.html';}
 // ── ADMIN REALTIME ────────────────────────────────────────────────────────────
 let adminRealtimeChannel = null;
