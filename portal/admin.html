@@ -32,7 +32,7 @@ input,select,textarea{font-family:var(--fb)}
 .slink{display:flex;align-items:center;gap:.65rem;padding:.6rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border:none;background:transparent;width:100%;text-align:left;transition:all .15s}
 .slink:hover{background:var(--dark3);color:var(--text)}
 .slink.active{background:rgba(37,99,235,.15);color:var(--blue3)}
-.slink .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.slink .ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.7;transition:opacity .2s}.slink:hover .ico,.slink.active .ico{opacity:1}
 .slink .badge{margin-left:auto;font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:100px;font-weight:700}
 .main{margin-left:210px;flex:1;padding:1.5rem;max-width:1300px}
 
@@ -217,10 +217,10 @@ tr:last-child td{border-bottom:none}
             </select>
             <select class="fi" id="filter-priority" style="width:130px;padding:7px 10px" onchange="loadCases()">
               <option value="">Все приоритеты</option>
-              <option value="urgent">🔴 Срочно</option>
-              <option value="high">🟡 Высокий</option>
-              <option value="normal">🔵 Нормальный</option>
-              <option value="low">⚪ Низкий</option>
+              <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
+              <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
+              <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
+              <option value="low"><span style="color:#64748b">● Низкий</span></option>
             </select>
             <input class="fi" id="filter-search" placeholder="Поиск..." style="width:180px;padding:7px 10px" oninput="loadCases()">
           </div>
@@ -254,10 +254,10 @@ tr:last-child td{border-bottom:none}
                 <div class="fg" style="margin:0">
                   <label>Приоритет</label>
                   <select class="fi" id="d-priority">
-                    <option value="low">⚪ Низкий</option>
-                    <option value="normal">🔵 Нормальный</option>
-                    <option value="high">🟡 Высокий</option>
-                    <option value="urgent">🔴 Срочно</option>
+                    <option value="low"><span style="color:#64748b">● Низкий</span></option>
+                    <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
+                    <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
+                    <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
                   </select>
                 </div>
               </div>
@@ -368,10 +368,10 @@ tr:last-child td{border-bottom:none}
             <div class="fg" style="margin:0"><label>Специалист</label><select class="fi" id="nc-specialist"><option value="">Не назначать</option></select></div>
             <div class="fg" style="margin:0"><label>Приоритет</label>
               <select class="fi" id="nc-priority">
-                <option value="normal">🔵 Нормальный</option>
-                <option value="high">🟡 Высокий</option>
-                <option value="urgent">🔴 Срочно</option>
-                <option value="low">⚪ Низкий</option>
+                <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
+                <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
+                <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
+                <option value="low"><span style="color:#64748b">● Низкий</span></option>
               </select>
             </div>
           </div>
@@ -437,29 +437,57 @@ tr:last-child td{border-bottom:none}
 
     <!-- INVITE -->
     <div id="p-invite" class="hidden">
-      <div class="page-title">Пригласить сотрудника</div>
+      <div class="page-title" style="display:flex;align-items:center;gap:.6rem">eta charset="UTF-8">
+<meta name="viewport" contentСоздать аккаунт сотрудника</div>
+      <div class="page-sub">Создайте логин и пароль — сотрудник сразу сможет войти.</div>
+
       <div id="inv-alert" class="alert"></div>
-      <div class="card" style="max-width:480px">
-        <div class="card-head"><div class="card-title">Новое приглашение</div></div>
-        <div class="card-body">
-          <div class="fg"><label>Email сотрудника *</label><input class="fi" id="staff-email" type="email" placeholder="colleague@email.com"></div>
-          <div class="fg"><label>Роль</label>
-            <select class="fi" id="staff-role">
-              <option value="specialist">Специалист — видит дела, может менять статус</option>
-              <option value="admin">Администратор — полный доступ</option>
-            </select>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <!-- CREATE ACCOUNT FORM -->
+        <div class="card">
+          <div class="card-head"><div class="card-title">Новый сотрудник</div></div>
+          <div class="card-body">
+            <div class="fg"><label>Имя и фамилия *</label><input class="fi" id="staff-name" placeholder="Иван Петров"></div>
+            <div class="fg"><label>Email *</label><input class="fi" id="staff-email" type="email" placeholder="ivan@cryptojustice.com"></div>
+            <div class="fg"><label>Пароль *</label>
+              <div style="position:relative">
+                <input class="fi" id="staff-pass" type="password" placeholder="Минимум 8 символов" style="padding-right:2.5rem">
+                <button onclick="togglePass()" style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px">👁</button>
+              </div>
+            </div>
+            <div class="fg"><label>Роль</label>
+              <select class="fi" id="staff-role">
+                <option value="specialist">Специалист — видит дела, общается с клиентами</option>
+                <option value="admin">Администратор — полный доступ</option>
+              </select>
+            </div>
+            <div class="fg"><label>Должность</label><input class="fi" id="staff-role-title" placeholder="Blockchain Analyst"></div>
+            <div class="fg"><label>Telegram</label><input class="fi" id="staff-tg" placeholder="@username"></div>
+            <div id="create-progress" class="hidden" style="margin-bottom:.8rem">
+              <div style="display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--text2)">
+                <div class="spin"></div><span id="create-status">Создаём аккаунт...</span>
+              </div>
+            </div>
+            <button class="btn primary" id="create-btn" onclick="createStaffAccount()" style="width:100%;justify-content:center">
+              Создать аккаунт
+            </button>
+            <div style="margin-top:.8rem;padding:.7rem;background:rgba(37,99,235,.06);border-radius:7px;border:1px solid rgba(37,99,235,.15);font-size:12px;color:var(--text2)">
+              После создания сотрудник заходит на <span style="color:var(--blue3)">/portal/login.html</span> с указанным email и паролем. Доступ — немедленно.
+            </div>
           </div>
-          <div class="fg"><label>Имя</label><input class="fi" id="staff-name" placeholder="Имя Фамилия"></div>
-          <div class="fg"><label>Должность</label><input class="fi" id="staff-role-title" placeholder="Blockchain Analyst"></div>
-          <button class="btn primary" onclick="inviteStaff()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="16" height="11" rx="1.5"/><path d="M1 5l8 6 8-6"/><line x1="13" y1="10" x2="17" y2="10"/><line x1="15" y1="8" x2="15" y2="12"/></svg>&nbsp;Пригласить</button>
-          <div style="font-size:11px;color:var(--text3);margin-top:.7rem">Сотрудник получит email с приглашением и сможет зарегистрироваться в системе. Доступ к порталу появится сразу после регистрации с указанным email.</div>
+        </div>
+
+        <!-- STAFF LIST -->
+        <div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Текущие сотрудники</div><button class="btn ghost sm" onclick="loadStaffList()">↻</button></div>
+            <div id="staff-accounts-list"><div style="padding:1rem;text-align:center"><div class="spin"></div></div></div>
+          </div>
         </div>
       </div>
-      <div class="card" style="max-width:640px;margin-top:1.2rem">
-        <div class="card-head"><div class="card-title">Активные приглашения</div></div>
-        <div class="tw" id="invites-list"></div>
-      </div>
     </div>
+
 
     <!-- STATUSES -->
     <div id="p-statuses" class="hidden">
