@@ -651,6 +651,7 @@ function showPage(page) {
 
   if(page === 'documents') loadDocuments();
   if(page === 'invoices') loadInvoices();
+  if(page === 'settings') loadSettings();
   if(page === 'messages') loadMessages();
   if(page === 'timeline') loadTimeline();
 }
@@ -884,6 +885,18 @@ async function loadTimeline() {
   }).join('');
 }
 
+
+async function loadSettings() {
+  if (!currentUser) return;
+  const {data: p} = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  if (!p) return;
+  const nameEl = document.getElementById('settings-name');
+  const emailEl = document.getElementById('settings-email');
+  const phoneEl = document.getElementById('settings-phone');
+  if (nameEl) nameEl.value = p.full_name || '';
+  if (emailEl) emailEl.value = currentUser.email || '';
+  if (phoneEl) phoneEl.value = p.phone || '';
+}
 
 async function saveSettings() {
   const name = document.getElementById('settings-name').value.trim();
