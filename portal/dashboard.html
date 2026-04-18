@@ -122,8 +122,20 @@ tr:last-child td{border-bottom:none}
 
 /* ── EMPTY STATE ── */
 .empty-state{text-align:center;padding:3rem 2rem;color:var(--text3)}
-.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.empty-state .icon{margin-bottom:1rem;opacity:.6;display:flex;align-items:center;justify-content:center}
 .empty-state p{font-size:14px;line-height:1.6}
+
+/* ── NEON SVG ICONS ── */
+@keyframes ni-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes ni-dash{to{stroke-dashoffset:-40}}
+@keyframes ni-spin-r{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes ni-glow{0%,100%{filter:drop-shadow(0 0 3px #22d3ee)}50%{filter:drop-shadow(0 0 8px #22d3ee)}}
+.ni-svg{display:block;transition:filter .3s}
+.ni-dash-el{stroke-dasharray:5 3}
+.sidebar-link:hover .ni-svg,.sidebar-link.active .ni-svg{filter:drop-shadow(0 0 5px rgba(34,211,238,.6))}
+.sidebar-link:hover .ni-float,.sidebar-link.active .ni-float{animation:ni-float 1.4s ease-in-out infinite}
+.sidebar-link:hover .ni-dash-el,.sidebar-link.active .ni-dash-el{animation:ni-dash 1s linear infinite}
+.sidebar-link:hover .ni-spin-el{animation:ni-spin-r 2s linear infinite;transform-box:fill-box;transform-origin:center}
 
 /* ── FILE UPLOAD ── */
 .file-drop{border:2px dashed var(--border2);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--dark3)}
@@ -249,16 +261,16 @@ tr:last-child td{border-bottom:none}
   <div class="portal-sidebar">
     <div class="sidebar-label">Навигация</div>
     <div class="sidebar-section">
-      <button class="sidebar-link active" onclick="showPage('overview')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Обзор</button>
-      <button class="sidebar-link" onclick="showPage('documents')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Документы<span class="badge" id="docs-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('invoices')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Инвойсы<span class="badge" id="inv-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="badge" id="msg-badge" style="display:none">0</span></button>
-      <button class="sidebar-link" onclick="showPage('timeline')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>История</button>
+      <button class="sidebar-link active" onclick="showPage('overview')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Обзор</button>
+      <button class="sidebar-link" onclick="showPage('documents')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Документы<span class="badge" id="docs-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('invoices')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Инвойсы<span class="badge" id="inv-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('messages')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="badge" id="msg-badge" style="display:none">0</span></button>
+      <button class="sidebar-link" onclick="showPage('timeline')"><span class="icon"><svg class="ni-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 16,14"/></svg></span>История</button>
     </div>
     <div class="sidebar-label">Аккаунт</div>
     <div class="sidebar-section">
-      <button class="sidebar-link" onclick="showPage('settings')"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>Настройки</button>
-      <a class="sidebar-link" href="/"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>На сайт</a>
+      <button class="sidebar-link" onclick="showPage('settings')"><span class="icon"><svg class="ni-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" class="ni-spin-el"/></svg></span>Настройки</button>
+      <a class="sidebar-link" href="/"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>На сайт</a>
     </div>
     <div id="sidebar-case-info" style="margin:1rem .75rem 0;padding:1rem;background:var(--dark3);border-radius:8px;font-size:12px;display:none">
       <div style="color:var(--text3);margin-bottom:.4rem">Номер дела</div>
@@ -273,7 +285,7 @@ tr:last-child td{border-bottom:none}
     <div id="page-overview">
       <div id="no-case-banner" class="card" style="margin-bottom:2rem;display:none">
         <div class="card-body" style="text-align:center;padding:3rem 2rem">
-          <div style="font-size:2.5rem;margin-bottom:1rem">📋</div>
+          <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
           <div style="font-family:var(--fd);font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Дело ещё не создано</div>
           <div style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;max-width:400px;margin-left:auto;margin-right:auto">Наш специалист создаст ваше дело после консультации. Если вы ещё не обращались — напишите нам.</div>
           <a href="/#contact" class="btn primary">Написать нам →</a>
@@ -329,7 +341,7 @@ tr:last-child td{border-bottom:none}
           <div class="card">
             <div class="card-header"><div class="card-title">Ваш специалист</div></div>
             <div class="card-body" id="specialist-card">
-              <div class="empty-state"><div class="icon">👤</div><p>Специалист будет назначен после начала работы по делу</p></div>
+              <div class="empty-state"><div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><circle cx="12" cy="8" r="5"/><path d="M3 21c0-4.418 4.03-8 9-8s9 3.582 9 8"/></svg></div><p>Специалист будет назначен после начала работы по делу</p></div>
             </div>
           </div>
         </div>
@@ -383,7 +395,7 @@ tr:last-child td{border-bottom:none}
             </div>
           </div>
           <div class="file-drop" id="file-drop" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event)">
-            <div style="font-size:2rem">📎</div>
+            <div style="display:flex;justify-content:center;margin-bottom:.3rem"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
             <p>Нажмите или перетащите файл сюда</p>
             <p style="font-size:11px;margin-top:.3rem">PDF, DOCX, PNG, JPG, XLSX — до 50MB</p>
           </div>
@@ -411,7 +423,7 @@ tr:last-child td{border-bottom:none}
       <div class="page-title">Инвойсы</div>
       <div class="page-sub">Выставленные счета и история оплат.</div>
       <div id="invoices-list">
-        <div class="empty-state" style="padding:3rem"><div class="icon">💳</div><p>Инвойсов пока нет</p></div>
+        <div class="empty-state" style="padding:3rem"><div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="14" x2="10" y2="14"/></svg></div><p>Инвойсов пока нет</p></div>
       </div>
     </div>
 
@@ -422,7 +434,7 @@ tr:last-child td{border-bottom:none}
       <div class="card">
         <div class="card-body">
           <div class="messages-wrap" id="messages-wrap">
-            <div class="empty-state"><div class="icon">💬</div><p>Сообщений пока нет. Напишите первым!</p></div>
+            <div class="empty-state"><div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p>Сообщений пока нет. Напишите первым!</p></div>
           </div>
           <div class="msg-input-row">
             <input class="msg-input" id="msg-input" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendMessage()">
@@ -442,7 +454,7 @@ tr:last-child td{border-bottom:none}
           <div id="timeline-case-num" style="font-family:var(--fd);font-size:12px;color:var(--blue3);font-weight:700"></div>
         </div>
         <div class="card-body">
-          <div id="timeline-list"><div class="empty-state"><div class="icon">📋</div><p>История пуста</p></div></div>
+          <div id="timeline-list"><div class="empty-state"><div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><p>История пуста</p></div></div>
         </div>
       </div>
     </div>
@@ -612,8 +624,8 @@ function renderCaseOverview() {
           <div style="font-family:var(--fd);font-weight:700;color:var(--text);font-size:1rem">${sp.name}</div>
           <div style="font-size:12px;color:var(--text3);margin-top:2px">${sp.role}</div>
           ${sp.telegram ? `<a href="https://t.me/${sp.telegram.replace('@','')}" target="_blank" style="font-size:12px;color:var(--blue3);margin-top:5px;display:inline-flex;align-items:center;gap:4px;text-decoration:none">
-            <span>✈</span> ${sp.telegram}</a>` : ''}
-          ${sp.email ? `<div style="font-size:12px;color:var(--text2);margin-top:3px">📧 ${sp.email}</div>` : ''}
+            <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:2px\"><path d=\"M22 2L11 13\"/><path d=\"M22 2L15 22L11 13L2 9L22 2Z\"/></svg> ${sp.telegram}</a>` : ''}
+          ${sp.email ? `<div style="font-size:12px;color:var(--text2);margin-top:3px"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:3px\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 8l10 7 10-7\"/></svg> ${sp.email}</div>` : ''}
         </div>
       </div>`;
   }
@@ -648,11 +660,11 @@ async function loadRecentDocs() {
     const fromAdmin = d.uploaded_by !== myId2;
     return `<div style="display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);${fromAdmin?'background:rgba(37,99,235,.03);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem':''}">
       <div style="display:flex;align-items:center;gap:.8rem">
-        <span style="font-size:1.2rem">${fromAdmin ? '📋' : ''}</span>
+        <span style="font-size:1.2rem">${fromAdmin ? '<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/></svg>' : ''}</span>
         <div>
           <div style="font-size:13px;font-weight:500;color:var(--text)">${d.name}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:1px">
-            ${fromAdmin ? '<span style="color:var(--blue3);font-weight:600">🏢 От CryptoJustice</span> · ' : ''}${catLabels[d.category]||d.category} · ${new Date(d.created_at).toLocaleDateString('ru-RU')}
+            ${fromAdmin ? '<span style="color:var(--blue3);font-weight:600"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:3px\"><rect x=\"3\" y=\"9\" width=\"18\" height=\"12\" rx=\"1.5\"/><path d=\"M8 9V7a4 4 0 0 1 8 0v2\"/><rect x=\"9\" y=\"14\" width=\"6\" height=\"7\" rx=\"1\"/></svg> От CryptoJustice</span> · ' : ''}${catLabels[d.category]||d.category} · ${new Date(d.created_at).toLocaleDateString('ru-RU')}
           </div>
         </div>
       </div>
@@ -688,18 +700,18 @@ async function loadDocuments() {
       const fromAdmin = d.uploaded_by !== myId;
       return `<tr style="${fromAdmin ? 'background:rgba(37,99,235,.04)' : ''}">
         <td><div style="display:flex;align-items:center;gap:.6rem">
-          <span>${fromAdmin ? '📋' : ''}</span>
+          <span>${fromAdmin ? '<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/></svg>' : ''}</span>
           <div>
-            <div style="font-size:13px;font-weight:500;color:var(--text)">${fromAdmin && d.name.startsWith("admin_") ? "📋 Документ от CryptoJustice" : d.name}</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">${fromAdmin && d.name.startsWith("admin_") ? "<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:3px\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/></svg> Документ от CryptoJustice" : d.name}</div>
             <div style="font-size:11px;color:var(--text3)">${d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : ''}</div>
           </div>
         </div></td>
         <td><span style="font-size:11px;color:${catColors[d.category]||'var(--text2)'}">● ${catLabels[d.category]||d.category}</span></td>
         <td><span style="font-size:11px;${fromAdmin ? 'color:var(--blue3);font-weight:600' : 'color:var(--text3)'}">
-          ${fromAdmin ? '🏢 CryptoJustice' : '👤 Вы'}
+          ${fromAdmin ? '<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:3px\"><rect x=\"3\" y=\"9\" width=\"18\" height=\"12\" rx=\"1.5\"/><path d=\"M8 9V7a4 4 0 0 1 8 0v2\"/><rect x=\"9\" y=\"14\" width=\"6\" height=\"7\" rx=\"1\"/></svg> CryptoJustice' : '<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:3px\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 20c0-4 3.6-7 8-7s8 3 8 7\"/></svg> Вы'}
         </span></td>
         <td>${new Date(d.created_at).toLocaleDateString('ru-RU')}</td>
-        <td style="white-space:nowrap"><button class="btn-sm ghost" style="margin-right:4px" onclick="previewDoc('${d.file_path}','${d.name}')">👁</button><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg>&nbsp;Скачать</button></td>
+        <td style="white-space:nowrap"><button class="btn-sm ghost" style="margin-right:4px" onclick="previewDoc('${d.file_path}','${d.name}')"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button><button class="btn-sm ghost" onclick="downloadDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg>&nbsp;Скачать</button></td>
       </tr>`;
     }).join('') + '</tbody></table>';
 }
@@ -810,7 +822,7 @@ async function loadMessages() {
       const avatarHtml = sp.avatar_url
         ? `<img src="${sp.avatar_url}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;vertical-align:middle">`
         : `<span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:rgba(37,99,235,.2);align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue3);margin-right:8px;vertical-align:middle">${sp.name[0]}</span>`;
-      specEl.innerHTML = `${avatarHtml}<strong style="color:var(--text)">${sp.name}</strong> <span style="color:var(--text3);font-size:12px">— ${sp.role}</span>${sp.telegram ? ` <a href="https://t.me/${sp.telegram.replace('@','')}" target="_blank" style="margin-left:8px;font-size:12px;color:var(--blue3)">✈ ${sp.telegram}</a>` : ''}`;
+      specEl.innerHTML = `${avatarHtml}<strong style="color:var(--text)">${sp.name}</strong> <span style="color:var(--text3);font-size:12px">— ${sp.role}</span>${sp.telegram ? ` <a href="https://t.me/${sp.telegram.replace('@','')}" target="_blank" style="margin-left:8px;font-size:12px;color:var(--blue3)"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22d3ee\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline;vertical-align:middle;margin-right:2px\"><path d=\"M22 2L11 13\"/><path d=\"M22 2L15 22L11 13L2 9L22 2Z\"/></svg> ${sp.telegram}</a>` : ''}`;
     } else {
       specEl.textContent = 'Специалист ещё не назначен';
     }
@@ -868,14 +880,14 @@ async function loadTimeline() {
 
   const {data} = await sb.from('case_timeline').select('*').eq('case_id', currentCase.id).order('created_at', {ascending: false});
   if (!data || !data.length) {
-    el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3)"><div style="font-size:2rem;margin-bottom:.5rem">📋</div><p>История пуста</p></div>';
+    el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3)"><div style="display:flex;justify-content:center;margin-bottom:.5rem"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><p>История пуста</p></div>';
     return;
   }
   const CFG = {
-    status_change: {ico:'🔄', color:'#2563eb', bg:'rgba(37,99,235,.12)', label:'Статус изменён'},
-    note:          {ico:'📝', color:'#10b981', bg:'rgba(16,185,129,.12)', label:'Заметка'},
-    document:      {ico:'📎', color:'#06b6d4', bg:'rgba(6,182,212,.12)', label:'Документ'},
-    invoice:       {ico:'💳', color:'#f59e0b', bg:'rgba(245,158,11,.12)', label:'Инвойс'}
+    status_change: {ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"23 4 23 10 17 10\"/><path d=\"M20.49 15a9 9 0 1 1-.08-5.96\"/></svg>', color:'#2563eb', bg:'rgba(37,99,235,.12)', label:'Статус изменён'},
+    note:          {ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z\"/></svg>', color:'#10b981', bg:'rgba(16,185,129,.12)', label:'Заметка'},
+    document:      {ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#06b6d4\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48\"/></svg>', color:'#06b6d4', bg:'rgba(6,182,212,.12)', label:'Документ'},
+    invoice:       {ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"2\" y1=\"10\" x2=\"22\" y2=\"10\"/></svg>', color:'#f59e0b', bg:'rgba(245,158,11,.12)', label:'Инвойс'}
   };
   el.innerHTML = data.map(function(e, i) {
     var c = CFG[e.type] || {ico:'•', color:'#64748b', bg:'rgba(100,116,139,.1)', label:'Событие'};
@@ -1025,10 +1037,10 @@ async function loadTimelinePreview() {
   const previewEl = document.getElementById('tl-preview');
   if (!previewEl || !data?.length) return;
   const cfg = {
-    status_change:{ico:'🔄',color:'#2563eb'},
-    note:{ico:'📝',color:'#10b981'},
-    document:{ico:'📎',color:'#06b6d4'},
-    invoice:{ico:'💳',color:'#f59e0b'}
+    status_change:{ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"23 4 23 10 17 10\"/><path d=\"M20.49 15a9 9 0 1 1-.08-5.96\"/></svg>',color:'#2563eb'},
+    note:{ico:'<svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z\"/></svg>',color:'#10b981'},
+    document:{ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#06b6d4\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48\"/></svg>',color:'#06b6d4'},
+    invoice:{ico:'<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"2\" y1=\"10\" x2=\"22\" y2=\"10\"/></svg>',color:'#f59e0b'}
   };
   previewEl.innerHTML = data.map(e => {
     const c = cfg[e.type]||{ico:'•',color:'#475569'};
@@ -1106,22 +1118,22 @@ init();
 <!-- ── MOBILE BOTTOM NAV ── -->
 <div class="portal-mobile-nav" id="portal-mobile-nav">
   <button class="pmn-item active" id="pmn-overview" onclick="showPage('overview');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span>Обзор</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span>Обзор</span>
   </button>
   <button class="pmn-item" id="pmn-documents" onclick="showPage('documents');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></span><span>Файлы</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></span><span>Файлы</span>
   </button>
   <button class="pmn-item" id="pmn-invoices" onclick="showPage('invoices');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span><span>Счета</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span><span>Счета</span>
   </button>
   <button class="pmn-item" id="pmn-messages" onclick="showPage('messages');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Чат</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Чат</span>
   </button>
   <button class="pmn-item" id="pmn-timeline" onclick="showPage('timeline');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.86"/></svg></span><span>История</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.86"/></svg></span><span>История</span>
   </button>
   <button class="pmn-item" id="pmn-settings" onclick="showPage('settings');setMobActive(this)">
-    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Профиль</span>
+    <span class="pmn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="ni-svg" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Профиль</span>
   </button>
 </div>
 
