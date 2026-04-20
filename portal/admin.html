@@ -698,29 +698,85 @@ function renderCasesTable(containerId, cases) {
 
 // ── CASE DETAIL ───────────────────────────────────────────────────────────────
 async function openCase(caseId) {
-  activeCaseId = caseId;
-  const {data:c} = await sb.from('cases').select('*,profiles!client_id(full_name,email,phone),specialists(*),case_statuses(*)').eq('id',caseId).single();
-  if(!c) return;
-  document.getElementById('detail-title').textContent = c.case_number;
-  const priColors = {low:'#94a3b8',normal:'#60a5fa',high:'#f59e0b',urgent:'#ef4444'};
-  const priNames = {low:'Низкий',normal:'Нормальный',high:'Высокий',urgent:'СРОЧНО'};
-  document.getElementById('detail-priority-badge').innerHTML = `<span class="badge" style="background:${priColors[c.priority]}22;color:${priColors[c.priority]};border:1px solid ${priColors[c.priority]}44">${priNames[c.priority]}</span>`;
-  const st = c.case_statuses;
-  document.getElementById('detail-status-badge').innerHTML = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '';
-  document.getElementById('d-status').value = c.custom_status_id||'';
-  document.getElementById('d-priority').value = c.priority||'normal';
-  document.getElementById('d-specialist').value = c.specialist_id||'';
-  document.getElementById('d-tags').value = (c.tags||[]).join(', ');
-  document.getElementById('d-info').innerHTML = [
-    ['Номер дела',`<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
-    ['Клиент',`<span style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</span><br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
-    ['Телефон',c.profiles?.phone||'—'],
-    ['Тип мошенничества',FRAUD[c.fraud_type]||c.fraud_type],
-    ['Оспариваемая сумма',`<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()} ${c.currency||'USD'}</span>`],
-    ['Открыто',new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
-  ].map(([l,v])=>`<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
-  await Promise.all([loadDetailDocs(caseId), loadDetailInv(caseId), loadDetailTl(caseId)]);
+  const {data:c, error} = await sb.from('cases')
+    .select('*, profiles!cases_client_id_fkey(full_name,email), specialists(full_name,title)')
+    .eq('id', caseId).single();
+  if (error || !c) return;
+
+  currentCaseId = caseId;
   nav('case-detail');
+
+  document.getElementById('detail-title').textContent = c.case_number;
+
+  // Priority badge with SVG icon
+  const prioColors = {high:'#ef4444', normal:'#22d3ee', low:'#64748b', critical:'#f97316'};
+  const prioLabels = {high:'Высокий', normal:'Нормальный', low:'Низкий', critical:'Критический'};
+  const prioSVGs = {
+    high: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="ni-svg ni-float"><polyline points="18 15 12 9 6 15"/></svg>',
+    normal: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="ni-svg"><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+    low: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="ni-svg"><polyline points="6 9 12 15 18 9"/></svg>',
+    critical: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="ni-svg ni-glow-always"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  };
+  const prio = c.priority || 'normal';
+  const pCol = prioColors[prio] || '#22d3ee';
+  const pLbl = prioLabels[prio] || prio;
+  const pSvg = prioSVGs[prio] || prioSVGs.normal;
+  const prioEl = document.getElementById('detail-priority-badge');
+  if (prioEl) {
+    prioEl.innerHTML = '<span style="display:inline-flex;align-items:center;gap:5px;color:' + pCol + ';filter:drop-shadow(0 0 4px ' + pCol + '77)">' + pSvg + ' ' + pLbl + '</span>';
+    prioEl.style.cssText = 'background:' + pCol + '18;border:1px solid ' + pCol + '44;border-radius:8px;padding:3px 10px;display:inline-flex;align-items:center';
+  }
+
+  // Status badge with SVG icon
+  const statusSVGs = {
+    '📥': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>',
+    '🔍': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    '⛓️': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    '📄': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+    '❄️': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+    '⚖️': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    '✅': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    '❌': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ni-svg ni-float"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+  };
+  const st = statuses.find(s => s.id === c.custom_status_id);
+  const statusEl = document.getElementById('detail-status-badge');
+  if (statusEl) {
+    if (st) {
+      const sSvg = statusSVGs[st.icon] || '';
+      statusEl.innerHTML = '<span style="display:inline-flex;align-items:center;gap:5px;color:' + st.color + ';filter:drop-shadow(0 0 5px ' + st.color + '88)">' + sSvg + ' ' + st.label + '</span>';
+      statusEl.style.cssText = 'background:' + st.color + '22;border:1px solid ' + st.color + '55;border-radius:8px;padding:3px 10px;display:inline-flex;align-items:center';
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--text3)">Без статуса</span>';
+      statusEl.style.cssText = 'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:3px 10px';
+    }
+  }
+
+  // Fill form fields
+  const dStatus = document.getElementById('d-status');
+  if (dStatus) dStatus.value = c.custom_status_id || '';
+  const dPrio = document.getElementById('d-priority');
+  if (dPrio) dPrio.value = c.priority || 'normal';
+  const dSpec = document.getElementById('d-specialist');
+  if (dSpec) dSpec.value = c.specialist_id || '';
+  const dTags = document.getElementById('d-tags');
+  if (dTags) dTags.value = (c.tags || []).join(', ');
+  const dNote = document.getElementById('d-note');
+  if (dNote) dNote.value = '';
+
+  // Load detail data
+  loadDetailDocs(caseId);
+  loadDetailInvoices(caseId);
+  loadDetailTl(caseId);
+  loadDetailMsgs(caseId);
+
+  // Right panel info
+  const num = document.getElementById('d-case-number'); if(num) num.textContent = c.case_number;
+  const cli = document.getElementById('d-client-name'); if(cli) cli.textContent = c.profiles?.full_name || '—';
+  const em = document.getElementById('d-client-email'); if(em) em.textContent = c.profiles?.email || '';
+  const ph = document.getElementById('d-client-phone'); if(ph) ph.textContent = c.client_phone || '—';
+  const tp = document.getElementById('d-fraud-type'); if(tp) tp.textContent = c.fraud_type || '—';
+  const am = document.getElementById('d-amount'); if(am) am.textContent = c.disputed_amount ? '$' + Number(c.disputed_amount).toLocaleString() + ' USD' : '—';
+  const dt = document.getElementById('d-created'); if(dt) dt.textContent = c.created_at ? new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}) : '—';
 }
 
 async function updateCase() {
