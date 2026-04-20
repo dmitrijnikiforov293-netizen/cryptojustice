@@ -610,18 +610,33 @@ async function loadStatuses() {
   statuses = data || [];
   const el = document.getElementById('statuses-list');
   if (!el) return;
-  el.innerHTML = (data||[]).map(s => {
-    const ico = getStatusIcon(s.icon, s.color, 18);
-    return '<div style="display:flex;align-items:center;gap:.8rem;padding:.65rem .8rem;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);margin-bottom:.4rem">' +
-      '<div style="width:34px;height:34px;border-radius:8px;background:' + s.color + '22;border:1px solid ' + s.color + '44;display:flex;align-items:center;justify-content:center;flex-shrink:0;filter:drop-shadow(0 0 5px ' + s.color + '55)">' + ico + '</div>' +
-      '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text)">' + s.label + '</div>' +
-      '<div style="font-size:11px;color:var(--text3)">#' + s.sort_order + ' &nbsp;&middot;&nbsp; <span style="color:' + s.color + '">' + s.color + '</span></div></div>' +
-      '<button class="btn danger sm" style="padding:4px 10px;font-size:11px" onclick="deleteStatus(\'' + s.id + '\')">&#x2715;</button></div>';
+  if (!statuses.length) {
+    el.innerHTML = '<div style="color:var(--text3);padding:1rem">Нет статусов</div>';
+    return;
+  }
+  el.innerHTML = statuses.map(function(s) {
+    var dotStyle = 'width:7px;height:7px;border-radius:50%;background:' + s.color + ';display:inline-block;box-shadow:0 0 5px ' + s.color;
+    var boxStyle = 'width:40px;height:40px;border-radius:10px;background:' + s.color + '18;border:1.5px solid ' + s.color + '44;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;filter:drop-shadow(0 0 6px ' + s.color + '55);animation:ni-float 2s ease-in-out infinite';
+    var rowStyle = 'display:flex;align-items:center;gap:.9rem;padding:.8rem 1rem;border-radius:10px;border:1px solid ' + s.color + '22;background:linear-gradient(135deg,' + s.color + '08,transparent);margin-bottom:.5rem';
+    return '<div style="' + rowStyle + '">'
+      + '<div style="' + boxStyle + '">' + (s.icon || '●') + '</div>'
+      + '<div style="flex:1">'
+        + '<div style="font-size:13px;font-weight:600;color:var(--text)">' + s.label + '</div>'
+        + '<div style="font-size:11px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:.4rem">'
+          + '<span>#' + s.sort_order + '</span>'
+          + '<span style="' + dotStyle + '"></span>'
+          + '<span style="color:' + s.color + ';font-weight:500">' + s.color + '</span>'
+        + '</div>'
+      + '</div>'
+      + '<button class="btn danger sm" style="padding:5px 10px;font-size:11px" onclick="deleteStatus(\'' + s.id + '\')">&#x2715;</button>'
+    + '</div>';
   }).join('');
-  const sel = document.getElementById('d-status');
+  var sel = document.getElementById('d-status');
   if (sel) {
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">— Без статуса —</option>' + (data||[]).map(s => '<option value="' + s.id + '"' + (s.id===cur?' selected':'') + '>' + s.label + '</option>').join('');
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">— Без статуса —</option>' + statuses.map(function(s) {
+      return '<option value="' + s.id + '"' + (s.id === cur ? ' selected' : '') + '>' + s.label + '</option>';
+    }).join('');
   }
 }
 
