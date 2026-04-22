@@ -7,24 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan2:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif}
+:root{--black:#0a0a0f;--dark:#0f0f1a;--dark2:#13131f;--dark3:#1a1a2e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--cyan:#22d3ee;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--text);font-family:var(--fb);font-size:14px;line-height:1.6;min-height:100vh}
 a{color:var(--blue3);text-decoration:none}
 button{cursor:pointer;font-family:var(--fb)}
 input,select,textarea{font-family:var(--fb)}
 .hidden{display:none!important}
-
-/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:99;height:56px;background:rgba(10,10,15,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
 .nav-logo{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.5rem}
-.nav-logo span{color:var(--cyan2)}
+.nav-logo span{color:var(--cyan)}
 .nav-badge{font-size:10px;font-weight:600;color:var(--amber);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:100px;letter-spacing:.06em}
 .nav-right{display:flex;align-items:center;gap:.8rem}
 .nav-user{font-size:13px;color:var(--text2)}
-
-/* LAYOUT */
 .layout{display:flex;min-height:100vh;padding-top:56px}
 .sidebar{width:210px;flex-shrink:0;background:var(--dark2);border-right:1px solid var(--border);position:fixed;top:56px;bottom:0;overflow-y:auto;display:flex;flex-direction:column}
 .sidebar-section{padding:1rem .75rem .5rem}
@@ -32,19 +27,14 @@ input,select,textarea{font-family:var(--fb)}
 .slink{display:flex;align-items:center;gap:.65rem;padding:.6rem .75rem;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border:none;background:transparent;width:100%;text-align:left;transition:all .15s}
 .slink:hover{background:var(--dark3);color:var(--text)}
 .slink.active{background:rgba(37,99,235,.15);color:var(--blue3)}
-.slink .ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.7;transition:opacity .2s}.slink:hover .ico,.slink.active .ico{opacity:1}
-.slink .badge{margin-left:auto;font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:100px;font-weight:700}
+.slink .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
 .main{margin-left:210px;flex:1;padding:1.5rem;max-width:1300px}
-
-/* CARDS */
 .card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.2rem}
 .card-head{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .card-title{font-family:var(--fd);font-size:.9rem;font-weight:600;color:var(--text)}
 .card-body{padding:1.2rem}
 .page-title{font-family:var(--fd);font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem}
 .page-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem}
-
-/* FORMS */
 .fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
 .fg label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em}
 .fi{background:var(--dark3);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;width:100%}
@@ -63,52 +53,31 @@ textarea.fi{resize:vertical;min-height:70px}
 .btn.ghost:hover{border-color:var(--blue3);color:var(--blue3)}
 .btn.sm{padding:6px 12px;font-size:12px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-
-/* TABLES */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 th{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:.65rem 1rem;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
 td{padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--text2)}
 tr:hover td{background:rgba(255,255,255,.015)}
 tr:last-child td{border-bottom:none}
-
-/* BADGES */
 .badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
-.badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-
-/* ALERTS */
 .alert{padding:.8rem 1rem;border-radius:7px;font-size:13px;margin-bottom:.8rem;display:none}
 .alert.show{display:block}
 .alert.err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
 .alert.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399}
-.alert.info{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue3)}
-
-/* SPINNER */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--blue2);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
-
-/* STATS ROW */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
 .stat{background:var(--dark2);border:1px solid var(--border);border-radius:9px;padding:1.1rem;position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan2))}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
 .stat-n{font-family:var(--fd);font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--text)}
-.stat-n span{color:var(--cyan2)}
+.stat-n span{color:var(--cyan)}
 .stat-l{font-size:11px;color:var(--text3);margin-top:.2rem;font-weight:500}
-
-/* STATUS CHIP */
 .status-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
 .status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-
-/* PRIORITY */
-.pri-low{color:#94a3b8}.pri-normal{color:var(--blue3)}.pri-high{color:var(--amber)}.pri-urgent{color:#f87171}
-
-/* FILE DROP */
 .file-drop{border:2px dashed var(--border2);border-radius:9px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.02)}
 .file-drop:hover,.file-drop.over{border-color:var(--blue2);background:rgba(37,99,235,.05)}
 .file-drop .ico{font-size:1.8rem;margin-bottom:.5rem}
 .file-drop p{font-size:12px;color:var(--text3)}
-
-/* CHAT */
 .msgs{display:flex;flex-direction:column;gap:.7rem;max-height:380px;overflow-y:auto;padding:.5rem 0}
 .msg{max-width:80%;display:flex;flex-direction:column;gap:.15rem}
 .msg.mine{align-self:flex-end;align-items:flex-end}
@@ -120,19 +89,9 @@ tr:last-child td{border-bottom:none}
 .msg-input-row{display:flex;gap:.5rem;margin-top:.8rem}
 .msg-input{flex:1;background:var(--dark3);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
 .msg-input:focus{border-color:var(--blue2)}
-
-/* COLOR PICKER */
 .color-grid{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem}
 .color-opt{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
 .color-opt.sel{border-color:#fff;transform:scale(1.2)}
-
-/* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.modal{background:var(--dark2);border:1px solid var(--border2);border-radius:12px;padding:1.8rem;width:100%;max-width:480px;position:relative}
-.modal-title{font-family:var(--fd);font-size:1.1rem;font-weight:700;margin-bottom:1.2rem}
-.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer}
-
-/* TIMELINE */
 .tl{display:flex;flex-direction:column}
 .tl-item{display:flex;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .tl-item:last-child{border:none}
@@ -141,25 +100,10 @@ tr:last-child td{border-bottom:none}
 .tl-title{font-size:13px;font-weight:500;color:var(--text)}
 .tl-text{font-size:12px;color:var(--text2);margin-top:.15rem}
 .tl-date{font-size:11px;color:var(--text3);margin-top:.2rem}
-
-/* STAFF CARD */
-.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem}
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem}
 .staff-card{background:var(--dark3);border:1px solid var(--border);border-radius:9px;padding:1.2rem;display:flex;flex-direction:column;gap:.4rem}
 .staff-avatar{width:44px;height:44px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--blue3);margin-bottom:.4rem}
-
 @media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.stats{grid-template-columns:repeat(2,1fr)}.frow{grid-template-columns:1fr}}
-
-/* ── NI ICON SYSTEM ──────────────────────────────── */
-@keyframes ni-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@keyframes ni-spin-r{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-@keyframes ni-glow{0%,100%{filter:drop-shadow(0 0 3px #22d3ee)}50%{filter:drop-shadow(0 0 8px #22d3ee)}}
-@keyframes ni-pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.ni-svg{display:block;transition:filter .3s,transform .3s}
-.slink:hover .ni-svg,.slink.active .ni-svg{filter:drop-shadow(0 0 5px rgba(34,211,238,.7))}
-.slink:hover .ni-float{animation:ni-float 1.5s ease-in-out infinite}
-.slink.active .ni-spin{animation:ni-spin-r 3s linear infinite}
-.ni-glow-always{animation:ni-glow 2s ease-in-out infinite}
-
 </style>
 </head>
 <body>
@@ -168,12 +112,12 @@ tr:last-child td{border-bottom:none}
   <div class="nav-logo">
     <svg viewBox="0 0 28 28" width="22" height="22"><polygon points="14,2 23,6.5 23,16 14,21 5,16 5,6.5" fill="none" stroke="#22d3ee" stroke-width="1.5"/><circle cx="14" cy="11" r="3" fill="#22d3ee"/><circle cx="14" cy="11" r="1.3" fill="#0a0a0f"/></svg>
     Crypto<span>Justice</span>
-    <span class="nav-badge" style="color:var(--cyan2);border-color:rgba(34,211,238,.3)">Portal</span>
+    <span class="nav-badge" id="nav-role-badge">Portal</span>
   </div>
   <div class="nav-right">
     <span class="nav-user" id="admin-name">...</span>
-    <button class="btn ghost sm" onclick="logout()" style="display:inline-flex;align-items:center;gap:5px"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 2H3a1 1 0 00-1 1v12a1 1 0 001 1h4"/><polyline points="12,5 16,9 12,13"/><line x1="7" y1="9" x2="16" y2="9"/></svg>&nbsp;Выйти</button>
-    <a href="/" class="btn ghost sm" style="display:inline-flex;align-items:center;gap:5px"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="7.5"/><path d="M9 1.5C7 4 5.5 6.5 5.5 9s1.5 5 3.5 7.5M9 1.5C11 4 12.5 6.5 12.5 9s-1.5 5-3.5 7.5"/><line x1="1.5" y1="9" x2="16.5" y2="9"/></svg>&nbsp;Сайт</a>
+    <button class="btn ghost sm" onclick="logout()">Выйти</button>
+    <a href="/" class="btn ghost sm">← Сайт</a>
   </div>
 </nav>
 
@@ -181,21 +125,20 @@ tr:last-child td{border-bottom:none}
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Дела</div>
-      <button class="slink active" onclick="nav('dashboard')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Дашборд</button>
-      <button class="slink" onclick="nav('cases')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Все дела</button>
-      <button class="slink" onclick="nav('new-case')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Создать дело</button>
-      <button class="slink" onclick="nav('clients')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</button>
+      <button class="slink active" onclick="nav('dashboard')"><span class="ico">📊</span>Дашборд</button>
+      <button class="slink" onclick="nav('cases')"><span class="ico">📋</span>Все дела</button>
+      <button class="slink" id="slink-new-case" onclick="nav('new-case')"><span class="ico">➕</span>Создать дело</button>
+      <button class="slink" onclick="nav('clients')"><span class="ico">👥</span>Клиенты</button>
     </div>
-    <div class="sidebar-section">
+    <div class="sidebar-section" id="sidebar-team">
       <div class="sidebar-label">Команда</div>
-      <button class="slink" onclick="nav('staff')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Сотрудники</button>
-      <button class="slink" onclick="nav('invite')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="19" y1="13" x2="23" y2="13"/><line x1="21" y1="11" x2="21" y2="15"/></svg>Пригласить</button>
-      <button class="slink" onclick="nav('specialists')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><polyline points="10,14 12,16 15,13"/></svg>Специалисты</button>
+      <button class="slink" onclick="nav('staff')"><span class="ico">👤</span>Сотрудники</button>
+      <button class="slink" id="slink-invite" onclick="nav('invite')"><span class="ico">✉️</span>Пригласить</button>
     </div>
-    <div class="sidebar-section">
+    <div class="sidebar-section" id="sidebar-settings">
       <div class="sidebar-label">Настройки</div>
-      <button class="slink" onclick="nav('statuses')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-glow-always" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="#22d3ee" opacity=".5"/></svg>Статусы дел</button>
-      <button class="slink" onclick="nav('messages')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Сообщения<span class="badge" id="msg-badge" style="display:none">!</span></button>
+      <button class="slink" onclick="nav('statuses')"><span class="ico">🏷️</span>Статусы дел</button>
+      <button class="slink" onclick="nav('messages')"><span class="ico">💬</span>Сообщения</button>
     </div>
   </div>
 
@@ -203,9 +146,9 @@ tr:last-child td{border-bottom:none}
 
     <!-- DASHBOARD -->
     <div id="p-dashboard">
-      <div class="page-title">Дашборд</div>
+      <div class="page-title">📊 Дашборд</div>
       <div class="page-sub" id="dash-date">Загрузка...</div>
-      <div class="stats" id="dash-stats">
+      <div class="stats">
         <div class="stat"><div class="stat-n" id="s-cases">—</div><div class="stat-l">Всего дел</div></div>
         <div class="stat"><div class="stat-n" id="s-active">—</div><div class="stat-l">Активных</div></div>
         <div class="stat"><div class="stat-n" id="s-clients">—</div><div class="stat-l">Клиентов</div></div>
@@ -219,20 +162,18 @@ tr:last-child td{border-bottom:none}
 
     <!-- ALL CASES -->
     <div id="p-cases" class="hidden">
-      <div class="page-title">Все дела</div>
+      <div class="page-title">📋 Все дела</div>
       <div class="card">
         <div class="card-head">
           <div class="card-title">Фильтры</div>
           <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
-            <select class="fi" id="filter-status" style="width:160px;padding:7px 10px" onchange="loadCases()">
-              <option value="">Все статусы</option>
-            </select>
+            <select class="fi" id="filter-status" style="width:160px;padding:7px 10px" onchange="loadCases()"><option value="">Все статусы</option></select>
             <select class="fi" id="filter-priority" style="width:130px;padding:7px 10px" onchange="loadCases()">
               <option value="">Все приоритеты</option>
-              <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
-              <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
-              <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
-              <option value="low"><span style="color:#64748b">● Низкий</span></option>
+              <option value="urgent">🔴 Срочно</option>
+              <option value="high">🟡 Высокий</option>
+              <option value="normal">🔵 Нормальный</option>
+              <option value="low">⚪ Низкий</option>
             </select>
             <input class="fi" id="filter-search" placeholder="Поиск..." style="width:180px;padding:7px 10px" oninput="loadCases()">
           </div>
@@ -248,10 +189,8 @@ tr:last-child td{border-bottom:none}
         <div class="page-title" style="margin:0" id="detail-title">Дело</div>
         <div id="detail-priority-badge"></div>
       </div>
-
       <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.2rem" id="detail-grid">
         <div>
-          <!-- Status + управление -->
           <div class="card">
             <div class="card-head">
               <div class="card-title">Управление делом</div>
@@ -259,42 +198,27 @@ tr:last-child td{border-bottom:none}
             </div>
             <div class="card-body">
               <div class="frow">
-                <div class="fg" style="margin:0">
-                  <label>Статус</label>
-                  <select class="fi" id="d-status"></select>
-                </div>
-                <div class="fg" style="margin:0">
-                  <label>Приоритет</label>
+                <div class="fg" style="margin:0"><label>Статус</label><select class="fi" id="d-status"></select></div>
+                <div class="fg" style="margin:0"><label>Приоритет</label>
                   <select class="fi" id="d-priority">
-                    <option value="low"><span style="color:#64748b">● Низкий</span></option>
-                    <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
-                    <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
-                    <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
+                    <option value="low">⚪ Низкий</option>
+                    <option value="normal">🔵 Нормальный</option>
+                    <option value="high">🟡 Высокий</option>
+                    <option value="urgent">🔴 Срочно</option>
                   </select>
                 </div>
               </div>
               <div class="frow" style="margin-bottom:.8rem">
-                <div class="fg" style="margin:0">
-                  <label>Специалист</label>
-                  <select class="fi" id="d-specialist"><option value="">Не назначен</option></select>
-                </div>
-                <div class="fg" style="margin:0">
-                  <label>Теги (через запятую)</label>
-                  <input class="fi" id="d-tags" placeholder="binance, urgent, kyc">
-                </div>
+                <div class="fg" style="margin:0"><label>Специалист</label><select class="fi" id="d-specialist"><option value="">Не назначен</option></select></div>
+                <div class="fg" style="margin:0"><label>Теги (через запятую)</label><input class="fi" id="d-tags" placeholder="binance, urgent, kyc"></div>
               </div>
-              <div class="fg">
-                <label>Заметка к изменению</label>
-                <input class="fi" id="d-note" placeholder="Получен ответ от биржи...">
-              </div>
+              <div class="fg"><label>Заметка к изменению</label><input class="fi" id="d-note" placeholder="Получен ответ от биржи..."></div>
               <div id="d-alert" class="alert"></div>
-              <button class="btn primary" onclick="updateCase()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить</button>
+              <button class="btn primary" onclick="updateCase()">💾 Сохранить изменения</button>
             </div>
           </div>
-
-          <!-- Документы -->
           <div class="card">
-            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 1H4a1 1 0 00-1 1v14a1 1 0 001 1h10a1 1 0 001-1V6z"/><polyline points="11,1 11,6 15,6"/><line x1="6" y1="9" x2="12" y2="9"/><line x1="6" y1="12" x2="10" y2="12"/></svg></span>&nbsp;Документы</div></div>
+            <div class="card-head"><div class="card-title">📎 Документы и вложения</div></div>
             <div class="card-body">
               <div class="frow" style="margin-bottom:.8rem">
                 <div class="fg" style="margin:0"><label>Категория</label>
@@ -312,14 +236,12 @@ tr:last-child td{border-bottom:none}
                 <div class="ico">📎</div><p>Нажмите или перетащите файл</p>
               </div>
               <input type="file" id="doc-file" style="display:none" onchange="uploadDoc(this.files[0])">
-              <div id="doc-progress" class="hidden" style="margin-top:.6rem;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:.5rem"><div class="spin"></div><span id="doc-status"></span></div>
+              <div id="doc-progress" style="display:none;margin-top:.6rem;font-size:12px;color:var(--text2);align-items:center;gap:.5rem"><div class="spin"></div><span id="doc-status"></span></div>
               <div id="docs-list" style="margin-top:.8rem"></div>
             </div>
           </div>
-
-          <!-- Инвойс -->
           <div class="card">
-            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg></span>&nbsp;Выставить инвойс</div></div>
+            <div class="card-head"><div class="card-title">💳 Выставить инвойс</div></div>
             <div class="card-body">
               <div class="frow">
                 <div class="fg" style="margin:0"><label>Описание *</label><input class="fi" id="inv-desc" placeholder="Блокчейн-анализ"></div>
@@ -327,29 +249,23 @@ tr:last-child td{border-bottom:none}
               </div>
               <div class="frow" style="margin-top:0">
                 <div class="fg" style="margin:0"><label>Срок оплаты</label><input class="fi" id="inv-due" type="date"></div>
-                <div style="display:flex;align-items:flex-end"><button class="btn primary" style="width:100%" onclick="createInv()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg>&nbsp;Выставить</button></div>
+                <div style="display:flex;align-items:flex-end"><button class="btn primary" style="width:100%" onclick="createInv()">Выставить →</button></div>
               </div>
             </div>
           </div>
         </div>
-
         <div>
-          <!-- Case info -->
           <div class="card">
-            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4h12a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><line x1="2" y1="8" x2="16" y2="8"/></svg></span>&nbsp;Информация</div></div>
+            <div class="card-head"><div class="card-title">ℹ️ Информация</div></div>
             <div class="card-body" id="d-info" style="display:flex;flex-direction:column;gap:.7rem"></div>
           </div>
-          <!-- Invoices -->
           <div class="card">
-            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="14" height="16" rx="1.5"/><line x1="5" y1="5" x2="13" y2="5"/><line x1="5" y1="8" x2="13" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/><polyline points="11,13 13,15 16,11"/></svg></span>&nbsp;Инвойсы</div></div>
+            <div class="card-head"><div class="card-title">Инвойсы</div></div>
             <div class="card-body" id="d-invoices"></div>
           </div>
-          <!-- Timeline -->
           <div class="card">
-            <div class="card-head"><div class="card-title"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex-shrink:0"><svg width="15" height="15" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="3" x2="4" y2="15"/><circle cx="4" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="13" r="1.5" fill="currentColor" stroke="none"/><line x1="7" y1="5" x2="15" y2="5"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg></span>&nbsp;История</div></div>
-            <div class="card-body" style="max-height:320px;overflow-y:auto">
-              <div class="tl" id="d-timeline"></div>
-            </div>
+            <div class="card-head"><div class="card-title">📋 История</div></div>
+            <div class="card-body" style="max-height:320px;overflow-y:auto"><div class="tl" id="d-timeline"></div></div>
           </div>
         </div>
       </div>
@@ -357,7 +273,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- NEW CASE -->
     <div id="p-new-case" class="hidden">
-      <div class="page-title">Создать дело</div>
+      <div class="page-title">➕ Создать дело</div>
       <div id="nc-alert" class="alert"></div>
       <div class="card" style="max-width:640px">
         <div class="card-head"><div class="card-title">Данные дела</div></div>
@@ -380,23 +296,23 @@ tr:last-child td{border-bottom:none}
             <div class="fg" style="margin:0"><label>Специалист</label><select class="fi" id="nc-specialist"><option value="">Не назначать</option></select></div>
             <div class="fg" style="margin:0"><label>Приоритет</label>
               <select class="fi" id="nc-priority">
-                <option value="normal"><span style="color:#2563eb">● Нормальный</span></option>
-                <option value="high"><span style="color:#f59e0b">● Высокий</span></option>
-                <option value="urgent"><span style="color:#ef4444">● Срочно</span></option>
-                <option value="low"><span style="color:#64748b">● Низкий</span></option>
+                <option value="normal">🔵 Нормальный</option>
+                <option value="high">🟡 Высокий</option>
+                <option value="urgent">🔴 Срочно</option>
+                <option value="low">⚪ Низкий</option>
               </select>
             </div>
           </div>
           <div class="fg"><label>Начальный статус</label><select class="fi" id="nc-status"></select></div>
           <div class="fg"><label>Описание</label><textarea class="fi" id="nc-desc" placeholder="Краткое описание ситуации..."></textarea></div>
-          <button class="btn primary" onclick="createCase()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="7.5"/><line x1="9" y1="5.5" x2="9" y2="12.5"/><line x1="5.5" y1="9" x2="12.5" y2="9"/></svg>&nbsp;Создать дело</button>
+          <button class="btn primary" onclick="createCase()">Создать дело →</button>
         </div>
       </div>
     </div>
 
     <!-- CLIENTS -->
     <div id="p-clients" class="hidden">
-      <div class="page-title">Клиенты</div>
+      <div class="page-title">👥 Клиенты</div>
       <div class="card">
         <div class="card-head">
           <div class="card-title" id="clients-count">Клиенты</div>
@@ -408,101 +324,42 @@ tr:last-child td{border-bottom:none}
 
     <!-- STAFF -->
     <div id="p-staff" class="hidden">
-      <div class="page-title">Сотрудники</div>
+      <div class="page-title">👤 Сотрудники</div>
       <div class="page-sub">Управляйте ролями и доступами команды.</div>
-      <div class="staff-grid" id="staff-list"></div>
-    </div>
-
-    <!-- SPECIALISTS -->
-    <div id="p-specialists" class="hidden">
-      <div class="page-title">Специалисты</div>
-      <div class="page-sub">Профили команды — отображаются клиентам в деле.</div>
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:1.2rem">
-        <div id="specialists-list"><div style="padding:2rem;text-align:center"><div class="spin"></div></div></div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Редактировать профиль</div></div>
-          <div class="card-body">
-            <div id="spec-edit-alert" class="alert"></div>
-            <div style="text-align:center;margin-bottom:1.2rem">
-              <div id="spec-avatar-preview" style="width:80px;height:80px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:var(--blue3);margin:0 auto .8rem;overflow:hidden;cursor:pointer" onclick="document.getElementById('spec-avatar-file').click()">👤</div>
-              <input type="file" id="spec-avatar-file" accept="image/*" style="display:none" onchange="previewAvatar(this)">
-              <div style="font-size:11px;color:var(--text3)">Нажмите для загрузки фото</div>
-            </div>
-            <div class="fg"><label>Выбрать специалиста</label>
-              <select class="fi" id="spec-edit-select" onchange="loadSpecEdit()"><option value="">— Выбрать —</option></select>
-            </div>
-            <div class="fg"><label>Имя *</label><input class="fi" id="spec-name" placeholder="Иван Петров"></div>
-            <div class="fg"><label>Должность *</label><input class="fi" id="spec-role-title" placeholder="Blockchain Analyst"></div>
-            <div class="fg"><label>Email</label><input class="fi" id="spec-email" type="email" placeholder="ivan@cryptojustice.com"></div>
-            <div class="fg"><label>Telegram</label><input class="fi" id="spec-telegram" placeholder="@username"></div>
-            <div class="fg"><label>Телефон</label><input class="fi" id="spec-phone" placeholder="+380..."></div>
-            <div class="fg"><label>О себе</label><textarea class="fi" id="spec-bio" placeholder="Краткое описание..."></textarea></div>
-            <input type="hidden" id="spec-edit-id">
-            <div style="display:flex;gap:.5rem">
-              <button class="btn primary" onclick="saveSpecialist()" style="flex:1"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить</button>
-              <button class="btn ghost sm" onclick="clearSpecEdit()"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="staff-grid" id="staff-list"><div style="padding:2rem;text-align:center"><div class="spin"></div></div></div>
     </div>
 
     <!-- INVITE -->
     <div id="p-invite" class="hidden">
-      <div class="page-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="19" y1="13" x2="23" y2="13"/><line x1="21" y1="11" x2="21" y2="15"/></svg> Создать аккаунт сотрудника</div>
-      <div class="page-sub">Создайте логин и пароль — сотрудник сразу сможет войти.</div>
-
+      <div class="page-title">✉️ Пригласить сотрудника</div>
       <div id="inv-alert" class="alert"></div>
-
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
-        <!-- CREATE ACCOUNT FORM -->
         <div class="card">
-          <div class="card-head"><div class="card-title">Новый сотрудник</div></div>
+          <div class="card-head"><div class="card-title">Новое приглашение</div></div>
           <div class="card-body">
-            <div class="fg"><label>Имя и фамилия *</label><input class="fi" id="staff-name" placeholder="Иван Петров"></div>
-            <div class="fg"><label>Email *</label><input class="fi" id="staff-email" type="email" placeholder="ivan@cryptojustice.com" autocomplete="off"></div>
-            <div class="fg"><label>Пароль *</label>
-              <div style="position:relative">
-                <input class="fi" id="staff-pass" type="password" placeholder="Минимум 8 символов" style="padding-right:2.5rem" autocomplete="new-password">
-                <button onclick="togglePass()" style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px">👁</button>
-              </div>
-            </div>
+            <div class="fg"><label>Email *</label><input class="fi" id="staff-email" type="email" placeholder="colleague@email.com" autocomplete="off"></div>
             <div class="fg"><label>Роль</label>
               <select class="fi" id="staff-role">
-                <option value="specialist">Специалист — видит дела, общается с клиентами</option>
+                <option value="specialist">Специалист — видит дела, может менять статус</option>
                 <option value="admin">Администратор — полный доступ</option>
               </select>
             </div>
+            <div class="fg"><label>Имя</label><input class="fi" id="staff-name" placeholder="Имя Фамилия"></div>
             <div class="fg"><label>Должность</label><input class="fi" id="staff-role-title" placeholder="Blockchain Analyst"></div>
-            <div class="fg"><label>Telegram</label><input class="fi" id="staff-tg" placeholder="@username"></div>
-            <div id="create-progress" class="hidden" style="margin-bottom:.8rem">
-              <div style="display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--text2)">
-                <div class="spin"></div><span id="create-status">Создаём аккаунт...</span>
-              </div>
-            </div>
-            <button class="btn primary" id="create-btn" onclick="createStaffAccount()" style="width:100%;justify-content:center">
-              Создать аккаунт
-            </button>
-            <div style="margin-top:.8rem;padding:.7rem;background:rgba(37,99,235,.06);border-radius:7px;border:1px solid rgba(37,99,235,.15);font-size:12px;color:var(--text2)">
-              После создания сотрудник заходит на <span style="color:var(--blue3)">/portal/login.html</span> с указанным email и паролем. Доступ — немедленно.
-            </div>
+            <button class="btn primary" onclick="inviteStaff()">Пригласить →</button>
+            <div style="font-size:11px;color:var(--text3);margin-top:.7rem">Если пользователь уже зарегистрирован — его роль будет обновлена сразу. Если нет — после регистрации с этим email роль будет назначена автоматически.</div>
           </div>
         </div>
-
-        <!-- STAFF LIST -->
-        <div>
-          <div class="card">
-            <div class="card-head"><div class="card-title">Текущие сотрудники</div><button class="btn ghost sm" onclick="loadStaffList()">↻</button></div>
-            <div id="staff-accounts-list"><div style="padding:1rem;text-align:center"><div class="spin"></div></div></div>
-          </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Активные приглашения</div></div>
+          <div class="tw" id="invites-list"></div>
         </div>
       </div>
     </div>
 
-
     <!-- STATUSES -->
     <div id="p-statuses" class="hidden">
-      <div class="page-title">Статусы дел</div>
+      <div class="page-title">🏷️ Статусы дел</div>
       <div class="page-sub">Создавайте и редактируйте статусы — они будут доступны при управлении делами.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
         <div class="card">
@@ -514,25 +371,14 @@ tr:last-child td{border-bottom:none}
           <div class="card-body">
             <div id="status-alert" class="alert"></div>
             <div class="fg"><label>Название *</label><input class="fi" id="st-label" placeholder="Ожидание биржи"></div>
-            <div class="fg"><label>Иконка</label>
-              <select class="fi" id="st-icon">
-                <option value="inbox">Входящее / Новое</option>
-                <option value="search">Оценка / Анализ</option>
-                <option value="chain">Блокчейн</option>
-                <option value="docs">Документы</option>
-                <option value="freeze">Заморозка</option>
-                <option value="legal">Судебное</option>
-                <option value="success">Успешно</option>
-                <option value="fail">Закрыто</option>
-              </select>
-            </div>
+            <div class="fg"><label>Иконка (эмодзи)</label><input class="fi" id="st-icon" placeholder="⏳" style="width:80px"></div>
             <div class="fg">
               <label>Цвет</label>
               <div class="color-grid" id="color-grid"></div>
               <input type="hidden" id="st-color" value="#2563eb">
             </div>
             <div class="fg"><label>Порядок сортировки</label><input class="fi" id="st-order" type="number" placeholder="9" style="width:100px"></div>
-            <button class="btn primary" onclick="addStatus()"><svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="3,9 7,13 15,5"/></svg>&nbsp;Добавить</button>
+            <button class="btn primary" onclick="addStatus()">✓ Добавить</button>
           </div>
         </div>
       </div>
@@ -540,7 +386,7 @@ tr:last-child td{border-bottom:none}
 
     <!-- MESSAGES -->
     <div id="p-messages" class="hidden">
-      <div class="page-title">Сообщения</div>
+      <div class="page-title">💬 Сообщения</div>
       <div style="display:grid;grid-template-columns:260px 1fr;gap:1.2rem;height:calc(100vh - 160px)">
         <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
           <div class="card-head"><div class="card-title">Дела</div></div>
@@ -568,146 +414,221 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const sb = supabase.createClient(SB_URL, SB_KEY);
 
 let me = null;
+let myRole = null;
 let activeCaseId = null;
 let chatCaseId = null;
 let allStatuses = [];
 let allSpecialists = [];
 let allClients = [];
-const COLORS = ['#2563eb','#06b6d4','#10b981','#f59e0b','#f97316','#ef4444','#7c3aed','#ec4899','#64748b','#0f172a'];
+const COLORS = ['#2563eb','#06b6d4','#10b981','#f59e0b','#f97316','#ef4444','#7c3aed','#ec4899','#64748b'];
 const FRAUD = {fake_broker:'Фейковый брокер',romance_scam:'Romance scam',pig_butchering:'Pig Butchering',nft_scam:'NFT scam',wallet_drain:'Wallet drain',corporate:'Корпоративное'};
+const PRI_COLORS = {low:'#94a3b8',normal:'#60a5fa',high:'#f59e0b',urgent:'#ef4444'};
+const PRI_LABELS = {low:'Низкий',normal:'Нормальный',high:'Высокий',urgent:'СРОЧНО'};
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ── INIT ────────────────────────────────────────────────────────────────────
 async function init() {
   const {data:{session}} = await sb.auth.getSession();
-  if(!session) { window.location.href='/portal/login.html'; return; }
+  if (!session) { window.location.href = '/portal/login.html'; return; }
   me = session.user;
-  const {data:p} = await sb.from('profiles').select('*').eq('id',me.id).single();
-  if(!p || (p.role !== 'admin' && p.role !== 'specialist')) {
-    alert('Нет доступа'); window.location.href='/portal/login.html'; return;
+
+  const {data:p} = await sb.from('profiles').select('*').eq('id', me.id).single();
+  if (!p || (p.role !== 'admin' && p.role !== 'specialist')) {
+    // Client or unknown → redirect to dashboard
+    window.location.href = '/portal/dashboard.html';
+    return;
   }
+
+  myRole = p.role;
   document.getElementById('admin-name').textContent = p.full_name || me.email;
+  document.getElementById('nav-role-badge').textContent = p.role === 'admin' ? 'Admin' : 'Staff';
+
+  // Hide admin-only sections for staff
+  if (myRole === 'specialist') {
+    document.getElementById('slink-invite').style.display = 'none';
+    document.getElementById('slink-new-case').style.display = 'none';
+  }
+
   await Promise.all([loadStatuses(), loadSpecialists()]);
+  nav('dashboard');
   loadDashboard();
 }
 
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ── NAVIGATION ──────────────────────────────────────────────────────────────
 function nav(page) {
   document.querySelectorAll('[id^="p-"]').forEach(el => el.classList.add('hidden'));
-  document.getElementById('p-' + page)?.classList.remove('hidden');
+  const pageEl = document.getElementById('p-' + page);
+  if (pageEl) pageEl.classList.remove('hidden');
   document.querySelectorAll('.slink').forEach(el => el.classList.remove('active'));
-  if(page === 'dashboard') loadDashboard();
-  else if(page === 'cases') loadCases();
-  else if(page === 'clients') loadClients();
-  else if(page === 'staff') loadStaff();
-  else if(page === 'invite') loadInvites();
-  else if(page === 'statuses') loadStatusesPage();
-  else if(page === 'messages') loadChatCases();
+  const activeBtn = document.querySelector(`[onclick="nav('${page}')"]`);
+  if (activeBtn) activeBtn.classList.add('active');
 }
 
-// ── LOAD STATUSES ─────────────────────────────────────────────────────────────
+// ── STATUSES ────────────────────────────────────────────────────────────────
 async function loadStatuses() {
   const {data} = await sb.from('case_statuses').select('*').order('sort_order');
-  statuses = data || [];
-  const el = document.getElementById('statuses-list');
-  if (!el) return;
-  el.innerHTML = (data||[]).map(s => {
-    const ico = getStatusIcon(s.icon, s.color, 18);
-    return '<div style="display:flex;align-items:center;gap:.8rem;padding:.65rem .8rem;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);margin-bottom:.4rem">' +
-      '<div style="width:34px;height:34px;border-radius:8px;background:' + s.color + '22;border:1px solid ' + s.color + '44;display:flex;align-items:center;justify-content:center;flex-shrink:0;filter:drop-shadow(0 0 5px ' + s.color + '55)">' + ico + '</div>' +
-      '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text)">' + s.label + '</div>' +
-      '<div style="font-size:11px;color:var(--text3)">#' + s.sort_order + ' &nbsp;&middot;&nbsp; <span style="color:' + s.color + '">' + s.color + '</span></div></div>' +
-      '<button class="btn danger sm" style="padding:4px 10px;font-size:11px" onclick="deleteStatus(\'' + s.id + '\')">&#x2715;</button></div>';
-  }).join('');
-  const sel = document.getElementById('d-status');
-  if (sel) {
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">— Без статуса —</option>' + (data||[]).map(s => '<option value="' + s.id + '"' + (s.id===cur?' selected':'') + '>' + s.label + '</option>').join('');
-  }
+  allStatuses = data || [];
+  ['filter-status','d-status','nc-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const hasAll = id === 'filter-status';
+    el.innerHTML = (hasAll ? '<option value="">Все статусы</option>' : '') +
+      allStatuses.map(s => `<option value="${s.id}">${s.icon} ${s.label}</option>`).join('');
+  });
 }
 
+// ── SPECIALISTS ─────────────────────────────────────────────────────────────
 async function loadSpecialists() {
   const {data} = await sb.from('specialists').select('*').order('name');
   allSpecialists = data || [];
   ['d-specialist','nc-specialist'].forEach(id => {
     const el = document.getElementById(id);
-    if(!el) return;
+    if (!el) return;
     el.innerHTML = '<option value="">Не назначен</option>' +
-      allSpecialists.map(s => `<option value="${s.id}">${s.name} — ${s.role}</option>`).join('');
+      allSpecialists.map(s => `<option value="${s.id}">${s.name} — ${s.role||s.title||''}</option>`).join('');
   });
 }
 
-// ── DASHBOARD ────────────────────────────────────────────────────────────────
+// ── DASHBOARD ───────────────────────────────────────────────────────────────
 async function loadDashboard() {
   const now = new Date();
   document.getElementById('dash-date').textContent = now.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  const [{count:totalCases}, {data:cases}, {count:clients}, {data:wonCases}] = await Promise.all([
-    sb.from('cases').select('*',{count:'exact',head:true}),
-    sb.from('cases').select('*,profiles!client_id(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false}).limit(10),
+
+  let casesQuery = sb.from('cases').select('*,profiles!cases_client_id_fkey(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false}).limit(10);
+  let countQuery = sb.from('cases').select('*',{count:'exact',head:true});
+
+  // Staff only sees their cases
+  if (myRole === 'specialist') {
+    const {data:mySpec} = await sb.from('specialists').select('id').eq('email', me.email).single();
+    if (mySpec) {
+      casesQuery = casesQuery.eq('specialist_id', mySpec.id);
+      countQuery = countQuery.eq('specialist_id', mySpec.id);
+    }
+  }
+
+  const [{count:totalCases}, {data:cases}, {count:clients}] = await Promise.all([
+    countQuery,
+    casesQuery,
     sb.from('profiles').select('*',{count:'exact',head:true}).eq('role','client'),
-    sb.from('cases').select('*',{count:'exact',head:true}).eq('status','closed_won')
   ]);
-  const activeSt = allStatuses.filter(s => !s.label.includes('Закрыто') && !s.label.includes('Новое')).map(s=>s.id);
-  const {count:active} = await sb.from('cases').select('*',{count:'exact',head:true}).in('custom_status_id', activeSt.length ? activeSt : ['none']);
-  document.getElementById('s-cases').textContent = totalCases||0;
-  document.getElementById('s-active').textContent = active||0;
-  document.getElementById('s-clients').textContent = clients||0;
-  const pct = totalCases ? Math.round(((wonCases?.length||0)/totalCases)*100) : 0;
-  document.getElementById('s-won').innerHTML = pct + '<span>%</span>';
-  renderCasesTable('recent-cases-table', cases||[]);
+
+  document.getElementById('s-cases').textContent = totalCases || 0;
+  document.getElementById('s-active').textContent = (cases || []).length;
+  document.getElementById('s-clients').textContent = clients || 0;
+  document.getElementById('s-won').innerHTML = '—<span>%</span>';
+  renderCasesTable('recent-cases-table', cases || []);
 }
 
-// ── LOAD CASES ────────────────────────────────────────────────────────────────
+// ── LOAD CASES ──────────────────────────────────────────────────────────────
 async function loadCases() {
   const statusId = document.getElementById('filter-status')?.value;
   const priority = document.getElementById('filter-priority')?.value;
   const search = document.getElementById('filter-search')?.value?.toLowerCase();
-  let q = sb.from('cases').select('*,profiles!client_id(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false});
-  if(statusId) q = q.eq('custom_status_id', statusId);
-  if(priority) q = q.eq('priority', priority);
+
+  let q = sb.from('cases').select('*,profiles!cases_client_id_fkey(full_name,email),specialists(name),case_statuses(label,color,icon)').order('created_at',{ascending:false});
+
+  // Staff only sees their cases
+  if (myRole === 'specialist') {
+    const {data:mySpec} = await sb.from('specialists').select('id').eq('email', me.email).single();
+    if (mySpec) q = q.eq('specialist_id', mySpec.id);
+  }
+
+  if (statusId) q = q.eq('custom_status_id', statusId);
+  if (priority) q = q.eq('priority', priority);
+
   const {data} = await q;
   let filtered = data || [];
-  if(search) filtered = filtered.filter(c => c.profiles?.full_name?.toLowerCase().includes(search) || c.profiles?.email?.toLowerCase().includes(search) || c.case_number?.toLowerCase().includes(search));
+  if (search) filtered = filtered.filter(c =>
+    (c.profiles?.full_name||'').toLowerCase().includes(search) ||
+    (c.profiles?.email||'').toLowerCase().includes(search) ||
+    (c.case_number||'').toLowerCase().includes(search)
+  );
   renderCasesTable('cases-table', filtered);
 }
 
 function renderCasesTable(containerId, cases) {
   const priLabel = {low:'⚪',normal:'🔵',high:'🟡',urgent:'🔴'};
-  if(!cases.length) { document.getElementById(containerId).innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3)">Дел нет</div>'; return; }
-  document.getElementById(containerId).innerHTML = `<table><thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th>Приоритет</th><th></th></tr></thead><tbody>`+
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!cases.length) { el.innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3)">Дел нет</div>'; return; }
+  el.innerHTML = '<table><thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Сумма</th><th>Статус</th><th>Специалист</th><th>Приоритет</th><th></th></tr></thead><tbody>' +
     cases.map(c => {
       const st = c.case_statuses;
-      const statusHtml = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '<span style="color:var(--text3)">—</span>';
-      return `<tr><td style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</td><td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td><td>${FRAUD[c.fraud_type]||c.fraud_type}</td><td style="color:#f87171;font-weight:600">$${Number(c.amount_lost).toLocaleString()}</td><td>${statusHtml}</td><td style="color:var(--text2)">${c.specialists?.name||'—'}</td><td>${priLabel[c.priority]||'🔵'}</td><td><button class="btn primary sm" onclick="openCase('${c.id}')">Открыть</button></td></tr>`;
+      const statusHtml = st
+        ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>`
+        : '<span style="color:var(--text3)">—</span>';
+      const amt = c.disputed_amount || c.amount_lost || 0;
+      return `<tr>
+        <td style="font-family:var(--fd);color:var(--blue3);font-weight:700;cursor:pointer" onclick="openCase('${c.id}')">${c.case_number}</td>
+        <td><div style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</div></td>
+        <td>${FRAUD[c.fraud_type]||c.fraud_type||'—'}</td>
+        <td style="color:#f87171;font-weight:600">$${Number(amt).toLocaleString()}</td>
+        <td>${statusHtml}</td>
+        <td style="color:var(--text2)">${c.specialists?.name||'—'}</td>
+        <td>${priLabel[c.priority]||'🔵'}</td>
+        <td><button class="btn primary sm" onclick="openCase('${c.id}')">Открыть</button></td>
+      </tr>`;
     }).join('') + '</tbody></table>';
 }
 
-// ── CASE DETAIL ───────────────────────────────────────────────────────────────
+// ── OPEN CASE ───────────────────────────────────────────────────────────────
 async function openCase(caseId) {
   activeCaseId = caseId;
-  const {data:c} = await sb.from('cases').select('*,profiles!client_id(full_name,email,phone),specialists(*),case_statuses(*)').eq('id',caseId).single();
-  if(!c) return;
-  document.getElementById('detail-title').textContent = c.case_number;
-  const priColors = {low:'#94a3b8',normal:'#60a5fa',high:'#f59e0b',urgent:'#ef4444'};
-  const priNames = {low:'Низкий',normal:'Нормальный',high:'Высокий',urgent:'СРОЧНО'};
-  document.getElementById('detail-priority-badge').innerHTML = `<span class="badge" style="background:${priColors[c.priority]}22;color:${priColors[c.priority]};border:1px solid ${priColors[c.priority]}44">${priNames[c.priority]}</span>`;
-  const st = c.case_statuses;
-  document.getElementById('detail-status-badge').innerHTML = st ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>` : '';
-  document.getElementById('d-status').value = c.custom_status_id||'';
-  document.getElementById('d-priority').value = c.priority||'normal';
-  document.getElementById('d-specialist').value = c.specialist_id||'';
-  document.getElementById('d-tags').value = (c.tags||[]).join(', ');
-  document.getElementById('d-info').innerHTML = [
-    ['Номер дела',`<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
-    ['Клиент',`<span style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</span><br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email}</span>`],
-    ['Телефон',c.profiles?.phone||'—'],
-    ['Тип мошенничества',FRAUD[c.fraud_type]||c.fraud_type],
-    ['Оспариваемая сумма',`<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(c.amount_lost).toLocaleString()} ${c.currency||'USD'}</span>`],
-    ['Открыто',new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
-  ].map(([l,v])=>`<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
-  await Promise.all([loadDetailDocs(caseId), loadDetailInv(caseId), loadDetailTl(caseId)]);
   nav('case-detail');
+  document.getElementById('d-info').innerHTML = '<div style="text-align:center"><div class="spin"></div></div>';
+
+  const {data:c, error} = await sb.from('cases')
+    .select('*, profiles!cases_client_id_fkey(full_name,email,phone), specialists(*), case_statuses(*)')
+    .eq('id', caseId).single();
+
+  if (error || !c) {
+    document.getElementById('d-info').innerHTML = '<div style="color:#f87171">Ошибка загрузки дела</div>';
+    return;
+  }
+
+  document.getElementById('detail-title').textContent = c.case_number;
+
+  // Priority badge
+  const pCol = PRI_COLORS[c.priority] || PRI_COLORS.normal;
+  const pLbl = PRI_LABELS[c.priority] || c.priority;
+  const prioEl = document.getElementById('detail-priority-badge');
+  if (prioEl) {
+    prioEl.innerHTML = `<span class="badge" style="background:${pCol}22;color:${pCol};border:1px solid ${pCol}44">${pLbl}</span>`;
+  }
+
+  // Status badge
+  const st = c.case_statuses;
+  const statusEl = document.getElementById('detail-status-badge');
+  if (statusEl) {
+    statusEl.innerHTML = st
+      ? `<span class="status-chip" style="background:${st.color}22;color:${st.color};border:1px solid ${st.color}44"><span class="status-dot" style="background:${st.color}"></span>${st.icon} ${st.label}</span>`
+      : '';
+  }
+
+  // Form fields
+  const dStatus = document.getElementById('d-status'); if (dStatus) dStatus.value = c.custom_status_id || '';
+  const dPrio = document.getElementById('d-priority'); if (dPrio) dPrio.value = c.priority || 'normal';
+  const dSpec = document.getElementById('d-specialist'); if (dSpec) dSpec.value = c.specialist_id || '';
+  const dTags = document.getElementById('d-tags'); if (dTags) dTags.value = (c.tags||[]).join(', ');
+  const dNote = document.getElementById('d-note'); if (dNote) dNote.value = '';
+
+  // Info panel
+  const amt = c.disputed_amount || c.amount_lost || 0;
+  document.getElementById('d-info').innerHTML = [
+    ['Номер дела', `<span style="font-family:var(--fd);color:var(--blue3);font-weight:700">${c.case_number}</span>`],
+    ['Клиент', `<span style="color:var(--text);font-weight:500">${c.profiles?.full_name||'—'}</span><br><span style="font-size:11px;color:var(--text3)">${c.profiles?.email||''}</span>`],
+    ['Телефон', c.profiles?.phone || '—'],
+    ['Тип мошенничества', FRAUD[c.fraud_type]||c.fraud_type||'—'],
+    ['Оспариваемая сумма', `<span style="color:#f87171;font-weight:700;font-size:1.1rem">$${Number(amt).toLocaleString()} ${c.currency||'USD'}</span>`],
+    ['Открыто', new Date(c.created_at).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})],
+  ].map(([l,v]) => `<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem">${l}</div><div style="font-size:13px;color:var(--text)">${v}</div></div>`).join('');
+
+  // Load sub-sections
+  loadDetailDocs(caseId);
+  loadDetailInv(caseId);
+  loadDetailTl(caseId);
 }
 
+// ── UPDATE CASE ─────────────────────────────────────────────────────────────
 async function updateCase() {
   const statusId = document.getElementById('d-status').value || null;
   const priority = document.getElementById('d-priority').value;
@@ -716,535 +637,381 @@ async function updateCase() {
   const tagsRaw = document.getElementById('d-tags').value;
   const tags = tagsRaw ? tagsRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
   const btn = event.target; btn.textContent='...'; btn.disabled=true;
-  const {data:old} = await sb.from('cases').select('custom_status_id').eq('id',activeCaseId).single();
-  await sb.from('cases').update({custom_status_id:statusId, priority, specialist_id, tags}).eq('id',activeCaseId);
-  const newSt = allStatuses.find(s=>s.id===statusId);
-  const oldSt = allStatuses.find(s=>s.id===old?.custom_status_id);
-  if(old?.custom_status_id !== statusId) {
-    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'status_change', title:`Статус: ${oldSt?.label||'—'} → ${newSt?.label||'—'}`, content:note||null, author_name:document.getElementById('admin-name').textContent});
-  } else if(note) {
-    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'note', title:'Заметка', content:note, author_name:document.getElementById('admin-name').textContent});
+
+  const {data:old} = await sb.from('cases').select('custom_status_id').eq('id', activeCaseId).single();
+  await sb.from('cases').update({custom_status_id:statusId, priority, specialist_id, tags}).eq('id', activeCaseId);
+
+  const newSt = allStatuses.find(s => s.id === statusId);
+  const oldSt = allStatuses.find(s => s.id === old?.custom_status_id);
+  const authorName = document.getElementById('admin-name').textContent;
+
+  if (old?.custom_status_id !== statusId) {
+    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'status_change', title:`Статус: ${oldSt?.label||'—'} → ${newSt?.label||'—'}`, content:note||null, author_name:authorName});
+  } else if (note) {
+    await sb.from('case_timeline').insert({case_id:activeCaseId, type:'note', title:'Заметка', content:note, author_name:authorName});
   }
+
+  // Update badges
+  const pCol = PRI_COLORS[priority] || PRI_COLORS.normal;
+  const pLbl = PRI_LABELS[priority] || priority;
+  document.getElementById('detail-priority-badge').innerHTML = `<span class="badge" style="background:${pCol}22;color:${pCol};border:1px solid ${pCol}44">${pLbl}</span>`;
+  document.getElementById('detail-status-badge').innerHTML = newSt
+    ? `<span class="status-chip" style="background:${newSt.color}22;color:${newSt.color};border:1px solid ${newSt.color}44"><span class="status-dot" style="background:${newSt.color}"></span>${newSt.icon} ${newSt.label}</span>`
+    : '';
+
   const a = document.getElementById('d-alert');
-  a.textContent='✓ Сохранено'; a.className='alert show ok';
-  btn.textContent='<svg width="14" height="14" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 16H4a1 1 0 01-1-1V3a1 1 0 011-1h8l3 3v10a1 1 0 01-1 1z"/><rect x="6" y="10" width="6" height="6"/><rect x="5" y="2" width="6" height="4"/></svg>&nbsp;Сохранить'; btn.disabled=false;
-  document.getElementById('d-note').value='';
-  setTimeout(()=>a.className='alert',3000);
+  a.textContent = '✓ Сохранено'; a.className = 'alert show ok';
+  btn.textContent = '💾 Сохранить изменения'; btn.disabled = false;
+  document.getElementById('d-note').value = '';
+  setTimeout(() => a.className = 'alert', 3000);
   loadDetailTl(activeCaseId);
-  document.getElementById('detail-status-badge').innerHTML = newSt ? `<span class="status-chip" style="background:${newSt.color}22;color:${newSt.color};border:1px solid ${newSt.color}44"><span class="status-dot" style="background:${newSt.color}"></span>${newSt.icon} ${newSt.label}</span>` : '';
 }
 
-// ── DOCS ──────────────────────────────────────────────────────────────────────
+// ── DOCS ─────────────────────────────────────────────────────────────────────
 async function loadDetailDocs(cid) {
-  const {data} = await sb.from('documents').select('*').eq('case_id',cid).order('created_at',{ascending:false});
-  if(!data?.length) { document.getElementById('docs-list').innerHTML='<div style="font-size:12px;color:var(--text3)">Нет документов</div>'; return; }
-  const catL={evidence:'Доказательства',contract:'Договор',report:'Отчёт',police:'Заявление',invoice:'Инвойс',other:'Другое'};
-  document.getElementById('docs-list').innerHTML=data.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:13px;color:var(--text)">${d.name||d.file_path.split('/').pop()}</div><div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category}${d.note?' · '+d.note:''}</div></div></div><button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/><polyline points="6,8 9,11 12,8"/><line x1="9" y1="3" x2="9" y2="11"/></svg></button></div>`).join('');
+  const {data} = await sb.from('documents').select('*').eq('case_id', cid).order('created_at',{ascending:false});
+  const el = document.getElementById('docs-list');
+  if (!el) return;
+  if (!data?.length) { el.innerHTML='<div style="font-size:12px;color:var(--text3)">Нет документов</div>'; return; }
+  const catL = {evidence:'Доказательства',contract:'Договор',report:'Отчёт',police:'Заявление',invoice:'Инвойс',other:'Другое'};
+  el.innerHTML = data.map(d =>
+    `<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:.6rem"><span>📄</span>
+        <div>
+          <div style="font-size:13px;color:var(--text)">${d.name||d.file_path?.split('/').pop()||'—'}</div>
+          <div style="font-size:11px;color:var(--text3)">${catL[d.category]||d.category||''}${d.note?' · '+d.note:''}</div>
+        </div>
+      </div>
+      <button class="btn ghost sm" onclick="dlDoc('${d.file_path}','${d.name||''}')">↓</button>
+    </div>`
+  ).join('');
 }
 
 async function uploadDoc(file) {
-  if(!file||!activeCaseId) return;
-  const prog=document.getElementById('doc-progress'); const st=document.getElementById('doc-status');
-  prog.style.display='flex'; st.textContent='Загрузка...';
-  const ext=file.name.split('.').pop(); const path=`${activeCaseId}/admin_${Date.now()}.${ext}`;
-  const {error:upErr} = await sb.storage.from('case-documents').upload(path,file);
-  if(upErr){st.textContent='Ошибка: '+upErr.message; return;}
-  const name=document.getElementById('doc-note').value||file.name;
-  const category=document.getElementById('doc-cat').value;
-  await sb.from('documents').insert({case_id:activeCaseId,uploaded_by:me.id,name,file_path:path,file_size:file.size,file_type:file.type,category,note:document.getElementById('doc-note').value});
-  await sb.from('case_timeline').insert({case_id:activeCaseId,type:'document',title:`Документ: ${name}`,author_name:document.getElementById('admin-name').textContent});
-  prog.style.display='none'; document.getElementById('doc-note').value=''; document.getElementById('doc-file').value='';
-  loadDetailDocs(activeCaseId); loadDetailTl(activeCaseId);
+  if (!file || !activeCaseId) return;
+  const prog = document.getElementById('doc-progress'); const st = document.getElementById('doc-status');
+  prog.style.display = 'flex'; st.textContent = 'Загрузка...';
+  const ext = file.name.split('.').pop();
+  const path = `${activeCaseId}/admin_${Date.now()}.${ext}`;
+  const {error:upErr} = await sb.storage.from('case-documents').upload(path, file);
+  if (upErr) { st.textContent = 'Ошибка: ' + upErr.message; return; }
+  const name = document.getElementById('doc-note').value || file.name;
+  const category = document.getElementById('doc-cat').value;
+  await sb.from('documents').insert({case_id:activeCaseId, uploaded_by:me.id, name, file_path:path, file_size:file.size, file_type:file.type, category});
+  await sb.from('case_timeline').insert({case_id:activeCaseId, type:'document', title:`Документ: ${name}`, author_name:document.getElementById('admin-name').textContent});
+  prog.style.display = 'none';
+  document.getElementById('doc-note').value = '';
+  document.getElementById('doc-file').value = '';
+  loadDetailDocs(activeCaseId);
+  loadDetailTl(activeCaseId);
 }
-function dropDoc(e){e.preventDefault();document.getElementById('doc-drop').classList.remove('over');uploadDoc(e.dataTransfer.files[0]);}
-async function dlDoc(path,name){const{data}=await sb.storage.from('case-documents').createSignedUrl(path,60);if(data?.signedUrl){const a=document.createElement('a');a.href=data.signedUrl;a.download=name;a.click();}}
+function dropDoc(e) { e.preventDefault(); document.getElementById('doc-drop').classList.remove('over'); uploadDoc(e.dataTransfer.files[0]); }
+async function dlDoc(path, name) {
+  const {data} = await sb.storage.from('case-documents').createSignedUrl(path, 60);
+  if (data?.signedUrl) { const a = document.createElement('a'); a.href = data.signedUrl; a.download = name || 'file'; a.click(); }
+}
 
-// ── INVOICES ──────────────────────────────────────────────────────────────────
+// ── INVOICES ─────────────────────────────────────────────────────────────────
 async function createInv() {
   const desc = document.getElementById('inv-desc').value.trim();
   const amount = parseFloat(document.getElementById('inv-amount').value);
   const due = document.getElementById('inv-due').value;
   if (!desc || !amount) return;
-
-  // Get case info for PDF
-  const {data:c} = await sb.from('cases').select('*, profiles!client_id(full_name,email)').eq('id', activeCaseId).single();
-  const invNum = 'INV-' + Date.now().toString().slice(-6);
-
-  // Save to DB
-  await sb.from('invoices').insert({case_id: activeCaseId, description: desc, amount, due_date: due||null, invoice_number: invNum});
-  await sb.from('case_timeline').insert({case_id: activeCaseId, type: 'invoice', title: `Инвойс: ${desc} — $${Number(amount).toLocaleString()}`, author_name: 'CryptoJustice'});
-  
-  // Generate PDF invoice
-  generateInvoicePDF({
-    number: invNum,
-    date: new Date().toLocaleDateString('ru-RU'),
-    due: due ? new Date(due).toLocaleDateString('ru-RU') : '—',
-    client: c?.profiles?.full_name || 'Клиент',
-    email: c?.profiles?.email || '',
-    caseNum: c?.case_number || '',
-    desc, amount
-  });
-
-  document.getElementById('inv-desc').value = '';
-  document.getElementById('inv-amount').value = '';
+  await sb.from('invoices').insert({case_id:activeCaseId, description:desc, amount, due_date:due||null});
+  await sb.from('case_timeline').insert({case_id:activeCaseId, type:'invoice', title:`Инвойс: ${desc} — $${amount}`, author_name:document.getElementById('admin-name').textContent});
+  document.getElementById('inv-desc').value = ''; document.getElementById('inv-amount').value = '';
   loadDetailInv(activeCaseId);
   loadDetailTl(activeCaseId);
 }
-
-function generateInvoicePDF(inv) {
-  const html = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-<style>
-  body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:40px;color:#1a1a2e}
-  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid #2563eb}
-  .logo{font-size:24px;font-weight:700;color:#2563eb}.logo span{color:#06b6d4}
-  .inv-title{font-size:32px;font-weight:700;color:#2563eb;text-align:right}
-  .inv-num{font-size:14px;color:#666;margin-top:4px}
-  .section{margin-bottom:30px}
-  .section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;margin-bottom:8px}
-  .info-box{background:#f8fafc;border-radius:8px;padding:16px;font-size:14px;line-height:1.6}
-  table{width:100%;border-collapse:collapse;margin:20px 0}
-  th{background:#2563eb;color:#fff;padding:12px 16px;text-align:left;font-size:13px}
-  td{padding:12px 16px;border-bottom:1px solid #e2e8f0;font-size:14px}
-  .total-row td{font-weight:700;font-size:16px;border-top:2px solid #2563eb;border-bottom:none}
-  .footer{margin-top:40px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:12px;color:#999;text-align:center}
-  .badge{display:inline-block;background:#fef3c7;color:#92400e;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600}
-  @media print{body{margin:0;padding:20px}}
-</style></head><body>
-<div class="header">
-  <div><div class="logo">Crypto<span>Justice</span></div><div style="font-size:12px;color:#666;margin-top:4px">cryptojustice.com</div></div>
-  <div><div class="inv-title">ИНВОЙС</div><div class="inv-num">${inv.number}</div><div class="badge">Ожидает оплаты</div></div>
-</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px">
-  <div class="section">
-    <div class="section-title">Получатель</div>
-    <div class="info-box"><strong>${inv.client}</strong><br>${inv.email}<br>Дело: ${inv.caseNum}</div>
-  </div>
-  <div class="section">
-    <div class="section-title">Детали</div>
-    <div class="info-box">Дата выставления: <strong>${inv.date}</strong><br>Срок оплаты: <strong>${inv.due}</strong></div>
-  </div>
-</div>
-<table>
-  <thead><tr><th>Описание услуги</th><th style="text-align:right">Сумма</th></tr></thead>
-  <tbody>
-    <tr><td>${inv.desc}</td><td style="text-align:right">$${Number(inv.amount).toLocaleString()}</td></tr>
-    <tr class="total-row"><td>ИТОГО</td><td style="text-align:right">$${Number(inv.amount).toLocaleString()} USD</td></tr>
-  </tbody>
-</table>
-<div class="footer">CryptoJustice — Blockchain Recovery Services<br>По вопросам оплаты: info@cryptojustice.com</div>
-</body></html>`;
-
-  const win = window.open('', '_blank');
-  win.document.write(html);
-  win.document.close();
-  setTimeout(() => win.print(), 500);
-}
-
-
 async function loadDetailInv(cid) {
-  const {data} = await sb.from('invoices').select('*').eq('case_id',cid).order('created_at',{ascending:false});
+  const {data} = await sb.from('invoices').select('*').eq('case_id', cid).order('created_at',{ascending:false});
   const el = document.getElementById('d-invoices');
-  if(!data?.length){el.innerHTML='<div style="font-size:12px;color:var(--text3)">Нет инвойсов</div>';return;}
-  el.innerHTML=data.map(inv=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)"><div><div style="font-size:12px;color:var(--text)">${inv.description}</div><div style="font-size:10px;color:var(--text3)">${inv.invoice_number}</div></div><div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem"><div style="font-family:var(--fd);font-weight:700">$${Number(inv.amount).toLocaleString()}</div><button class="btn sm ${inv.status==='paid'?'ghost':'success'}" onclick="markPaid('${inv.id}')" ${inv.status==='paid'?'disabled':''}>${inv.status==='paid'?'✓ Оплачено':'Отметить оплаченным'}</button></div></div>`).join('');
+  if (!el) return;
+  if (!data?.length) { el.innerHTML='<div style="font-size:12px;color:var(--text3)">Нет инвойсов</div>'; return; }
+  el.innerHTML = data.map(inv =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)">
+      <div>
+        <div style="font-size:12px;color:var(--text)">${inv.description}</div>
+        <div style="font-size:10px;color:var(--text3)">${inv.invoice_number||''}</div>
+      </div>
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem">
+        <div style="font-family:var(--fd);font-weight:700">$${Number(inv.amount).toLocaleString()}</div>
+        <button class="btn sm ${inv.status==='paid'?'ghost':'success'}" onclick="markPaid('${inv.id}')" ${inv.status==='paid'?'disabled':''}>${inv.status==='paid'?'✓ Оплачено':'Отметить оплаченным'}</button>
+      </div>
+    </div>`
+  ).join('');
 }
-async function adminDownload(path, name) {
-  try {
-    const {data, error} = await sb.storage.from('case-documents').createSignedUrl(path, 3600);
-    if (error) { alert('Ошибка: ' + error.message); return; }
-    if (data?.signedUrl) {
-      const a = document.createElement('a');
-      a.href = data.signedUrl;
-      a.download = name;
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-  } catch(e) { alert('Ошибка скачивания: ' + e.message); }
-}
-async function markPaid(id){await sb.from('invoices').update({status:'paid'}).eq('id',id);loadDetailInv(activeCaseId);}
+async function markPaid(id) { await sb.from('invoices').update({status:'paid'}).eq('id', id); loadDetailInv(activeCaseId); }
 
-// ── TIMELINE ──────────────────────────────────────────────────────────────────
+// ── TIMELINE ─────────────────────────────────────────────────────────────────
 async function loadDetailTl(cid) {
-  const {data} = await sb.from('case_timeline').select('*').eq('case_id',cid).order('created_at',{ascending:false}).limit(20);
-  const icons={status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
-  document.getElementById('d-timeline').innerHTML = !data?.length ? '<div style="font-size:12px;color:var(--text3)">История пуста</div>' :
-    data.map(e=>`<div class="tl-item"><div class="tl-dot">${icons[e.type]||'•'}</div><div class="tl-body"><div class="tl-title">${e.title}</div>${e.content?`<div class="tl-text">${e.content}</div>`:''}<div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${e.author_name?' · '+e.author_name:''}</div></div></div>`).join('');
+  const {data} = await sb.from('case_timeline').select('*').eq('case_id', cid).order('created_at',{ascending:false}).limit(30);
+  const icons = {status_change:'🔄',note:'📝',document:'📄',invoice:'💳'};
+  const el = document.getElementById('d-timeline');
+  if (!el) return;
+  el.innerHTML = !data?.length
+    ? '<div style="font-size:12px;color:var(--text3)">История пуста</div>'
+    : data.map(e =>
+        `<div class="tl-item">
+          <div class="tl-dot">${icons[e.type]||'•'}</div>
+          <div class="tl-body">
+            <div class="tl-title">${e.title}</div>
+            ${e.content ? `<div class="tl-text">${e.content}</div>` : ''}
+            <div class="tl-date">${new Date(e.created_at).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${e.author_name?' · '+e.author_name:''}</div>
+          </div>
+        </div>`
+      ).join('');
 }
 
 // ── NEW CASE ──────────────────────────────────────────────────────────────────
 async function createCase() {
-  const email=document.getElementById('nc-email').value.trim(); const amount=parseFloat(document.getElementById('nc-amount').value);
-  if(!email||!amount){showAlert('nc-alert','Заполните обязательные поля','err');return;}
-  const {data:client} = await sb.from('profiles').select('id').eq('email',email).eq('role','client').single();
-  if(!client){showAlert('nc-alert','Клиент не найден. Попросите зарегистрироваться.','err');return;}
-  const statusId=document.getElementById('nc-status').value||null;
-  const {error,data:nc} = await sb.from('cases').insert({client_id:client.id,fraud_type:document.getElementById('nc-type').value,amount_lost:amount,specialist_id:document.getElementById('nc-specialist').value||null,priority:document.getElementById('nc-priority').value,custom_status_id:statusId,description:document.getElementById('nc-desc').value.trim()}).select().single();
-  if(error){showAlert('nc-alert','Ошибка: '+error.message,'err');return;}
-  await sb.from('case_timeline').insert({case_id:nc.id,type:'status_change',title:'Дело открыто',author_name:document.getElementById('admin-name').textContent});
+  const email = document.getElementById('nc-email').value.trim();
+  const amount = parseFloat(document.getElementById('nc-amount').value);
+  if (!email || !amount) { showAlert('nc-alert','Заполните обязательные поля','err'); return; }
+  const {data:client} = await sb.from('profiles').select('id').eq('email', email).eq('role','client').single();
+  if (!client) { showAlert('nc-alert','Клиент не найден. Попросите зарегистрироваться.','err'); return; }
+  const statusId = document.getElementById('nc-status').value || null;
+  const {error, data:nc} = await sb.from('cases').insert({
+    client_id: client.id,
+    fraud_type: document.getElementById('nc-type').value,
+    disputed_amount: amount,
+    specialist_id: document.getElementById('nc-specialist').value || null,
+    priority: document.getElementById('nc-priority').value,
+    custom_status_id: statusId,
+    description: document.getElementById('nc-desc').value.trim()
+  }).select().single();
+  if (error) { showAlert('nc-alert','Ошибка: '+error.message,'err'); return; }
+  await sb.from('case_timeline').insert({case_id:nc.id, type:'status_change', title:'Дело открыто', author_name:document.getElementById('admin-name').textContent});
   showAlert('nc-alert','✓ Дело создано! Номер: '+nc.case_number,'ok');
-  ['nc-email','nc-amount','nc-desc'].forEach(id=>document.getElementById(id).value='');
+  ['nc-email','nc-amount','nc-desc'].forEach(id => document.getElementById(id).value = '');
 }
 
-// ── CLIENTS ───────────────────────────────────────────────────────────────────
+// ── CLIENTS ──────────────────────────────────────────────────────────────────
 async function loadClients() {
-  const {data} = await sb.from('profiles').select('*,cases(id,custom_status_id)').eq('role','client').order('created_at',{ascending:false});
-  allClients = data||[];
+  const {data} = await sb.from('profiles').select('*,cases(id)').eq('role','client').order('created_at',{ascending:false});
+  allClients = data || [];
   document.getElementById('clients-count').textContent = `Клиенты (всего: ${allClients.length})`;
   renderClients(allClients);
 }
-function filterClients(){const s=document.getElementById('clients-search').value.toLowerCase();renderClients(allClients.filter(c=>(c.full_name||'').toLowerCase().includes(s)||c.email.toLowerCase().includes(s)));}
+function filterClients() {
+  const s = document.getElementById('clients-search').value.toLowerCase();
+  renderClients(allClients.filter(c => (c.full_name||'').toLowerCase().includes(s) || c.email.toLowerCase().includes(s)));
+}
 function renderClients(clients) {
-  if(!clients.length){document.getElementById('clients-table').innerHTML='<div style="padding:1.5rem;text-align:center;color:var(--text3)">Клиентов нет</div>';return;}
-  document.getElementById('clients-table').innerHTML=`<table><thead><tr><th>Имя</th><th>Email</th><th>Дел</th><th>Регистрация</th><th></th></tr></thead><tbody>`+
-    clients.map(c=>`<tr><td style="color:var(--text);font-weight:500">${c.full_name||'—'}</td><td>${c.email}</td><td>${c.cases?.length||0}</td><td>${new Date(c.created_at).toLocaleDateString('ru-RU')}</td><td>${c.cases?.length?`<button class="btn primary sm" onclick="openCase('${c.cases[0].id}')">Дело</button>`:`<button class="btn ghost sm" onclick="document.getElementById('nc-email').value='${c.email}';nav('new-case')">+ Создать</button>`}</td></tr>`).join('')+'</tbody></table>';
+  if (!clients.length) { document.getElementById('clients-table').innerHTML='<div style="padding:1.5rem;text-align:center;color:var(--text3)">Клиентов нет</div>'; return; }
+  document.getElementById('clients-table').innerHTML =
+    '<table><thead><tr><th>Имя</th><th>Email</th><th>Дел</th><th>Регистрация</th><th></th></tr></thead><tbody>' +
+    clients.map(c =>
+      `<tr>
+        <td style="color:var(--text);font-weight:500">${c.full_name||'—'}</td>
+        <td>${c.email}</td>
+        <td>${c.cases?.length||0}</td>
+        <td>${new Date(c.created_at).toLocaleDateString('ru-RU')}</td>
+        <td>${c.cases?.length
+          ? `<button class="btn primary sm" onclick="openCase('${c.cases[0].id}')">Дело</button>`
+          : `<button class="btn ghost sm" onclick="document.getElementById('nc-email').value='${c.email}';nav('new-case')">+ Создать</button>`
+        }</td>
+      </tr>`
+    ).join('') + '</tbody></table>';
 }
 
 // ── STAFF ─────────────────────────────────────────────────────────────────────
 async function loadStaff() {
-  const {data} = await sb.from('profiles').select('*').in('role',['admin','specialist']).order('created_at');
-  const roleColors={admin:'var(--amber)',specialist:'var(--blue3)'};
-  document.getElementById('staff-list').innerHTML = !data?.length ? '<div style="color:var(--text3)">Сотрудников нет</div>' :
-    data.map(p=>`<div class="staff-card"><div class="staff-avatar">${(p.full_name||p.email)[0].toUpperCase()}</div><div style="font-weight:600;color:var(--text)">${p.full_name||'—'}</div><div style="font-size:11px;color:var(--text3)">${p.email}</div><div><span class="badge" style="background:${roleColors[p.role]}22;color:${roleColors[p.role]};border:1px solid ${roleColors[p.role]}44">${p.role}</span></div>${p.id!==me.id?`<button class="btn danger sm" style="margin-top:.3rem" onclick="changeRole('${p.id}','${p.role}')">${p.role==='admin'?'<svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="5.5" r="3"/><path d="M2 16c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><polyline points="7,12 9,14 12,11"/></svg>&nbsp;Специалист':'<svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="6" r="3.5"/><path d="M1.5 17c0-4.142 3.358-6.5 7.5-6.5s7.5 2.358 7.5 6.5"/></svg>&nbsp;Админ'}</button>`:''}${p.id!==me.id?`<button class="btn ghost sm" onclick="removeStaff('${p.id}')">Удалить</button>`:''}</div>`).join('');
+  const el = document.getElementById('staff-list');
+  if (el) el.innerHTML = '<div style="padding:2rem;text-align:center"><div class="spin"></div></div>';
+  const {data, error} = await sb.from('profiles').select('id,full_name,email,role,phone').in('role',['admin','specialist']).order('full_name');
+  if (error || !data) {
+    if (el) el.innerHTML = '<div style="color:var(--text3);padding:1rem">Ошибка загрузки</div>';
+    return;
+  }
+  if (!el) return;
+  if (!data.length) { el.innerHTML = '<div style="color:var(--text3);padding:1rem">Нет сотрудников</div>'; return; }
+  const roleColors = {admin:'var(--amber)',specialist:'var(--blue3)'};
+  const roleLabels = {admin:'Администратор',specialist:'Специалист'};
+  el.innerHTML = data.map(u => {
+    const col = roleColors[u.role] || 'var(--text3)';
+    const lbl = roleLabels[u.role] || u.role;
+    const isMe = u.id === me.id;
+    return `<div class="staff-card">
+      <div class="staff-avatar">${(u.full_name||u.email||'?')[0].toUpperCase()}</div>
+      <div style="font-weight:600;color:var(--text)">${u.full_name||'—'}</div>
+      <div style="font-size:11px;color:var(--text3)">${u.email}</div>
+      ${u.phone ? `<div style="font-size:11px;color:var(--text3)">${u.phone}</div>` : ''}
+      <div style="margin-top:.3rem">
+        <span class="badge" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl}</span>
+      </div>
+      ${!isMe && myRole === 'admin' ? `
+        <button class="btn ghost sm" style="margin-top:.5rem" onclick="changeRole('${u.id}','${u.role}')">
+          ${u.role==='admin'?'→ Специалист':'→ Админ'}
+        </button>
+      ` : ''}
+    </div>`;
+  }).join('');
 }
-async function changeRole(uid,currentRole){await sb.from('profiles').update({role:currentRole==='admin'?'specialist':'admin'}).eq('id',uid);loadStaff();}
-async function removeStaff(uid){if(!confirm('Удалить сотрудника?'))return;await sb.from('profiles').update({role:'client'}).eq('id',uid);loadStaff();}
+async function changeRole(uid, currentRole) {
+  const newRole = currentRole === 'admin' ? 'specialist' : 'admin';
+  await sb.from('profiles').update({role: newRole}).eq('id', uid);
+  loadStaff();
+}
 
 // ── INVITE ────────────────────────────────────────────────────────────────────
 async function inviteStaff() {
-  const email=document.getElementById('staff-email').value.trim(); const role=document.getElementById('staff-role').value;
-  const name=document.getElementById('staff-name').value.trim(); const roleTitle=document.getElementById('staff-role-title').value.trim();
-  if(!email){showAlert('inv-alert','Укажите email','err');return;}
-  // Check if user already exists
-  const {data:existing} = await sb.from('profiles').select('id,role').eq('email',email).single();
-  if(existing){
-    await sb.from('profiles').update({role,full_name:name||existing.full_name}).eq('id',existing.id);
-    if(roleTitle){await sb.from('specialists').upsert({name:name,role:roleTitle,email},{onConflict:'email'});}
+  const email = document.getElementById('staff-email').value.trim();
+  const role = document.getElementById('staff-role').value;
+  const name = document.getElementById('staff-name').value.trim();
+  const roleTitle = document.getElementById('staff-role-title').value.trim();
+  if (!email) { showAlert('inv-alert','Укажите email','err'); return; }
+
+  const {data:existing} = await sb.from('profiles').select('id,role').eq('email', email).single();
+  if (existing) {
+    await sb.from('profiles').update({role, full_name: name || undefined}).eq('id', existing.id);
+    if (roleTitle) await sb.from('specialists').upsert({name: name||email, role:roleTitle, email}, {onConflict:'email'});
     showAlert('inv-alert',`✓ Роль обновлена для ${email}`,'ok');
   } else {
-    // Create invite record so when they register they get the right role
-    const {error} = await sb.from('staff_invites').upsert({email,role,invited_by:me.id},{onConflict:'email'});
-    if(error){showAlert('inv-alert','Ошибка: '+error.message,'err');return;}
-    if(roleTitle){await sb.from('specialists').upsert({name:name||email,role:roleTitle,email},{onConflict:'email'});}
+    const {error} = await sb.from('staff_invites').upsert({email, role, invited_by: me.id}, {onConflict:'email'});
+    if (error) { showAlert('inv-alert','Ошибка: '+error.message,'err'); return; }
+    if (roleTitle) await sb.from('specialists').upsert({name: name||email, role:roleTitle, email}, {onConflict:'email'});
     showAlert('inv-alert',`✓ Приглашение создано. После регистрации с ${email} — роль '${role}' будет назначена автоматически.`,'ok');
   }
+  document.getElementById('staff-email').value = '';
+  document.getElementById('staff-name').value = '';
+  document.getElementById('staff-role-title').value = '';
   loadInvites();
 }
 async function loadInvites() {
   const {data} = await sb.from('staff_invites').select('*').order('created_at',{ascending:false});
-  if(!data?.length){document.getElementById('invites-list').innerHTML='<div style="padding:1rem;font-size:12px;color:var(--text3)">Нет приглашений</div>';return;}
-  document.getElementById('invites-list').innerHTML=`<table><thead><tr><th>Email</th><th>Роль</th><th>Принято</th><th>Дата</th><th></th></tr></thead><tbody>`+
-    data.map(i=>`<tr><td>${i.email}</td><td>${i.role}</td><td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td><td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td><td><button class="btn danger sm" onclick="deleteInvite('${i.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button></td></tr>`).join('')+'</tbody></table>';
+  if (!data?.length) { document.getElementById('invites-list').innerHTML='<div style="padding:1rem;font-size:12px;color:var(--text3)">Нет приглашений</div>'; return; }
+  document.getElementById('invites-list').innerHTML =
+    '<table><thead><tr><th>Email</th><th>Роль</th><th>Принято</th><th>Дата</th><th></th></tr></thead><tbody>' +
+    data.map(i =>
+      `<tr>
+        <td>${i.email}</td>
+        <td>${i.role}</td>
+        <td>${i.accepted?'✅ Да':'⏳ Ожидает'}</td>
+        <td>${new Date(i.created_at).toLocaleDateString('ru-RU')}</td>
+        <td><button class="btn danger sm" onclick="deleteInvite('${i.id}')">✕</button></td>
+      </tr>`
+    ).join('') + '</tbody></table>';
 }
-async function deleteInvite(id){await sb.from('staff_invites').delete().eq('id',id);loadInvites();}
+async function deleteInvite(id) { await sb.from('staff_invites').delete().eq('id', id); loadInvites(); }
 
 // ── STATUSES PAGE ─────────────────────────────────────────────────────────────
 function initColorGrid() {
   const grid = document.getElementById('color-grid');
-  grid.innerHTML = COLORS.map(c=>`<div class="color-opt" style="background:${c}" data-color="${c}" onclick="selectColor('${c}')"></div>`).join('');
-  document.querySelector('.color-opt').classList.add('sel');
+  if (!grid) return;
+  grid.innerHTML = COLORS.map(c =>
+    `<div class="color-opt" style="background:${c}" data-color="${c}" onclick="selectColor('${c}')"></div>`
+  ).join('');
+  const first = grid.querySelector('.color-opt');
+  if (first) first.classList.add('sel');
 }
-function selectColor(c){document.getElementById('st-color').value=c;document.querySelectorAll('.color-opt').forEach(el=>el.classList.toggle('sel',el.dataset.color===c));}
+function selectColor(c) {
+  document.getElementById('st-color').value = c;
+  document.querySelectorAll('.color-opt').forEach(el => el.classList.toggle('sel', el.dataset.color === c));
+}
 async function loadStatusesPage() {
   initColorGrid();
   const {data} = await sb.from('case_statuses').select('*').order('sort_order');
-  allStatuses = data||[];
-  document.getElementById('statuses-list').innerHTML = allStatuses.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:.7rem"><span style="font-size:16px">${s.icon}</span><span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44"><span class="status-dot" style="background:${s.color}"></span>${s.label}</span><span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span></div><div style="display:flex;gap:.4rem">${!s.is_default?`<button class="btn danger sm" onclick="deleteStatus('${s.id}')"><svg width="12" height="12" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg></button>`:''}` + '</div></div>').join('');
+  allStatuses = data || [];
+  document.getElementById('statuses-list').innerHTML = allStatuses.map(s =>
+    `<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:.7rem">
+        <span style="font-size:16px">${s.icon}</span>
+        <span class="status-chip" style="background:${s.color}22;color:${s.color};border:1px solid ${s.color}44">
+          <span class="status-dot" style="background:${s.color}"></span>${s.label}
+        </span>
+        <span style="font-size:11px;color:var(--text3)">#${s.sort_order}</span>
+      </div>
+      <button class="btn danger sm" onclick="deleteStatus('${s.id}')">✕</button>
+    </div>`
+  ).join('');
 }
 async function addStatus() {
-  const label=document.getElementById('st-label').value.trim(); const icon=document.getElementById('st-icon').value.trim()||'📋'; const color=document.getElementById('st-color').value; const sort_order=parseInt(document.getElementById('st-order').value)||allStatuses.length+1;
-  if(!label){showAlert('status-alert','Введите название','err');return;}
-  const {error} = await sb.from('case_statuses').insert({label,icon,color,sort_order});
-  if(error){showAlert('status-alert','Ошибка: '+error.message,'err');return;}
+  const label = document.getElementById('st-label').value.trim();
+  const icon = document.getElementById('st-icon').value.trim() || '📋';
+  const color = document.getElementById('st-color').value;
+  const sort_order = parseInt(document.getElementById('st-order').value) || allStatuses.length + 1;
+  if (!label) { showAlert('status-alert','Введите название','err'); return; }
+  const {error} = await sb.from('case_statuses').insert({label, icon, color, sort_order});
+  if (error) { showAlert('status-alert','Ошибка: '+error.message,'err'); return; }
   showAlert('status-alert','✓ Статус добавлен','ok');
-  document.getElementById('st-label').value=''; document.getElementById('st-icon').value=''; document.getElementById('st-order').value='';
-  await loadStatuses(); loadStatusesPage();
+  document.getElementById('st-label').value = '';
+  document.getElementById('st-icon').value = '';
+  document.getElementById('st-order').value = '';
+  await loadStatuses();
+  loadStatusesPage();
 }
-async function deleteStatus(id){if(!confirm('Удалить статус?'))return;await sb.from('case_statuses').delete().eq('id',id);await loadStatuses();loadStatusesPage();}
+async function deleteStatus(id) {
+  if (!confirm('Удалить статус?')) return;
+  await sb.from('case_statuses').delete().eq('id', id);
+  await loadStatuses();
+  loadStatusesPage();
+}
 
 // ── MESSAGES ──────────────────────────────────────────────────────────────────
 async function loadChatCases() {
-  const {data} = await sb.from('cases').select('id,case_number,profiles!client_id(full_name)').order('created_at',{ascending:false});
-  document.getElementById('chat-cases').innerHTML = (data||[]).map(c=>`<button onclick="openChat('${c.id}','${c.case_number}')" style="display:block;width:100%;text-align:left;padding:.8rem 1rem;background:transparent;border:none;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='var(--dark3)'" onmouseout="this.style.background='transparent'"><div style="font-family:var(--fd);color:var(--blue3);font-weight:700;font-size:12px">${c.case_number}</div><div style="font-size:12px;color:var(--text2)">${c.profiles?.full_name||'Клиент'}</div></button>`).join('');
+  let q = sb.from('cases').select('id,case_number,profiles!cases_client_id_fkey(full_name)').order('created_at',{ascending:false});
+  if (myRole === 'specialist') {
+    const {data:mySpec} = await sb.from('specialists').select('id').eq('email', me.email).single();
+    if (mySpec) q = q.eq('specialist_id', mySpec.id);
+  }
+  const {data} = await q;
+  document.getElementById('chat-cases').innerHTML = (data||[]).map(c =>
+    `<button onclick="openChat('${c.id}','${c.case_number}')"
+      style="display:block;width:100%;text-align:left;padding:.8rem 1rem;background:transparent;border:none;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s"
+      onmouseover="this.style.background='var(--dark3)'" onmouseout="this.style.background='transparent'">
+      <div style="font-family:var(--fd);color:var(--blue3);font-weight:700;font-size:12px">${c.case_number}</div>
+      <div style="font-size:12px;color:var(--text2)">${c.profiles?.full_name||'Клиент'}</div>
+    </button>`
+  ).join('');
 }
 async function openChat(cid, caseNum) {
-  chatCaseId=cid; document.getElementById('chat-title').textContent=caseNum; document.getElementById('chat-input-row').style.display='flex';
-  const {data} = await sb.from('messages').select('*').eq('case_id',cid).order('created_at');
+  chatCaseId = cid;
+  document.getElementById('chat-title').textContent = caseNum;
+  document.getElementById('chat-input-row').style.display = 'flex';
+  const {data} = await sb.from('messages').select('*').eq('case_id', cid).order('created_at');
   const wrap = document.getElementById('chat-msgs');
-  wrap.innerHTML = !data?.length ? '<div style="text-align:center;color:var(--text3);padding:2rem">Нет сообщений</div>' :
-    data.map(m=>`<div class="msg ${m.is_admin?'mine':'theirs'}"><div class="msg-bubble">${esc(m.content)}</div><div class="msg-meta">${m.sender_name||''} · ${new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('');
-  wrap.scrollTop=wrap.scrollHeight;
+  wrap.innerHTML = !data?.length
+    ? '<div style="text-align:center;color:var(--text3);padding:2rem">Нет сообщений</div>'
+    : data.map(m =>
+        `<div class="msg ${m.is_admin?'mine':'theirs'}">
+          <div class="msg-bubble">${esc(m.content)}</div>
+          <div class="msg-meta">${m.sender_name||''} · ${new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</div>
+        </div>`
+      ).join('');
+  wrap.scrollTop = wrap.scrollHeight;
 }
 async function sendAdminMsg() {
-  const input=document.getElementById('chat-input'); const content=input.value.trim(); if(!content||!chatCaseId) return;
-  input.value='';
-  const {data:p} = await sb.from('profiles').select('full_name').eq('id',me.id).single();
-  const sName = p?.full_name ? p.full_name + ' · CryptoJustice' : 'CryptoJustice';
-  await sb.from('messages').insert({case_id:chatCaseId,sender_id:me.id,sender_name:sName,content,is_admin:true});
-  openChat(chatCaseId,document.getElementById('chat-title').textContent);
+  const input = document.getElementById('chat-input');
+  const content = input.value.trim();
+  if (!content || !chatCaseId) return;
+  input.value = '';
+  const {data:p} = await sb.from('profiles').select('full_name').eq('id', me.id).single();
+  await sb.from('messages').insert({case_id:chatCaseId, sender_id:me.id, sender_name:p?.full_name||'Специалист', content, is_admin:true});
+  openChat(chatCaseId, document.getElementById('chat-title').textContent);
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
-function showAlert(id,msg,type){const a=document.getElementById(id);a.textContent=msg;a.className='alert show '+type;setTimeout(()=>a.className='alert',5000);}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-// ── SPECIALISTS MANAGEMENT ───────────────────────────────────────────────────
-let specAvatarBlob = null;
-
-function previewAvatar(input) {
-  const file = input.files[0];
-  if (!file) return;
-  specAvatarBlob = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const prev = document.getElementById('spec-avatar-preview');
-    prev.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
-  };
-  reader.readAsDataURL(file);
+// ── UTILS ──────────────────────────────────────────────────────────────────────
+function showAlert(id, msg, type) {
+  const a = document.getElementById(id);
+  if (!a) return;
+  a.textContent = msg; a.className = 'alert show ' + type;
+  setTimeout(() => a.className = 'alert', 5000);
 }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+async function logout() { await sb.auth.signOut(); window.location.href = '/portal/login.html'; }
 
-async function loadSpecialistsPage() {
-  const {data} = await sb.from('specialists').select('*').order('name');
-  const el = document.getElementById('specialists-list');
-  if (!data?.length) { el.innerHTML = '<div style="color:var(--text3)">Нет специалистов</div>'; return; }
-  
-  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:.8rem">${data.map(s => `
-    <div class="card" style="cursor:pointer" onclick="loadSpecEdit('${s.id}')">
-      <div class="card-body" style="display:flex;align-items:center;gap:1rem;padding:1rem">
-        <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;color:var(--blue3)">
-          ${s.avatar_url ? `<img src="${s.avatar_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${(s.name[0]||'?')}'">` : `<span>${(s.name.split(' ').map(n=>n[0]).join('')).slice(0,2)}</span>`}
-        </div>
-        <div style="flex:1">
-          <div style="font-weight:600;color:var(--text)">${s.name}</div>
-          <div style="font-size:12px;color:var(--text3)">${s.role}</div>
-          <div style="display:flex;gap:1rem;margin-top:4px;flex-wrap:wrap">
-            ${s.email ? `<span style="font-size:11px;color:var(--text2)">📧 ${s.email}</span>` : ''}
-            ${s.telegram ? `<span style="font-size:11px;color:var(--blue3)">✈ ${s.telegram}</span>` : ''}
-          </div>
-        </div>
-        <button class="btn ghost sm" onclick="event.stopPropagation();loadSpecEdit('${s.id}')"><svg width="13" height="13" style="vertical-align:middle;flex-shrink:0;display:inline-block" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 2l3 3-9 9H4v-3z"/><line x1="11" y1="4" x2="14" y2="7"/></svg>&nbsp;Ред.</button>
-      </div>
-    </div>`).join('')}</div>`;
-  
-  // Fill select
-  const sel = document.getElementById('spec-edit-select');
-  if (sel) {
-    sel.innerHTML = '<option value="">— Выбрать —</option>' + 
-      data.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  }
-}
-
-async function loadSpecEdit(id) {
-  const specId = id || document.getElementById('spec-edit-select').value;
-  if (!specId) return;
-  const {data:s} = await sb.from('specialists').select('*').eq('id', specId).single();
-  if (!s) return;
-  document.getElementById('spec-edit-id').value = s.id;
-  document.getElementById('spec-edit-select').value = s.id;
-  document.getElementById('spec-name').value = s.name || '';
-  document.getElementById('spec-role-title').value = s.role || '';
-  document.getElementById('spec-email').value = s.email || '';
-  document.getElementById('spec-telegram').value = s.telegram || '';
-  document.getElementById('spec-phone').value = s.phone || '';
-  document.getElementById('spec-bio').value = s.bio || '';
-  const prev = document.getElementById('spec-avatar-preview');
-  if (s.avatar_url) {
-    prev.innerHTML = `<img src="${s.avatar_url}" style="width:100%;height:100%;object-fit:cover">`;
-  } else {
-    prev.innerHTML = (s.name.split(' ').map(n=>n[0]).join('')).slice(0,2);
-  }
-  specAvatarBlob = null;
-}
-
-async function saveSpecialist() {
-  const id = document.getElementById('spec-edit-id').value;
-  const name = document.getElementById('spec-name').value.trim();
-  const role = document.getElementById('spec-role-title').value.trim();
-  if (!name || !role) { showAlert('spec-edit-alert', 'Заполните имя и должность', 'err'); return; }
-  
-  let avatar_url = null;
-  
-  // Upload avatar if changed
-  if (specAvatarBlob) {
-    const ext = specAvatarBlob.name.split('.').pop();
-    const path = `avatars/${id || Date.now()}.${ext}`;
-    const {data:upData, error:upErr} = await sb.storage.from('case-documents').upload(path, specAvatarBlob, {upsert: true});
-    if (!upErr) {
-      const {data:urlData} = sb.storage.from('case-documents').getPublicUrl(path);
-      avatar_url = urlData.publicUrl;
-    }
-  } else {
-    // Keep existing
-    const existing = document.getElementById('spec-avatar-preview').querySelector('img');
-    if (existing) avatar_url = existing.src;
-  }
-  
-  const updates = {
-    name, role,
-    email: document.getElementById('spec-email').value.trim() || null,
-    telegram: document.getElementById('spec-telegram').value.trim() || null,
-    phone: document.getElementById('spec-phone').value.trim() || null,
-    bio: document.getElementById('spec-bio').value.trim() || null,
-    ...(avatar_url ? {avatar_url} : {})
-  };
-  
-  let error;
-  if (id) {
-    ({error} = await sb.from('specialists').update(updates).eq('id', id));
-  } else {
-    ({error} = await sb.from('specialists').insert(updates));
-  }
-  
-  if (error) { showAlert('spec-edit-alert', 'Ошибка: ' + error.message, 'err'); return; }
-  showAlert('spec-edit-alert', '✓ Сохранено', 'ok');
-  specAvatarBlob = null;
-  loadSpecialistsPage();
-}
-
-function clearSpecEdit() {
-  ['spec-edit-id','spec-name','spec-role-title','spec-email','spec-telegram','spec-phone','spec-bio'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  document.getElementById('spec-edit-select').value = '';
-  document.getElementById('spec-avatar-preview').innerHTML = '👤';
-  specAvatarBlob = null;
-}
-
-// ── CREATE STAFF ACCOUNT ──────────────────────────────────────────────────────
-function togglePass() {
-  var f = document.getElementById('staff-pass');
-  f.type = f.type === 'password' ? 'text' : 'password';
-}
-
-async function createStaffAccount() {
-  var name = document.getElementById('staff-name').value.trim();
-  var email = document.getElementById('staff-email').value.trim();
-  var pass = document.getElementById('staff-pass').value;
-  var role = document.getElementById('staff-role').value;
-  var roleTitle = document.getElementById('staff-role-title').value.trim();
-  var tg = document.getElementById('staff-tg') ? document.getElementById('staff-tg').value.trim() : '';
-
-  if (!name || !email || !pass) { showAlert('inv-alert', 'Заполните имя, email и пароль', 'err'); return; }
-  if (pass.length < 6) { showAlert('inv-alert', 'Пароль минимум 6 символов', 'err'); return; }
-
-  var btn = document.getElementById('create-btn');
-  var prog = document.getElementById('create-progress');
-  btn.disabled = true;
-  if (prog) prog.classList.remove('hidden');
-  var statusEl = document.getElementById('create-status');
-  if (statusEl) statusEl.textContent = 'Создаём аккаунт...';
-
-  try {
-    var res = await sb.auth.signUp({ email: email, password: pass, options: { data: { full_name: name } } });
-    if (res.error) throw new Error(res.error.message);
-
-    var userId = res.data.user ? res.data.user.id : null;
-    if (!userId) throw new Error('Не удалось создать пользователя');
-
-    if (statusEl) statusEl.textContent = 'Настраиваем роль...';
-    await new Promise(function(r) { setTimeout(r, 1500); });
-
-    var upRes = await sb.from('profiles').upsert({ id: userId, email: email, full_name: name, role: role }, { onConflict: 'id' });
-    if (upRes.error) {
-      await sb.from('profiles').update({ role: role, full_name: name }).eq('id', userId);
-    }
-
-    if (roleTitle || tg) {
-      await sb.from('specialists').upsert({ name: name, email: email, role: roleTitle || role, telegram: tg || null }, { onConflict: 'email' });
-    }
-
-    var savedPass = pass;
-    showAlert('inv-alert', '✓ Аккаунт создан! ' + name + ' (' + email + ') может войти с паролем: ' + savedPass, 'ok');
-    ['staff-name','staff-email','staff-pass','staff-role-title'].forEach(function(id) {
-      var el = document.getElementById(id); if (el) el.value = '';
-    });
-    if (document.getElementById('staff-tg')) document.getElementById('staff-tg').value = '';
-    loadStaffList();
-
-  } catch(e) {
-    showAlert('inv-alert', 'Ошибка: ' + e.message, 'err');
-  } finally {
-    btn.disabled = false;
-    if (prog) prog.classList.add('hidden');
-  }
-}
-
-async function loadStaffList() {
-  var res = await sb.from('profiles').select('*').in('role', ['admin','specialist']).order('created_at');
-  var el = document.getElementById('staff-accounts-list');
-  if (!el) return;
-  var data = res.data;
-  if (!data || !data.length) { el.innerHTML = '<div style="padding:1rem;color:var(--text3);font-size:13px">Сотрудников нет</div>'; return; }
-  var roleColors = { admin: 'var(--amber)', specialist: 'var(--blue3)' };
-  el.innerHTML = '<div>' + data.map(function(p) {
-    var initial = (p.full_name || p.email)[0].toUpperCase();
-    var color = roleColors[p.role] || 'var(--text3)';
-    var isMe = adminUser && p.id === adminUser.id;
-    return '<div data-uid="' + p.id + '" data-name="' + (p.full_name || p.email) + '" style="display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-bottom:1px solid var(--border)">' +
-      '<div style="width:36px;height:36px;border-radius:50%;background:rgba(37,99,235,.15);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;color:var(--blue3);flex-shrink:0">' + initial + '</div>' +
-      '<div style="flex:1;min-width:0">' +
-        '<div style="font-weight:600;color:var(--text);font-size:13px">' + (p.full_name || '—') + '</div>' +
-        '<div style="font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + p.email + '</div>' +
-      '</div>' +
-      '<div style="display:flex;align-items:center;gap:.4rem">' +
-        '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44">' + p.role + '</span>' +
-        (!isMe ? '<button class="btn danger sm" style="padding:4px 8px;font-size:11px" onclick="removeStaffMember(this)">✕</button>' : '<span style="font-size:11px;color:var(--text3)">(вы)</span>') +
-      '</div>' +
-    '</div>';
-  }).join('') + '</div>';
-}
-
-async function removeStaffMember(btn) {
-  var card = btn.closest('div[data-uid]') || btn.parentElement.parentElement.parentElement;
-  var uid = card ? card.dataset.uid : null;
-  var name = card ? card.dataset.name : '?';
-  if (!uid) return;
-  if (!confirm('Снять права у ' + name + '? Роль сменится на клиент.')) return;
-  await sb.from('profiles').update({ role: 'client' }).eq('id', uid);
-  loadStaffList();
-}
-
-async function logout(){await sb.auth.signOut();window.location.href='/portal/login.html';}
-// ── ADMIN REALTIME ────────────────────────────────────────────────────────────
-let adminRealtimeChannel = null;
-
-function setupAdminRealtime() {
-  if (adminRealtimeChannel) return;
-  adminRealtimeChannel = sb.channel('admin-messages')
-    .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages'}, (payload) => {
-      // If currently viewing this chat case - reload
-      if (selectedChatCaseId && payload.new?.case_id === selectedChatCaseId) {
-        loadAdminMessages(selectedChatCaseId);
-      } else if (!payload.new?.is_admin) {
-        // New message from client - show badge
-        const b = document.getElementById('admin-msg-badge');
-        if(b){b.style.display='inline-block';}
-        showAdminToast('Новое сообщение от клиента');
-        // Refresh chat list if open
-        if(document.getElementById('p-messages') && !document.getElementById('p-messages').classList.contains('hidden')) {
-          loadAdminCases();
-        }
-      }
-    })
-    .subscribe();
-}
-
-function showAdminToast(msg) {
-  let t = document.getElementById('admin-toast');
-  if(!t){
-    t = document.createElement('div');
-    t.id='admin-toast';
-    t.style.cssText='position:fixed;top:70px;right:20px;background:rgba(37,99,235,.95);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .4s;pointer-events:none';
-    document.body.appendChild(t);
-  }
-  t.textContent=msg; t.style.opacity='1';
-  clearTimeout(t._t);
-  t._t=setTimeout(()=>t.style.opacity='0',4000);
-}
-
-
-function getStatusIcon(k,c,s){s=s||16;c=c||'#64748b';var d={inbox:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>',search:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',chain:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',docs:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',freeze:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',legal:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',success:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',fail:'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'};return d[k]||d['docs'];}
+// ── NAV OVERRIDE with page loading ───────────────────────────────────────────
+const _nav = nav;
+nav = function(page) {
+  _nav(page);
+  if (page === 'cases') loadCases();
+  else if (page === 'clients') loadClients();
+  else if (page === 'staff') loadStaff();
+  else if (page === 'invite') loadInvites();
+  else if (page === 'statuses') loadStatusesPage();
+  else if (page === 'messages') loadChatCases();
+};
 
 init();
 </script>
