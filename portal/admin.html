@@ -104,6 +104,15 @@ tr:last-child td{border-bottom:none}
 .staff-card{background:var(--dark3);border:1px solid var(--border);border-radius:9px;padding:1.2rem;display:flex;flex-direction:column;gap:.4rem}
 .staff-avatar{width:44px;height:44px;border-radius:50%;background:rgba(37,99,235,.2);border:2px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--blue3);margin-bottom:.4rem}
 @media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.stats{grid-template-columns:repeat(2,1fr)}.frow{grid-template-columns:1fr}}
+
+@keyframes ni-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes ni-spin-r{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes ni-glow{0%,100%{filter:drop-shadow(0 0 3px #22d3ee)}50%{filter:drop-shadow(0 0 8px #22d3ee)}}
+.ni-svg{display:block;transition:filter .3s,transform .3s}
+.slink:hover .ni-svg,.slink.active .ni-svg{filter:drop-shadow(0 0 5px rgba(34,211,238,.7))}
+.slink:hover .ni-float{animation:ni-float 1.5s ease-in-out infinite}
+.slink.active .ni-spin{animation:ni-spin-r 3s linear infinite}
+.ni-glow-always{animation:ni-glow 2s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -125,20 +134,20 @@ tr:last-child td{border-bottom:none}
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Дела</div>
-      <button class="slink active" onclick="nav('dashboard')"><span class="ico">📊</span>Дашборд</button>
-      <button class="slink" onclick="nav('cases')"><span class="ico">📋</span>Все дела</button>
-      <button class="slink" id="slink-new-case" onclick="nav('new-case')"><span class="ico">➕</span>Создать дело</button>
-      <button class="slink" onclick="nav('clients')"><span class="ico">👥</span>Клиенты</button>
+      <button class="slink active" onclick="nav('dashboard')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Дашборд</button>
+      <button class="slink" onclick="nav('cases')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Все дела</button>
+      <button class="slink" id="slink-new-case" onclick="nav('new-case')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Создать дело</button>
+      <button class="slink" onclick="nav('clients')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</button>
     </div>
     <div class="sidebar-section" id="sidebar-team">
       <div class="sidebar-label">Команда</div>
-      <button class="slink" onclick="nav('staff')"><span class="ico">👤</span>Сотрудники</button>
-      <button class="slink" id="slink-invite" onclick="nav('invite')"><span class="ico">✉️</span>Пригласить</button>
+      <button class="slink" onclick="nav('staff')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Сотрудники</button>
+      <button class="slink" id="slink-invite" onclick="nav('invite')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Пригласить</button>
     </div>
     <div class="sidebar-section" id="sidebar-settings">
       <div class="sidebar-label">Настройки</div>
-      <button class="slink" onclick="nav('statuses')"><span class="ico">🏷️</span>Статусы дел</button>
-      <button class="slink" onclick="nav('messages')"><span class="ico">💬</span>Сообщения</button>
+      <button class="slink" onclick="nav('statuses')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-glow-always" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="#22d3ee" opacity=".5"/></svg>Статусы дел</button>
+      <button class="slink" onclick="nav('messages')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="ni-svg ni-float" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Сообщения</button>
     </div>
   </div>
 
